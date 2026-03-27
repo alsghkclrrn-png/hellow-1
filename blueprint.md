@@ -17,25 +17,24 @@ This is a dynamic and engaging workout recommendation website, "AI Workout Coach
 ### Features
 
 *   **User Input Form:** Interactive form to select Fitness Level and Workout Goal.
-*   **Workout Recommendation Engine:** JavaScript logic that selects from a predefined database of workouts.
+*   **AI Dynamic Recommendation:** Integrates a real-time Exercise API to fetch thousands of unique exercises dynamically.
 *   **Workout Display:** Custom Web Component (`WorkoutCard`) with Shadow DOM encapsulation.
-*   **Visual Guidance:** Integrated high-quality images for each exercise to ensure correct form and posture.
+*   **Visual Guidance:** Integrated high-quality images and step-by-step instructions from the global exercise database.
 *   **Theme Switching:** Seamless toggle between Dark and Light modes with preference persistence.
 *   **Interactivity:** Real-time generation of workout plans without page reload.
 
-## Current State (v1.5)
+## Current State (v1.6)
 
-1.  **Content Refinement & Accuracy:** Performed a comprehensive audit of all workout data. Every exercise name now perfectly matches its instructional description and visual image.
-2.  **Visual Exercise Guidance:** Updated `WorkoutCard` to include a dynamic image display area. Every exercise now features a relevant instructional image.
-3.  **Professional Workout Programs:** Integrated high-quality workout routines curated by a 20-year veteran trainer, covering weight loss, muscle gain, and general fitness.
-4.  **Detailed Exercise Instructions:** Updated `WorkoutCard` and `main.js` to include and display descriptive instructions for every exercise.
-5.  **Refactored `WorkoutCard`:** Enhanced the web component to handle descriptions and improved the visual hierarchy.
-6.  **Theme Toggle Implementation:** Added a dynamic theme switcher with support for light and dark modes.
-7.  **Enhanced Visuals:** Integrated Lucide icons for better UX and modern styling with glassmorphism.
-8.  **Deployment Ready:** Optimized for static hosting on platforms like GitHub Pages.
+1.  **Exercise API Integration:** Successfully integrated the `free-exercise-db` API. The app now fetches real-time exercise data, including names, detailed instructions, and professional imagery.
+2.  **Dynamic Filtering:** Implemented logic to map user goals (Weight Loss, Muscle Gain, etc.) to specific muscle groups and exercise types from the API.
+3.  **Content Refinement & Accuracy:** Replaced static lists with a vast, searchable database of over 800+ exercises.
+4.  **Visual Exercise Guidance:** Updated `WorkoutCard` to support dynamic image URLs and long-form instructions from the API.
+5.  **Theme Toggle Implementation:** Added a dynamic theme switcher with support for light and dark modes.
+6.  **Enhanced Visuals:** Integrated Lucide icons for better UX and modern styling with glassmorphism.
+7.  **Deployment Ready:** Optimized for static hosting on platforms like GitHub Pages.
 
 ## Next Steps
 
-*   Add exercise animations (GIFs or Lottie).
+*   Add filtering by specific equipment (Dumbbell, Barbell, etc.).
 *   Implement a "Share" feature for workout plans.
-*   Add more exercise variety and detailed descriptions.
+*   Add exercise video/GIF support for better clarity.
