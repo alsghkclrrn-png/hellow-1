@@ -184,46 +184,58 @@ themeToggle.addEventListener('click', () => {
     setTheme(currentTheme === 'dark' ? 'light' : 'dark');
 });
 
-// Body Metrics Calculation
+// Body Metrics Calculation and Storage
 const metricsForm = document.getElementById('metrics-form');
 const metricsResults = document.getElementById('metrics-results');
 const bmiValueSpan = document.getElementById('bmi-value');
 const bmiStatusSpan = document.getElementById('bmi-status');
 const bmrValueSpan = document.getElementById('bmr-value');
 
-let userBMI = null;
+// Global User State
+let userData = {
+    gender: null,
+    age: null,
+    height: null,
+    weight: null,
+    bmi: null,
+    bmr: null
+};
 
 metricsForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    const gender = document.getElementById('gender').value;
-    const age = parseInt(document.getElementById('age').value);
-    const height = parseInt(document.getElementById('height').value);
-    const weight = parseInt(document.getElementById('weight').value);
+    userData.gender = document.getElementById('gender').value;
+    userData.age = parseInt(document.getElementById('age').value);
+    userData.height = parseInt(document.getElementById('height').value);
+    userData.weight = parseInt(document.getElementById('weight').value);
     
-    const heightInMeters = height / 100;
-    const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
-    userBMI = parseFloat(bmi);
+    const heightInMeters = userData.height / 100;
+    userData.bmi = parseFloat((userData.weight / (heightInMeters * heightInMeters)).toFixed(1));
     
     let status = "";
-    if (bmi < 18.5) status = "Underweight";
-    else if (bmi < 25) status = "Healthy Weight";
-    else if (bmi < 30) status = "Overweight";
+    if (userData.bmi < 18.5) status = "Underweight";
+    else if (userData.bmi < 25) status = "Healthy Weight";
+    else if (userData.bmi < 30) status = "Overweight";
     else status = "Obesity";
     
-    let bmr;
-    if (gender === 'male') {
-        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+    if (userData.gender === 'male') {
+        userData.bmr = 10 * userData.weight + 6.25 * userData.height - 5 * userData.age + 5;
     } else {
-        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+        userData.bmr = 10 * userData.weight + 6.25 * userData.height - 5 * userData.age - 161;
     }
     
-    bmiValueSpan.textContent = bmi;
+    bmiValueSpan.textContent = userData.bmi;
     bmiStatusSpan.textContent = status;
-    bmrValueSpan.textContent = Math.round(bmr).toLocaleString();
+    bmrValueSpan.textContent = Math.round(userData.bmr).toLocaleString();
     
     metricsResults.classList.remove('hidden');
     metricsResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    // Feedback to user that analysis is saved
+    const calcBtn = document.getElementById('calculate-btn');
+    const originalText = calcBtn.textContent;
+    calcBtn.textContent = "Metrics Applied to Coach ✅";
+    setTimeout(() => calcBtn.textContent = originalText, 2000);
 });
 
 const workoutForm = document.getElementById('workout-form');
@@ -244,54 +256,42 @@ async function fetchExerciseData() {
     }
 }
 
-// Map User Goals to Muscle Groups
 const goalToMuscles = {
     "weight-loss": ["cardio", "full body", "legs", "abdominals"],
     "muscle-gain": ["chest", "back", "shoulders", "biceps", "triceps", "quadriceps", "hamstrings"],
     "general-fitness": ["core", "lower back", "glutes", "calves", "shoulders"]
 };
 
-// Get Context-Aware Exercises
+// Advanced Contextual Analysis Engine
 function getExercisesByContext(options) {
     if (!exerciseDatabase || exerciseDatabase.length === 0) return null;
 
     const { goal, level, health, weather } = options;
     const now = new Date();
     const hour = now.getHours();
-    const month = now.getMonth(); // 0-11
 
-    // 1. Determine Target Muscles based on Goal
+    // 1. Muscle Selection
     let targetMuscles = [...(goalToMuscles[goal] || ["full body"])];
 
-    // 2. Adjust for Health Status
-    if (health === 'recovery' || health === 'tired') {
-        targetMuscles = ["stretching", "calves", "forearms"]; // Lighter focus
+    // 2. Body Info Analysis & Bias
+    if (userData.gender === 'female' && goal === 'general-fitness') {
+        targetMuscles.push('glutes', 'abdominals'); // Specific bias for female fitness routines
+    } else if (userData.gender === 'male' && goal === 'muscle-gain') {
+        targetMuscles.push('chest', 'shoulders'); // Specific bias for male hypertrophy routines
     }
 
-    // 3. Filter Initial Pool
+    if (health === 'recovery' || health === 'tired') {
+        targetMuscles = ["stretching", "calves", "forearms"];
+    }
+
+    // 3. Filter Library
     let filtered = exerciseDatabase.filter(ex => {
         const primaryMuscles = (ex.primaryMuscles || []).map(m => m.toLowerCase());
         const bodyPart = ex.bodyPart ? ex.bodyPart.toLowerCase() : "";
-        
         return targetMuscles.some(m => primaryMuscles.includes(m) || bodyPart.includes(m));
     });
 
-    // 4. Contextual Adjustments (Season/Time/Weather)
-    // Season (Winter: 11, 0, 1) -> Suggest indoor/warm-up focus
-    // Time (Morning: 5-11) -> Suggest activation
-    // Weather (Rainy) -> Suggest indoor/bodyweight
-    
-    if (weather === 'rainy' || weather === 'cold') {
-        filtered = filtered.filter(ex => !ex.equipment || ex.equipment === 'bodyweight' || ex.equipment === 'dumbbell');
-    }
-
-    if (hour < 11) {
-        // Morning: Add at least one stretching/warm-up
-        const warmups = exerciseDatabase.filter(ex => ex.primaryMuscles.includes('stretching')).slice(0, 2);
-        filtered = [...warmups, ...filtered];
-    }
-
-    // 5. Pick random exercises and adjust difficulty
+    // 4. Intensity & Volume Calculation (The "Trainer AI" Brain)
     const shuffled = filtered.sort(() => 0.5 - Math.random());
     const count = (health === 'recovery' || health === 'tired') ? 3 : 5;
     const selected = shuffled.slice(0, count);
@@ -300,19 +300,27 @@ function getExercisesByContext(options) {
         const imagePath = ex.images && ex.images.length > 0 ? ex.images[0] : `${ex.id}/0.jpg`;
         const imageUrl = `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${imagePath}`;
 
-        // Dynamic Sets/Reps based on BMI and Health
+        // Base Logic
         let sets = level === 'beginner' ? 2 : (level === 'intermediate' ? 3 : 4);
         let reps = level === 'beginner' ? 10 : (level === 'intermediate' ? 12 : 15);
         let rest = "60s";
 
-        if (health === 'tired') {
-            sets = Math.max(1, sets - 1);
+        // Age Analysis (Safety first)
+        if (userData.age && userData.age > 50) {
+            sets = Math.min(sets, 3);
             rest = "90s";
         }
-        
-        if (userBMI && userBMI > 30) {
+
+        // Weight/BMI Analysis (Joint protection)
+        if (userData.bmi && userData.bmi > 28) {
+            // Suggest lower impact/reps for higher BMI to protect joints
             reps = Math.max(8, reps - 2);
             rest = "90s";
+        }
+
+        // BMR Analysis (Metabolic focus)
+        if (userData.bmr && userData.bmr > 2000 && goal === 'weight-loss') {
+            reps = Math.min(20, reps + 5); // Increase volume for high BMR weight loss
         }
 
         return {
@@ -344,7 +352,7 @@ workoutForm.addEventListener('submit', async (e) => {
         weather: document.getElementById('weather').value
     };
 
-    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">AI가 날씨, 시간, 신체 컨디션을 분석하여 최적의 운동을 설계 중입니다...</p>';
+    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">신체 지표, 날씨, 성별을 고려하여 AI가 맞춤 루틴을 설계 중입니다...</p>';
 
     setTimeout(() => {
         let recommendedWorkout = getExercisesByContext(options);

@@ -16,24 +16,21 @@ This is a dynamic and engaging workout recommendation website, "AI Workout Coach
 
 ### Features
 
-*   **Context-Aware Recommendations:** Adjusts workout intensity and exercise types based on weather, current health status, time of day, and season.
-*   **Body Metrics Analysis:** Calculates BMI (Body Mass Index) and BMR (Basal Metabolic Rate) based on age, gender, height, and weight.
-*   **User Input Form:** Interactive form to select Fitness Level, Goal, Health Status, and Weather.
+*   **Enhanced Personalized Recommendations:** Specifically analyzes gender, age, height, and weight to adjust exercise selection, volume (sets/reps), and safety parameters (joint protection for higher BMI).
+*   **Context-Aware Analysis:** Dynamically adjusts routines based on weather, current health status, time of day, and season.
+*   **Body Metrics Analysis:** Calculates BMI (Body Mass Index) and BMR (Basal Metabolic Rate) to inform the AI trainer's decisions.
 *   **AI Dynamic Recommendation:** Integrates a real-time Exercise API to fetch thousands of unique exercises dynamically.
-*   **Workout Display:** Custom Web Component (`WorkoutCard`) with Shadow DOM encapsulation.
-*   **Visual Guidance:** Integrated high-quality images and step-by-step instructions from the global exercise database.
-*   **Theme Switching:** Seamless toggle between Dark and Light modes with preference persistence.
+*   **Workout Display:** Custom Web Component (`WorkoutCard`) with Shadow DOM encapsulation and dynamic imagery.
 
-## Current State (v1.9)
+## Current State (v1.10)
 
-1.  **Contextual Intelligence:** Implemented logic to filter and adjust workouts based on external and internal contexts (e.g., bodyweight-only for rainy weather, stretching for recovery status, activation exercises for morning sessions).
-2.  **BMI-Responsive Logic:** The recommendation engine now uses the user's BMI from the Body Metrics section to dynamically adjust repetition counts and rest periods.
-3.  **Expanded Form:** Added Health Status and Weather conditions to the main workout generation form.
-4.  **Body Metrics Integration:** Users can input gender, age, height, and weight to receive instant BMI and BMR calculations.
-5.  **Robust Error Handling:** Added an `onerror` fallback for exercise images and graceful loading states.
-6.  **Dynamic Exercise API Integration:** Fully integrated real-time data fetching for over 800+ exercises.
-7.  **Theme Toggle Implementation:** Seamless dynamic theme switching.
-8.  **Deployment Ready:** Optimized for static hosting on platforms like GitHub Pages.
+1.  **Biometric Intelligence:** The recommendation engine now explicitly uses gender, age, height, and weight. It applies specific biases (e.g., glute focus for female fitness, chest focus for male hypertrophy) and safety logic (e.g., lower reps and longer rest for users over 50 or with BMI > 28).
+2.  **Adaptive Volume:** Implemented logic to increase repetition volume for users with higher BMR during weight-loss goals.
+3.  **Contextual Intelligence:** Advanced filtering based on weather (indoor-only for rain) and health status (recovery focus).
+4.  **Body Metrics Integration:** Users receive instant BMI and BMR calculations which are automatically applied to the AI Coach.
+5.  **Dynamic Exercise API Integration:** Real-time data fetching from a database of 800+ exercises.
+6.  **Theme Toggle Implementation:** Seamless dynamic theme switching.
+7.  **Deployment Ready:** Optimized for static hosting on platforms like GitHub Pages.
 
 ## Next Steps
 
