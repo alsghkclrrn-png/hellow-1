@@ -128,9 +128,9 @@ class WorkoutCard extends HTMLElement {
                     z-index: 2;
                 }
             </style>
-            <div class="badge">AI Dynamic Guide</div>
+            <div class="badge">Master Trainer Advice</div>
             <div class="image-container">
-                <img src="${image}" alt="${name}">
+                <img src="${image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'">
             </div>
             <div class="content">
                 <h3>${name}</h3>
@@ -204,9 +204,9 @@ async function fetchExerciseData() {
 
 // Map User Goals to Muscle Groups in the API
 const goalToMuscles = {
-    "weight-loss": ["cardio", "full body", "legs"],
-    "muscle-gain": ["chest", "back", "shoulders", "arms", "legs"],
-    "general-fitness": ["core", "back", "legs", "shoulders"]
+    "weight-loss": ["cardio", "full body", "legs", "abdominals"],
+    "muscle-gain": ["chest", "back", "shoulders", "biceps", "triceps", "quadriceps", "hamstrings"],
+    "general-fitness": ["core", "lower back", "glutes", "calves", "shoulders"]
 };
 
 function getExercisesByGoal(goal, level, count = 4) {
@@ -214,38 +214,56 @@ function getExercisesByGoal(goal, level, count = 4) {
 
     const targetMuscles = goalToMuscles[goal] || ["full body"];
     
-    // Filter by muscle and level (if available in API)
+    // Filter by muscle and level
     let filtered = exerciseDatabase.filter(ex => {
-        const primaryMuscles = ex.primaryMuscles || [];
-        const bodyPart = ex.bodyPart || "";
-        return targetMuscles.some(m => primaryMuscles.includes(m) || bodyPart.toLowerCase().includes(m));
+        const levelMatch = ex.level ? ex.level.toLowerCase() === level.toLowerCase() : true;
+        const primaryMuscles = (ex.primaryMuscles || []).map(m => m.toLowerCase());
+        const secondaryMuscles = (ex.secondaryMuscles || []).map(m => m.toLowerCase());
+        const bodyPart = ex.bodyPart ? ex.bodyPart.toLowerCase() : "";
+        
+        const muscleMatch = targetMuscles.some(m => 
+            primaryMuscles.includes(m) || 
+            secondaryMuscles.includes(m) || 
+            bodyPart.includes(m)
+        );
+        
+        return levelMatch && muscleMatch;
     });
 
     // Fallback if filtering is too strict
-    if (filtered.length < count) filtered = exerciseDatabase.slice(0, 10);
+    if (filtered.length < count) {
+        filtered = exerciseDatabase.filter(ex => {
+            const primaryMuscles = (ex.primaryMuscles || []).map(m => m.toLowerCase());
+            return targetMuscles.some(m => primaryMuscles.includes(m));
+        });
+    }
 
-    // Randomize and pick
+    // Pick random exercises
     const shuffled = filtered.sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, count);
 
-    return selected.map(ex => ({
-        name: ex.name,
-        sets: level === 'beginner' ? 3 : (level === 'intermediate' ? 4 : 5),
-        reps: level === 'beginner' ? 12 : (level === 'intermediate' ? 10 : 8),
-        rest: level === 'beginner' ? "90s" : "60s",
-        desc: ex.instructions.join(' ') || "Follow the visual guide and maintain correct posture.",
-        image: `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/docs/exercises/${ex.id}/0.jpg`
-    }));
+    return selected.map(ex => {
+        // Construct the correct raw GitHub URL for the images
+        // The ID in the JSON often matches the folder name in exercises/ directory
+        const imagePath = ex.images && ex.images.length > 0 ? ex.images[0] : `${ex.id}/0.jpg`;
+        const imageUrl = `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${imagePath}`;
+
+        return {
+            name: ex.name,
+            sets: level === 'beginner' ? 3 : (level === 'intermediate' ? 4 : 5),
+            reps: level === 'beginner' ? 12 : (level === 'intermediate' ? 10 : 8),
+            rest: level === 'beginner' ? "90s" : "60s",
+            desc: ex.instructions && ex.instructions.length > 0 ? ex.instructions.join(' ') : "Follow the visual guide and maintain correct posture.",
+            image: imageUrl
+        };
+    });
 }
 
-// Static Fallback Data (Original curated list)
 const fallbackWorkouts = {
     "weight-loss": {
         beginner: [
-            { name: "Jumping Jacks", sets: 3, reps: "45s", rest: "30s", desc: "Full range motion. Clap hands at top.", image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500" },
-            { name: "Air Squats", sets: 3, reps: 20, rest: "45s", desc: "Keep chest upright, sit deep.", image: "https://images.unsplash.com/photo-1574680096145-d05b474e2158?auto=format&fit=crop&q=80&w=500" }
-        ],
-        // ... other categories can be added here if needed
+            { name: "Jumping Jacks", sets: 3, reps: "45s", rest: "30s", desc: "Keep rhythm, jump wide.", image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500" }
+        ]
     }
 };
 
@@ -255,36 +273,35 @@ workoutForm.addEventListener('submit', async (e) => {
     const fitnessLevel = document.getElementById('fitness-level').value;
     const goal = document.getElementById('goal').value;
 
-    // Show loading state
-    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">AI가 맞춤형 운동 정보를 가져오는 중입니다...</p>';
+    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">AI가 맞춤형 운동 정보를 동기화하는 중입니다...</p>';
 
-    // Try to get dynamic data from API
-    let recommendedWorkout = getExercisesByGoal(goal, fitnessLevel);
+    // Small delay to let loading state show
+    setTimeout(() => {
+        let recommendedWorkout = getExercisesByGoal(goal, fitnessLevel);
 
-    // Fallback to static data if API is not loaded
-    if (!recommendedWorkout) {
-        recommendedWorkout = fallbackWorkouts[goal]?.[fitnessLevel] || fallbackWorkouts["weight-loss"].beginner;
-    }
+        if (!recommendedWorkout || recommendedWorkout.length === 0) {
+            recommendedWorkout = fallbackWorkouts["weight-loss"].beginner;
+        }
 
-    workoutContainer.innerHTML = '';
+        workoutContainer.innerHTML = '';
 
-    recommendedWorkout.forEach(exercise => {
-        const workoutCard = document.createElement('workout-card');
-        workoutCard.setAttribute('name', exercise.name);
-        workoutCard.setAttribute('sets', exercise.sets);
-        workoutCard.setAttribute('reps', exercise.reps);
-        workoutCard.setAttribute('rest', exercise.rest);
-        workoutCard.setAttribute('desc', exercise.desc);
-        workoutCard.setAttribute('image', exercise.image);
-        workoutContainer.appendChild(workoutCard);
-    });
+        recommendedWorkout.forEach(exercise => {
+            const workoutCard = document.createElement('workout-card');
+            workoutCard.setAttribute('name', exercise.name);
+            workoutCard.setAttribute('sets', exercise.sets);
+            workoutCard.setAttribute('reps', exercise.reps);
+            workoutCard.setAttribute('rest', exercise.rest);
+            workoutCard.setAttribute('desc', exercise.desc);
+            workoutCard.setAttribute('image', exercise.image);
+            workoutContainer.appendChild(workoutCard);
+        });
 
-    if (window.lucide) {
-        lucide.createIcons();
-    }
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }, 500);
 });
 
-// Initialize
 fetchExerciseData();
 if (window.lucide) {
     lucide.createIcons();

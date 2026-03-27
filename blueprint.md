@@ -23,12 +23,12 @@ This is a dynamic and engaging workout recommendation website, "AI Workout Coach
 *   **Theme Switching:** Seamless toggle between Dark and Light modes with preference persistence.
 *   **Interactivity:** Real-time generation of workout plans without page reload.
 
-## Current State (v1.6)
+## Current State (v1.7)
 
-1.  **Exercise API Integration:** Successfully integrated the `free-exercise-db` API. The app now fetches real-time exercise data, including names, detailed instructions, and professional imagery.
-2.  **Dynamic Filtering:** Implemented logic to map user goals (Weight Loss, Muscle Gain, etc.) to specific muscle groups and exercise types from the API.
-3.  **Content Refinement & Accuracy:** Replaced static lists with a vast, searchable database of over 800+ exercises.
-4.  **Visual Exercise Guidance:** Updated `WorkoutCard` to support dynamic image URLs and long-form instructions from the API.
+1.  **Image Path Fix:** Corrected the image URL pattern for the `free-exercise-db` API, ensuring all exercise images are fetched from the proper GitHub raw content path.
+2.  **Robust Error Handling:** Added an `onerror` fallback for exercise images, ensuring a high-quality placeholder is shown if a specific API image fails to load.
+3.  **Dynamic Filtering Optimization:** Refined the muscle group mapping to provide even more accurate exercise suggestions based on the user's fitness goal.
+4.  **Exercise API Integration:** Successfully integrated the `free-exercise-db` API for real-time exercise data, including instructions and professional imagery.
 5.  **Theme Toggle Implementation:** Added a dynamic theme switcher with support for light and dark modes.
 6.  **Enhanced Visuals:** Integrated Lucide icons for better UX and modern styling with glassmorphism.
 7.  **Deployment Ready:** Optimized for static hosting on platforms like GitHub Pages.
