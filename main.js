@@ -1,47 +1,145 @@
 class WorkoutCard extends HTMLElement {
     constructor() {
         super();
-        const shadow = this.attachShadow({ mode: 'open' });
+        this.attachShadow({ mode: 'open' });
+    }
 
-        const template = document.createElement('template');
-        template.innerHTML = `
+    connectedCallback() {
+        this.render();
+    }
+
+    render() {
+        const name = this.getAttribute('name') || 'Exercise';
+        const sets = this.getAttribute('sets') || '0';
+        const reps = this.getAttribute('reps') || '0';
+        const rest = this.getAttribute('rest') || '0s';
+
+        this.shadowRoot.innerHTML = `
             <style>
                 :host {
                     display: block;
-                    background-color: var(--card-background, #fff);
-                    border-radius: 12px;
-                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                    padding: 20px;
-                    transition: all 0.3s ease;
+                    background: var(--card-background);
+                    border-radius: 16px;
+                    padding: 24px;
+                    border: 1px solid var(--border-color);
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    position: relative;
+                    overflow: hidden;
+                }
+                :host::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 4px;
+                    height: 100%;
+                    background: linear-gradient(to bottom, var(--primary-color), #818cf8);
+                    opacity: 0.5;
                 }
                 :host(:hover) {
-                    transform: translateY(-5px);
-                    box-shadow: 0 12px 16px rgba(0,0,0,0.1);
+                    transform: translateY(-5px) scale(1.02);
+                    border-color: var(--primary-color);
+                    box-shadow: 0 10px 20px var(--shadow-color);
                 }
                 h3 {
-                    margin-top: 0;
-                    color: var(--primary-color, #007bff);
+                    margin: 0 0 16px 0;
+                    color: var(--primary-color);
+                    font-size: 1.4em;
+                    letter-spacing: -0.01em;
                 }
-                p {
-                    margin-bottom: 0;
+                .stats {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 12px;
+                }
+                .stat-item {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                }
+                .label {
+                    font-size: 0.75em;
+                    text-transform: uppercase;
+                    color: var(--secondary-color);
+                    letter-spacing: 0.05em;
+                    font-weight: 600;
+                }
+                .value {
+                    color: var(--text-color);
+                    font-size: 1.1em;
+                    font-weight: 500;
+                }
+                .rest-tag {
+                    margin-top: 16px;
+                    padding-top: 12px;
+                    border-top: 1px solid var(--border-color);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .rest-label {
+                    font-size: 0.8em;
+                    color: var(--secondary-color);
+                }
+                .rest-value {
+                    background: var(--glow-color);
+                    color: var(--primary-color);
+                    padding: 4px 12px;
+                    border-radius: 20px;
+                    font-size: 0.9em;
+                    font-weight: 600;
                 }
             </style>
             <div>
-                <h3></h3>
-                <p id="sets-reps"></p>
-                <p id="rest"></p>
+                <h3>${name}</h3>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="label">Sets</span>
+                        <span class="value">${sets}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Repetitions</span>
+                        <span class="value">${reps}</span>
+                    </div>
+                </div>
+                <div class="rest-tag">
+                    <span class="rest-label">Recovery Period</span>
+                    <span class="rest-value">${rest}</span>
+                </div>
             </div>
         `;
-
-        shadow.appendChild(template.content.cloneNode(true));
-
-        shadow.querySelector('h3').innerText = this.getAttribute('name');
-        shadow.querySelector('#sets-reps').innerText = `Sets: ${this.getAttribute('sets')} Reps: ${this.getAttribute('reps')}`;
-        shadow.querySelector('#rest').innerText = `Rest: ${this.getAttribute('rest')}`;
     }
 }
 
 customElements.define('workout-card', WorkoutCard);
+
+// Theme Toggle Logic
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const htmlElement = document.documentElement;
+
+const setTheme = (theme) => {
+    htmlElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    if (theme === 'light') {
+        themeIcon.setAttribute('data-lucide', 'sun');
+    } else {
+        themeIcon.setAttribute('data-lucide', 'moon');
+    }
+    
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+};
+
+const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+setTheme(savedTheme);
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+});
 
 const workoutForm = document.getElementById('workout-form');
 const workoutContainer = document.getElementById('workout-container');
@@ -127,4 +225,12 @@ workoutForm.addEventListener('submit', (e) => {
         workoutCard.setAttribute('rest', exercise.rest);
         workoutContainer.appendChild(workoutCard);
     });
+
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 });
+
+if (window.lucide) {
+    lucide.createIcons();
+}
