@@ -19,20 +19,22 @@ This is a dynamic and engaging workout recommendation website, "AI Workout Coach
 *   **User Input Form:** Interactive form to select Fitness Level and Workout Goal.
 *   **Workout Recommendation Engine:** JavaScript logic that selects from a predefined database of workouts.
 *   **Workout Display:** Custom Web Component (`WorkoutCard`) with Shadow DOM encapsulation.
+*   **Visual Guidance:** Integrated high-quality images for each exercise to ensure correct form and posture.
 *   **Theme Switching:** Seamless toggle between Dark and Light modes with preference persistence.
 *   **Interactivity:** Real-time generation of workout plans without page reload.
 
-## Current State (v1.3)
+## Current State (v1.4)
 
-1.  **Professional Workout Programs:** Integrated high-quality workout routines curated by a 20-year veteran trainer, covering weight loss, muscle gain, and general fitness.
-2.  **Detailed Exercise Instructions:** Updated `WorkoutCard` and `main.js` to include and display descriptive instructions for every exercise.
-3.  **Refactored `WorkoutCard`:** Enhanced the web component to handle descriptions and improved the visual hierarchy.
-4.  **Theme Toggle Implementation:** Added a dynamic theme switcher with support for light and dark modes.
-5.  **Enhanced Visuals:** Integrated Lucide icons for better UX and modern styling with glassmorphism.
-6.  **Deployment Ready:** Optimized for static hosting on platforms like GitHub Pages.
+1.  **Visual Exercise Guidance:** Updated `WorkoutCard` to include a dynamic image display area. Every exercise now features a relevant instructional image.
+2.  **Professional Workout Programs:** Integrated high-quality workout routines curated by a 20-year veteran trainer, covering weight loss, muscle gain, and general fitness.
+3.  **Detailed Exercise Instructions:** Updated `WorkoutCard` and `main.js` to include and display descriptive instructions for every exercise.
+4.  **Refactored `WorkoutCard`:** Enhanced the web component to handle descriptions and improved the visual hierarchy.
+5.  **Theme Toggle Implementation:** Added a dynamic theme switcher with support for light and dark modes.
+6.  **Enhanced Visuals:** Integrated Lucide icons for better UX and modern styling with glassmorphism.
+7.  **Deployment Ready:** Optimized for static hosting on platforms like GitHub Pages.
 
 ## Next Steps
 
-*   Add exercise illustrations or animations.
+*   Add exercise animations (GIFs or Lottie).
 *   Implement a "Share" feature for workout plans.
 *   Add more exercise variety and detailed descriptions.
