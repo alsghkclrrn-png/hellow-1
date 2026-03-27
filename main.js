@@ -191,6 +191,8 @@ const bmiValueSpan = document.getElementById('bmi-value');
 const bmiStatusSpan = document.getElementById('bmi-status');
 const bmrValueSpan = document.getElementById('bmr-value');
 
+let userBMI = null;
+
 metricsForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
@@ -199,18 +201,16 @@ metricsForm.addEventListener('submit', (e) => {
     const height = parseInt(document.getElementById('height').value);
     const weight = parseInt(document.getElementById('weight').value);
     
-    // BMI Calculation: weight (kg) / (height(m)^2)
     const heightInMeters = height / 100;
     const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+    userBMI = parseFloat(bmi);
     
-    // BMI Status
     let status = "";
     if (bmi < 18.5) status = "Underweight";
     else if (bmi < 25) status = "Healthy Weight";
     else if (bmi < 30) status = "Overweight";
     else status = "Obesity";
     
-    // BMR Calculation (Mifflin-St Jeor Equation)
     let bmr;
     if (gender === 'male') {
         bmr = 10 * weight + 6.25 * height - 5 * age + 5;
@@ -218,14 +218,11 @@ metricsForm.addEventListener('submit', (e) => {
         bmr = 10 * weight + 6.25 * height - 5 * age - 161;
     }
     
-    // Display results
     bmiValueSpan.textContent = bmi;
     bmiStatusSpan.textContent = status;
     bmrValueSpan.textContent = Math.round(bmr).toLocaleString();
     
     metricsResults.classList.remove('hidden');
-    
-    // Smooth scroll to results
     metricsResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 });
 
@@ -247,54 +244,83 @@ async function fetchExerciseData() {
     }
 }
 
-// Map User Goals to Muscle Groups in the API
+// Map User Goals to Muscle Groups
 const goalToMuscles = {
     "weight-loss": ["cardio", "full body", "legs", "abdominals"],
     "muscle-gain": ["chest", "back", "shoulders", "biceps", "triceps", "quadriceps", "hamstrings"],
     "general-fitness": ["core", "lower back", "glutes", "calves", "shoulders"]
 };
 
-function getExercisesByGoal(goal, level, count = 4) {
+// Get Context-Aware Exercises
+function getExercisesByContext(options) {
     if (!exerciseDatabase || exerciseDatabase.length === 0) return null;
 
-    const targetMuscles = goalToMuscles[goal] || ["full body"];
-    
-    // Filter by muscle and level
-    let filtered = exerciseDatabase.filter(ex => {
-        const levelMatch = ex.level ? ex.level.toLowerCase() === level.toLowerCase() : true;
-        const primaryMuscles = (ex.primaryMuscles || []).map(m => m.toLowerCase());
-        const secondaryMuscles = (ex.secondaryMuscles || []).map(m => m.toLowerCase());
-        const bodyPart = ex.bodyPart ? ex.bodyPart.toLowerCase() : "";
-        
-        const muscleMatch = targetMuscles.some(m => 
-            primaryMuscles.includes(m) || 
-            secondaryMuscles.includes(m) || 
-            bodyPart.includes(m)
-        );
-        
-        return levelMatch && muscleMatch;
-    });
+    const { goal, level, health, weather } = options;
+    const now = new Date();
+    const hour = now.getHours();
+    const month = now.getMonth(); // 0-11
 
-    if (filtered.length < count) {
-        filtered = exerciseDatabase.filter(ex => {
-            const primaryMuscles = (ex.primaryMuscles || []).map(m => m.toLowerCase());
-            return targetMuscles.some(m => primaryMuscles.includes(m));
-        });
+    // 1. Determine Target Muscles based on Goal
+    let targetMuscles = [...(goalToMuscles[goal] || ["full body"])];
+
+    // 2. Adjust for Health Status
+    if (health === 'recovery' || health === 'tired') {
+        targetMuscles = ["stretching", "calves", "forearms"]; // Lighter focus
     }
 
+    // 3. Filter Initial Pool
+    let filtered = exerciseDatabase.filter(ex => {
+        const primaryMuscles = (ex.primaryMuscles || []).map(m => m.toLowerCase());
+        const bodyPart = ex.bodyPart ? ex.bodyPart.toLowerCase() : "";
+        
+        return targetMuscles.some(m => primaryMuscles.includes(m) || bodyPart.includes(m));
+    });
+
+    // 4. Contextual Adjustments (Season/Time/Weather)
+    // Season (Winter: 11, 0, 1) -> Suggest indoor/warm-up focus
+    // Time (Morning: 5-11) -> Suggest activation
+    // Weather (Rainy) -> Suggest indoor/bodyweight
+    
+    if (weather === 'rainy' || weather === 'cold') {
+        filtered = filtered.filter(ex => !ex.equipment || ex.equipment === 'bodyweight' || ex.equipment === 'dumbbell');
+    }
+
+    if (hour < 11) {
+        // Morning: Add at least one stretching/warm-up
+        const warmups = exerciseDatabase.filter(ex => ex.primaryMuscles.includes('stretching')).slice(0, 2);
+        filtered = [...warmups, ...filtered];
+    }
+
+    // 5. Pick random exercises and adjust difficulty
     const shuffled = filtered.sort(() => 0.5 - Math.random());
+    const count = (health === 'recovery' || health === 'tired') ? 3 : 5;
     const selected = shuffled.slice(0, count);
 
     return selected.map(ex => {
         const imagePath = ex.images && ex.images.length > 0 ? ex.images[0] : `${ex.id}/0.jpg`;
         const imageUrl = `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${imagePath}`;
 
+        // Dynamic Sets/Reps based on BMI and Health
+        let sets = level === 'beginner' ? 2 : (level === 'intermediate' ? 3 : 4);
+        let reps = level === 'beginner' ? 10 : (level === 'intermediate' ? 12 : 15);
+        let rest = "60s";
+
+        if (health === 'tired') {
+            sets = Math.max(1, sets - 1);
+            rest = "90s";
+        }
+        
+        if (userBMI && userBMI > 30) {
+            reps = Math.max(8, reps - 2);
+            rest = "90s";
+        }
+
         return {
             name: ex.name,
-            sets: level === 'beginner' ? 3 : (level === 'intermediate' ? 4 : 5),
-            reps: level === 'beginner' ? 12 : (level === 'intermediate' ? 10 : 8),
-            rest: level === 'beginner' ? "90s" : "60s",
-            desc: ex.instructions && ex.instructions.length > 0 ? ex.instructions.join(' ') : "Follow the visual guide and maintain correct posture.",
+            sets: sets,
+            reps: reps,
+            rest: rest,
+            desc: ex.instructions && ex.instructions.length > 0 ? ex.instructions.join(' ') : "Focus on controlled breathing and form.",
             image: imageUrl
         };
     });
@@ -303,7 +329,7 @@ function getExercisesByGoal(goal, level, count = 4) {
 const fallbackWorkouts = {
     "weight-loss": {
         beginner: [
-            { name: "Jumping Jacks", sets: 3, reps: "45s", rest: "30s", desc: "Keep rhythm, jump wide.", image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500" }
+            { name: "Dynamic Warm-up", sets: 2, reps: "1 min", rest: "30s", desc: "Get your heart rate up slowly.", image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500" }
         ]
     }
 };
@@ -311,13 +337,17 @@ const fallbackWorkouts = {
 workoutForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const fitnessLevel = document.getElementById('fitness-level').value;
-    const goal = document.getElementById('goal').value;
+    const options = {
+        fitnessLevel: document.getElementById('fitness-level').value,
+        goal: document.getElementById('goal').value,
+        health: document.getElementById('health-status').value,
+        weather: document.getElementById('weather').value
+    };
 
-    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">AI가 맞춤형 운동 정보를 동기화하는 중입니다...</p>';
+    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">AI가 날씨, 시간, 신체 컨디션을 분석하여 최적의 운동을 설계 중입니다...</p>';
 
     setTimeout(() => {
-        let recommendedWorkout = getExercisesByGoal(goal, fitnessLevel);
+        let recommendedWorkout = getExercisesByContext(options);
 
         if (!recommendedWorkout || recommendedWorkout.length === 0) {
             recommendedWorkout = fallbackWorkouts["weight-loss"].beginner;
@@ -339,7 +369,7 @@ workoutForm.addEventListener('submit', async (e) => {
         if (window.lucide) {
             lucide.createIcons();
         }
-    }, 500);
+    }, 800);
 });
 
 fetchExerciseData();

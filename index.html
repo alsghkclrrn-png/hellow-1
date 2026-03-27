@@ -64,24 +64,43 @@
         </section>
 
         <form id="workout-form">
-            <h2>Customize Your Workout</h2>
-            <div class="form-group">
-                <label for="fitness-level">Fitness Level:</label>
-                <select id="fitness-level" name="fitness-level">
-                    <option value="beginner">Beginner</option>
-                    <option value="intermediate">Intermediate</option>
-                    <option value="advanced">Advanced</option>
-                </select>
+            <h2>Personalize Your Session</h2>
+            <div class="workout-grid">
+                <div class="form-group">
+                    <label for="fitness-level">Fitness Level:</label>
+                    <select id="fitness-level" name="fitness-level">
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="goal">Workout Goal:</label>
+                    <select id="goal" name="goal">
+                        <option value="weight-loss">Weight Loss</option>
+                        <option value="muscle-gain">Muscle Gain</option>
+                        <option value="general-fitness">General Fitness</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="health-status">Health Status:</label>
+                    <select id="health-status" name="health-status">
+                        <option value="excellent">Excellent / Normal</option>
+                        <option value="tired">Feeling Tired</option>
+                        <option value="recovery">Recovering / Injury</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="weather">Current Weather:</label>
+                    <select id="weather" name="weather">
+                        <option value="sunny">Sunny / Indoor</option>
+                        <option value="rainy">Rainy / Snowy</option>
+                        <option value="hot">Very Hot</option>
+                        <option value="cold">Very Cold</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="goal">Workout Goal:</label>
-                <select id="goal" name="goal">
-                    <option value="weight-loss">Weight Loss</option>
-                    <option value="muscle-gain">Muscle Gain</option>
-                    <option value="general-fitness">General Fitness</option>
-                </select>
-            </div>
-            <button type="submit">Generate Workout</button>
+            <button type="submit">Generate Context-Aware Workout</button>
         </form>
 
         <section id="workout-plan">

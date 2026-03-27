@@ -219,26 +219,22 @@ input[type="number"]:focus {
 }
 
 #workout-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 20px;
-    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.workout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
 }
 
 @media (max-width: 768px) {
     #workout-form {
         grid-template-columns: 1fr;
     }
-    /* ... rest of existing media query stuff */
-}
-
-@media (max-width: 768px) {
-    #workout-form {
+    .workout-grid {
         grid-template-columns: 1fr;
     }
     .theme-toggle {
