@@ -184,6 +184,51 @@ themeToggle.addEventListener('click', () => {
     setTheme(currentTheme === 'dark' ? 'light' : 'dark');
 });
 
+// Body Metrics Calculation
+const metricsForm = document.getElementById('metrics-form');
+const metricsResults = document.getElementById('metrics-results');
+const bmiValueSpan = document.getElementById('bmi-value');
+const bmiStatusSpan = document.getElementById('bmi-status');
+const bmrValueSpan = document.getElementById('bmr-value');
+
+metricsForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const gender = document.getElementById('gender').value;
+    const age = parseInt(document.getElementById('age').value);
+    const height = parseInt(document.getElementById('height').value);
+    const weight = parseInt(document.getElementById('weight').value);
+    
+    // BMI Calculation: weight (kg) / (height(m)^2)
+    const heightInMeters = height / 100;
+    const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+    
+    // BMI Status
+    let status = "";
+    if (bmi < 18.5) status = "Underweight";
+    else if (bmi < 25) status = "Healthy Weight";
+    else if (bmi < 30) status = "Overweight";
+    else status = "Obesity";
+    
+    // BMR Calculation (Mifflin-St Jeor Equation)
+    let bmr;
+    if (gender === 'male') {
+        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+    } else {
+        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+    }
+    
+    // Display results
+    bmiValueSpan.textContent = bmi;
+    bmiStatusSpan.textContent = status;
+    bmrValueSpan.textContent = Math.round(bmr).toLocaleString();
+    
+    metricsResults.classList.remove('hidden');
+    
+    // Smooth scroll to results
+    metricsResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
 const workoutForm = document.getElementById('workout-form');
 const workoutContainer = document.getElementById('workout-container');
 
@@ -230,7 +275,6 @@ function getExercisesByGoal(goal, level, count = 4) {
         return levelMatch && muscleMatch;
     });
 
-    // Fallback if filtering is too strict
     if (filtered.length < count) {
         filtered = exerciseDatabase.filter(ex => {
             const primaryMuscles = (ex.primaryMuscles || []).map(m => m.toLowerCase());
@@ -238,13 +282,10 @@ function getExercisesByGoal(goal, level, count = 4) {
         });
     }
 
-    // Pick random exercises
     const shuffled = filtered.sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, count);
 
     return selected.map(ex => {
-        // Construct the correct raw GitHub URL for the images
-        // The ID in the JSON often matches the folder name in exercises/ directory
         const imagePath = ex.images && ex.images.length > 0 ? ex.images[0] : `${ex.id}/0.jpg`;
         const imageUrl = `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${imagePath}`;
 
@@ -275,7 +316,6 @@ workoutForm.addEventListener('submit', async (e) => {
 
     workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">AI가 맞춤형 운동 정보를 동기화하는 중입니다...</p>';
 
-    // Small delay to let loading state show
     setTimeout(() => {
         let recommendedWorkout = getExercisesByGoal(goal, fitnessLevel);
 
