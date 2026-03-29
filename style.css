@@ -332,10 +332,92 @@ workout-card:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* MBTI Analysis Section */
-#mbti-analysis {
-    margin-bottom: 40px;
-    animation: fadeInUp 0.8s ease-out;
+/* Partnership Section */
+#partnership {
+    margin-top: 50px;
+    margin-bottom: 80px;
+    background: var(--form-background);
+    backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 25px 50px -12px var(--shadow-color);
+}
+
+#partnership h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#partnership-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+textarea {
+    padding: 12px 16px;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-color);
+    font-size: 1em;
+    font-family: inherit;
+    resize: vertical;
+    transition: all var(--transition-speed);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--glow-color);
+}
+
+.partnership-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 700;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.partnership-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+    filter: brightness(1.1);
+}
+
+input[type="text"], input[type="email"] {
+    padding: 12px 16px;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-color);
+    font-size: 1em;
+    transition: all var(--transition-speed);
+}
+
+input[type="text"]:focus, input[type="email"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--glow-color);
 }
 
 .section-desc {

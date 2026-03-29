@@ -5,6 +5,8 @@ AI Workout Coach is a modern, framework-less web application that provides perso
 
 ## Current Features
 - **Body Metrics Analysis:** Calculates BMI and BMR to tailor workout intensity.
+- **MBTI Personality Assessment:** Professional survey to align workouts with user psychology.
+- **Partnership Inquiry:** A dedicated contact form integrated with Formspree for collaborations.
 - **Context-Aware Workouts:** Considers fitness level, goals, health status, and weather.
 - **Modern UI:** Built with Web Components, CSS Variables, and Lucide icons for a premium feel.
 - **Dynamic Exercise Loading:** Fetches real exercise data from an external repository.

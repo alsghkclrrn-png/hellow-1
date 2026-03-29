@@ -145,6 +145,28 @@
             <h2>Your Custom Workout</h2>
             <div id="workout-container"></div>
         </section>
+
+        <section id="partnership">
+            <h2>Partnership Inquiry</h2>
+            <p class="section-desc">Collaborate with AI Workout Coach to build a healthier future together.</p>
+            <form action="https://formspree.io/f/xkoqdyjy" method="POST" id="partnership-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="company">Company / Name:</label>
+                        <input type="text" id="company" name="company" placeholder="Your Name or Organization" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" placeholder="email@example.com" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" placeholder="How can we collaborate?" required></textarea>
+                </div>
+                <button type="submit" class="partnership-btn">Send Inquiry</button>
+            </form>
+        </section>
     </main>
 
     <script src="main.js"></script>
