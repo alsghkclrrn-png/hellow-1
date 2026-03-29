@@ -582,15 +582,62 @@ metricsForm?.addEventListener('submit', (e) => {
 
 // Comprehensive Global Activity Database
 const activityLibrary = [
-    { name: "빈야사 요가", type: "Mindfulness", icon: "wind", mbti: ["I", "F", "N"], indoor: true, time: ["dawn", "night"], desc: "호흡과 유연성에 집중하며 마음의 평화를 찾는 요가입니다." },
-    { name: "복싱 / 킥복싱", type: "High Intensity", icon: "zap", mbti: ["E", "T", "S"], indoor: true, time: ["morning", "afternoon"], desc: "스트레스 해소와 폭발적인 에너지를 발산하는 격투기 운동입니다." },
-    { name: "실내 암벽 등반", type: "Adventure", icon: "mountain", mbti: ["N", "P", "T"], indoor: true, time: ["afternoon", "morning"], desc: "전신 근력과 문제 해결 능력을 키우는 익스트림 스포츠입니다." },
-    { name: "수영", type: "Endurance", icon: "waves", mbti: ["I", "S", "T", "J"], indoor: true, time: ["dawn", "morning", "night"], desc: "관절 부담 없이 심폐 지구력을 강화하는 전신 유산소입니다." },
-    { name: "트레일 하이킹", type: "Outdoor", icon: "trees", mbti: ["N", "P", "F"], indoor: false, time: ["morning", "afternoon"], desc: "자연 속에서 지구력을 기르고 정신적 환기를 돕는 걷기 운동입니다." },
-    { name: "필라테스", type: "Core Control", icon: "activity", mbti: ["S", "J", "F"], indoor: true, time: ["morning", "afternoon", "dawn"], desc: "속근육을 강화하고 체형 교정에 탁월한 정밀 운동입니다." },
-    { name: "줌바 / 에어로빅", type: "Cardio Party", icon: "music", mbti: ["E", "F", "P"], indoor: true, time: ["afternoon", "morning"], desc: "신나는 음악에 맞춰 칼로리를 연소하는 즐거운 유산소 활동입니다." },
-    { name: "조깅", type: "Cardio", icon: "footprints", mbti: ["I", "S", "T", "J"], indoor: false, time: ["dawn", "morning", "night"], desc: "언제 어디서나 가능한 가장 기본적인 체지방 연소 운동입니다." },
-    { name: "사이클링", type: "Endurance", icon: "bike", mbti: ["E", "S", "J"], indoor: true, time: ["morning", "afternoon"], desc: "강력한 하근력과 심폐 기능을 발발시키는 고효율 유산소입니다." }
+    { 
+        name: "빈야사 요가", 
+        type: "Mindfulness", 
+        icon: "wind", 
+        mbti: ["I", "F", "N"], 
+        indoor: true, 
+        time: ["dawn", "night"], 
+        desc: "호흡과 유연성에 집중하며 마음의 평화를 찾는 요가입니다.",
+        movements: [
+            { name: "수리야 나마스카라 (태양경배)", sets: "5회", reps: "반복", rest: "30s", desc: "전신을 깨우는 연속 동작입니다.", image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400" },
+            { name: "다운독 (견상 자세)", sets: "3세트", reps: "1분 유지", rest: "20s", desc: "척추와 햄스트링을 이완시키는 핵심 자세입니다.", image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=400" },
+            { name: "워리어 II (전사 자세)", sets: "3세트", reps: "각 45초", rest: "30s", desc: "하체 근력과 집중력을 기르는 자세입니다.", image: "https://images.unsplash.com/photo-1510894347713-fc3ad6cb0d4d?auto=format&fit=crop&q=80&w=400" }
+        ]
+    },
+    { 
+        name: "복싱 / 킥복싱", 
+        type: "High Intensity", 
+        icon: "zap", 
+        mbti: ["E", "T", "S"], 
+        indoor: true, 
+        time: ["morning", "afternoon"], 
+        desc: "스트레스 해소와 폭발적인 에너지를 발산하는 격투기 운동입니다.",
+        movements: [
+            { name: "섀도우 복싱", sets: "3라운드", reps: "3분", rest: "1분", desc: "가상의 상대와 겨루며 폼과 속도를 체크합니다.", image: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&q=80&w=400" },
+            { name: "헤비백 펀칭", sets: "5세트", reps: "100회", rest: "45s", desc: "샌드백을 이용해 타격력과 지구력을 기릅니다.", image: "https://images.unsplash.com/photo-1517438322307-e67111335449?auto=format&fit=crop&q=80&w=400" },
+            { name: "더블 앤 싱글 잽", sets: "4세트", reps: "20회", rest: "30s", desc: "기초적인 잽 동작을 반복하여 정확도를 높입니다.", image: "https://images.unsplash.com/photo-1509563268479-0f004cf3f58b?auto=format&fit=crop&q=80&w=400" }
+        ]
+    },
+    { 
+        name: "필라테스", 
+        type: "Core Control", 
+        icon: "activity", 
+        mbti: ["S", "J", "F"], 
+        indoor: true, 
+        time: ["morning", "afternoon", "dawn"], 
+        desc: "속근육을 강화하고 체형 교정에 탁월한 정밀 운동입니다.",
+        movements: [
+            { name: "헌드레드 (The Hundred)", sets: "1세트", reps: "100회 호흡", rest: "없음", desc: "복부의 열을 발생시키고 코어를 강화합니다.", image: "https://images.unsplash.com/photo-1518611012118-29a8d63ee0c2?auto=format&fit=crop&q=80&w=400" },
+            { name: "롤업 (Roll Up)", sets: "3세트", reps: "10회", rest: "30s", desc: "척추의 분절 능력과 복부 근력을 키웁니다.", image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=400" },
+            { name: "싱글 레그 스트레치", sets: "3세트", reps: "15회", rest: "20s", desc: "코어 안정성을 유지하며 다리 근육을 사용합니다.", image: "https://images.unsplash.com/photo-1518611012118-29a8d63ee0c2?auto=format&fit=crop&q=80&w=400" }
+        ]
+    },
+    { 
+        name: "조깅 / 러닝", 
+        type: "Cardio", 
+        icon: "footprints", 
+        mbti: ["I", "S", "T", "J"], 
+        indoor: false, 
+        time: ["dawn", "morning", "night"], 
+        desc: "언제 어디서나 가능한 가장 기본적인 체지방 연소 운동입니다.",
+        movements: [
+            { name: "워밍업 조깅", sets: "1회", reps: "10분", rest: "없음", desc: "낮은 강도로 몸의 온도를 높입니다.", image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=400" },
+            { name: "인터벌 스프린트", sets: "5세트", reps: "30초 질주", rest: "1분", desc: "폭발적인 에너지를 사용해 심폐 기능을 높입니다.", image: "https://images.unsplash.com/photo-1538370965046-79c0d6907d47?auto=format&fit=crop&q=80&w=400" },
+            { name: "쿨다운 워킹", sets: "1회", reps: "5분", rest: "없음", desc: "심박수를 천천히 내리며 정리 운동을 합니다.", image: "https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&q=80&w=400" }
+        ]
+    }
 ];
 
 function populateExerciseCatalog() {
@@ -654,33 +701,47 @@ async function fetchExerciseData() {
 function getExercisesByContext(options) {
     const { goal, level, health, weather, timeOfDay } = options;
     const mbti = document.getElementById('mbti-display').value || "ISTJ";
+    
+    // 1. Pick One Main Activity
     let potentialActivities = activityLibrary.filter(act => {
         const mbtiMatch = act.mbti.some(trait => mbti.includes(trait));
         const timeMatch = act.time.includes(timeOfDay);
-        let goalMatch = true;
-        if (goal === 'weight-loss' && !['High Intensity', 'Endurance', 'Cardio', 'Cardio Party'].includes(act.type)) goalMatch = Math.random() > 0.5;
         if ((weather === 'rainy' || weather === 'hot' || weather === 'cold') && !act.indoor) return false;
-        return goalMatch && mbtiMatch && timeMatch;
+        return mbtiMatch && timeMatch;
     });
-    if (potentialActivities.length === 0) potentialActivities = activityLibrary.filter(act => act.time.includes(timeOfDay));
+
+    if (potentialActivities.length === 0) potentialActivities = [activityLibrary[Math.floor(Math.random() * activityLibrary.length)]];
+    
+    const selectedMainAct = potentialActivities[Math.floor(Math.random() * potentialActivities.length)];
     let recommendedList = [];
-    const shuffledActivities = potentialActivities.sort(() => 0.5 - Math.random());
-    recommendedList.push(...shuffledActivities.slice(0, 3).map(act => ({
-        name: act.name, sets: level === 'beginner' ? "20분" : "45분", reps: act.type, rest: "상시",
-        desc: act.desc + ` (${timeOfDay} 시간대에 최적화된 운동입니다.)`,
-        image: `https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500`
+
+    // 2. Add movements from that main activity
+    recommendedList.push(...selectedMainAct.movements.map(move => ({
+        name: `${selectedMainAct.name}: ${move.name}`,
+        sets: move.sets,
+        reps: move.reps,
+        rest: move.rest,
+        desc: move.desc,
+        image: move.image
     })));
+
+    // 3. Add supplemental gym exercises based on health/time
     if (exerciseDatabase.length > 0) {
-        let targetMuscles = (health === 'recovery' || timeOfDay === 'night') ? ["stretching"] : ["core", "abs"];
+        let targetMuscles = (health === 'recovery' || timeOfDay === 'night') ? ["stretching"] : ["core", "abs", "legs"];
         let filteredGym = exerciseDatabase.filter(ex => (ex.primaryMuscles || []).some(m => targetMuscles.includes(m.toLowerCase())));
         const selectedGym = filteredGym.sort(() => 0.5 - Math.random()).slice(0, 2);
+        
         recommendedList.push(...selectedGym.map(ex => ({
-            name: ex.name, sets: level === 'beginner' ? 2 : 3, reps: 12, rest: "60s",
-            desc: "보조 운동: " + (ex.instructions?.[0] || "천천히 정확하게 수행하세요."),
+            name: `보조 운동: ${ex.name}`,
+            sets: level === 'beginner' ? "2세트" : "3세트",
+            reps: "12회",
+            rest: "60s",
+            desc: ex.instructions?.[0] || "천천히 정확하게 수행하세요.",
             image: `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${ex.images?.[0] || ex.id + '/0.jpg'}`
         })));
     }
-    return recommendedList.sort(() => 0.5 - Math.random());
+    
+    return recommendedList;
 }
 
 function saveToHistory(workout) {
