@@ -167,6 +167,10 @@ let userData = {
     mbti: null
 };
 
+// Form Field Elements (New)
+const mbtiDisplay = document.getElementById('mbti-display');
+const metricsDisplay = document.getElementById('metrics-display');
+
 // Theme Toggle Logic
 const themeToggle = document.getElementById('theme-toggle');
 const themeIcon = document.getElementById('theme-icon');
@@ -242,6 +246,12 @@ function calculateMbtiResult() {
     userData.mbti = type;
     mbtiTypeValue.textContent = type;
     
+    // Sync to workout form (New)
+    if (mbtiDisplay) {
+        mbtiDisplay.value = type;
+        mbtiDisplay.classList.add('populated');
+    }
+    
     const insights = {
         E: "You thrive in vibrant environments. Consider gym-based routines or outdoor bootcamps.",
         I: "You value focus. Solo training or home-based routines will keep you most consistent.",
@@ -265,10 +275,7 @@ document.querySelectorAll('.mbti-opt').forEach(btn => {
         const score = parseInt(btn.dataset.score);
         const q = mbtiQuestions[currentQuestionIndex];
         
-        // Convert 1-5 score to dimension points
-        // 1:Strongly Disagree, 2:Disagree, 3:Neutral, 4:Agree, 5:Strongly Agree
         const weight = score - 3; // -2 to +2
-        
         const dim1 = q.dimension[0];
         const dim2 = q.dimension[1];
         
@@ -290,6 +297,7 @@ retakeMbtiBtn.addEventListener('click', () => {
     mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
     mbtiQuizContainer.classList.remove('hidden');
     mbtiResults.classList.add('hidden');
+    if (mbtiDisplay) mbtiDisplay.value = "";
     updateMbtiQuiz();
 });
 
@@ -329,6 +337,12 @@ metricsForm.addEventListener('submit', (e) => {
     bmiStatusSpan.textContent = status;
     bmrValueSpan.textContent = Math.round(userData.bmr).toLocaleString();
     
+    // Sync to workout form (New)
+    if (metricsDisplay) {
+        metricsDisplay.value = `BMI: ${userData.bmi} (${status}), BMR: ${Math.round(userData.bmr)} kcal`;
+        metricsDisplay.classList.add('populated');
+    }
+    
     metricsResults.classList.remove('hidden');
     metricsResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     
@@ -362,19 +376,21 @@ function getExercisesByContext(options) {
     if (!exerciseDatabase || exerciseDatabase.length === 0) return null;
 
     const { goal, level, health, weather } = options;
-    const mbti = userData.mbti || "ISTJ"; // Default if not taken
+    
+    // Use values from the form inputs (requested by user) or fallback to global state
+    const mbti = document.getElementById('mbti-display').value || "ISTJ";
+    const metricsVal = document.getElementById('metrics-display').value;
 
     // 1. Muscle Selection
     let targetMuscles = [...(goalToMuscles[goal] || ["full body"])];
 
     // 2. Personality & Context Bias
     if (mbti.includes('N')) {
-        // Intuitive types get more variety, adding accessory muscles
         targetMuscles.push('forearms', 'traps', 'neck');
     }
     
     if (mbti.includes('E') && goal === 'general-fitness') {
-        targetMuscles.push('cardio'); // Extroverts often enjoy the energy of cardio environments
+        targetMuscles.push('cardio');
     }
 
     if (health === 'recovery' || health === 'tired') {
@@ -390,13 +406,12 @@ function getExercisesByContext(options) {
 
     // 4. MBTI specific filtering
     if (mbti.includes('S')) {
-        // Sensing types prefer traditional, effective movements
         filtered = filtered.filter(ex => !ex.name.toLowerCase().includes('dynamic') && !ex.name.toLowerCase().includes('creative'));
     }
 
     // 5. Volume & Intensity Calculation
     const shuffled = filtered.sort(() => 0.5 - Math.random());
-    const count = (health === 'recovery' || health === 'tired') ? 3 : (mbti.includes('J') ? 6 : 5); // Judgers get a more complete plan
+    const count = (health === 'recovery' || health === 'tired') ? 3 : (mbti.includes('J') ? 6 : 5);
     const selected = shuffled.slice(0, count);
 
     return selected.map(ex => {
@@ -405,8 +420,9 @@ function getExercisesByContext(options) {
 
         let sets = level === 'beginner' ? 2 : (level === 'intermediate' ? 3 : 4);
         let reps = level === 'beginner' ? 10 : (level === 'intermediate' ? 12 : 15);
-        let rest = mbti.includes('T') ? "45s" : "60s"; // Thinking types often prefer shorter, more intense rest for efficiency
+        let rest = mbti.includes('T') ? "45s" : "60s";
 
+        // Joint protection and volume based on metrics summary
         if (userData.age && userData.age > 50) {
             sets = Math.min(sets, 3);
             rest = "90s";
@@ -441,7 +457,7 @@ workoutForm.addEventListener('submit', async (e) => {
         weather: document.getElementById('weather').value
     };
 
-    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">Analyzing metrics, personality, and environment for your perfect routine...</p>';
+    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">Combining your personality, body metrics, and goals into a perfect plan...</p>';
 
     setTimeout(() => {
         let recommendedWorkout = getExercisesByContext(options);

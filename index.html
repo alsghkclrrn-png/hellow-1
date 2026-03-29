@@ -104,6 +104,16 @@
         <form id="workout-form">
             <h2>Personalize Your Session</h2>
             <div class="workout-grid">
+                <!-- New Auto-populated Fields -->
+                <div class="form-group">
+                    <label for="mbti-display">Your MBTI Profile:</label>
+                    <input type="text" id="mbti-display" name="mbti-display" placeholder="Take quiz above" readonly class="auto-input">
+                </div>
+                <div class="form-group">
+                    <label for="metrics-display">Body Metrics Summary:</label>
+                    <input type="text" id="metrics-display" name="metrics-display" placeholder="Analyze metrics above" readonly class="auto-input">
+                </div>
+                <!-- Existing Fields -->
                 <div class="form-group">
                     <label for="fitness-level">Fitness Level:</label>
                     <select id="fitness-level" name="fitness-level">
