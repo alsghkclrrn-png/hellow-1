@@ -591,9 +591,9 @@ const activityLibrary = [
         time: ["dawn", "night"], 
         desc: "호흡과 유연성에 집중하며 마음의 평화를 찾는 요가입니다.",
         movements: [
-            { name: "수리야 나마스카라 (태양경배)", sets: "5회", reps: "반복", rest: "30s", desc: "전신을 깨우는 연속 동작입니다.", image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400" },
-            { name: "다운독 (견상 자세)", sets: "3세트", reps: "1분 유지", rest: "20s", desc: "척추와 햄스트링을 이완시키는 핵심 자세입니다.", image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=400" },
-            { name: "워리어 II (전사 자세)", sets: "3세트", reps: "각 45초", rest: "30s", desc: "하체 근력과 집중력을 기르는 자세입니다.", image: "https://images.unsplash.com/photo-1510894347713-fc3ad6cb0d4d?auto=format&fit=crop&q=80&w=400" }
+            { name: "수리야 나마스카라 (태양경배)", sets: "5회", reps: "반복", rest: "30s", desc: "전신을 깨우는 연속 동작입니다.", image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=600" },
+            { name: "다운독 (견상 자세)", sets: "3세트", reps: "1분 유지", rest: "20s", desc: "척추와 햄스트링을 이완시키는 핵심 자세입니다.", image: "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?auto=format&fit=crop&q=80&w=600" },
+            { name: "워리어 II (전사 자세)", sets: "3세트", reps: "각 45초", rest: "30s", desc: "하체 근력과 집중력을 기르는 자세입니다.", image: "https://images.unsplash.com/photo-1510894347713-fc3ad6cb0d4d?auto=format&fit=crop&q=80&w=600" }
         ]
     },
     { 
@@ -605,9 +605,9 @@ const activityLibrary = [
         time: ["morning", "afternoon"], 
         desc: "스트레스 해소와 폭발적인 에너지를 발산하는 격투기 운동입니다.",
         movements: [
-            { name: "섀도우 복싱", sets: "3라운드", reps: "3분", rest: "1분", desc: "가상의 상대와 겨루며 폼과 속도를 체크합니다.", image: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&q=80&w=400" },
-            { name: "헤비백 펀칭", sets: "5세트", reps: "100회", rest: "45s", desc: "샌드백을 이용해 타격력과 지구력을 기릅니다.", image: "https://images.unsplash.com/photo-1517438322307-e67111335449?auto=format&fit=crop&q=80&w=400" },
-            { name: "더블 앤 싱글 잽", sets: "4세트", reps: "20회", rest: "30s", desc: "기초적인 잽 동작을 반복하여 정확도를 높입니다.", image: "https://images.unsplash.com/photo-1509563268479-0f004cf3f58b?auto=format&fit=crop&q=80&w=400" }
+            { name: "섀도우 복싱", sets: "3라운드", reps: "3분", rest: "1분", desc: "가상의 상대와 겨루며 폼과 속도를 체크합니다.", image: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&q=80&w=600" },
+            { name: "헤비백 펀칭", sets: "5세트", reps: "100회", rest: "45s", desc: "샌드백을 이용해 타격력과 지구력을 기릅니다.", image: "https://images.unsplash.com/photo-1552072047-39936ad0f167?auto=format&fit=crop&q=80&w=600" },
+            { name: "더블 앤 싱글 잽", sets: "4세트", reps: "20회", rest: "30s", desc: "기초적인 잽 동작을 반복하여 정확도를 높입니다.", image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&q=80&w=600" }
         ]
     },
     { 
@@ -619,9 +619,9 @@ const activityLibrary = [
         time: ["morning", "afternoon", "dawn"], 
         desc: "속근육을 강화하고 체형 교정에 탁월한 정밀 운동입니다.",
         movements: [
-            { name: "헌드레드 (The Hundred)", sets: "1세트", reps: "100회 호흡", rest: "없음", desc: "복부의 열을 발생시키고 코어를 강화합니다.", image: "https://images.unsplash.com/photo-1518611012118-29a8d63ee0c2?auto=format&fit=crop&q=80&w=400" },
-            { name: "롤업 (Roll Up)", sets: "3세트", reps: "10회", rest: "30s", desc: "척추의 분절 능력과 복부 근력을 키웁니다.", image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=400" },
-            { name: "싱글 레그 스트레치", sets: "3세트", reps: "15회", rest: "20s", desc: "코어 안정성을 유지하며 다리 근육을 사용합니다.", image: "https://images.unsplash.com/photo-1518611012118-29a8d63ee0c2?auto=format&fit=crop&q=80&w=400" }
+            { name: "헌드레드 (The Hundred)", sets: "1세트", reps: "100회 호흡", rest: "없음", desc: "복부의 열을 발생시키고 코어를 강화합니다.", image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=600" },
+            { name: "롤업 (Roll Up)", sets: "3세트", reps: "10회", rest: "30s", desc: "척추의 분절 능력과 복부 근력을 키웁니다.", image: "https://images.unsplash.com/photo-1518611012118-29a8d63ee0c2?auto=format&fit=crop&q=80&w=600" },
+            { name: "싱글 레그 스트레치", sets: "3세트", reps: "15회", rest: "20s", desc: "코어 안정성을 유지하며 다리 근육을 사용합니다.", image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=600" }
         ]
     },
     { 
@@ -633,9 +633,9 @@ const activityLibrary = [
         time: ["dawn", "morning", "night"], 
         desc: "언제 어디서나 가능한 가장 기본적인 체지방 연소 운동입니다.",
         movements: [
-            { name: "워밍업 조깅", sets: "1회", reps: "10분", rest: "없음", desc: "낮은 강도로 몸의 온도를 높입니다.", image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=400" },
-            { name: "인터벌 스프린트", sets: "5세트", reps: "30초 질주", rest: "1분", desc: "폭발적인 에너지를 사용해 심폐 기능을 높입니다.", image: "https://images.unsplash.com/photo-1538370965046-79c0d6907d47?auto=format&fit=crop&q=80&w=400" },
-            { name: "쿨다운 워킹", sets: "1회", reps: "5분", rest: "없음", desc: "심박수를 천천히 내리며 정리 운동을 합니다.", image: "https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&q=80&w=400" }
+            { name: "워밍업 조깅", sets: "1회", reps: "10분", rest: "없음", desc: "낮은 강도로 몸의 온도를 높입니다.", image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=600" },
+            { name: "인터벌 스프린트", sets: "5세트", reps: "30초 질주", rest: "1분", desc: "폭발적인 에너지를 사용해 심폐 기능을 높입니다.", image: "https://images.unsplash.com/photo-1530549387074-d5629d75b734?auto=format&fit=crop&q=80&w=600" },
+            { name: "쿨다운 워킹", sets: "1회", reps: "5분", rest: "없음", desc: "심박수를 천천히 내리며 정리 운동을 합니다.", image: "https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&q=80&w=600" }
         ]
     }
 ];
