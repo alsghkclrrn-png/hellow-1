@@ -132,20 +132,39 @@ class WorkoutCard extends HTMLElement {
                     padding-top: 20px;
                     border-top: 1px dashed var(--border-color);
                 }
+                .performance-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 15px;
+                }
                 .performance-title {
                     font-size: 0.85em;
                     font-weight: 700;
                     color: var(--text-color);
-                    margin-bottom: 12px;
                     display: flex;
                     align-items: center;
                     gap: 6px;
                 }
+                .completion-checkbox {
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                    font-size: 0.75em;
+                    font-weight: 700;
+                    color: var(--primary-color);
+                    cursor: pointer;
+                }
+                .completion-checkbox input {
+                    width: 16px;
+                    height: 16px;
+                    cursor: pointer;
+                }
                 .input-group {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
-                    gap: 10px;
-                    margin-bottom: 10px;
+                    gap: 12px;
+                    margin-bottom: 12px;
                 }
                 .input-field {
                     display: flex;
@@ -157,20 +176,23 @@ class WorkoutCard extends HTMLElement {
                     color: var(--secondary-color);
                     font-weight: 600;
                 }
-                input {
-                    padding: 8px;
-                    border-radius: 8px;
+                input[type="number"] {
+                    padding: 10px;
+                    border-radius: 10px;
                     border: 1px solid var(--border-color);
                     background: var(--input-bg);
                     color: var(--text-color);
                     font-size: 0.9em;
+                    width: 100%;
+                    box-sizing: border-box;
                 }
                 input:focus {
                     outline: none;
                     border-color: var(--primary-color);
+                    box-shadow: 0 0 0 2px var(--glow-color);
                 }
             </style>
-            <div class="badge">Master Trainer Advice</div>
+            <div class="badge">Professional Training Plan</div>
             <div class="image-container">
                 <img src="${image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'">
             </div>
@@ -188,27 +210,36 @@ class WorkoutCard extends HTMLElement {
                     </div>
                 </div>
                 <div class="rest-tag">
-                    <span class="rest-label">Rest Period</span>
+                    <span class="rest-label">Recommended Rest</span>
                     <span class="rest-value">${rest}</span>
                 </div>
 
                 <div class="performance-tracking">
-                    <div class="performance-title">
-                        Record Your Results
+                    <div class="performance-header">
+                        <div class="performance-title">Record Performance</div>
+                        <label class="completion-checkbox">
+                            <input type="checkbox" class="is-completed" checked> Done
+                        </label>
                     </div>
                     <div class="input-group">
                         <div class="input-field">
                             <label>Actual Sets</label>
-                            <input type="number" class="actual-sets" placeholder="0" min="0" value="${sets}">
+                            <input type="number" class="actual-sets" placeholder="0" value="${sets}">
                         </div>
                         <div class="input-field">
                             <label>Actual Reps</label>
-                            <input type="number" class="actual-reps" placeholder="0" min="0" value="${reps}">
+                            <input type="number" class="actual-reps" placeholder="0" value="${reps}">
                         </div>
                     </div>
-                    <div class="input-field">
-                        <label>Total Time Spent (min)</label>
-                        <input type="number" class="total-time" placeholder="Minutes" min="0" value="10">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label>Rest Taken (sec)</label>
+                            <input type="number" class="actual-rest" placeholder="sec" value="${parseInt(rest) || 60}">
+                        </div>
+                        <div class="input-field">
+                            <label>Time Taken (min)</label>
+                            <input type="number" class="total-time" placeholder="min" value="10">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -719,45 +750,68 @@ document.getElementById('analyze-workout-btn')?.addEventListener('click', () => 
     let totalTargetReps = 0;
     let totalActualReps = 0;
     let totalTime = 0;
+    let totalRest = 0;
+    let completedCount = 0;
     let exerciseCount = cards.length;
 
     cards.forEach(card => {
+        const isCompleted = card.shadowRoot.querySelector('.is-completed')?.checked;
+        if (!isCompleted) return;
+
+        completedCount++;
         const targetSets = parseInt(card.getAttribute('sets') || 0);
         const targetReps = parseInt(card.getAttribute('reps') || 0);
+        const targetRest = parseInt(card.getAttribute('rest') || 60);
         
         const actualSets = parseInt(card.shadowRoot.querySelector('.actual-sets')?.value || 0);
         const actualReps = parseInt(card.shadowRoot.querySelector('.actual-reps')?.value || 0);
+        const actualRest = parseInt(card.shadowRoot.querySelector('.actual-rest')?.value || 0);
         const time = parseInt(card.shadowRoot.querySelector('.total-time')?.value || 0);
 
         totalTargetSets += targetSets;
         totalActualSets += actualSets;
         totalTargetReps += targetReps;
         totalActualReps += actualReps;
+        totalRest += actualRest;
         totalTime += time;
     });
 
+    if (completedCount === 0) {
+        alert("최소 한 개 이상의 운동을 완료 상태로 체크해 주세요!");
+        return;
+    }
+
     const completionRate = (totalActualSets / totalTargetSets) * 100;
     const intensityScore = (totalActualReps / totalTargetReps) * 100;
+    const avgRest = totalRest / completedCount;
 
     let evaluation = "";
     let status = "";
+    let statusColor = "";
     let suggestions = [];
 
+    // Professional Trainer Logic
     if (completionRate >= 100 && intensityScore >= 100) {
-        status = "Excellent (최고의 성과!)";
-        evaluation = "마스터 트레이너 급의 수행 능력을 보여주셨습니다. 설정한 모든 목표를 완벽하게 달성하셨네요.";
-        suggestions.push("다음 세션에서는 세트당 중량을 5-10% 늘리거나 휴식 시간을 10초 단축해 보세요.");
-        suggestions.push("현재 체력이 매우 좋으므로 고강도 인터벌 트레이닝(HIIT) 비중을 높여도 좋습니다.");
-    } else if (completionRate >= 80) {
-        status = "Good (훌륭한 노력)";
-        evaluation = "목표한 루틴의 대부분을 성공적으로 소화하셨습니다. 꾸준함이 가장 큰 무기입니다.";
-        suggestions.push("부족했던 마지막 1-2세트의 집중력을 높이기 위해 세트 사이 호흡 조절에 신경 써보세요.");
-        suggestions.push("운동 전 스트레칭 시간을 5분 더 늘려 근육의 가동 범위를 확보하는 것을 추천합니다.");
+        status = "Elite Performance (전문가 수준)";
+        statusColor = "#10b981";
+        evaluation = `전체 운동의 ${completionRate.toFixed(0)}%를 완벽하게 소화하셨습니다. 특히 목표 횟수를 모두 채운 점은 근지구력과 정신력이 매우 훌륭하다는 증거입니다. 현재 프로그램이 몸에 잘 적응된 상태입니다.`;
+        suggestions.push("점진적 과부하 원칙에 따라 다음 주에는 전체 중량을 2.5kg~5kg 증량해 보세요.");
+        suggestions.push(`세트 사이 휴식 시간을 현재 ${avgRest.toFixed(0)}초에서 45초로 줄여 심폐 지구력을 추가로 강화해 보세요.`);
+        suggestions.push("운동 후 30분 이내에 탄수화물과 단백질이 3:1 비율로 섞인 식단을 섭취하여 회복을 극대화하세요.");
+    } else if (completionRate >= 70) {
+        status = "Solid Progress (안정적인 성장)";
+        statusColor = "#3b82f6";
+        evaluation = `목표한 세트의 상당 부분을 완수하셨습니다. ${totalTime}분 동안 집중력을 유지한 점을 높게 평가합니다. 다만, 일부 구간에서 횟수가 부족했던 점은 근력 부족보다는 에너지 고갈의 원인이 큽니다.`;
+        suggestions.push("운동 1시간 전 바나나나 오트밀 같은 복합 탄수화물을 섭취하여 에너지를 보충하세요.");
+        suggestions.push("수행하지 못한 마지막 세트는 '드롭 세트' 기법을 활용해 가벼운 무게로라도 끝까지 횟수를 채워보세요.");
+        suggestions.push(`휴식 시간(${avgRest.toFixed(0)}초)이 적절합니다. 이 리듬을 유지하되 마지막 세트 직전에만 20초 더 쉬어주세요.`);
     } else {
-        status = "Need Improvement (보완 필요)";
-        evaluation = "오늘은 컨디션이 조금 저조했거나 난이도가 높았던 것 같습니다. 무리하지 않는 것이 중요합니다.";
-        suggestions.push("목표 세트 수를 줄이는 대신 한 동작을 하더라도 정확한 자세에 집중해 보세요.");
-        suggestions.push("운동 전 충분한 수분 섭취와 탄수화물 위주의 가벼운 식단이 에너지 레벨을 높이는 데 도움이 됩니다.");
+        status = "Foundation Building (기초 다지기)";
+        statusColor = "#f59e0b";
+        evaluation = "오늘 운동은 몸에 다소 무리가 되었거나 컨디션 조절에 실패했을 가능성이 큽니다. 하지만 포기하지 않고 일부라도 수행한 것 자체가 큰 진전입니다. 부상 방지를 위해 강도 조절이 필요합니다.";
+        suggestions.push("현재 설정된 목표 횟수를 20% 하향 조정하여 '성취감'을 먼저 느끼는 쪽으로 방향을 잡으세요.");
+        suggestions.push("수행 동작의 가동 범위를 줄이더라도 올바른 자세(Form)를 유지하는 데 100% 집중하세요.");
+        suggestions.push("운동 전 스트레칭과 폼롤러 사용 시간을 10분 더 늘려 몸의 유연성을 먼저 확보해야 합니다.");
     }
 
     const resultsDiv = document.getElementById('analysis-results');
@@ -767,23 +821,25 @@ document.getElementById('analyze-workout-btn')?.addEventListener('click', () => 
         contentDiv.innerHTML = `
             <div class="analysis-stats-grid">
                 <div class="stat-box">
+                    <span class="stat-label">수행 완료</span>
+                    <span class="stat-value">${completedCount}/${exerciseCount}</span>
+                </div>
+                <div class="stat-box">
                     <span class="stat-label">수행률 (Sets)</span>
                     <span class="stat-value">${completionRate.toFixed(1)}%</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-label">강도 점수 (Reps)</span>
-                    <span class="stat-value">${intensityScore.toFixed(1)}%</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-label">총 운동 시간</span>
-                    <span class="stat-value">${totalTime}분</span>
+                    <span class="stat-label">평균 휴식</span>
+                    <span class="stat-value">${avgRest.toFixed(0)}초</span>
                 </div>
             </div>
             <div class="evaluation-text">
-                <p class="status-badge">${status}</p>
+                <div class="status-badge" style="background: ${statusColor}">${status}</div>
+                <h4 style="color: var(--primary-color); margin-bottom: 10px;">코치 총평</h4>
                 <p class="main-eval">${evaluation}</p>
+                <h4 style="color: var(--primary-color); margin-bottom: 15px;">향후 보완점 (Action Plan)</h4>
                 <ul class="suggestion-list">
-                    ${suggestions.map(s => `<li><i data-lucide="check-circle-2"></i> ${s}</li>`).join('')}
+                    ${suggestions.map(s => `<li><i data-lucide="chevron-right-circle"></i> ${s}</li>`).join('')}
                 </ul>
             </div>
         `;
