@@ -246,7 +246,7 @@ function updateMbtiQuiz() {
     if (currentMbtiIndex < mbtiQuestions.length) {
         const q = mbtiQuestions[currentMbtiIndex];
         if (mbtiQuestionText) mbtiQuestionText.textContent = q.text;
-        if (mbtiProgressText) mbtiProgressText.textContent = `Question ${currentMbtiIndex + 1} of ${mbtiQuestions.length}`;
+        if (mbtiProgressText) mbtiProgressText.textContent = `Step ${currentMbtiIndex + 1} of ${mbtiQuestions.length}`;
         const progress = (currentMbtiIndex / mbtiQuestions.length) * 100;
         mbtiProgressBar?.style.setProperty('--progress', `${progress}%`);
     } else {
@@ -298,55 +298,82 @@ retakeMbtiBtn?.addEventListener('click', () => {
     updateMbtiQuiz();
 });
 
-// Sasang Constitution Logic
+// Professional Sasang Constitution Logic (20 Questions)
 const sasangQuestions = [
-    { text: "나의 체격은 어떤 편인가요?", options: [
-        { text: "머리가 크고 목덜미가 발달했지만 하체가 약함", type: "TY" },
-        { text: "골격이 굵고 체격이 크며 살이 찌기 쉬움", type: "TE" },
-        { text: "가슴 부위가 발달하고 어깨가 넓지만 골반이 작음", type: "SY" },
-        { text: "체구는 작고 균형 잡혔으며 상체보다 하체가 발달함", type: "SE" }
+    // 외형 (Appearance)
+    { text: "나의 전반적인 체격은 어떤가요?", options: [
+        { text: "목덜미가 굵고 머리가 크며 하체가 빈약한 편이다", type: "TY" },
+        { text: "골격이 굵고 상하체가 균형 있게 발달했으나 살이 찌기 쉽다", type: "TE" },
+        { text: "가슴 부위가 넓게 발달하고 어깨가 벌어졌으나 골반이 작다", type: "SY" },
+        { text: "체구가 작고 아담하며 상체보다 하체가 더 발달했다", type: "SE" }
     ]},
-    { text: "나의 평소 성격은 어떤가요?", options: [
-        { text: "결단력이 있고 창조적이지만 독선적일 때가 있음", type: "TY" },
-        { text: "과묵하고 인내심이 강하며 변화를 싫어함", type: "TE" },
-        { text: "민첩하고 활달하며 사교적이지만 성격이 급함", type: "SY" },
-        { text: "얌전하고 세심하며 분석적이지만 내성적임", type: "SE" }
+    { text: "나의 얼굴형은 어디에 가깝나요?", options: [
+        { text: "이마가 넓고 눈에 광채가 있으며 강인한 인상이다", type: "TY" },
+        { text: "윤곽이 뚜렷하고 이목구비가 큼직하며 너그러운 인상이다", type: "TE" },
+        { text: "입술이 얇고 턱이 뾰족하며 날카롭거나 명랑한 인상이다", type: "SY" },
+        { text: "얼굴이 작고 갸름하며 오밀조밀하고 단정한 인상이다", type: "SE" }
     ]},
-    { text: "평소 소화 상태나 식습관은 어떤가요?", options: [
-        { text: "소화력은 좋으나 기름진 음식을 피해야 함", type: "TY" },
-        { text: "식성이 좋아 무엇이든 잘 먹고 소화도 잘 시킴", type: "TE" },
-        { text: "음식을 빨리 먹는 편이며 열이 많은 음식을 피해야 함", type: "SY" },
-        { text: "소화력이 약해 소식을 해야 편안함을 느낌", type: "SE" }
+    { text: "나의 평소 걸음걸이는 어떤가요?", options: [
+        { text: "가슴을 펴고 당당하게 걷지만 다리에 힘이 없어 보일 때가 있다", type: "TY" },
+        { text: "속도는 느리지만 무게감이 있고 흔들림 없이 걷는다", type: "TE" },
+        { text: "몸을 다소 흔들며 걷고 발걸음이 매우 가볍고 빠르다", type: "SY" },
+        { text: "조용조용 조심스럽게 걸으며 몸가짐이 매우 단정하다", type: "SE" }
     ]},
-    { text: "나의 땀은 어떻게 나나요?", options: [
-        { text: "땀이 별로 나지 않으며 나고 나면 피곤함", type: "TY" },
-        { text: "땀이 아주 많으며 땀을 흘리고 나면 개운함", type: "TE" },
-        { text: "땀이 적당히 나며 운동 시에만 주로 남", type: "SY" },
-        { text: "땀이 거의 없으며 땀을 많이 흘리면 기운이 없음", type: "SE" }
+    // 성격 (Personality)
+    { text: "새로운 일을 시작할 때 나의 태도는?", options: [
+        { text: "남이 생각지 못한 창의적인 아이디어로 앞장서서 추진한다", type: "TY" },
+        { text: "한번 시작한 일은 끝까지 인내심 있게 마무리한다", type: "TE" },
+        { text: "판단이 빠르고 민첩하게 실행에 옮기지만 쉽게 실증내기도 한다", type: "SY" },
+        { text: "계획을 꼼꼼히 세우고 세밀하게 검토한 뒤 움직인다", type: "SE" }
     ]},
-    { text: "나의 걸음걸이나 태도는 어떤가요?", options: [
-        { text: "걸음걸이가 씩씩하고 당당함", type: "TY" },
-        { text: "걸음걸이가 느리고 무게감이 있음", type: "TE" },
-        { text: "몸을 흔들며 걷거나 걸음이 매우 빠름", type: "SY" },
-        { text: "조용히 걷고 몸가짐이 단정함", type: "SE" }
+    { text: "대인관계에서 나는 어떤 사람인가요?", options: [
+        { text: "자기주장이 강하고 카리스마가 있어 리더 역할을 자주 한다", type: "TY" },
+        { text: "과묵한 편이며 남의 말을 잘 들어주고 포용력이 있다", type: "TE" },
+        { text: "처음 보는 사람과도 금방 친해지며 분위기 메이커 역할을 한다", type: "SY" },
+        { text: "예의 바르고 세심하지만 낯을 좀 가리고 내성적인 편이다", type: "SE" }
     ]},
-    { text: "평소 자주 겪는 신체적 증상은?", options: [
-        { text: "목에 이물감이 있거나 다리에 힘이 빠짐", type: "TY" },
-        { text: "호흡기가 약하거나 피로를 잘 느낌", type: "TE" },
-        { text: "가슴이 답답하고 열이 위로 오르는 느낌", type: "SY" },
-        { text: "손발이 차고 아랫배가 자주 아픔", type: "SE" }
+    { text: "스트레스를 받았을 때 나의 반응은?", options: [
+        { text: "버럭 화를 내며 즉시 발산하고 뒤끝이 없는 편이다", type: "TY" },
+        { text: "속으로 삭이며 겉으로 잘 드러내지 않고 오랫동안 고민한다", type: "TE" },
+        { text: "불안해하며 감정 기복이 심해지고 안절부절못한다", type: "SY" },
+        { text: "깊은 수심에 빠지고 식욕이 떨어지며 몸이 바로 축 처진다", type: "SE" }
     ]},
-    { text: "스트레스를 받았을 때 반응은?", options: [
-        { text: "버럭 화를 내며 즉시 발산함", type: "TY" },
-        { text: "속으로 삭이며 오랫동안 담아둠", type: "TE" },
-        { text: "불안해하며 안절부절못함", type: "SY" },
-        { text: "깊은 고민에 빠져 식욕이 떨어짐", type: "SE" }
+    // 생리/병증 (Physiology/Symptoms)
+    { text: "나의 평소 소화 상태는 어떤가요?", options: [
+        { text: "소화는 잘 되지만 가끔 음식을 삼키기 힘든 느낌이 든다", type: "TY" },
+        { text: "식성이 매우 좋아 무엇이든 잘 먹고 소화력도 아주 좋다", type: "TE" },
+        { text: "음식을 매우 빨리 먹는 편이며 자극적인 것을 즐긴다", type: "SY" },
+        { text: "소화력이 약해 조금만 과식해도 속이 불편하고 체하기 쉽다", type: "SE" }
     ]},
-    { text: "추천받고 싶은 라이프스타일 방향은?", options: [
-        { text: "강한 리더십과 창의적인 활동", type: "TY" },
-        { text: "안정적이고 꾸준한 건강 관리", type: "TE" },
-        { text: "다양하고 활기찬 사회적 활동", type: "SY" },
-        { text: "세밀하고 계획적인 자기 관리", type: "SE" }
+    { text: "나의 땀은 어떻게 나는 편인가요?", options: [
+        { text: "땀이 별로 나지 않으며 땀을 흘리고 나면 몸이 몹시 피곤하다", type: "TY" },
+        { text: "땀이 아주 많고, 운동으로 땀을 흠뻑 흘리고 나면 몸이 가볍다", type: "TE" },
+        { text: "땀이 적당히 나는 편이며 운동할 때만 주로 난다", type: "SY" },
+        { text: "땀이 거의 없으며 땀을 많이 흘리면 기운이 하나도 없다", type: "SE" }
+    ]},
+    { text: "잠을 잘 때 나의 모습은?", options: [
+        { text: "비교적 깊게 자지만 꿈을 자주 꾸는 편이다", type: "TY" },
+        { text: "머리만 대면 바로 잠들고 코를 골거나 깊게 자는 편이다", type: "TE" },
+        { text: "잠귀가 밝아 자주 깨고 숙면을 취하기 어려울 때가 많다", type: "SY" },
+        { text: "예민한 편이지만 규칙적인 수면 습관을 가지려 노력한다", type: "SE" }
+    ]},
+    { text: "추위를 느끼는 정도는 어떤가요?", options: [
+        { text: "추위보다 더위에 더 민감하며 시원한 곳을 찾는다", type: "TY" },
+        { text: "더위를 많이 타며 몸에 열이 많아 땀을 자주 흘린다", type: "TE" },
+        { text: "상체에는 열이 오르지만 하체는 차가울 때가 많다", type: "SY" },
+        { text: "추위를 몹시 타고 찬바람이 불면 몸이 바로 움츠러든다", type: "SE" }
+    ]},
+    { text: "변비나 설사 중 어떤 것을 자주 겪나요?", options: [
+        { text: "대변이 굵고 시원하게 나오는 것이 건강의 척도다", type: "TY" },
+        { text: "평소 변비기가 약간 있어도 생활에 큰 지장이 없다", type: "TE" },
+        { text: "대변이 무르거나 설사를 자주 하면 기운이 떨어진다", type: "SY" },
+        { text: "대변이 잘 안 나오면 속이 몹시 답답하고 컨디션이 나빠진다", type: "SE" }
+    ]},
+    { text: "평소 선호하는 음료는?", options: [
+        { text: "담백한 차나 물을 즐겨 마신다", type: "TY" },
+        { text: "갈증을 자주 느껴 시원한 물을 많이 마신다", type: "TE" },
+        { text: "얼음이 들어간 차가운 음료를 선호한다", type: "SY" },
+        { text: "따뜻한 보리차나 숭늉처럼 온기 있는 물이 좋다", type: "SE" }
     ]}
 ];
 
@@ -398,18 +425,18 @@ function calculateSasangResult() {
         if (score > maxScore) { maxScore = score; type = t; }
     }
 
-    const typeNames = { TY: "태양인", TE: "태음인", SY: "소양인", SE: "소음인" };
+    const typeNames = { TY: "태양인 (太陽人)", TE: "태음인 (太陰人)", SY: "소양인 (少陽人)", SE: "소음인 (少陰人)" };
     const typeDescs = {
-        TY: "폐가 크고 간이 작은 체질로, 기운이 위로 솟구치는 성질이 있습니다.",
-        TE: "간이 크고 폐가 작은 체질로, 흡수하는 기운이 강해 살이 찌기 쉽습니다.",
-        SY: "비장이 크고 신장이 작은 체질로, 열이 많고 동작이 민첩합니다.",
-        SE: "신장이 크고 비장이 작은 체질로, 기운이 안으로 모이고 몸이 찬 편입니다."
+        TY: "폐국이 강하고 간국이 약한 체질. 기운이 위로 솟구치며 소통에 능하지만 하체가 빈약할 수 있습니다.",
+        TE: "간국이 강하고 폐국이 약한 체질. 흡수하는 기운이 강해 체격이 건실하나 성인병에 주의해야 합니다.",
+        SY: "비국이 강하고 신국이 약한 체질. 소화력이 좋고 민첩하며 열이 많아 상체가 발달한 특징이 있습니다.",
+        SE: "신국이 강하고 비국이 약한 체질. 꼼꼼하고 내밀하며 하체가 안정적이지만 소화기관이 차고 약합니다."
     };
     const insights = {
-        TY: "담백한 음식 위주로 섭취하고 포도, 머루가 좋습니다. 하체 강화 운동을 추천합니다.",
-        TE: "땀을 흘리는 운동이 필수적이며 무, 도라지, 율무가 몸에 잘 맞습니다.",
-        SY: "시원한 성질의 음식(돼지고기, 오이)이 좋으며 열을 내리는 하체 운동이 효과적입니다.",
-        SE: "따뜻한 성질의 음식(닭고기, 생강)이 좋으며 소화력을 높이는 가벼운 전신 운동이 좋습니다."
+        TY: "해로운 음식: 매운 음식, 지방질 많은 고기. 이로운 음식: 메밀, 포도, 해산물. 추천 운동: 하체 강화 자전거, 수영.",
+        TE: "해로운 음식: 닭고기, 개고기, 배추. 이로운 음식: 쇠고기, 콩, 율무, 배. 추천 운동: 땀이 많이 나는 조깅, 등산.",
+        SY: "해로운 음식: 닭고기, 인삼, 꿀. 이로운 음식: 돼지고기, 오리, 오이, 수박. 추천 운동: 명상, 하체 위주 근력 운동.",
+        SE: "해로운 음식: 돼지고기, 냉면, 참외. 이로운 음식: 닭고기, 양고기, 사과, 생강. 추천 운동: 가벼운 유산소, 요가, 스트레칭."
     };
 
     userData.sasang = type;
@@ -470,7 +497,7 @@ const activityLibrary = [
     { name: "필라테스", type: "Core Control", icon: "activity", mbti: ["S", "J", "F"], indoor: true, time: ["morning", "afternoon", "dawn"], desc: "속근육을 강화하고 체형 교정에 탁월한 정밀 운동입니다." },
     { name: "줌바 / 에어로빅", type: "Cardio Party", icon: "music", mbti: ["E", "F", "P"], indoor: true, time: ["afternoon", "morning"], desc: "신나는 음악에 맞춰 칼로리를 연소하는 즐거운 유산소 활동입니다." },
     { name: "조깅", type: "Cardio", icon: "footprints", mbti: ["I", "S", "T", "J"], indoor: false, time: ["dawn", "morning", "night"], desc: "언제 어디서나 가능한 가장 기본적인 체지방 연소 운동입니다." },
-    { name: "사이클링", type: "Endurance", icon: "bike", mbti: ["E", "S", "J"], indoor: true, time: ["morning", "afternoon"], desc: "강력한 하근력과 심폐 기능을 발달시키는 고효율 유산소입니다." }
+    { name: "사이클링", type: "Endurance", icon: "bike", mbti: ["E", "S", "J"], indoor: true, time: ["morning", "afternoon"], desc: "강력한 하근력과 심폐 기능을 발발시키는 고효율 유산소입니다." }
 ];
 
 function populateExerciseCatalog() {
@@ -523,6 +550,7 @@ function updateSupplementRecs(healthStatus) {
 }
 
 let exerciseDatabase = [];
+const EXERCISE_API_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json';
 async function fetchExerciseData() {
     try {
         const response = await fetch(EXERCISE_API_URL);
@@ -584,6 +612,7 @@ function renderHistory() {
 }
 
 const workoutForm = document.getElementById('workout-form');
+const workoutContainer = document.getElementById('workout-container');
 workoutForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const options = {

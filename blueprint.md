@@ -6,7 +6,7 @@ AI Workout Coach is a comprehensive AI-driven lifestyle platform. It provides pe
 ## Current Features
 - **Body Metrics Analysis:** BMI/BMR calculation with automatic data sync.
 - **Advanced MBTI Personality Assessment:** 24-question survey for deep psychological alignment.
-- **나의 한방 체질 (Sasang Constitution):** 8-question professional diagnostic test to determine constitution (Tae-Yang, Tae-Eum, So-Yang, So-Eum).
+- **나의 한방 체질 (Sasang Constitution):** 20-question professional diagnostic test to determine constitution (Tae-Yang, Tae-Eum, So-Yang, So-Eum) with detailed health and dietary advice.
 - **Dynamic Workout Generation:** Diverse activities optimized for time of day, weather, and personality.
 - **나의 운동기록 (Workout History):** Tracks the last 10 generated sessions.
 - **운동의 종류 (Exercise Catalog):** A visual gallery of all supported activity types.
@@ -16,8 +16,8 @@ AI Workout Coach is a comprehensive AI-driven lifestyle platform. It provides pe
 
 ## Feature Implementation Details
 ### 1. Sasang Constitution Analysis
-- **Scoring System:** Maps user responses to specific physiological and psychological traits defined in Sasang medicine.
-- **Type-Specific Advice:** Provides tailored health tips and dietary considerations based on the resulting constitution.
+- **Scoring System:** Weighted algorithm mapping user responses across 20 points of interest (Appearance, Personality, Physiology).
+- **Type-Specific Advice:** Provides tailored health tips, dietary restrictions, and recommended exercise styles based on traditional Korean medicine.
 
 ### 2. Design Philosophy
 - **Holistic Health Integration:** Combining modern metrics (BMI/MBTI) with traditional wisdom (Sasang Constitution).
