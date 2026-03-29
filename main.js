@@ -651,3 +651,49 @@ fetchExerciseData().then(() => {
     updateSasangQuiz();
 });
 if (window.lucide) lucide.createIcons();
+
+// Legal Modal Logic
+function showLegal(type) {
+    const modal = document.getElementById('legal-modal');
+    const container = document.getElementById('legal-text-container');
+    if (!modal || !container) return;
+
+    let content = '';
+    if (type === 'privacy') {
+        content = `
+            <h2>개인정보처리방침</h2>
+            <p>본 사이트(AI Workout Coach)는 이용자의 개인정보를 소중히 다루며, 관련 법령을 준수합니다.</p>
+            <p><strong>1. 수집하는 항목:</strong> 신체 지표(키, 몸무게, 나이), MBTI 설문 결과, 사상체질 설문 결과.</p>
+            <p><strong>2. 수집 목적:</strong> 맞춤형 운동 및 식단 추천 서비스 제공.</p>
+            <p><strong>3. 보유 기간:</strong> 서비스 이용 종료 시 혹은 이용자 요청 시 즉시 파기합니다. (현재 로컬 스토리지를 사용하여 서버에 저장되지 않습니다.)</p>
+            <p><strong>4. 제3자 제공:</strong> 어떠한 경우에도 이용자의 동의 없이 제3자에게 정보를 제공하지 않습니다.</p>
+        `;
+    } else if (type === 'terms') {
+        content = `
+            <h2>이용약관</h2>
+            <p>본 서비스의 이용과 관련하여 다음과 같은 내용을 안내드립니다.</p>
+            <p><strong>1. 서비스 목적:</strong> 본 서비스는 정보 제공을 목적으로 하며, 전문적인 의료 진단을 대체할 수 없습니다.</p>
+            <p><strong>2. 책임 제한:</strong> 서비스에서 제공하는 추천 사항은 참고용이며, 실제 운동 실행 시 본인의 건강 상태를 우선적으로 고려해야 합니다.</p>
+            <p><strong>3. 저작권:</strong> 본 사이트의 디자인 및 알고리즘에 대한 권리는 AI Workout Coach에 있습니다.</p>
+            <p><strong>4. 쿠키 및 광고:</strong> 본 사이트는 서비스 개선 및 광고 게재(Google AdSense)를 위해 쿠키를 사용할 수 있습니다.</p>
+        `;
+    }
+
+    container.innerHTML = content;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLegal() {
+    const modal = document.getElementById('legal-modal');
+    if (modal) modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal on outside click
+window.onclick = function(event) {
+    const modal = document.getElementById('legal-modal');
+    if (event.target == modal) {
+        closeLegal();
+    }
+}

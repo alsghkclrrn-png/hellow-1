@@ -237,6 +237,26 @@
             </div>
         </section>
 
+        <section id="lifestyle-insights" class="feature-section">
+            <h2><i data-lucide="book-open"></i> 건강한 라이프스타일을 위한 가이드</h2>
+            <p class="section-desc">AI Workout Coach가 제안하는 데이터 기반의 건강 관리 전략입니다.</p>
+            
+            <div class="insights-grid">
+                <article class="insight-card">
+                    <h3>왜 사상체질인가요?</h3>
+                    <p>한방 의학의 사상체질은 개인의 장기 강약에 따라 체질을 네 가지로 분류합니다. 예를 들어, 태음인은 간 기능이 좋으나 폐가 약해 유산소 운동이 필수적이며, 소양인은 소화기능이 좋으나 신장 기능이 약해 하체 강화 운동이 중요합니다. 이를 이해하면 자신에게 맞는 가장 효율적인 운동을 찾을 수 있습니다.</p>
+                </article>
+                <article class="insight-card">
+                    <h3>MBTI와 운동의 상관관계</h3>
+                    <p>운동의 지속 가능성은 심리적 만족감에서 옵니다. 외향형(E)은 그룹 클래스나 활기찬 체육관 환경에서 에너지를 얻는 반면, 내향형(I)은 혼자 집중할 수 있는 홈 트레이닝이나 조용한 러닝에서 더 큰 성취감을 느낍니다. AI 코치는 당신의 성격 유형을 분석하여 중도 포기 없는 운동 계획을 제안합니다.</p>
+                </article>
+                <article class="insight-card">
+                    <h3>영양소 섭취의 골든타임</h3>
+                    <p>운동 전후의 영양 섭취는 근육 회복과 에너지 효율에 결정적입니다. 복합 탄수화물은 운동 2~3시간 전에 섭취하여 연료를 보충하고, 단백질은 운동 후 30분 이내에 섭취하여 근육 합성을 도와야 합니다. 저희의 식단 추천 알고리즘은 이러한 생리학적 원리를 기반으로 설계되었습니다.</p>
+                </article>
+            </div>
+        </section>
+
         <section id="supplement-recommendations" class="feature-section">
             <h2><i data-lucide="pill"></i> 건강 상태별 영양제 추천</h2>
             <p class="section-desc">현재 건강 상태와 활력 보충을 위해 필요한 영양소 가이드입니다.</p>
@@ -281,6 +301,43 @@
             <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
         </section>
     </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3><i data-lucide="dumbbell"></i> AI Workout Coach</h3>
+                <p>개인 맞춤형 피트니스 솔루션. 전통 한방과 현대 심리학을 결합하여 당신에게 딱 맞는 운동을 설계합니다.</p>
+            </div>
+            <div class="footer-section">
+                <h4>빠른 링크</h4>
+                <ul>
+                    <li><a href="#home">홈</a></li>
+                    <li><a href="#sasang-analysis">사상체질 분석</a></li>
+                    <li><a href="#mbti-analysis">성격 유형 분석</a></li>
+                    <li><a href="#lifestyle-insights">건강 가이드</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>법적 고지</h4>
+                <ul>
+                    <li><a href="#" onclick="showLegal('privacy')">개인정보처리방침</a></li>
+                    <li><a href="#" onclick="showLegal('terms')">이용약관</a></li>
+                    <li><a href="#partnership">제휴 문의</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AI Workout Coach. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Legal Modals -->
+    <div id="legal-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeLegal()">&times;</button>
+            <div id="legal-text-container"></div>
+        </div>
+    </div>
 
     <script src="main.js"></script>
 </body>
