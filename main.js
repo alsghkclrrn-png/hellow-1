@@ -201,14 +201,37 @@ themeToggle.addEventListener('click', () => {
 
 // MBTI Quiz Logic
 const mbtiQuestions = [
+    // E (Extraversion) vs I (Introversion)
     { text: "I feel energized after a group workout session.", dimension: "EI", positive: true },
     { text: "I prefer a quiet solo workout over a busy gym environment.", dimension: "EI", positive: false },
+    { text: "I enjoy interacting with others during rest periods.", dimension: "EI", positive: true },
+    { text: "I find that I focus better when training alone in a private space.", dimension: "EI", positive: false },
+    { text: "I like participating in fitness challenges with friends or online communities.", dimension: "EI", positive: true },
+    { text: "I prefer to keep my fitness goals and progress private.", dimension: "EI", positive: false },
+    
+    // S (Sensing) vs N (Intuition)
     { text: "I focus more on the exact form and data (reps/weight) than the overall feeling.", dimension: "SN", positive: true },
     { text: "I enjoy trying new, creative, and unconventional exercises.", dimension: "SN", positive: false },
+    { text: "I prefer exercises with clear, immediate, and tangible results.", dimension: "SN", positive: true },
+    { text: "I find myself imagining different ways to modify a standard routine.", dimension: "SN", positive: false },
+    { text: "I value standard, proven techniques that have been around for years.", dimension: "SN", positive: true },
+    { text: "I get bored if my workout routine doesn't change frequently.", dimension: "SN", positive: false },
+
+    // T (Thinking) vs F (Feeling)
     { text: "I choose exercises based on logical efficiency and performance metrics.", dimension: "TF", positive: true },
     { text: "The mind-body connection and how I feel during a workout are most important.", dimension: "TF", positive: false },
+    { text: "I am motivated by objective competition and outperforming others.", dimension: "TF", positive: true },
+    { text: "I am motivated by how a workout helps me manage my stress and emotions.", dimension: "TF", positive: false },
+    { text: "I analyze the scientific reasoning behind every movement I do.", dimension: "TF", positive: true },
+    { text: "I appreciate a trainer who is supportive and encouraging over one who is purely technical.", dimension: "TF", positive: false },
+
+    // J (Judging) vs P (Perceiving)
     { text: "I strictly follow a pre-planned workout schedule every day.", dimension: "JP", positive: true },
-    { text: "I like to decide what to work out based on my mood that day.", dimension: "JP", positive: false }
+    { text: "I like to decide what to work out based on my mood that day.", dimension: "JP", positive: false },
+    { text: "I feel stressed if I have to skip a planned session.", dimension: "JP", positive: true },
+    { text: "I enjoy the spontaneity of trying a different exercise on a whim.", dimension: "JP", positive: false },
+    { text: "I like to have my entire workout written out before I start.", dimension: "JP", positive: true },
+    { text: "I often start a workout and see where the energy takes me.", dimension: "JP", positive: false }
 ];
 
 let currentQuestionIndex = 0;
@@ -253,18 +276,37 @@ function calculateMbtiResult() {
     }
     
     const insights = {
-        E: "You thrive in vibrant environments. Consider gym-based routines or outdoor bootcamps.",
-        I: "You value focus. Solo training or home-based routines will keep you most consistent.",
-        S: "You are methodical. Structured weightlifting or HIIT with clear targets is ideal.",
-        N: "You seek variety. Cross-training or exploratory outdoor sports will keep you engaged.",
-        T: "You are data-driven. Use tracking apps and focus on performance milestones.",
-        F: "You value harmony. Yoga, Pilates, or rhythmic movements will resonate with your energy.",
-        J: "You love structure. Fixed 12-week programs and clear schedules are your best friend.",
-        P: "You need flexibility. Varied daily routines and spontaneous activities suit you best."
+        E: "You thrive in high-energy, social environments where you can feed off the group's intensity.",
+        I: "You value internal focus and prefer environments where you can concentrate without distraction.",
+        S: "You are grounded in reality and prefer structured, proven methods with clear, tangible goals.",
+        N: "You are vision-oriented and enjoy exploring new possibilities and unconventional approaches.",
+        T: "You are driven by logic and efficiency, focusing on objective data and performance milestones.",
+        F: "You are driven by values and internal harmony, focusing on how the workout makes you feel.",
+        J: "You love structure and predictability, thriving when you have a clear, pre-defined plan.",
+        P: "You value flexibility and spontaneity, preferring to adapt your routine to your current energy level."
     };
 
-    mbtiInsightText.textContent = `${insights[type[0]]} ${insights[type[1]]}`;
-    mbtiTypeDesc.textContent = `As an ${type}, your psychological profile suggests you'll find the most success with workouts that balance your unique traits.`;
+    const typeFullNames = {
+        "ISTJ": "The Inspector - Reliable and systematic.",
+        "ISFJ": "The Protector - Dedicated and warm.",
+        "INFJ": "The Advocate - Insightful and principled.",
+        "INTJ": "The Architect - Strategic and independent.",
+        "ISTP": "The Virtuoso - Practical and adaptable.",
+        "ISFP": "The Adventurer - Artistic and sensitive.",
+        "INFP": "The Mediator - Idealistic and loyal.",
+        "INTP": "The Logician - Theoretical and precise.",
+        "ESTP": "The Entrepreneur - Energetic and perceptive.",
+        "ESFP": "The Entertainer - Spontaneous and outgoing.",
+        "ENFP": "The Campaigner - Enthusiastic and creative.",
+        "ENTP": "The Debater - Smart and curious.",
+        "ESTJ": "The Executive - Efficient and organized.",
+        "ESFJ": "The Provider - Outgoing and loyal.",
+        "ENFJ": "The Giver - Charismatic and inspiring.",
+        "ENTJ": "The Commander - Bold and imaginative."
+    };
+
+    mbtiInsightText.textContent = `${insights[type[0]]} ${insights[type[1]]} ${insights[type[2]]} ${insights[type[3]]}`;
+    mbtiTypeDesc.textContent = `${typeFullNames[type] || ""} As an ${type}, your professional psychological profile suggests a unique approach to fitness that aligns with your core cognitive preferences.`;
 
     mbtiQuizContainer.classList.add('hidden');
     mbtiResults.classList.remove('hidden');
