@@ -414,35 +414,42 @@ const goalToMuscles = {
 
 // Comprehensive Global Activity Database
 const activityLibrary = [
-    { name: "Vinyasa Yoga", type: "Mindfulness", muscles: ["core", "full body"], mbti: ["I", "F", "N"], indoor: true, equipment: false, desc: "Flow through poses focusing on breath and flexibility." },
-    { name: "Boxing / Kickboxing", type: "High Intensity", muscles: ["shoulders", "cardio", "arms"], mbti: ["E", "T", "S"], indoor: true, equipment: true, desc: "High-energy striking workout for stress relief and power." },
-    { name: "Indoor Rock Climbing", type: "Adventure", muscles: ["back", "forearms", "legs"], mbti: ["N", "P", "T"], indoor: true, equipment: true, desc: "Problem-solving and full-body strength on the wall." },
-    { name: "Swimming Laps", type: "Endurance", muscles: ["full body", "shoulders", "back"], mbti: ["I", "S", "T", "J"], indoor: true, equipment: false, desc: "Low-impact, high-efficiency cardiovascular conditioning." },
-    { name: "Trail Hiking", type: "Outdoor", muscles: ["legs", "glutes", "cardio"], mbti: ["N", "P", "F"], indoor: false, equipment: false, desc: "Endurance walk through nature for mental and physical health." },
-    { name: "Pilates Mat Class", type: "Core Control", muscles: ["core", "abdominals", "legs"], mbti: ["S", "J", "F"], indoor: true, equipment: false, desc: "Precise floor-based movements to build deep core strength." },
-    { name: "Aerobic Dance / Zumba", type: "Cardio Party", muscles: ["legs", "cardio", "full body"], mbti: ["E", "F", "P"], indoor: true, equipment: false, desc: "Upbeat rhythmic movement to improve cardiovascular health and mood." },
-    { name: "Jogging / Running", type: "Cardio", muscles: ["legs", "calves", "cardio"], mbti: ["I", "S", "T", "J"], indoor: false, equipment: false, desc: "Steady-state aerobic exercise for endurance and fat burning." },
-    { name: "Tennis / Squash", type: "Sport", muscles: ["legs", "shoulders", "cardio"], mbti: ["E", "N", "T"], indoor: false, equipment: true, desc: "Competitive and social sport improving agility and reflex." },
-    { name: "Power Lifting", type: "Strength", muscles: ["chest", "legs", "back"], mbti: ["S", "T", "J"], indoor: true, equipment: true, desc: "Focused heavy lifting: Squat, Bench, and Deadlift." },
-    { name: "Modern Dance", type: "Artistic", muscles: ["legs", "core", "cardio"], mbti: ["E", "F", "P", "N"], indoor: true, equipment: false, desc: "Expressive movement that builds coordination and rhythm." },
-    { name: "Meditation & Stretching", type: "Recovery", muscles: ["stretching"], mbti: ["I", "F"], indoor: true, equipment: false, desc: "Deep recovery and mental centering." },
-    { name: "Cycling / Spin Class", type: "Endurance", muscles: ["legs", "quadriceps", "cardio"], mbti: ["E", "S", "J"], indoor: true, equipment: true, desc: "High-intensity pedaling for leg power and cardiovascular health." }
+    { name: "Vinyasa Yoga", type: "Mindfulness", muscles: ["core", "full body"], mbti: ["I", "F", "N"], indoor: true, time: ["dawn", "night"], desc: "Flow through poses focusing on breath and flexibility." },
+    { name: "Boxing / Kickboxing", type: "High Intensity", muscles: ["shoulders", "cardio", "arms"], mbti: ["E", "T", "S"], indoor: true, time: ["morning", "afternoon"], desc: "High-energy striking workout for stress relief and power." },
+    { name: "Indoor Rock Climbing", type: "Adventure", muscles: ["back", "forearms", "legs"], mbti: ["N", "P", "T"], indoor: true, time: ["afternoon", "morning"], desc: "Problem-solving and full-body strength on the wall." },
+    { name: "Swimming Laps", type: "Endurance", muscles: ["full body", "shoulders", "back"], mbti: ["I", "S", "T", "J"], indoor: true, time: ["dawn", "morning", "night"], desc: "Low-impact, high-efficiency cardiovascular conditioning." },
+    { name: "Trail Hiking", type: "Outdoor", muscles: ["legs", "glutes", "cardio"], mbti: ["N", "P", "F"], indoor: false, time: ["morning", "afternoon"], desc: "Endurance walk through nature for mental and physical health." },
+    { name: "Pilates Mat Class", type: "Core Control", muscles: ["core", "abdominals", "legs"], mbti: ["S", "J", "F"], indoor: true, time: ["morning", "afternoon", "dawn"], desc: "Precise floor-based movements to build deep core strength." },
+    { name: "Aerobic Dance / Zumba", type: "Cardio Party", muscles: ["legs", "cardio", "full body"], mbti: ["E", "F", "P"], indoor: true, time: ["afternoon", "morning"], desc: "Upbeat rhythmic movement to improve cardiovascular health and mood." },
+    { name: "Jogging / Running", type: "Cardio", muscles: ["legs", "calves", "cardio"], mbti: ["I", "S", "T", "J"], indoor: false, time: ["dawn", "morning", "night"], desc: "Steady-state aerobic exercise for endurance and fat burning." },
+    { name: "Tennis / Squash", type: "Sport", muscles: ["legs", "shoulders", "cardio"], mbti: ["E", "N", "T"], indoor: false, time: ["morning", "afternoon"], desc: "Competitive and social sport improving agility and reflex." },
+    { name: "Power Lifting", type: "Strength", muscles: ["chest", "legs", "back"], mbti: ["S", "T", "J"], indoor: true, time: ["afternoon", "morning"], desc: "Focused heavy lifting: Squat, Bench, and Deadlift." },
+    { name: "Modern Dance", type: "Artistic", muscles: ["legs", "core", "cardio"], mbti: ["E", "F", "P", "N"], indoor: true, time: ["afternoon", "night"], desc: "Expressive movement that builds coordination and rhythm." },
+    { name: "Meditation & Stretching", type: "Recovery", muscles: ["stretching"], mbti: ["I", "F"], indoor: true, time: ["dawn", "night"], desc: "Deep recovery and mental centering." },
+    { name: "Cycling / Spin Class", type: "Endurance", muscles: ["legs", "quadriceps", "cardio"], mbti: ["E", "S", "J"], indoor: true, time: ["morning", "afternoon"], desc: "High-intensity pedaling for leg power and cardiovascular health." }
 ];
 
 function getExercisesByContext(options) {
-    const { goal, level, health, weather } = options;
+    const { goal, level, health, weather, timeOfDay } = options;
     const mbti = document.getElementById('mbti-display').value || "ISTJ";
     
     let potentialActivities = activityLibrary.filter(act => {
         const mbtiMatch = act.mbti.some(trait => mbti.includes(trait));
+        const timeMatch = act.time.includes(timeOfDay);
+        
         let goalMatch = true;
         if (goal === 'weight-loss' && !['High Intensity', 'Endurance', 'Metabolic', 'Sport', 'Cardio', 'Cardio Party'].includes(act.type)) goalMatch = Math.random() > 0.6;
         if (goal === 'muscle-gain' && !['Strength', 'Adventure', 'Core Control'].includes(act.type)) goalMatch = Math.random() > 0.8;
+        
         if ((weather === 'rainy' || weather === 'hot' || weather === 'cold') && !act.indoor) return false;
+        
+        // Time of day specific logic: Dawn/Night should strongly prefer indoor or specific light activities
+        if ((timeOfDay === 'dawn' || timeOfDay === 'night') && !act.time.includes(timeOfDay)) return false;
+
         return goalMatch && mbtiMatch;
     });
 
-    if (potentialActivities.length === 0) potentialActivities = activityLibrary.filter(act => act.indoor);
+    if (potentialActivities.length === 0) potentialActivities = activityLibrary.filter(act => act.time.includes(timeOfDay));
 
     let recommendedList = [];
     const shuffledActivities = potentialActivities.sort(() => 0.5 - Math.random());
@@ -451,12 +458,12 @@ function getExercisesByContext(options) {
         sets: level === 'beginner' ? "20-30 min" : "45-60 min",
         reps: act.type,
         rest: "Standard",
-        desc: act.desc + ` (Tailored for your ${mbti} personality.)`,
+        desc: act.desc + ` (Optimized for ${timeOfDay} session.)`,
         image: `https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500`
     })));
 
     if (exerciseDatabase.length > 0) {
-        let targetMuscles = (health === 'recovery' || health === 'tired') ? ["stretching"] : ["core", "abs", "lower back"];
+        let targetMuscles = (health === 'recovery' || health === 'tired' || timeOfDay === 'night') ? ["stretching"] : ["core", "abs", "lower back"];
         let filteredGym = exerciseDatabase.filter(ex => {
             const primaryMuscles = (ex.primaryMuscles || []).map(m => m.toLowerCase());
             return targetMuscles.some(m => primaryMuscles.includes(m));
@@ -488,9 +495,10 @@ workoutForm.addEventListener('submit', async (e) => {
         fitnessLevel: document.getElementById('fitness-level').value,
         goal: document.getElementById('goal').value,
         health: document.getElementById('health-status').value,
-        weather: document.getElementById('weather').value
+        weather: document.getElementById('weather').value,
+        timeOfDay: document.getElementById('time-of-day').value
     };
-    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">Curating your diverse movement plan...</p>';
+    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">Curating your personalized plan for this ' + options.timeOfDay + '...</p>';
     setTimeout(() => {
         let recommendedWorkout = getExercisesByContext(options);
         if (!recommendedWorkout || recommendedWorkout.length === 0) {
