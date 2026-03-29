@@ -167,7 +167,7 @@ let userData = {
     mbti: null
 };
 
-// Form Field Elements (New)
+// Form Field Elements
 const mbtiDisplay = document.getElementById('mbti-display');
 const metricsDisplay = document.getElementById('metrics-display');
 
@@ -269,7 +269,6 @@ function calculateMbtiResult() {
     userData.mbti = type;
     mbtiTypeValue.textContent = type;
     
-    // Sync to workout form (New)
     if (mbtiDisplay) {
         mbtiDisplay.value = type;
         mbtiDisplay.classList.add('populated');
@@ -317,7 +316,7 @@ document.querySelectorAll('.mbti-opt').forEach(btn => {
         const score = parseInt(btn.dataset.score);
         const q = mbtiQuestions[currentQuestionIndex];
         
-        const weight = score - 3; // -2 to +2
+        const weight = score - 3; 
         const dim1 = q.dimension[0];
         const dim2 = q.dimension[1];
         
@@ -379,7 +378,6 @@ metricsForm.addEventListener('submit', (e) => {
     bmiStatusSpan.textContent = status;
     bmrValueSpan.textContent = Math.round(userData.bmr).toLocaleString();
     
-    // Sync to workout form (New)
     if (metricsDisplay) {
         metricsDisplay.value = `BMI: ${userData.bmi} (${status}), BMR: ${Math.round(userData.bmr)} kcal`;
         metricsDisplay.classList.add('populated');
@@ -414,88 +412,70 @@ const goalToMuscles = {
     "general-fitness": ["core", "lower back", "glutes", "calves", "shoulders"]
 };
 
-// Advanced Global Activity Database (Supplementing the API)
+// Comprehensive Global Activity Database
 const activityLibrary = [
     { name: "Vinyasa Yoga", type: "Mindfulness", muscles: ["core", "full body"], mbti: ["I", "F", "N"], indoor: true, equipment: false, desc: "Flow through poses focusing on breath and flexibility." },
     { name: "Boxing / Kickboxing", type: "High Intensity", muscles: ["shoulders", "cardio", "arms"], mbti: ["E", "T", "S"], indoor: true, equipment: true, desc: "High-energy striking workout for stress relief and power." },
     { name: "Indoor Rock Climbing", type: "Adventure", muscles: ["back", "forearms", "legs"], mbti: ["N", "P", "T"], indoor: true, equipment: true, desc: "Problem-solving and full-body strength on the wall." },
     { name: "Swimming Laps", type: "Endurance", muscles: ["full body", "shoulders", "back"], mbti: ["I", "S", "T", "J"], indoor: true, equipment: false, desc: "Low-impact, high-efficiency cardiovascular conditioning." },
     { name: "Trail Hiking", type: "Outdoor", muscles: ["legs", "glutes", "cardio"], mbti: ["N", "P", "F"], indoor: false, equipment: false, desc: "Endurance walk through nature for mental and physical health." },
-    { name: "Pilates Reformer", type: "Core Control", muscles: ["core", "abdominals", "legs"], mbti: ["S", "J", "F"], indoor: true, equipment: true, desc: "Systematic movement focusing on core stability and posture." },
-    { name: "HIIT Bootcamp", type: "Metabolic", muscles: ["full body", "cardio"], mbti: ["E", "S", "T", "J"], indoor: true, equipment: false, desc: "Fast-paced intervals to maximize calorie burn and stamina." },
+    { name: "Pilates Mat Class", type: "Core Control", muscles: ["core", "abdominals", "legs"], mbti: ["S", "J", "F"], indoor: true, equipment: false, desc: "Precise floor-based movements to build deep core strength." },
+    { name: "Aerobic Dance / Zumba", type: "Cardio Party", muscles: ["legs", "cardio", "full body"], mbti: ["E", "F", "P"], indoor: true, equipment: false, desc: "Upbeat rhythmic movement to improve cardiovascular health and mood." },
+    { name: "Jogging / Running", type: "Cardio", muscles: ["legs", "calves", "cardio"], mbti: ["I", "S", "T", "J"], indoor: false, equipment: false, desc: "Steady-state aerobic exercise for endurance and fat burning." },
     { name: "Tennis / Squash", type: "Sport", muscles: ["legs", "shoulders", "cardio"], mbti: ["E", "N", "T"], indoor: false, equipment: true, desc: "Competitive and social sport improving agility and reflex." },
     { name: "Power Lifting", type: "Strength", muscles: ["chest", "legs", "back"], mbti: ["S", "T", "J"], indoor: true, equipment: true, desc: "Focused heavy lifting: Squat, Bench, and Deadlift." },
     { name: "Modern Dance", type: "Artistic", muscles: ["legs", "core", "cardio"], mbti: ["E", "F", "P", "N"], indoor: true, equipment: false, desc: "Expressive movement that builds coordination and rhythm." },
-    { name: "Meditation & Stretching", type: "Recovery", muscles: ["stretching"], mbti: ["I", "F"], indoor: true, equipment: false, desc: "Deep recovery and mental centering." }
+    { name: "Meditation & Stretching", type: "Recovery", muscles: ["stretching"], mbti: ["I", "F"], indoor: true, equipment: false, desc: "Deep recovery and mental centering." },
+    { name: "Cycling / Spin Class", type: "Endurance", muscles: ["legs", "quadriceps", "cardio"], mbti: ["E", "S", "J"], indoor: true, equipment: true, desc: "High-intensity pedaling for leg power and cardiovascular health." }
 ];
 
 function getExercisesByContext(options) {
     const { goal, level, health, weather } = options;
     const mbti = document.getElementById('mbti-display').value || "ISTJ";
     
-    // 1. Filter Multi-Sport Activity Library based on MBTI and Goal
     let potentialActivities = activityLibrary.filter(act => {
-        // MBTI Match Score
-        const mbtiScore = act.mbti.filter(trait => mbti.includes(trait)).length;
-        
-        // Goal Alignment
+        const mbtiMatch = act.mbti.some(trait => mbti.includes(trait));
         let goalMatch = true;
-        if (goal === 'weight-loss' && !['High Intensity', 'Endurance', 'Metabolic', 'Sport'].includes(act.type)) goalMatch = Math.random() > 0.5;
-        if (goal === 'muscle-gain' && !['Strength', 'Adventure', 'Core Control'].includes(act.type)) goalMatch = Math.random() > 0.7;
-        
-        // Weather/Indoor Check
-        if (weather === 'rainy' && !act.indoor) return false;
-        
-        return goalMatch && mbtiScore > 0;
+        if (goal === 'weight-loss' && !['High Intensity', 'Endurance', 'Metabolic', 'Sport', 'Cardio', 'Cardio Party'].includes(act.type)) goalMatch = Math.random() > 0.6;
+        if (goal === 'muscle-gain' && !['Strength', 'Adventure', 'Core Control'].includes(act.type)) goalMatch = Math.random() > 0.8;
+        if ((weather === 'rainy' || weather === 'hot' || weather === 'cold') && !act.indoor) return false;
+        return goalMatch && mbtiMatch;
     });
 
-    // 2. Mix with Traditional Exercises if needed
+    if (potentialActivities.length === 0) potentialActivities = activityLibrary.filter(act => act.indoor);
+
     let recommendedList = [];
-    
-    // Select 2 diverse activities
     const shuffledActivities = potentialActivities.sort(() => 0.5 - Math.random());
-    recommendedList.push(...shuffledActivities.slice(0, 2).map(act => ({
+    recommendedList.push(...shuffledActivities.slice(0, 3).map(act => ({
         name: act.name,
-        sets: level === 'beginner' ? "30 min" : "60 min",
+        sets: level === 'beginner' ? "20-30 min" : "45-60 min",
         reps: act.type,
-        rest: "N/A",
-        desc: act.desc + ` (Ideal for your ${mbti} personality)`,
-        image: `https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500` // Placeholder for sports
+        rest: "Standard",
+        desc: act.desc + ` (Tailored for your ${mbti} personality.)`,
+        image: `https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500`
     })));
 
-    // Select 3 standard exercises for balanced structure
     if (exerciseDatabase.length > 0) {
-        let targetMuscles = [...(goalToMuscles[goal] || ["full body"])];
+        let targetMuscles = (health === 'recovery' || health === 'tired') ? ["stretching"] : ["core", "abs", "lower back"];
         let filteredGym = exerciseDatabase.filter(ex => {
             const primaryMuscles = (ex.primaryMuscles || []).map(m => m.toLowerCase());
             return targetMuscles.some(m => primaryMuscles.includes(m));
         });
-        
         const shuffledGym = filteredGym.sort(() => 0.5 - Math.random());
-        const selectedGym = shuffledGym.slice(0, 3);
-        
+        const selectedGym = shuffledGym.slice(0, 2);
         recommendedList.push(...selectedGym.map(ex => {
             const imagePath = ex.images && ex.images.length > 0 ? ex.images[0] : `${ex.id}/0.jpg`;
             const imageUrl = `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${imagePath}`;
-            
-            let sets = level === 'beginner' ? 2 : (level === 'intermediate' ? 3 : 4);
-            let reps = level === 'beginner' ? 10 : 12;
-            let rest = mbti.includes('T') ? "45s" : "60s";
-
-            if (userData.age > 50) { sets = Math.min(sets, 3); rest = "90s"; }
-            if (userData.bmi > 28) { reps = Math.max(8, reps - 2); rest = "90s"; }
-
             return {
                 name: ex.name,
-                sets: sets,
-                reps: reps,
-                rest: rest,
-                desc: ex.instructions?.[0] || "Focus on form.",
+                sets: level === 'beginner' ? 2 : 3,
+                reps: level === 'beginner' ? 12 : 15,
+                rest: mbti.includes('T') ? "45s" : "60s",
+                desc: "Complementary: " + (ex.instructions?.[0] || "Focus on control."),
                 image: imageUrl
             };
         }));
     }
-
     return recommendedList.sort(() => 0.5 - Math.random());
 }
 
@@ -504,26 +484,20 @@ const workoutContainer = document.getElementById('workout-container');
 
 workoutForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const options = {
         fitnessLevel: document.getElementById('fitness-level').value,
         goal: document.getElementById('goal').value,
         health: document.getElementById('health-status').value,
         weather: document.getElementById('weather').value
     };
-
-    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">Combining your personality, body metrics, and goals into a perfect plan...</p>';
-
+    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">Curating your diverse movement plan...</p>';
     setTimeout(() => {
         let recommendedWorkout = getExercisesByContext(options);
-
         if (!recommendedWorkout || recommendedWorkout.length === 0) {
             workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">Could not generate workout. Please try again.</p>';
             return;
         }
-
         workoutContainer.innerHTML = '';
-
         recommendedWorkout.forEach(exercise => {
             const workoutCard = document.createElement('workout-card');
             workoutCard.setAttribute('name', exercise.name);
@@ -534,16 +508,10 @@ workoutForm.addEventListener('submit', async (e) => {
             workoutCard.setAttribute('image', exercise.image);
             workoutContainer.appendChild(workoutCard);
         });
-
-        if (window.lucide) {
-            lucide.createIcons();
-        }
-        
+        if (window.lucide) lucide.createIcons();
         workoutContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 1000);
 });
 
 fetchExerciseData();
-if (window.lucide) {
-    lucide.createIcons();
-}
+if (window.lucide) lucide.createIcons();
