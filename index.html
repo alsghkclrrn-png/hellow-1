@@ -118,60 +118,80 @@
         </section>
 
         <form id="workout-form">
-            <h2>Personalize Your Session</h2>
-            <div class="workout-grid">
-                <div class="form-group">
-                    <label for="mbti-display">Your MBTI Profile:</label>
-                    <input type="text" id="mbti-display" name="mbti-display" placeholder="Take quiz above" readonly class="auto-input">
+            <h2><i data-lucide="settings-2"></i> Personalize Your Session</h2>
+            <p class="section-desc">당신의 현재 상태와 목표에 맞춰 AI가 최적의 운동 루틴을 구성합니다.</p>
+            
+            <div class="form-main-container">
+                <div class="form-info-banner">
+                    <div class="form-group">
+                        <label for="mbti-display"><i data-lucide="user"></i> Your MBTI Profile</label>
+                        <input type="text" id="mbti-display" name="mbti-display" placeholder="상단에서 퀴즈를 진행해 주세요" readonly class="auto-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="metrics-display"><i data-lucide="activity"></i> Body Metrics Summary</label>
+                        <input type="text" id="metrics-display" name="metrics-display" placeholder="상단에서 신체 지표를 분석해 주세요" readonly class="auto-input">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="metrics-display">Body Metrics Summary:</label>
-                    <input type="text" id="metrics-display" name="metrics-display" placeholder="Analyze metrics above" readonly class="auto-input">
-                </div>
-                <div class="form-group">
-                    <label for="fitness-level">Fitness Level:</label>
-                    <select id="fitness-level" name="fitness-level">
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="advanced">Advanced</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="goal">Workout Goal:</label>
-                    <select id="goal" name="goal">
-                        <option value="weight-loss">Weight Loss</option>
-                        <option value="muscle-gain">Muscle Gain</option>
-                        <option value="general-fitness">General Fitness</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="health-status">Health Status:</label>
-                    <select id="health-status" name="health-status">
-                        <option value="excellent">Excellent / Normal</option>
-                        <option value="tired">Feeling Tired</option>
-                        <option value="recovery">Recovering / Injury</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="weather">Current Weather:</label>
-                    <select id="weather" name="weather">
-                        <option value="sunny">Sunny / Indoor</option>
-                        <option value="rainy">Rainy / Snowy</option>
-                        <option value="hot">Very Hot</option>
-                        <option value="cold">Very Cold</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="time-of-day">Time of Day:</label>
-                    <select id="time-of-day" name="time-of-day">
-                        <option value="dawn">Dawn</option>
-                        <option value="morning">Morning</option>
-                        <option value="afternoon">Afternoon</option>
-                        <option value="night">Night</option>
-                    </select>
+
+                <div class="workout-grid-enhanced">
+                    <div class="form-group">
+                        <label for="fitness-level">Fitness Level</label>
+                        <div class="select-wrapper">
+                            <select id="fitness-level" name="fitness-level">
+                                <option value="beginner">Beginner (초보자)</option>
+                                <option value="intermediate">Intermediate (중급자)</option>
+                                <option value="advanced">Advanced (상급자)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="goal">Workout Goal</label>
+                        <div class="select-wrapper">
+                            <select id="goal" name="goal">
+                                <option value="weight-loss">Weight Loss (체중 감량)</option>
+                                <option value="muscle-gain">Muscle Gain (근육 증가)</option>
+                                <option value="general-fitness">General Fitness (건강 유지)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="health-status">Health Status</label>
+                        <div class="select-wrapper">
+                            <select id="health-status" name="health-status">
+                                <option value="excellent">Excellent / Normal (최상/보통)</option>
+                                <option value="tired">Feeling Tired (피로함)</option>
+                                <option value="recovery">Recovering / Injury (회복 중/부상)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="weather">Current Weather</label>
+                        <div class="select-wrapper">
+                            <select id="weather" name="weather">
+                                <option value="sunny">Sunny / Indoor (맑음/실내)</option>
+                                <option value="rainy">Rainy / Snowy (비/눈)</option>
+                                <option value="hot">Very Hot (폭염)</option>
+                                <option value="cold">Very Cold (한파)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="time-of-day">Time of Day</label>
+                        <div class="select-wrapper">
+                            <select id="time-of-day" name="time-of-day">
+                                <option value="dawn">Dawn (새벽)</option>
+                                <option value="morning">Morning (오전)</option>
+                                <option value="afternoon">Afternoon (오후)</option>
+                                <option value="night">Night (밤)</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button type="submit">Generate Context-Aware Workout</button>
+            <button type="submit" class="generate-btn">
+                <span>Generate Context-Aware Workout</span>
+                <i data-lucide="sparkles"></i>
+            </button>
         </form>
 
         <section id="workout-plan">
