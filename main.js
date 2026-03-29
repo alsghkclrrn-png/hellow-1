@@ -159,7 +159,7 @@ customElements.define('workout-card', WorkoutCard);
 // Global User State
 let userData = {
     gender: null, age: null, height: null, weight: null,
-    bmi: null, bmr: null, mbti: null
+    bmi: null, bmr: null, mbti: null, sasang: null
 };
 
 // Form Field Elements
@@ -230,7 +230,7 @@ const mbtiQuestions = [
     { text: "I often start a workout and see where the energy takes me.", dimension: "JP", positive: false }
 ];
 
-let currentQuestionIndex = 0;
+let currentMbtiIndex = 0;
 let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
 
 const mbtiQuizContainer = document.getElementById('mbti-quiz');
@@ -239,16 +239,15 @@ const mbtiProgressText = document.getElementById('mbti-progress-text');
 const mbtiProgressBar = document.getElementById('mbti-progress-bar');
 const mbtiResults = document.getElementById('mbti-results');
 const mbtiTypeValue = document.getElementById('mbti-type-value');
-const mbtiTypeDesc = document.getElementById('mbti-type-desc');
 const mbtiInsightText = document.getElementById('mbti-insight-text');
 const retakeMbtiBtn = document.getElementById('retake-mbti');
 
 function updateMbtiQuiz() {
-    if (currentQuestionIndex < mbtiQuestions.length) {
-        const q = mbtiQuestions[currentQuestionIndex];
+    if (currentMbtiIndex < mbtiQuestions.length) {
+        const q = mbtiQuestions[currentMbtiIndex];
         if (mbtiQuestionText) mbtiQuestionText.textContent = q.text;
-        if (mbtiProgressText) mbtiProgressText.textContent = `Question ${currentQuestionIndex + 1} of ${mbtiQuestions.length}`;
-        const progress = ((currentQuestionIndex) / mbtiQuestions.length) * 100;
+        if (mbtiProgressText) mbtiProgressText.textContent = `Question ${currentMbtiIndex + 1} of ${mbtiQuestions.length}`;
+        const progress = (currentMbtiIndex / mbtiQuestions.length) * 100;
         mbtiProgressBar?.style.setProperty('--progress', `${progress}%`);
     } else {
         calculateMbtiResult();
@@ -261,21 +260,15 @@ function calculateMbtiResult() {
     type += mbtiScores.S >= mbtiScores.N ? "S" : "N";
     type += mbtiScores.T >= mbtiScores.F ? "T" : "F";
     type += mbtiScores.J >= mbtiScores.P ? "J" : "P";
-
     userData.mbti = type;
     if (mbtiTypeValue) mbtiTypeValue.textContent = type;
-    if (mbtiDisplay) {
-        mbtiDisplay.value = type;
-        mbtiDisplay.classList.add('populated');
-    }
-    
+    if (mbtiDisplay) { mbtiDisplay.value = type; mbtiDisplay.classList.add('populated'); }
     const insights = {
-        E: "고에너지 그룹 활동에서 동기부여를 얻습니다.", I: "혼자만의 집중할 수 있는 공간에서 능률이 오릅니다.",
-        S: "명확한 데이터와 검증된 정석 루틴을 선호합니다.", N: "새롭고 창의적인 변화가 있는 운동을 즐깁니다.",
-        T: "논리적인 효율성과 목표 달성에 집중합니다.", F: "신체와 마음의 조화, 즐거움을 중요시합니다.",
-        J: "철저히 계획된 일정에 따를 때 성취감을 느낍니다.", P: "유연하고 즉흥적인 활동에서 활력을 얻습니다."
+        E: "고에너지 그룹 활동 선호.", I: "혼자만의 집중력 발휘.",
+        S: "데이터 기반 정석 루틴.", N: "창의적인 변화 선호.",
+        T: "논리적 효율 중심.", F: "신체와 마음의 조화.",
+        J: "철저한 계획 이행.", P: "유연하고 즉흥적인 활동."
     };
-
     if (mbtiInsightText) mbtiInsightText.textContent = `${insights[type[0]]} ${insights[type[1]]} ${insights[type[2]]} ${insights[type[3]]}`;
     mbtiQuizContainer?.classList.add('hidden');
     mbtiResults?.classList.remove('hidden');
@@ -284,7 +277,7 @@ function calculateMbtiResult() {
 document.querySelectorAll('.mbti-opt').forEach(btn => {
     btn.addEventListener('click', () => {
         const score = parseInt(btn.dataset.score);
-        const q = mbtiQuestions[currentQuestionIndex];
+        const q = mbtiQuestions[currentMbtiIndex];
         const weight = score - 3;
         const dim1 = q.dimension[0]; const dim2 = q.dimension[1];
         if (q.positive) {
@@ -292,21 +285,149 @@ document.querySelectorAll('.mbti-opt').forEach(btn => {
         } else {
             if (weight > 0) mbtiScores[dim2] += weight; else mbtiScores[dim1] += Math.abs(weight);
         }
-        currentQuestionIndex++;
+        currentMbtiIndex++;
         updateMbtiQuiz();
     });
 });
 
 retakeMbtiBtn?.addEventListener('click', () => {
-    currentQuestionIndex = 0;
+    currentMbtiIndex = 0;
     mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
     mbtiQuizContainer?.classList.remove('hidden');
     mbtiResults?.classList.add('hidden');
-    if (mbtiDisplay) mbtiDisplay.value = "";
     updateMbtiQuiz();
 });
 
-updateMbtiQuiz();
+// Sasang Constitution Logic
+const sasangQuestions = [
+    { text: "나의 체격은 어떤 편인가요?", options: [
+        { text: "머리가 크고 목덜미가 발달했지만 하체가 약함", type: "TY" },
+        { text: "골격이 굵고 체격이 크며 살이 찌기 쉬움", type: "TE" },
+        { text: "가슴 부위가 발달하고 어깨가 넓지만 골반이 작음", type: "SY" },
+        { text: "체구는 작고 균형 잡혔으며 상체보다 하체가 발달함", type: "SE" }
+    ]},
+    { text: "나의 평소 성격은 어떤가요?", options: [
+        { text: "결단력이 있고 창조적이지만 독선적일 때가 있음", type: "TY" },
+        { text: "과묵하고 인내심이 강하며 변화를 싫어함", type: "TE" },
+        { text: "민첩하고 활달하며 사교적이지만 성격이 급함", type: "SY" },
+        { text: "얌전하고 세심하며 분석적이지만 내성적임", type: "SE" }
+    ]},
+    { text: "평소 소화 상태나 식습관은 어떤가요?", options: [
+        { text: "소화력은 좋으나 기름진 음식을 피해야 함", type: "TY" },
+        { text: "식성이 좋아 무엇이든 잘 먹고 소화도 잘 시킴", type: "TE" },
+        { text: "음식을 빨리 먹는 편이며 열이 많은 음식을 피해야 함", type: "SY" },
+        { text: "소화력이 약해 소식을 해야 편안함을 느낌", type: "SE" }
+    ]},
+    { text: "나의 땀은 어떻게 나나요?", options: [
+        { text: "땀이 별로 나지 않으며 나고 나면 피곤함", type: "TY" },
+        { text: "땀이 아주 많으며 땀을 흘리고 나면 개운함", type: "TE" },
+        { text: "땀이 적당히 나며 운동 시에만 주로 남", type: "SY" },
+        { text: "땀이 거의 없으며 땀을 많이 흘리면 기운이 없음", type: "SE" }
+    ]},
+    { text: "나의 걸음걸이나 태도는 어떤가요?", options: [
+        { text: "걸음걸이가 씩씩하고 당당함", type: "TY" },
+        { text: "걸음걸이가 느리고 무게감이 있음", type: "TE" },
+        { text: "몸을 흔들며 걷거나 걸음이 매우 빠름", type: "SY" },
+        { text: "조용히 걷고 몸가짐이 단정함", type: "SE" }
+    ]},
+    { text: "평소 자주 겪는 신체적 증상은?", options: [
+        { text: "목에 이물감이 있거나 다리에 힘이 빠짐", type: "TY" },
+        { text: "호흡기가 약하거나 피로를 잘 느낌", type: "TE" },
+        { text: "가슴이 답답하고 열이 위로 오르는 느낌", type: "SY" },
+        { text: "손발이 차고 아랫배가 자주 아픔", type: "SE" }
+    ]},
+    { text: "스트레스를 받았을 때 반응은?", options: [
+        { text: "버럭 화를 내며 즉시 발산함", type: "TY" },
+        { text: "속으로 삭이며 오랫동안 담아둠", type: "TE" },
+        { text: "불안해하며 안절부절못함", type: "SY" },
+        { text: "깊은 고민에 빠져 식욕이 떨어짐", type: "SE" }
+    ]},
+    { text: "추천받고 싶은 라이프스타일 방향은?", options: [
+        { text: "강한 리더십과 창의적인 활동", type: "TY" },
+        { text: "안정적이고 꾸준한 건강 관리", type: "TE" },
+        { text: "다양하고 활기찬 사회적 활동", type: "SY" },
+        { text: "세밀하고 계획적인 자기 관리", type: "SE" }
+    ]}
+];
+
+let currentSasangIndex = 0;
+let sasangScores = { TY: 0, TE: 0, SY: 0, SE: 0 };
+
+const sasangQuiz = document.getElementById('sasang-quiz');
+const sasangQuestionText = document.getElementById('sasang-question-text');
+const sasangOptions = document.getElementById('sasang-options');
+const sasangProgressText = document.getElementById('sasang-progress-text');
+const sasangProgressBar = document.getElementById('sasang-progress-bar');
+const sasangResults = document.getElementById('sasang-results');
+const sasangTypeValue = document.getElementById('sasang-type-value');
+const sasangTypeDesc = document.getElementById('sasang-type-desc');
+const sasangInsightText = document.getElementById('sasang-insight-text');
+const retakeSasangBtn = document.getElementById('retake-sasang');
+
+function updateSasangQuiz() {
+    if (currentSasangIndex < sasangQuestions.length) {
+        const q = sasangQuestions[currentSasangIndex];
+        if (sasangQuestionText) sasangQuestionText.textContent = q.text;
+        if (sasangProgressText) sasangProgressText.textContent = `Step ${currentSasangIndex + 1} of ${sasangQuestions.length}`;
+        const progress = (currentSasangIndex / sasangQuestions.length) * 100;
+        sasangProgressBar?.style.setProperty('--progress', `${progress}%`);
+        
+        if (sasangOptions) {
+            sasangOptions.innerHTML = q.options.map(opt => `
+                <button class="mbti-opt sasang-opt" data-type="${opt.type}">${opt.text}</button>
+            `).join('');
+            
+            document.querySelectorAll('.sasang-opt').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const type = btn.dataset.type;
+                    sasangScores[type]++;
+                    currentSasangIndex++;
+                    updateSasangQuiz();
+                });
+            });
+        }
+    } else {
+        calculateSasangResult();
+    }
+}
+
+function calculateSasangResult() {
+    let maxScore = -1;
+    let type = "";
+    for (const [t, score] of Object.entries(sasangScores)) {
+        if (score > maxScore) { maxScore = score; type = t; }
+    }
+
+    const typeNames = { TY: "태양인", TE: "태음인", SY: "소양인", SE: "소음인" };
+    const typeDescs = {
+        TY: "폐가 크고 간이 작은 체질로, 기운이 위로 솟구치는 성질이 있습니다.",
+        TE: "간이 크고 폐가 작은 체질로, 흡수하는 기운이 강해 살이 찌기 쉽습니다.",
+        SY: "비장이 크고 신장이 작은 체질로, 열이 많고 동작이 민첩합니다.",
+        SE: "신장이 크고 비장이 작은 체질로, 기운이 안으로 모이고 몸이 찬 편입니다."
+    };
+    const insights = {
+        TY: "담백한 음식 위주로 섭취하고 포도, 머루가 좋습니다. 하체 강화 운동을 추천합니다.",
+        TE: "땀을 흘리는 운동이 필수적이며 무, 도라지, 율무가 몸에 잘 맞습니다.",
+        SY: "시원한 성질의 음식(돼지고기, 오이)이 좋으며 열을 내리는 하체 운동이 효과적입니다.",
+        SE: "따뜻한 성질의 음식(닭고기, 생강)이 좋으며 소화력을 높이는 가벼운 전신 운동이 좋습니다."
+    };
+
+    userData.sasang = type;
+    if (sasangTypeValue) sasangTypeValue.textContent = typeNames[type];
+    if (sasangTypeDesc) sasangTypeDesc.textContent = typeDescs[type];
+    if (sasangInsightText) sasangInsightText.textContent = insights[type];
+    
+    sasangQuiz?.classList.add('hidden');
+    sasangResults?.classList.remove('hidden');
+}
+
+retakeSasangBtn?.addEventListener('click', () => {
+    currentSasangIndex = 0;
+    sasangScores = { TY: 0, TE: 0, SY: 0, SE: 0 };
+    sasangQuiz?.classList.remove('hidden');
+    sasangResults?.classList.add('hidden');
+    updateSasangQuiz();
+});
 
 // Body Metrics Calculation
 const metricsForm = document.getElementById('metrics-form');
@@ -321,31 +442,22 @@ metricsForm?.addEventListener('submit', (e) => {
     userData.age = parseInt(document.getElementById('age').value);
     userData.height = parseInt(document.getElementById('height').value);
     userData.weight = parseInt(document.getElementById('weight').value);
-    
     const heightInMeters = userData.height / 100;
     userData.bmi = parseFloat((userData.weight / (heightInMeters * heightInMeters)).toFixed(1));
-    
     let status = "";
     if (userData.bmi < 18.5) status = "저체중";
     else if (userData.bmi < 25) status = "정상체중";
     else if (userData.bmi < 30) status = "과체중";
     else status = "비만";
-    
     userData.bmr = (userData.gender === 'male') ? 
         (10 * userData.weight + 6.25 * userData.height - 5 * userData.age + 5) :
         (10 * userData.weight + 6.25 * userData.height - 5 * userData.age - 161);
-    
     if (bmiValueSpan) bmiValueSpan.textContent = userData.bmi;
     if (bmiStatusSpan) bmiStatusSpan.textContent = status;
     if (bmrValueSpan) bmrValueSpan.textContent = Math.round(userData.bmr).toLocaleString();
-    
-    if (metricsDisplay) {
-        metricsDisplay.value = `BMI: ${userData.bmi} (${status}), BMR: ${Math.round(userData.bmr)} kcal`;
-        metricsDisplay.classList.add('populated');
-    }
-    
+    if (metricsDisplay) { metricsDisplay.value = `BMI: ${userData.bmi} (${status}), BMR: ${Math.round(userData.bmr)} kcal`; metricsDisplay.classList.add('populated'); }
     metricsResults?.classList.remove('hidden');
-    generateDietAndStyleRecs();
+    generateDietRecs();
 });
 
 // Comprehensive Global Activity Database
@@ -374,12 +486,9 @@ function populateExerciseCatalog() {
     if (window.lucide) lucide.createIcons();
 }
 
-function generateDietAndStyleRecs() {
+function generateDietRecs() {
     const dietContainer = document.getElementById('diet-container');
-    const styleContainer = document.getElementById('style-container');
-    if (!dietContainer || !styleContainer) return;
-
-    // Diet Logic
+    if (!dietContainer) return;
     const dietItems = [
         { title: "고단백 중심 식단", content: "근육 생성과 회복을 위해 닭가슴살, 계란, 두부 등 단백질 섭취를 늘리세요.", goal: "muscle-gain" },
         { title: "저탄수화물 및 식이섬유", content: "체중 감량을 위해 복합 탄수화물과 풍부한 채소 중심의 식단을 추천합니다.", goal: "weight-loss" },
@@ -387,31 +496,11 @@ function generateDietAndStyleRecs() {
     ];
     const userGoal = document.getElementById('goal')?.value || "general-fitness";
     const selectedDiet = dietItems.find(d => d.goal === userGoal) || dietItems[2];
-
     dietContainer.innerHTML = `
         <div class="rec-card">
             <span class="rec-title">${selectedDiet.title}</span>
             <p class="rec-content">${selectedDiet.content}</p>
-            <p class="rec-content">하루 권장 섭취 칼로리: <strong>${Math.round(userData.bmr * 1.2)} kcal</strong> (활동량 보통 기준)</p>
-        </div>
-    `;
-
-    // Style Logic
-    let styleTip = "";
-    if (userData.gender === 'male') {
-        if (userData.bmi < 20) styleTip = "레이어드 룩을 활용하여 체격을 보완하고, 밝은 색상의 상의를 추천합니다.";
-        else if (userData.bmi < 25) styleTip = "머슬 핏(Muscle Fit) 티셔츠나 테이퍼드 팬츠로 탄탄한 체형을 강조해 보세요.";
-        else styleTip = "다크 톤의 세로 스트라이프 패턴이나 세미 와이드 팬츠로 슬림한 실루엣을 연출하세요.";
-    } else {
-        if (userData.bmi < 20) styleTip = "볼륨감 있는 퍼프 소매나 에이라인 스커트로 우아한 실루엣을 추천합니다.";
-        else if (userData.bmi < 25) styleTip = "크롭 탑과 하이웨이스트 하의로 비율을 살리는 스타일이 가장 잘 어울립니다.";
-        else styleTip = "브이넥 상의와 롱 스커트, 또는 와이드 팬츠로 체형을 자연스럽게 커버하며 스타일을 챙기세요.";
-    }
-
-    styleContainer.innerHTML = `
-        <div class="rec-card">
-            <span class="rec-title">${userData.gender === 'male' ? '남성' : '여성'} ${userData.bmi < 25 ? '슬림/보통' : '탄탄/건강'} 체형 코디</span>
-            <p class="rec-content">${styleTip}</p>
+            <p class="rec-content">하루 권장 섭취 칼로리: <strong>${Math.round(userData.bmr * 1.2)} kcal</strong></p>
         </div>
     `;
 }
@@ -419,14 +508,12 @@ function generateDietAndStyleRecs() {
 function updateSupplementRecs(healthStatus) {
     const supplementContainer = document.getElementById('supplement-container');
     if (!supplementContainer) return;
-
     const supplements = {
         excellent: { title: "활력 유지 패키지", content: "종합 비타민, 오메가3, 유산균으로 현재의 건강 상태를 유지하세요." },
         tired: { title: "피로 회복 패키지", content: "비타민B군, 마그네슘, 밀크씨슬로 피로를 풀고 에너지를 충전하세요." },
         recovery: { title: "신체 회복 패키지", content: "글루코사민, 보스웰리아, 비타민D로 관절과 면역력 회복에 집중하세요." }
     };
     const selected = supplements[healthStatus] || supplements.excellent;
-
     supplementContainer.innerHTML = `
         <div class="rec-card">
             <span class="rec-title">${selected.title}</span>
@@ -435,10 +522,7 @@ function updateSupplementRecs(healthStatus) {
     `;
 }
 
-// Exercise Database & Logic
 let exerciseDatabase = [];
-const EXERCISE_API_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json';
-
 async function fetchExerciseData() {
     try {
         const response = await fetch(EXERCISE_API_URL);
@@ -449,7 +533,6 @@ async function fetchExerciseData() {
 function getExercisesByContext(options) {
     const { goal, level, health, weather, timeOfDay } = options;
     const mbti = document.getElementById('mbti-display').value || "ISTJ";
-    
     let potentialActivities = activityLibrary.filter(act => {
         const mbtiMatch = act.mbti.some(trait => mbti.includes(trait));
         const timeMatch = act.time.includes(timeOfDay);
@@ -458,9 +541,7 @@ function getExercisesByContext(options) {
         if ((weather === 'rainy' || weather === 'hot' || weather === 'cold') && !act.indoor) return false;
         return goalMatch && mbtiMatch && timeMatch;
     });
-
     if (potentialActivities.length === 0) potentialActivities = activityLibrary.filter(act => act.time.includes(timeOfDay));
-
     let recommendedList = [];
     const shuffledActivities = potentialActivities.sort(() => 0.5 - Math.random());
     recommendedList.push(...shuffledActivities.slice(0, 3).map(act => ({
@@ -468,7 +549,6 @@ function getExercisesByContext(options) {
         desc: act.desc + ` (${timeOfDay} 시간대에 최적화된 운동입니다.)`,
         image: `https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500`
     })));
-
     if (exerciseDatabase.length > 0) {
         let targetMuscles = (health === 'recovery' || timeOfDay === 'night') ? ["stretching"] : ["core", "abs"];
         let filteredGym = exerciseDatabase.filter(ex => (ex.primaryMuscles || []).some(m => targetMuscles.includes(m.toLowerCase())));
@@ -482,13 +562,9 @@ function getExercisesByContext(options) {
     return recommendedList.sort(() => 0.5 - Math.random());
 }
 
-// History Storage
 function saveToHistory(workout) {
     let history = JSON.parse(localStorage.getItem('workoutHistory') || "[]");
-    const session = {
-        date: new Date().toLocaleString(),
-        exercises: workout.map(e => e.name)
-    };
+    const session = { date: new Date().toLocaleString(), exercises: workout.map(e => e.name) };
     history.unshift(session);
     localStorage.setItem('workoutHistory', JSON.stringify(history.slice(0, 10)));
     renderHistory();
@@ -508,8 +584,6 @@ function renderHistory() {
 }
 
 const workoutForm = document.getElementById('workout-form');
-const workoutContainer = document.getElementById('workout-container');
-
 workoutForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const options = {
@@ -520,7 +594,6 @@ workoutForm?.addEventListener('submit', async (e) => {
         timeOfDay: document.getElementById('time-of-day').value
     };
     if (workoutContainer) workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">운동 계획을 세우는 중입니다...</p>';
-    
     setTimeout(() => {
         let recommendedWorkout = getExercisesByContext(options);
         if (!recommendedWorkout || recommendedWorkout.length === 0) return;
@@ -545,5 +618,7 @@ workoutForm?.addEventListener('submit', async (e) => {
 fetchExerciseData().then(() => {
     populateExerciseCatalog();
     renderHistory();
+    updateMbtiQuiz();
+    updateSasangQuiz();
 });
 if (window.lucide) lucide.createIcons();

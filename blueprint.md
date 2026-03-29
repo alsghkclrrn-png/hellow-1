@@ -1,29 +1,24 @@
 # AI Workout Coach - Blueprint
 
 ## Project Overview
-AI Workout Coach is a comprehensive AI-driven lifestyle platform. It provides personalized workout plans, nutrition guidance, styling advice, and supplement recommendations by cross-analyzing body metrics, MBTI personality, health status, and environmental factors.
+AI Workout Coach is a comprehensive AI-driven lifestyle platform. It provides personalized workout plans, nutrition guidance, **Sasang Constitution Analysis**, and supplement recommendations by cross-analyzing body metrics, MBTI personality, and oriental medicine principles.
 
 ## Current Features
 - **Body Metrics Analysis:** BMI/BMR calculation with automatic data sync.
 - **Advanced MBTI Personality Assessment:** 24-question survey for deep psychological alignment.
-- **Dynamic Workout Generation:** Diverse activities (Yoga, Boxing, etc.) optimized for time of day and weather.
-- **나의 운동기록 (Workout History):** Tracks the last 10 generated sessions using local storage.
+- **나의 한방 체질 (Sasang Constitution):** 8-question professional diagnostic test to determine constitution (Tae-Yang, Tae-Eum, So-Yang, So-Eum).
+- **Dynamic Workout Generation:** Diverse activities optimized for time of day, weather, and personality.
+- **나의 운동기록 (Workout History):** Tracks the last 10 generated sessions.
 - **운동의 종류 (Exercise Catalog):** A visual gallery of all supported activity types.
 - **식단 추천 (Diet Recommendations):** Goal-based nutrition plans with calorie targets.
-- **체형별 옷스타일 추천 (Body Styling):** Personalized fashion tips based on BMI and gender.
-- **건강별 영양제 추천 (Supplement Guide):** Targeted supplement advice based on current health status.
+- **건강별 영양제 추천 (Supplement Guide):** Targeted supplement advice based on health status.
 - **Community & Interaction:** Disqus integration and Formspree partnership form.
-- **Modern UI/UX:** Sticky navigation, responsive design, and smooth scroll.
 
-## Planned Upgrade: Comprehensive Lifestyle Ecosystem
-### 1. Navigation System
-- Implemented a sticky header with smooth scrolling to key feature sections.
+## Feature Implementation Details
+### 1. Sasang Constitution Analysis
+- **Scoring System:** Maps user responses to specific physiological and psychological traits defined in Sasang medicine.
+- **Type-Specific Advice:** Provides tailored health tips and dietary considerations based on the resulting constitution.
 
-### 2. Feature Implementation Details
-- **History:** Uses `localStorage` to persist session data across reloads.
-- **Diet/Style:** Deterministic logic mapping BMI and goals to expert-curated tips.
-- **Supplements:** Context-sensitive recommendations triggered by the workout generation process.
-
-### 3. Design Philosophy
-- **Holistic Integration:** Moving from a "workout generator" to an "all-in-one health assistant."
-- **Data Continuity:** Ensuring body metrics analyzed at the top flow through all recommendation engines.
+### 2. Design Philosophy
+- **Holistic Health Integration:** Combining modern metrics (BMI/MBTI) with traditional wisdom (Sasang Constitution).
+- **Seamless Data Flow:** Ensuring analysis results are instantly visible and used across the platform.
