@@ -1,28 +1,29 @@
 # AI Workout Coach - Blueprint
 
 ## Project Overview
-AI Workout Coach is a modern, framework-less web application that provides personalized workout recommendations. It analyzes user body metrics (Age, Weight, Height, Gender), environmental factors (Weather), health status, **Time of Day**, and **Professional MBTI Personality Profiles** to suggest a diverse range of activities.
+AI Workout Coach is a comprehensive AI-driven lifestyle platform. It provides personalized workout plans, nutrition guidance, styling advice, and supplement recommendations by cross-analyzing body metrics, MBTI personality, health status, and environmental factors.
 
 ## Current Features
-- **Body Metrics Analysis:** Calculates BMI and BMR to tailor workout intensity.
-- **Advanced MBTI Personality Assessment:** 24-question professional survey to align activities with user psychology.
-- **Diverse Exercise Themes:** Recommendations span Yoga, Pilates, Aerobics, Zumba, Swimming, Jogging, Cycling, and Boxing.
-- **Time of Day Optimization:** Suggests activities based on circadian rhythms (Dawn, Morning, Afternoon, Night).
-- **Disqus Integration:** Community feedback section at the bottom of the page.
-- **Context-Aware Recommendations:** Automatically populates MBTI and metrics into the personalization form for real-time routine generation.
-- **Partnership Inquiry:** Integrated contact form via Formspree.
-- **Modern UI:** Built with Web Components, CSS Variables, and Lucide icons.
-- **Dynamic Theming:** Supports light and dark modes.
+- **Body Metrics Analysis:** BMI/BMR calculation with automatic data sync.
+- **Advanced MBTI Personality Assessment:** 24-question survey for deep psychological alignment.
+- **Dynamic Workout Generation:** Diverse activities (Yoga, Boxing, etc.) optimized for time of day and weather.
+- **나의 운동기록 (Workout History):** Tracks the last 10 generated sessions using local storage.
+- **운동의 종류 (Exercise Catalog):** A visual gallery of all supported activity types.
+- **식단 추천 (Diet Recommendations):** Goal-based nutrition plans with calorie targets.
+- **체형별 옷스타일 추천 (Body Styling):** Personalized fashion tips based on BMI and gender.
+- **건강별 영양제 추천 (Supplement Guide):** Targeted supplement advice based on current health status.
+- **Community & Interaction:** Disqus integration and Formspree partnership form.
+- **Modern UI/UX:** Sticky navigation, responsive design, and smooth scroll.
 
-## Planned Upgrade: Multi-Factor Personalization
-### 1. MBTI & Time Alignment
-- **Dawn/Night:** Prioritizes indoor, low-impact, or mindfulness activities like Yoga and Stretching.
-- **Morning/Afternoon:** Prioritizes high-energy, strength, or competitive sports.
+## Planned Upgrade: Comprehensive Lifestyle Ecosystem
+### 1. Navigation System
+- Implemented a sticky header with smooth scrolling to key feature sections.
 
-### 2. Technical Implementation
-- **Enhanced Filtering:** Logic that cross-references weather, personality, and time of day.
-- **Activity Metadata:** Added `time` tags to the activity library for precise matching.
+### 2. Feature Implementation Details
+- **History:** Uses `localStorage` to persist session data across reloads.
+- **Diet/Style:** Deterministic logic mapping BMI and goals to expert-curated tips.
+- **Supplements:** Context-sensitive recommendations triggered by the workout generation process.
 
-## Design Philosophy
-- **Vibrant & Energetic:** Using high-contrast colors and smooth transitions.
-- **Holistic Health:** Considering when you work out as much as how you work out.
+### 3. Design Philosophy
+- **Holistic Integration:** Moving from a "workout generator" to an "all-in-one health assistant."
+- **Data Continuity:** Ensuring body metrics analyzed at the top flow through all recommendation engines.

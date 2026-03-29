@@ -158,13 +158,8 @@ customElements.define('workout-card', WorkoutCard);
 
 // Global User State
 let userData = {
-    gender: null,
-    age: null,
-    height: null,
-    weight: null,
-    bmi: null,
-    bmr: null,
-    mbti: null
+    gender: null, age: null, height: null, weight: null,
+    bmi: null, bmr: null, mbti: null
 };
 
 // Form Field Elements
@@ -179,57 +174,58 @@ const htmlElement = document.documentElement;
 const setTheme = (theme) => {
     htmlElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-    
-    if (theme === 'light') {
-        themeIcon.setAttribute('data-lucide', 'sun');
-    } else {
-        themeIcon.setAttribute('data-lucide', 'moon');
-    }
-    
-    if (window.lucide) {
-        lucide.createIcons();
-    }
+    if (theme === 'light') themeIcon?.setAttribute('data-lucide', 'sun');
+    else themeIcon?.setAttribute('data-lucide', 'moon');
+    if (window.lucide) lucide.createIcons();
 };
 
 const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
 setTheme(savedTheme);
 
-themeToggle.addEventListener('click', () => {
+themeToggle?.addEventListener('click', () => {
     const currentTheme = htmlElement.getAttribute('data-theme');
     setTheme(currentTheme === 'dark' ? 'light' : 'dark');
 });
 
+// Navigation & Smooth Scroll
+document.querySelectorAll('.nav-links a, .nav-logo').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
 // MBTI Quiz Logic
 const mbtiQuestions = [
-    // E (Extraversion) vs I (Introversion)
     { text: "I feel energized after a group workout session.", dimension: "EI", positive: true },
     { text: "I prefer a quiet solo workout over a busy gym environment.", dimension: "EI", positive: false },
     { text: "I enjoy interacting with others during rest periods.", dimension: "EI", positive: true },
     { text: "I find that I focus better when training alone in a private space.", dimension: "EI", positive: false },
-    { text: "I like participating in fitness challenges with friends or online communities.", dimension: "EI", positive: true },
+    { text: "I like participating in fitness challenges with friends.", dimension: "EI", positive: true },
     { text: "I prefer to keep my fitness goals and progress private.", dimension: "EI", positive: false },
-    
-    // S (Sensing) vs N (Intuition)
-    { text: "I focus more on the exact form and data (reps/weight) than the overall feeling.", dimension: "SN", positive: true },
+    { text: "I focus more on the exact form and data (reps/weight).", dimension: "SN", positive: true },
     { text: "I enjoy trying new, creative, and unconventional exercises.", dimension: "SN", positive: false },
     { text: "I prefer exercises with clear, immediate, and tangible results.", dimension: "SN", positive: true },
     { text: "I find myself imagining different ways to modify a standard routine.", dimension: "SN", positive: false },
-    { text: "I value standard, proven techniques that have been around for years.", dimension: "SN", positive: true },
+    { text: "I value standard, proven techniques.", dimension: "SN", positive: true },
     { text: "I get bored if my workout routine doesn't change frequently.", dimension: "SN", positive: false },
-
-    // T (Thinking) vs F (Feeling)
-    { text: "I choose exercises based on logical efficiency and performance metrics.", dimension: "TF", positive: true },
-    { text: "The mind-body connection and how I feel during a workout are most important.", dimension: "TF", positive: false },
-    { text: "I am motivated by objective competition and outperforming others.", dimension: "TF", positive: true },
-    { text: "I am motivated by how a workout helps me manage my stress and emotions.", dimension: "TF", positive: false },
-    { text: "I analyze the scientific reasoning behind every movement I do.", dimension: "TF", positive: true },
-    { text: "I appreciate a trainer who is supportive and encouraging over one who is purely technical.", dimension: "TF", positive: false },
-
-    // J (Judging) vs P (Perceiving)
-    { text: "I strictly follow a pre-planned workout schedule every day.", dimension: "JP", positive: true },
-    { text: "I like to decide what to work out based on my mood that day.", dimension: "JP", positive: false },
+    { text: "I choose exercises based on logical efficiency.", dimension: "TF", positive: true },
+    { text: "The mind-body connection is most important.", dimension: "TF", positive: false },
+    { text: "I am motivated by objective competition.", dimension: "TF", positive: true },
+    { text: "I am motivated by how a workout helps manage my emotions.", dimension: "TF", positive: false },
+    { text: "I analyze the scientific reasoning behind every movement.", dimension: "TF", positive: true },
+    { text: "I appreciate a supportive trainer over a purely technical one.", dimension: "TF", positive: false },
+    { text: "I strictly follow a pre-planned workout schedule.", dimension: "JP", positive: true },
+    { text: "I like to decide what to work out based on my mood.", dimension: "JP", positive: false },
     { text: "I feel stressed if I have to skip a planned session.", dimension: "JP", positive: true },
-    { text: "I enjoy the spontaneity of trying a different exercise on a whim.", dimension: "JP", positive: false },
+    { text: "I enjoy the spontaneity of trying a different exercise.", dimension: "JP", positive: false },
     { text: "I like to have my entire workout written out before I start.", dimension: "JP", positive: true },
     { text: "I often start a workout and see where the energy takes me.", dimension: "JP", positive: false }
 ];
@@ -250,10 +246,10 @@ const retakeMbtiBtn = document.getElementById('retake-mbti');
 function updateMbtiQuiz() {
     if (currentQuestionIndex < mbtiQuestions.length) {
         const q = mbtiQuestions[currentQuestionIndex];
-        mbtiQuestionText.textContent = q.text;
-        mbtiProgressText.textContent = `Question ${currentQuestionIndex + 1} of ${mbtiQuestions.length}`;
+        if (mbtiQuestionText) mbtiQuestionText.textContent = q.text;
+        if (mbtiProgressText) mbtiProgressText.textContent = `Question ${currentQuestionIndex + 1} of ${mbtiQuestions.length}`;
         const progress = ((currentQuestionIndex) / mbtiQuestions.length) * 100;
-        mbtiProgressBar.style.setProperty('--progress', `${progress}%`);
+        mbtiProgressBar?.style.setProperty('--progress', `${progress}%`);
     } else {
         calculateMbtiResult();
     }
@@ -267,77 +263,45 @@ function calculateMbtiResult() {
     type += mbtiScores.J >= mbtiScores.P ? "J" : "P";
 
     userData.mbti = type;
-    mbtiTypeValue.textContent = type;
-    
+    if (mbtiTypeValue) mbtiTypeValue.textContent = type;
     if (mbtiDisplay) {
         mbtiDisplay.value = type;
         mbtiDisplay.classList.add('populated');
     }
     
     const insights = {
-        E: "You thrive in high-energy, social environments where you can feed off the group's intensity.",
-        I: "You value internal focus and prefer environments where you can concentrate without distraction.",
-        S: "You are grounded in reality and prefer structured, proven methods with clear, tangible goals.",
-        N: "You are vision-oriented and enjoy exploring new possibilities and unconventional approaches.",
-        T: "You are driven by logic and efficiency, focusing on objective data and performance milestones.",
-        F: "You are driven by values and internal harmony, focusing on how the workout makes you feel.",
-        J: "You love structure and predictability, thriving when you have a clear, pre-defined plan.",
-        P: "You value flexibility and spontaneity, preferring to adapt your routine to your current energy level."
+        E: "고에너지 그룹 활동에서 동기부여를 얻습니다.", I: "혼자만의 집중할 수 있는 공간에서 능률이 오릅니다.",
+        S: "명확한 데이터와 검증된 정석 루틴을 선호합니다.", N: "새롭고 창의적인 변화가 있는 운동을 즐깁니다.",
+        T: "논리적인 효율성과 목표 달성에 집중합니다.", F: "신체와 마음의 조화, 즐거움을 중요시합니다.",
+        J: "철저히 계획된 일정에 따를 때 성취감을 느낍니다.", P: "유연하고 즉흥적인 활동에서 활력을 얻습니다."
     };
 
-    const typeFullNames = {
-        "ISTJ": "The Inspector - Reliable and systematic.",
-        "ISFJ": "The Protector - Dedicated and warm.",
-        "INFJ": "The Advocate - Insightful and principled.",
-        "INTJ": "The Architect - Strategic and independent.",
-        "ISTP": "The Virtuoso - Practical and adaptable.",
-        "ISFP": "The Adventurer - Artistic and sensitive.",
-        "INFP": "The Mediator - Idealistic and loyal.",
-        "INTP": "The Logician - Theoretical and precise.",
-        "ESTP": "The Entrepreneur - Energetic and perceptive.",
-        "ESFP": "The Entertainer - Spontaneous and outgoing.",
-        "ENFP": "The Campaigner - Enthusiastic and creative.",
-        "ENTP": "The Debater - Smart and curious.",
-        "ESTJ": "The Executive - Efficient and organized.",
-        "ESFJ": "The Provider - Outgoing and loyal.",
-        "ENFJ": "The Giver - Charismatic and inspiring.",
-        "ENTJ": "The Commander - Bold and imaginative."
-    };
-
-    mbtiInsightText.textContent = `${insights[type[0]]} ${insights[type[1]]} ${insights[type[2]]} ${insights[type[3]]}`;
-    mbtiTypeDesc.textContent = `${typeFullNames[type] || ""} As an ${type}, your professional psychological profile suggests a unique approach to fitness that aligns with your core cognitive preferences.`;
-
-    mbtiQuizContainer.classList.add('hidden');
-    mbtiResults.classList.remove('hidden');
+    if (mbtiInsightText) mbtiInsightText.textContent = `${insights[type[0]]} ${insights[type[1]]} ${insights[type[2]]} ${insights[type[3]]}`;
+    mbtiQuizContainer?.classList.add('hidden');
+    mbtiResults?.classList.remove('hidden');
 }
 
 document.querySelectorAll('.mbti-opt').forEach(btn => {
     btn.addEventListener('click', () => {
         const score = parseInt(btn.dataset.score);
         const q = mbtiQuestions[currentQuestionIndex];
-        
-        const weight = score - 3; 
-        const dim1 = q.dimension[0];
-        const dim2 = q.dimension[1];
-        
+        const weight = score - 3;
+        const dim1 = q.dimension[0]; const dim2 = q.dimension[1];
         if (q.positive) {
-            if (weight > 0) mbtiScores[dim1] += weight;
-            else mbtiScores[dim2] += Math.abs(weight);
+            if (weight > 0) mbtiScores[dim1] += weight; else mbtiScores[dim2] += Math.abs(weight);
         } else {
-            if (weight > 0) mbtiScores[dim2] += weight;
-            else mbtiScores[dim1] += Math.abs(weight);
+            if (weight > 0) mbtiScores[dim2] += weight; else mbtiScores[dim1] += Math.abs(weight);
         }
-
         currentQuestionIndex++;
         updateMbtiQuiz();
     });
 });
 
-retakeMbtiBtn.addEventListener('click', () => {
+retakeMbtiBtn?.addEventListener('click', () => {
     currentQuestionIndex = 0;
     mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-    mbtiQuizContainer.classList.remove('hidden');
-    mbtiResults.classList.add('hidden');
+    mbtiQuizContainer?.classList.remove('hidden');
+    mbtiResults?.classList.add('hidden');
     if (mbtiDisplay) mbtiDisplay.value = "";
     updateMbtiQuiz();
 });
@@ -351,9 +315,8 @@ const bmiValueSpan = document.getElementById('bmi-value');
 const bmiStatusSpan = document.getElementById('bmi-status');
 const bmrValueSpan = document.getElementById('bmr-value');
 
-metricsForm.addEventListener('submit', (e) => {
+metricsForm?.addEventListener('submit', (e) => {
     e.preventDefault();
-    
     userData.gender = document.getElementById('gender').value;
     userData.age = parseInt(document.getElementById('age').value);
     userData.height = parseInt(document.getElementById('height').value);
@@ -363,34 +326,114 @@ metricsForm.addEventListener('submit', (e) => {
     userData.bmi = parseFloat((userData.weight / (heightInMeters * heightInMeters)).toFixed(1));
     
     let status = "";
-    if (userData.bmi < 18.5) status = "Underweight";
-    else if (userData.bmi < 25) status = "Healthy Weight";
-    else if (userData.bmi < 30) status = "Overweight";
-    else status = "Obesity";
+    if (userData.bmi < 18.5) status = "저체중";
+    else if (userData.bmi < 25) status = "정상체중";
+    else if (userData.bmi < 30) status = "과체중";
+    else status = "비만";
     
-    if (userData.gender === 'male') {
-        userData.bmr = 10 * userData.weight + 6.25 * userData.height - 5 * userData.age + 5;
-    } else {
-        userData.bmr = 10 * userData.weight + 6.25 * userData.height - 5 * userData.age - 161;
-    }
+    userData.bmr = (userData.gender === 'male') ? 
+        (10 * userData.weight + 6.25 * userData.height - 5 * userData.age + 5) :
+        (10 * userData.weight + 6.25 * userData.height - 5 * userData.age - 161);
     
-    bmiValueSpan.textContent = userData.bmi;
-    bmiStatusSpan.textContent = status;
-    bmrValueSpan.textContent = Math.round(userData.bmr).toLocaleString();
+    if (bmiValueSpan) bmiValueSpan.textContent = userData.bmi;
+    if (bmiStatusSpan) bmiStatusSpan.textContent = status;
+    if (bmrValueSpan) bmrValueSpan.textContent = Math.round(userData.bmr).toLocaleString();
     
     if (metricsDisplay) {
         metricsDisplay.value = `BMI: ${userData.bmi} (${status}), BMR: ${Math.round(userData.bmr)} kcal`;
         metricsDisplay.classList.add('populated');
     }
     
-    metricsResults.classList.remove('hidden');
-    metricsResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    
-    const calcBtn = document.getElementById('calculate-btn');
-    const originalText = calcBtn.textContent;
-    calcBtn.textContent = "Metrics Applied ✅";
-    setTimeout(() => calcBtn.textContent = originalText, 2000);
+    metricsResults?.classList.remove('hidden');
+    generateDietAndStyleRecs();
 });
+
+// Comprehensive Global Activity Database
+const activityLibrary = [
+    { name: "빈야사 요가", type: "Mindfulness", icon: "wind", mbti: ["I", "F", "N"], indoor: true, time: ["dawn", "night"], desc: "호흡과 유연성에 집중하며 마음의 평화를 찾는 요가입니다." },
+    { name: "복싱 / 킥복싱", type: "High Intensity", icon: "zap", mbti: ["E", "T", "S"], indoor: true, time: ["morning", "afternoon"], desc: "스트레스 해소와 폭발적인 에너지를 발산하는 격투기 운동입니다." },
+    { name: "실내 암벽 등반", type: "Adventure", icon: "mountain", mbti: ["N", "P", "T"], indoor: true, time: ["afternoon", "morning"], desc: "전신 근력과 문제 해결 능력을 키우는 익스트림 스포츠입니다." },
+    { name: "수영", type: "Endurance", icon: "waves", mbti: ["I", "S", "T", "J"], indoor: true, time: ["dawn", "morning", "night"], desc: "관절 부담 없이 심폐 지구력을 강화하는 전신 유산소입니다." },
+    { name: "트레일 하이킹", type: "Outdoor", icon: "trees", mbti: ["N", "P", "F"], indoor: false, time: ["morning", "afternoon"], desc: "자연 속에서 지구력을 기르고 정신적 환기를 돕는 걷기 운동입니다." },
+    { name: "필라테스", type: "Core Control", icon: "activity", mbti: ["S", "J", "F"], indoor: true, time: ["morning", "afternoon", "dawn"], desc: "속근육을 강화하고 체형 교정에 탁월한 정밀 운동입니다." },
+    { name: "줌바 / 에어로빅", type: "Cardio Party", icon: "music", mbti: ["E", "F", "P"], indoor: true, time: ["afternoon", "morning"], desc: "신나는 음악에 맞춰 칼로리를 연소하는 즐거운 유산소 활동입니다." },
+    { name: "조깅", type: "Cardio", icon: "footprints", mbti: ["I", "S", "T", "J"], indoor: false, time: ["dawn", "morning", "night"], desc: "언제 어디서나 가능한 가장 기본적인 체지방 연소 운동입니다." },
+    { name: "사이클링", type: "Endurance", icon: "bike", mbti: ["E", "S", "J"], indoor: true, time: ["morning", "afternoon"], desc: "강력한 하근력과 심폐 기능을 발달시키는 고효율 유산소입니다." }
+];
+
+function populateExerciseCatalog() {
+    const catalogGrid = document.getElementById('catalog-grid');
+    if (!catalogGrid) return;
+    catalogGrid.innerHTML = activityLibrary.map(act => `
+        <div class="catalog-item">
+            <div class="catalog-icon"><i data-lucide="${act.icon}"></i></div>
+            <h3>${act.name}</h3>
+            <p class="rec-content">${act.desc}</p>
+        </div>
+    `).join('');
+    if (window.lucide) lucide.createIcons();
+}
+
+function generateDietAndStyleRecs() {
+    const dietContainer = document.getElementById('diet-container');
+    const styleContainer = document.getElementById('style-container');
+    if (!dietContainer || !styleContainer) return;
+
+    // Diet Logic
+    const dietItems = [
+        { title: "고단백 중심 식단", content: "근육 생성과 회복을 위해 닭가슴살, 계란, 두부 등 단백질 섭취를 늘리세요.", goal: "muscle-gain" },
+        { title: "저탄수화물 및 식이섬유", content: "체중 감량을 위해 복합 탄수화물과 풍부한 채소 중심의 식단을 추천합니다.", goal: "weight-loss" },
+        { title: "균형 잡힌 일반식", content: "기초 대사량을 유지하며 영양소를 골고루 섭취하는 영양 균형 식단입니다.", goal: "general-fitness" }
+    ];
+    const userGoal = document.getElementById('goal')?.value || "general-fitness";
+    const selectedDiet = dietItems.find(d => d.goal === userGoal) || dietItems[2];
+
+    dietContainer.innerHTML = `
+        <div class="rec-card">
+            <span class="rec-title">${selectedDiet.title}</span>
+            <p class="rec-content">${selectedDiet.content}</p>
+            <p class="rec-content">하루 권장 섭취 칼로리: <strong>${Math.round(userData.bmr * 1.2)} kcal</strong> (활동량 보통 기준)</p>
+        </div>
+    `;
+
+    // Style Logic
+    let styleTip = "";
+    if (userData.gender === 'male') {
+        if (userData.bmi < 20) styleTip = "레이어드 룩을 활용하여 체격을 보완하고, 밝은 색상의 상의를 추천합니다.";
+        else if (userData.bmi < 25) styleTip = "머슬 핏(Muscle Fit) 티셔츠나 테이퍼드 팬츠로 탄탄한 체형을 강조해 보세요.";
+        else styleTip = "다크 톤의 세로 스트라이프 패턴이나 세미 와이드 팬츠로 슬림한 실루엣을 연출하세요.";
+    } else {
+        if (userData.bmi < 20) styleTip = "볼륨감 있는 퍼프 소매나 에이라인 스커트로 우아한 실루엣을 추천합니다.";
+        else if (userData.bmi < 25) styleTip = "크롭 탑과 하이웨이스트 하의로 비율을 살리는 스타일이 가장 잘 어울립니다.";
+        else styleTip = "브이넥 상의와 롱 스커트, 또는 와이드 팬츠로 체형을 자연스럽게 커버하며 스타일을 챙기세요.";
+    }
+
+    styleContainer.innerHTML = `
+        <div class="rec-card">
+            <span class="rec-title">${userData.gender === 'male' ? '남성' : '여성'} ${userData.bmi < 25 ? '슬림/보통' : '탄탄/건강'} 체형 코디</span>
+            <p class="rec-content">${styleTip}</p>
+        </div>
+    `;
+}
+
+function updateSupplementRecs(healthStatus) {
+    const supplementContainer = document.getElementById('supplement-container');
+    if (!supplementContainer) return;
+
+    const supplements = {
+        excellent: { title: "활력 유지 패키지", content: "종합 비타민, 오메가3, 유산균으로 현재의 건강 상태를 유지하세요." },
+        tired: { title: "피로 회복 패키지", content: "비타민B군, 마그네슘, 밀크씨슬로 피로를 풀고 에너지를 충전하세요." },
+        recovery: { title: "신체 회복 패키지", content: "글루코사민, 보스웰리아, 비타민D로 관절과 면역력 회복에 집중하세요." }
+    };
+    const selected = supplements[healthStatus] || supplements.excellent;
+
+    supplementContainer.innerHTML = `
+        <div class="rec-card">
+            <span class="rec-title">${selected.title}</span>
+            <p class="rec-content">${selected.content}</p>
+        </div>
+    `;
+}
 
 // Exercise Database & Logic
 let exerciseDatabase = [];
@@ -399,35 +442,9 @@ const EXERCISE_API_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercis
 async function fetchExerciseData() {
     try {
         const response = await fetch(EXERCISE_API_URL);
-        if (!response.ok) throw new Error('Failed to fetch exercises');
-        exerciseDatabase = await response.json();
-    } catch (error) {
-        console.error('Error fetching exercise data:', error);
-    }
+        if (response.ok) exerciseDatabase = await response.json();
+    } catch (error) { console.error('Error:', error); }
 }
-
-const goalToMuscles = {
-    "weight-loss": ["cardio", "full body", "legs", "abdominals"],
-    "muscle-gain": ["chest", "back", "shoulders", "biceps", "triceps", "quadriceps", "hamstrings"],
-    "general-fitness": ["core", "lower back", "glutes", "calves", "shoulders"]
-};
-
-// Comprehensive Global Activity Database
-const activityLibrary = [
-    { name: "Vinyasa Yoga", type: "Mindfulness", muscles: ["core", "full body"], mbti: ["I", "F", "N"], indoor: true, time: ["dawn", "night"], desc: "Flow through poses focusing on breath and flexibility." },
-    { name: "Boxing / Kickboxing", type: "High Intensity", muscles: ["shoulders", "cardio", "arms"], mbti: ["E", "T", "S"], indoor: true, time: ["morning", "afternoon"], desc: "High-energy striking workout for stress relief and power." },
-    { name: "Indoor Rock Climbing", type: "Adventure", muscles: ["back", "forearms", "legs"], mbti: ["N", "P", "T"], indoor: true, time: ["afternoon", "morning"], desc: "Problem-solving and full-body strength on the wall." },
-    { name: "Swimming Laps", type: "Endurance", muscles: ["full body", "shoulders", "back"], mbti: ["I", "S", "T", "J"], indoor: true, time: ["dawn", "morning", "night"], desc: "Low-impact, high-efficiency cardiovascular conditioning." },
-    { name: "Trail Hiking", type: "Outdoor", muscles: ["legs", "glutes", "cardio"], mbti: ["N", "P", "F"], indoor: false, time: ["morning", "afternoon"], desc: "Endurance walk through nature for mental and physical health." },
-    { name: "Pilates Mat Class", type: "Core Control", muscles: ["core", "abdominals", "legs"], mbti: ["S", "J", "F"], indoor: true, time: ["morning", "afternoon", "dawn"], desc: "Precise floor-based movements to build deep core strength." },
-    { name: "Aerobic Dance / Zumba", type: "Cardio Party", muscles: ["legs", "cardio", "full body"], mbti: ["E", "F", "P"], indoor: true, time: ["afternoon", "morning"], desc: "Upbeat rhythmic movement to improve cardiovascular health and mood." },
-    { name: "Jogging / Running", type: "Cardio", muscles: ["legs", "calves", "cardio"], mbti: ["I", "S", "T", "J"], indoor: false, time: ["dawn", "morning", "night"], desc: "Steady-state aerobic exercise for endurance and fat burning." },
-    { name: "Tennis / Squash", type: "Sport", muscles: ["legs", "shoulders", "cardio"], mbti: ["E", "N", "T"], indoor: false, time: ["morning", "afternoon"], desc: "Competitive and social sport improving agility and reflex." },
-    { name: "Power Lifting", type: "Strength", muscles: ["chest", "legs", "back"], mbti: ["S", "T", "J"], indoor: true, time: ["afternoon", "morning"], desc: "Focused heavy lifting: Squat, Bench, and Deadlift." },
-    { name: "Modern Dance", type: "Artistic", muscles: ["legs", "core", "cardio"], mbti: ["E", "F", "P", "N"], indoor: true, time: ["afternoon", "night"], desc: "Expressive movement that builds coordination and rhythm." },
-    { name: "Meditation & Stretching", type: "Recovery", muscles: ["stretching"], mbti: ["I", "F"], indoor: true, time: ["dawn", "night"], desc: "Deep recovery and mental centering." },
-    { name: "Cycling / Spin Class", type: "Endurance", muscles: ["legs", "quadriceps", "cardio"], mbti: ["E", "S", "J"], indoor: true, time: ["morning", "afternoon"], desc: "High-intensity pedaling for leg power and cardiovascular health." }
-];
 
 function getExercisesByContext(options) {
     const { goal, level, health, weather, timeOfDay } = options;
@@ -436,17 +453,10 @@ function getExercisesByContext(options) {
     let potentialActivities = activityLibrary.filter(act => {
         const mbtiMatch = act.mbti.some(trait => mbti.includes(trait));
         const timeMatch = act.time.includes(timeOfDay);
-        
         let goalMatch = true;
-        if (goal === 'weight-loss' && !['High Intensity', 'Endurance', 'Metabolic', 'Sport', 'Cardio', 'Cardio Party'].includes(act.type)) goalMatch = Math.random() > 0.6;
-        if (goal === 'muscle-gain' && !['Strength', 'Adventure', 'Core Control'].includes(act.type)) goalMatch = Math.random() > 0.8;
-        
+        if (goal === 'weight-loss' && !['High Intensity', 'Endurance', 'Cardio', 'Cardio Party'].includes(act.type)) goalMatch = Math.random() > 0.5;
         if ((weather === 'rainy' || weather === 'hot' || weather === 'cold') && !act.indoor) return false;
-        
-        // Time of day specific logic: Dawn/Night should strongly prefer indoor or specific light activities
-        if ((timeOfDay === 'dawn' || timeOfDay === 'night') && !act.time.includes(timeOfDay)) return false;
-
-        return goalMatch && mbtiMatch;
+        return goalMatch && mbtiMatch && timeMatch;
     });
 
     if (potentialActivities.length === 0) potentialActivities = activityLibrary.filter(act => act.time.includes(timeOfDay));
@@ -454,42 +464,53 @@ function getExercisesByContext(options) {
     let recommendedList = [];
     const shuffledActivities = potentialActivities.sort(() => 0.5 - Math.random());
     recommendedList.push(...shuffledActivities.slice(0, 3).map(act => ({
-        name: act.name,
-        sets: level === 'beginner' ? "20-30 min" : "45-60 min",
-        reps: act.type,
-        rest: "Standard",
-        desc: act.desc + ` (Optimized for ${timeOfDay} session.)`,
+        name: act.name, sets: level === 'beginner' ? "20분" : "45분", reps: act.type, rest: "상시",
+        desc: act.desc + ` (${timeOfDay} 시간대에 최적화된 운동입니다.)`,
         image: `https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500`
     })));
 
     if (exerciseDatabase.length > 0) {
-        let targetMuscles = (health === 'recovery' || health === 'tired' || timeOfDay === 'night') ? ["stretching"] : ["core", "abs", "lower back"];
-        let filteredGym = exerciseDatabase.filter(ex => {
-            const primaryMuscles = (ex.primaryMuscles || []).map(m => m.toLowerCase());
-            return targetMuscles.some(m => primaryMuscles.includes(m));
-        });
-        const shuffledGym = filteredGym.sort(() => 0.5 - Math.random());
-        const selectedGym = shuffledGym.slice(0, 2);
-        recommendedList.push(...selectedGym.map(ex => {
-            const imagePath = ex.images && ex.images.length > 0 ? ex.images[0] : `${ex.id}/0.jpg`;
-            const imageUrl = `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${imagePath}`;
-            return {
-                name: ex.name,
-                sets: level === 'beginner' ? 2 : 3,
-                reps: level === 'beginner' ? 12 : 15,
-                rest: mbti.includes('T') ? "45s" : "60s",
-                desc: "Complementary: " + (ex.instructions?.[0] || "Focus on control."),
-                image: imageUrl
-            };
-        }));
+        let targetMuscles = (health === 'recovery' || timeOfDay === 'night') ? ["stretching"] : ["core", "abs"];
+        let filteredGym = exerciseDatabase.filter(ex => (ex.primaryMuscles || []).some(m => targetMuscles.includes(m.toLowerCase())));
+        const selectedGym = filteredGym.sort(() => 0.5 - Math.random()).slice(0, 2);
+        recommendedList.push(...selectedGym.map(ex => ({
+            name: ex.name, sets: level === 'beginner' ? 2 : 3, reps: 12, rest: "60s",
+            desc: "보조 운동: " + (ex.instructions?.[0] || "천천히 정확하게 수행하세요."),
+            image: `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${ex.images?.[0] || ex.id + '/0.jpg'}`
+        })));
     }
     return recommendedList.sort(() => 0.5 - Math.random());
+}
+
+// History Storage
+function saveToHistory(workout) {
+    let history = JSON.parse(localStorage.getItem('workoutHistory') || "[]");
+    const session = {
+        date: new Date().toLocaleString(),
+        exercises: workout.map(e => e.name)
+    };
+    history.unshift(session);
+    localStorage.setItem('workoutHistory', JSON.stringify(history.slice(0, 10)));
+    renderHistory();
+}
+
+function renderHistory() {
+    const container = document.getElementById('history-container');
+    if (!container) return;
+    const history = JSON.parse(localStorage.getItem('workoutHistory') || "[]");
+    if (history.length === 0) return;
+    container.innerHTML = history.map(session => `
+        <div class="rec-card" style="min-width: 250px;">
+            <span class="rec-title">${session.date}</span>
+            <p class="rec-content" style="font-size: 0.8em;">${session.exercises.join(', ')}</p>
+        </div>
+    `).join('');
 }
 
 const workoutForm = document.getElementById('workout-form');
 const workoutContainer = document.getElementById('workout-container');
 
-workoutForm.addEventListener('submit', async (e) => {
+workoutForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const options = {
         fitnessLevel: document.getElementById('fitness-level').value,
@@ -498,14 +519,12 @@ workoutForm.addEventListener('submit', async (e) => {
         weather: document.getElementById('weather').value,
         timeOfDay: document.getElementById('time-of-day').value
     };
-    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">Curating your personalized plan for this ' + options.timeOfDay + '...</p>';
+    if (workoutContainer) workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">운동 계획을 세우는 중입니다...</p>';
+    
     setTimeout(() => {
         let recommendedWorkout = getExercisesByContext(options);
-        if (!recommendedWorkout || recommendedWorkout.length === 0) {
-            workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">Could not generate workout. Please try again.</p>';
-            return;
-        }
-        workoutContainer.innerHTML = '';
+        if (!recommendedWorkout || recommendedWorkout.length === 0) return;
+        if (workoutContainer) workoutContainer.innerHTML = '';
         recommendedWorkout.forEach(exercise => {
             const workoutCard = document.createElement('workout-card');
             workoutCard.setAttribute('name', exercise.name);
@@ -514,12 +533,17 @@ workoutForm.addEventListener('submit', async (e) => {
             workoutCard.setAttribute('rest', exercise.rest);
             workoutCard.setAttribute('desc', exercise.desc);
             workoutCard.setAttribute('image', exercise.image);
-            workoutContainer.appendChild(workoutCard);
+            workoutContainer?.appendChild(workoutCard);
         });
+        saveToHistory(recommendedWorkout);
+        updateSupplementRecs(options.health);
         if (window.lucide) lucide.createIcons();
-        workoutContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 1000);
+        workoutContainer?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 800);
 });
 
-fetchExerciseData();
+fetchExerciseData().then(() => {
+    populateExerciseCatalog();
+    renderHistory();
+});
 if (window.lucide) lucide.createIcons();
