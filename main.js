@@ -156,6 +156,17 @@ class WorkoutCard extends HTMLElement {
 
 customElements.define('workout-card', WorkoutCard);
 
+// Global User State
+let userData = {
+    gender: null,
+    age: null,
+    height: null,
+    weight: null,
+    bmi: null,
+    bmr: null,
+    mbti: null
+};
+
 // Theme Toggle Logic
 const themeToggle = document.getElementById('theme-toggle');
 const themeIcon = document.getElementById('theme-icon');
@@ -184,22 +195,112 @@ themeToggle.addEventListener('click', () => {
     setTheme(currentTheme === 'dark' ? 'light' : 'dark');
 });
 
-// Body Metrics Calculation and Storage
+// MBTI Quiz Logic
+const mbtiQuestions = [
+    { text: "I feel energized after a group workout session.", dimension: "EI", positive: true },
+    { text: "I prefer a quiet solo workout over a busy gym environment.", dimension: "EI", positive: false },
+    { text: "I focus more on the exact form and data (reps/weight) than the overall feeling.", dimension: "SN", positive: true },
+    { text: "I enjoy trying new, creative, and unconventional exercises.", dimension: "SN", positive: false },
+    { text: "I choose exercises based on logical efficiency and performance metrics.", dimension: "TF", positive: true },
+    { text: "The mind-body connection and how I feel during a workout are most important.", dimension: "TF", positive: false },
+    { text: "I strictly follow a pre-planned workout schedule every day.", dimension: "JP", positive: true },
+    { text: "I like to decide what to work out based on my mood that day.", dimension: "JP", positive: false }
+];
+
+let currentQuestionIndex = 0;
+let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+
+const mbtiQuizContainer = document.getElementById('mbti-quiz');
+const mbtiQuestionText = document.getElementById('mbti-question-text');
+const mbtiProgressText = document.getElementById('mbti-progress-text');
+const mbtiProgressBar = document.getElementById('mbti-progress-bar');
+const mbtiResults = document.getElementById('mbti-results');
+const mbtiTypeValue = document.getElementById('mbti-type-value');
+const mbtiTypeDesc = document.getElementById('mbti-type-desc');
+const mbtiInsightText = document.getElementById('mbti-insight-text');
+const retakeMbtiBtn = document.getElementById('retake-mbti');
+
+function updateMbtiQuiz() {
+    if (currentQuestionIndex < mbtiQuestions.length) {
+        const q = mbtiQuestions[currentQuestionIndex];
+        mbtiQuestionText.textContent = q.text;
+        mbtiProgressText.textContent = `Question ${currentQuestionIndex + 1} of ${mbtiQuestions.length}`;
+        const progress = ((currentQuestionIndex) / mbtiQuestions.length) * 100;
+        mbtiProgressBar.style.setProperty('--progress', `${progress}%`);
+    } else {
+        calculateMbtiResult();
+    }
+}
+
+function calculateMbtiResult() {
+    let type = "";
+    type += mbtiScores.E >= mbtiScores.I ? "E" : "I";
+    type += mbtiScores.S >= mbtiScores.N ? "S" : "N";
+    type += mbtiScores.T >= mbtiScores.F ? "T" : "F";
+    type += mbtiScores.J >= mbtiScores.P ? "J" : "P";
+
+    userData.mbti = type;
+    mbtiTypeValue.textContent = type;
+    
+    const insights = {
+        E: "You thrive in vibrant environments. Consider gym-based routines or outdoor bootcamps.",
+        I: "You value focus. Solo training or home-based routines will keep you most consistent.",
+        S: "You are methodical. Structured weightlifting or HIIT with clear targets is ideal.",
+        N: "You seek variety. Cross-training or exploratory outdoor sports will keep you engaged.",
+        T: "You are data-driven. Use tracking apps and focus on performance milestones.",
+        F: "You value harmony. Yoga, Pilates, or rhythmic movements will resonate with your energy.",
+        J: "You love structure. Fixed 12-week programs and clear schedules are your best friend.",
+        P: "You need flexibility. Varied daily routines and spontaneous activities suit you best."
+    };
+
+    mbtiInsightText.textContent = `${insights[type[0]]} ${insights[type[1]]}`;
+    mbtiTypeDesc.textContent = `As an ${type}, your psychological profile suggests you'll find the most success with workouts that balance your unique traits.`;
+
+    mbtiQuizContainer.classList.add('hidden');
+    mbtiResults.classList.remove('hidden');
+}
+
+document.querySelectorAll('.mbti-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const score = parseInt(btn.dataset.score);
+        const q = mbtiQuestions[currentQuestionIndex];
+        
+        // Convert 1-5 score to dimension points
+        // 1:Strongly Disagree, 2:Disagree, 3:Neutral, 4:Agree, 5:Strongly Agree
+        const weight = score - 3; // -2 to +2
+        
+        const dim1 = q.dimension[0];
+        const dim2 = q.dimension[1];
+        
+        if (q.positive) {
+            if (weight > 0) mbtiScores[dim1] += weight;
+            else mbtiScores[dim2] += Math.abs(weight);
+        } else {
+            if (weight > 0) mbtiScores[dim2] += weight;
+            else mbtiScores[dim1] += Math.abs(weight);
+        }
+
+        currentQuestionIndex++;
+        updateMbtiQuiz();
+    });
+});
+
+retakeMbtiBtn.addEventListener('click', () => {
+    currentQuestionIndex = 0;
+    mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+    mbtiQuizContainer.classList.remove('hidden');
+    mbtiResults.classList.add('hidden');
+    updateMbtiQuiz();
+});
+
+updateMbtiQuiz();
+
+// Body Metrics Calculation
 const metricsForm = document.getElementById('metrics-form');
 const metricsResults = document.getElementById('metrics-results');
 const bmiValueSpan = document.getElementById('bmi-value');
 const bmiStatusSpan = document.getElementById('bmi-status');
 const bmrValueSpan = document.getElementById('bmr-value');
-
-// Global User State
-let userData = {
-    gender: null,
-    age: null,
-    height: null,
-    weight: null,
-    bmi: null,
-    bmr: null
-};
 
 metricsForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -231,17 +332,13 @@ metricsForm.addEventListener('submit', (e) => {
     metricsResults.classList.remove('hidden');
     metricsResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     
-    // Feedback to user that analysis is saved
     const calcBtn = document.getElementById('calculate-btn');
     const originalText = calcBtn.textContent;
-    calcBtn.textContent = "Metrics Applied to Coach ✅";
+    calcBtn.textContent = "Metrics Applied ✅";
     setTimeout(() => calcBtn.textContent = originalText, 2000);
 });
 
-const workoutForm = document.getElementById('workout-form');
-const workoutContainer = document.getElementById('workout-container');
-
-// API Data Integration
+// Exercise Database & Logic
 let exerciseDatabase = [];
 const EXERCISE_API_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json';
 
@@ -250,7 +347,6 @@ async function fetchExerciseData() {
         const response = await fetch(EXERCISE_API_URL);
         if (!response.ok) throw new Error('Failed to fetch exercises');
         exerciseDatabase = await response.json();
-        console.log('Exercise Database Loaded:', exerciseDatabase.length);
     } catch (error) {
         console.error('Error fetching exercise data:', error);
     }
@@ -262,22 +358,23 @@ const goalToMuscles = {
     "general-fitness": ["core", "lower back", "glutes", "calves", "shoulders"]
 };
 
-// Advanced Contextual Analysis Engine
 function getExercisesByContext(options) {
     if (!exerciseDatabase || exerciseDatabase.length === 0) return null;
 
     const { goal, level, health, weather } = options;
-    const now = new Date();
-    const hour = now.getHours();
+    const mbti = userData.mbti || "ISTJ"; // Default if not taken
 
     // 1. Muscle Selection
     let targetMuscles = [...(goalToMuscles[goal] || ["full body"])];
 
-    // 2. Body Info Analysis & Bias
-    if (userData.gender === 'female' && goal === 'general-fitness') {
-        targetMuscles.push('glutes', 'abdominals'); // Specific bias for female fitness routines
-    } else if (userData.gender === 'male' && goal === 'muscle-gain') {
-        targetMuscles.push('chest', 'shoulders'); // Specific bias for male hypertrophy routines
+    // 2. Personality & Context Bias
+    if (mbti.includes('N')) {
+        // Intuitive types get more variety, adding accessory muscles
+        targetMuscles.push('forearms', 'traps', 'neck');
+    }
+    
+    if (mbti.includes('E') && goal === 'general-fitness') {
+        targetMuscles.push('cardio'); // Extroverts often enjoy the energy of cardio environments
     }
 
     if (health === 'recovery' || health === 'tired') {
@@ -291,36 +388,33 @@ function getExercisesByContext(options) {
         return targetMuscles.some(m => primaryMuscles.includes(m) || bodyPart.includes(m));
     });
 
-    // 4. Intensity & Volume Calculation (The "Trainer AI" Brain)
+    // 4. MBTI specific filtering
+    if (mbti.includes('S')) {
+        // Sensing types prefer traditional, effective movements
+        filtered = filtered.filter(ex => !ex.name.toLowerCase().includes('dynamic') && !ex.name.toLowerCase().includes('creative'));
+    }
+
+    // 5. Volume & Intensity Calculation
     const shuffled = filtered.sort(() => 0.5 - Math.random());
-    const count = (health === 'recovery' || health === 'tired') ? 3 : 5;
+    const count = (health === 'recovery' || health === 'tired') ? 3 : (mbti.includes('J') ? 6 : 5); // Judgers get a more complete plan
     const selected = shuffled.slice(0, count);
 
     return selected.map(ex => {
         const imagePath = ex.images && ex.images.length > 0 ? ex.images[0] : `${ex.id}/0.jpg`;
         const imageUrl = `https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/${imagePath}`;
 
-        // Base Logic
         let sets = level === 'beginner' ? 2 : (level === 'intermediate' ? 3 : 4);
         let reps = level === 'beginner' ? 10 : (level === 'intermediate' ? 12 : 15);
-        let rest = "60s";
+        let rest = mbti.includes('T') ? "45s" : "60s"; // Thinking types often prefer shorter, more intense rest for efficiency
 
-        // Age Analysis (Safety first)
         if (userData.age && userData.age > 50) {
             sets = Math.min(sets, 3);
             rest = "90s";
         }
 
-        // Weight/BMI Analysis (Joint protection)
         if (userData.bmi && userData.bmi > 28) {
-            // Suggest lower impact/reps for higher BMI to protect joints
             reps = Math.max(8, reps - 2);
             rest = "90s";
-        }
-
-        // BMR Analysis (Metabolic focus)
-        if (userData.bmr && userData.bmr > 2000 && goal === 'weight-loss') {
-            reps = Math.min(20, reps + 5); // Increase volume for high BMR weight loss
         }
 
         return {
@@ -334,13 +428,8 @@ function getExercisesByContext(options) {
     });
 }
 
-const fallbackWorkouts = {
-    "weight-loss": {
-        beginner: [
-            { name: "Dynamic Warm-up", sets: 2, reps: "1 min", rest: "30s", desc: "Get your heart rate up slowly.", image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=500" }
-        ]
-    }
-};
+const workoutForm = document.getElementById('workout-form');
+const workoutContainer = document.getElementById('workout-container');
 
 workoutForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -352,13 +441,14 @@ workoutForm.addEventListener('submit', async (e) => {
         weather: document.getElementById('weather').value
     };
 
-    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">신체 지표, 날씨, 성별을 고려하여 AI가 맞춤 루틴을 설계 중입니다...</p>';
+    workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color: var(--primary-color);">Analyzing metrics, personality, and environment for your perfect routine...</p>';
 
     setTimeout(() => {
         let recommendedWorkout = getExercisesByContext(options);
 
         if (!recommendedWorkout || recommendedWorkout.length === 0) {
-            recommendedWorkout = fallbackWorkouts["weight-loss"].beginner;
+            workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">Could not generate workout. Please try again.</p>';
+            return;
         }
 
         workoutContainer.innerHTML = '';
@@ -377,7 +467,9 @@ workoutForm.addEventListener('submit', async (e) => {
         if (window.lucide) {
             lucide.createIcons();
         }
-    }, 800);
+        
+        workoutContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 1000);
 });
 
 fetchExerciseData();

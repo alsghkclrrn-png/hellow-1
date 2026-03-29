@@ -63,6 +63,44 @@
             </div>
         </section>
 
+        <section id="mbti-analysis">
+            <h2>Personality & Mindset Analysis (MBTI)</h2>
+            <p class="section-desc">Unlock exercise routines that align with your psychological profile for maximum consistency and enjoyment.</p>
+            
+            <div id="mbti-quiz" class="quiz-container">
+                <!-- MBTI questions will be dynamically injected here -->
+                <div id="mbti-progress-container">
+                    <div id="mbti-progress-bar"></div>
+                    <span id="mbti-progress-text">Step 1 of 4</span>
+                </div>
+                <div id="mbti-question-card" class="question-card">
+                    <h3 id="mbti-question-text">I prefer working out in a group or a busy gym.</h3>
+                    <div class="mbti-options">
+                        <button class="mbti-opt" data-score="1">Strongly Disagree</button>
+                        <button class="mbti-opt" data-score="2">Disagree</button>
+                        <button class="mbti-opt" data-score="3">Neutral</button>
+                        <button class="mbti-opt" data-score="4">Agree</button>
+                        <button class="mbti-opt" data-score="5">Strongly Agree</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mbti-results" class="hidden">
+                <div class="mbti-badge-container">
+                    <div class="mbti-type-card">
+                        <span class="mbti-label">Your MBTI Profile</span>
+                        <h3 id="mbti-type-value">--</h3>
+                        <p id="mbti-type-desc" class="mbti-desc">Take the quiz to find your ideal workout personality.</p>
+                    </div>
+                    <div class="mbti-recommendation-card">
+                        <span class="mbti-label">Personality Insight</span>
+                        <p id="mbti-insight-text">--</p>
+                    </div>
+                </div>
+                <button id="retake-mbti" class="secondary-btn">Retake Quiz</button>
+            </div>
+        </section>
+
         <form id="workout-form">
             <h2>Personalize Your Session</h2>
             <div class="workout-grid">

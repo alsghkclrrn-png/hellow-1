@@ -331,3 +331,169 @@ workout-card:hover {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* MBTI Analysis Section */
+#mbti-analysis {
+    margin-bottom: 40px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.section-desc {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.95em;
+}
+
+.quiz-container {
+    background: var(--card-background);
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px var(--shadow-color);
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+#mbti-progress-container {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#mbti-progress-bar {
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+}
+
+#mbti-progress-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: var(--progress, 0%);
+    background: var(--primary-color);
+    transition: width 0.4s ease;
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+#mbti-progress-text {
+    font-size: 0.8em;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.question-card h3 {
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 1.4em;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+
+.mbti-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mbti-opt {
+    padding: 16px 24px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--input-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    text-align: left;
+    font-family: inherit;
+}
+
+.mbti-opt:hover {
+    border-color: var(--primary-color);
+    background: var(--glow-color);
+    transform: translateX(5px);
+}
+
+.mbti-badge-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+    animation: fadeInDown 0.5s ease-out;
+}
+
+.mbti-type-card, .mbti-recommendation-card {
+    background: var(--card-background);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mbti-label {
+    display: block;
+    font-size: 0.75em;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+#mbti-type-value {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin: 10px 0;
+    font-weight: 800;
+    letter-spacing: -2px;
+}
+
+.mbti-desc, #mbti-insight-text {
+    font-size: 0.9em;
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+.secondary-btn {
+    display: block;
+    margin: 0 auto;
+    background: transparent;
+    color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.secondary-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+@media (max-width: 600px) {
+    .mbti-badge-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .quiz-container {
+        padding: 24px;
+    }
+}
+
