@@ -195,8 +195,22 @@
         </form>
 
         <section id="workout-plan">
-            <h2>Your Custom Workout</h2>
+            <h2><i data-lucide="dumbbell"></i> Your Custom Workout</h2>
             <div id="workout-container"></div>
+            
+            <div id="workout-analysis-section" class="hidden">
+                <hr class="section-divider">
+                <h2><i data-lucide="clipboard-check"></i> Workout Session Analysis</h2>
+                <p class="section-desc">수행하신 운동 결과를 입력해 주세요. AI 코치가 귀하의 운동 강도와 효율성을 분석해 드립니다.</p>
+                <div id="analysis-results" class="analysis-card hidden">
+                    <div class="analysis-header">
+                        <i data-lucide="award" class="award-icon"></i>
+                        <h3>AI Coach's Evaluation</h3>
+                    </div>
+                    <div id="analysis-content"></div>
+                </div>
+                <button id="analyze-workout-btn" class="secondary-btn">분석 및 피드백 받기</button>
+            </div>
         </section>
 
         <!-- NEW SECTIONS -->

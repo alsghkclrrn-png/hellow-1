@@ -127,6 +127,48 @@ class WorkoutCard extends HTMLElement {
                     text-transform: uppercase;
                     z-index: 2;
                 }
+                .performance-tracking {
+                    margin-top: 20px;
+                    padding-top: 20px;
+                    border-top: 1px dashed var(--border-color);
+                }
+                .performance-title {
+                    font-size: 0.85em;
+                    font-weight: 700;
+                    color: var(--text-color);
+                    margin-bottom: 12px;
+                    display: flex;
+                    align-items: center;
+                    gap: 6px;
+                }
+                .input-group {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 10px;
+                    margin-bottom: 10px;
+                }
+                .input-field {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+                }
+                .input-field label {
+                    font-size: 0.7em;
+                    color: var(--secondary-color);
+                    font-weight: 600;
+                }
+                input {
+                    padding: 8px;
+                    border-radius: 8px;
+                    border: 1px solid var(--border-color);
+                    background: var(--input-bg);
+                    color: var(--text-color);
+                    font-size: 0.9em;
+                }
+                input:focus {
+                    outline: none;
+                    border-color: var(--primary-color);
+                }
             </style>
             <div class="badge">Master Trainer Advice</div>
             <div class="image-container">
@@ -137,17 +179,37 @@ class WorkoutCard extends HTMLElement {
                 <p class="description">${desc}</p>
                 <div class="stats">
                     <div class="stat-item">
-                        <span class="label">Sets</span>
+                        <span class="label">Target Sets</span>
                         <span class="value">${sets}</span>
                     </div>
                     <div class="stat-item">
-                        <span class="label">Reps</span>
+                        <span class="label">Target Reps</span>
                         <span class="value">${reps}</span>
                     </div>
                 </div>
                 <div class="rest-tag">
                     <span class="rest-label">Rest Period</span>
                     <span class="rest-value">${rest}</span>
+                </div>
+
+                <div class="performance-tracking">
+                    <div class="performance-title">
+                        Record Your Results
+                    </div>
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label>Actual Sets</label>
+                            <input type="number" class="actual-sets" placeholder="0" min="0" value="${sets}">
+                        </div>
+                        <div class="input-field">
+                            <label>Actual Reps</label>
+                            <input type="number" class="actual-reps" placeholder="0" min="0" value="${reps}">
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <label>Total Time Spent (min)</label>
+                        <input type="number" class="total-time" placeholder="Minutes" min="0" value="10">
+                    </div>
                 </div>
             </div>
         `;
@@ -639,9 +701,96 @@ workoutForm?.addEventListener('submit', async (e) => {
         });
         saveToHistory(recommendedWorkout);
         updateSupplementRecs(options.health);
+        
+        // Show analysis section
+        const analysisSection = document.getElementById('workout-analysis-section');
+        if (analysisSection) analysisSection.classList.remove('hidden');
+        
         if (window.lucide) lucide.createIcons();
         workoutContainer?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 800);
+});
+
+// Workout Analysis Logic
+document.getElementById('analyze-workout-btn')?.addEventListener('click', () => {
+    const cards = document.querySelectorAll('workout-card');
+    let totalTargetSets = 0;
+    let totalActualSets = 0;
+    let totalTargetReps = 0;
+    let totalActualReps = 0;
+    let totalTime = 0;
+    let exerciseCount = cards.length;
+
+    cards.forEach(card => {
+        const targetSets = parseInt(card.getAttribute('sets') || 0);
+        const targetReps = parseInt(card.getAttribute('reps') || 0);
+        
+        const actualSets = parseInt(card.shadowRoot.querySelector('.actual-sets')?.value || 0);
+        const actualReps = parseInt(card.shadowRoot.querySelector('.actual-reps')?.value || 0);
+        const time = parseInt(card.shadowRoot.querySelector('.total-time')?.value || 0);
+
+        totalTargetSets += targetSets;
+        totalActualSets += actualSets;
+        totalTargetReps += targetReps;
+        totalActualReps += actualReps;
+        totalTime += time;
+    });
+
+    const completionRate = (totalActualSets / totalTargetSets) * 100;
+    const intensityScore = (totalActualReps / totalTargetReps) * 100;
+
+    let evaluation = "";
+    let status = "";
+    let suggestions = [];
+
+    if (completionRate >= 100 && intensityScore >= 100) {
+        status = "Excellent (최고의 성과!)";
+        evaluation = "마스터 트레이너 급의 수행 능력을 보여주셨습니다. 설정한 모든 목표를 완벽하게 달성하셨네요.";
+        suggestions.push("다음 세션에서는 세트당 중량을 5-10% 늘리거나 휴식 시간을 10초 단축해 보세요.");
+        suggestions.push("현재 체력이 매우 좋으므로 고강도 인터벌 트레이닝(HIIT) 비중을 높여도 좋습니다.");
+    } else if (completionRate >= 80) {
+        status = "Good (훌륭한 노력)";
+        evaluation = "목표한 루틴의 대부분을 성공적으로 소화하셨습니다. 꾸준함이 가장 큰 무기입니다.";
+        suggestions.push("부족했던 마지막 1-2세트의 집중력을 높이기 위해 세트 사이 호흡 조절에 신경 써보세요.");
+        suggestions.push("운동 전 스트레칭 시간을 5분 더 늘려 근육의 가동 범위를 확보하는 것을 추천합니다.");
+    } else {
+        status = "Need Improvement (보완 필요)";
+        evaluation = "오늘은 컨디션이 조금 저조했거나 난이도가 높았던 것 같습니다. 무리하지 않는 것이 중요합니다.";
+        suggestions.push("목표 세트 수를 줄이는 대신 한 동작을 하더라도 정확한 자세에 집중해 보세요.");
+        suggestions.push("운동 전 충분한 수분 섭취와 탄수화물 위주의 가벼운 식단이 에너지 레벨을 높이는 데 도움이 됩니다.");
+    }
+
+    const resultsDiv = document.getElementById('analysis-results');
+    const contentDiv = document.getElementById('analysis-content');
+    
+    if (resultsDiv && contentDiv) {
+        contentDiv.innerHTML = `
+            <div class="analysis-stats-grid">
+                <div class="stat-box">
+                    <span class="stat-label">수행률 (Sets)</span>
+                    <span class="stat-value">${completionRate.toFixed(1)}%</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">강도 점수 (Reps)</span>
+                    <span class="stat-value">${intensityScore.toFixed(1)}%</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">총 운동 시간</span>
+                    <span class="stat-value">${totalTime}분</span>
+                </div>
+            </div>
+            <div class="evaluation-text">
+                <p class="status-badge">${status}</p>
+                <p class="main-eval">${evaluation}</p>
+                <ul class="suggestion-list">
+                    ${suggestions.map(s => `<li><i data-lucide="check-circle-2"></i> ${s}</li>`).join('')}
+                </ul>
+            </div>
+        `;
+        resultsDiv.classList.remove('hidden');
+        if (window.lucide) lucide.createIcons();
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
 });
 
 fetchExerciseData().then(() => {
