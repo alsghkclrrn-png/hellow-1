@@ -311,7 +311,10 @@ themeToggle?.addEventListener('click', () => {
 document.querySelectorAll('.nav-links a, .nav-logo').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
-        const targetId = this.getAttribute('href').substring(1);
+        let targetId = this.getAttribute('href').substring(1);
+        // Map old history ID to new stretching ID if necessary, though nav links were already updated
+        if (targetId === 'workout-history') targetId = 'stretching-recommendations';
+        
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
             window.scrollTo({
@@ -870,7 +873,8 @@ function getExercisesByContext(options) {
                 rest: "60초",
                 desc: detailedDesc,
                 image: imgPath,
-                calories: burned
+                calories: burned,
+                primaryMuscles: ex.primaryMuscles || []
             };
         });
     } else {
@@ -880,32 +884,56 @@ function getExercisesByContext(options) {
             sets: "3세트", reps: "15회", rest: "60초",
             desc: "[1단계] 양손을 어깨너비로 벌리고 바닥을 짚습니다.<br>[2단계] 몸을 일직선으로 유지하며 천천히 내려갑니다.<br>[3단계] 가슴 근육의 힘으로 다시 올라옵니다.",
             image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400",
-            calories: 45
+            calories: 45,
+            primaryMuscles: ["chest"]
         }];
     }
     
     return recommendedList;
 }
 
-function saveToHistory(workout) {
-    let history = JSON.parse(localStorage.getItem('workoutHistory') || "[]");
-    const session = { date: new Date().toLocaleString(), exercises: workout.map(e => e.name) };
-    history.unshift(session);
-    localStorage.setItem('workoutHistory', JSON.stringify(history.slice(0, 10)));
-    renderHistory();
-}
+function generateStretchingRecs(workout) {
+    const container = document.getElementById('stretching-container');
+    if (!container || workout.length === 0) return;
 
-function renderHistory() {
-    const container = document.getElementById('history-container');
-    if (!container) return;
-    const history = JSON.parse(localStorage.getItem('workoutHistory') || "[]");
-    if (history.length === 0) return;
-    container.innerHTML = history.map(session => `
-        <div class="rec-card" style="min-width: 250px;">
-            <span class="rec-title">${session.date}</span>
-            <p class="rec-content" style="font-size: 0.8em;">${session.exercises.join(', ')}</p>
-        </div>
-    `).join('');
+    const targetMuscles = [...new Set(workout.flatMap(ex => ex.primaryMuscles))];
+    
+    let matchingStretches = exerciseDatabase.filter(ex => 
+        ex.category === 'stretching' && 
+        ex.primaryMuscles.some(m => targetMuscles.includes(m))
+    );
+
+    if (matchingStretches.length === 0) {
+        matchingStretches = exerciseDatabase.filter(ex => ex.category === 'stretching').slice(0, 3);
+    } else {
+        matchingStretches = matchingStretches.sort(() => 0.5 - Math.random()).slice(0, 3);
+    }
+
+    container.innerHTML = matchingStretches.map(stretch => {
+        const imgPath = (stretch.images && stretch.images.length > 0) 
+            ? `${IMG_BASE_URL}${stretch.images[0]}` 
+            : 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400';
+        
+        const rawInstructions = (stretch.instructions && stretch.instructions.length > 0) ? stretch.instructions : ["호흡하며 부드럽게 근육을 늘려주세요."];
+        const detailedDesc = rawInstructions.map((step, idx) => `[${idx + 1}단계] ${step}`).join('<br>');
+
+        return `
+            <div class="rec-card" style="min-width: 320px; display: flex; flex-direction: column; gap: 15px;">
+                <div style="width: 100%; height: 180px; overflow: hidden; border-radius: 12px;">
+                    <img src="${imgPath}" alt="${stretch.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400'">
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span class="meal-time">추천 스트레칭</span>
+                    <span class="status-badge" style="background: var(--glow-color); color: var(--primary-color); padding: 4px 8px; font-size: 0.7em;">${stretch.primaryMuscles.join(', ')}</span>
+                </div>
+                <h3 style="font-size: 1.1em; color: var(--primary-color); margin: 0;">${stretch.name}</h3>
+                <div class="meal-recipe" style="font-size: 0.85em; flex-grow: 1;">
+                    <strong>🧘 가이드:</strong><br>
+                    ${detailedDesc}
+                </div>
+            </div>
+        `;
+    }).join('');
 }
 
 const workoutForm = document.getElementById('workout-form');
@@ -935,7 +963,8 @@ workoutForm?.addEventListener('submit', async (e) => {
             workoutCard.setAttribute('calories', exercise.calories);
             workoutContainer?.appendChild(workoutCard);
         });
-        saveToHistory(recommendedWorkout);
+        
+        generateStretchingRecs(recommendedWorkout);
         updateSupplementRecs(options.health);
         
         // Show analysis section
@@ -1056,7 +1085,6 @@ document.getElementById('analyze-workout-btn')?.addEventListener('click', () => 
 
 fetchExerciseData().then(() => {
     populateExerciseCatalog();
-    renderHistory();
     updateMbtiQuiz();
     updateSasangQuiz();
 });
