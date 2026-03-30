@@ -16,6 +16,7 @@ class WorkoutCard extends HTMLElement {
         const desc = this.getAttribute('desc') || 'Follow the trainer\'s guidance for this movement.';
         const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
         const calories = this.getAttribute('calories') || '0';
+        const target = this.getAttribute('target') || '전신';
 
         this.shadowRoot.innerHTML = `
             <style>
@@ -64,6 +65,17 @@ class WorkoutCard extends HTMLElement {
                     font-size: 1.3em;
                     letter-spacing: -0.01em;
                     line-height: 1.2;
+                }
+                .target-badge {
+                    display: inline-block;
+                    background: var(--glow-color);
+                    color: var(--primary-color);
+                    padding: 4px 10px;
+                    border-radius: 6px;
+                    font-size: 0.75em;
+                    font-weight: 800;
+                    margin-bottom: 12px;
+                    text-transform: uppercase;
                 }
                 .description {
                     font-size: 0.85em;
@@ -217,6 +229,7 @@ class WorkoutCard extends HTMLElement {
                 <img src="${image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'">
             </div>
             <div class="content">
+                <div class="target-badge"><i data-lucide="target"></i> ${target}</div>
                 <h3>${name}</h3>
                 <div class="description">
                     <strong>💡 초보자 가이드:</strong><br>
@@ -271,6 +284,13 @@ class WorkoutCard extends HTMLElement {
                 </div>
             </div>
         `;
+        if (window.lucide) lucide.createIcons({
+            attrs: {
+                'stroke-width': 2,
+                'class': 'lucide-icon'
+            },
+            portal: this.shadowRoot
+        });
     }
 }
 
@@ -800,26 +820,19 @@ function getExercisesByContext(options) {
             cardio: exerciseDatabase.filter(ex => ex.category === 'cardio' || (ex.primaryMuscles || []).includes('cardio'))
         };
 
-        // Selection Logic: Pick a primary focus based on theme/goal, but ensure variety
+        // Selection Logic
         const focusPool = ['chest', 'back', 'shoulders', 'arms', 'legs'];
         const selectedFocus = focusPool[Math.floor(Math.random() * focusPool.length)];
         
         let sessionPool = [];
-        
-        // 1. Add 2 main exercises from the focused body part
         sessionPool.push(...(parts[selectedFocus] || []).sort(() => 0.5 - Math.random()).slice(0, 2));
         
-        // 2. Add 1 exercise from another random body part for balance
         const secondaryPart = focusPool.filter(p => p !== selectedFocus)[Math.floor(Math.random() * (focusPool.length - 1))];
         sessionPool.push(...(parts[secondaryPart] || []).sort(() => 0.5 - Math.random()).slice(0, 1));
 
-        // 3. Mandatory: Add 1 Abdominal exercise
         sessionPool.push(...(parts.abs || []).sort(() => 0.5 - Math.random()).slice(0, 1));
-
-        // 4. Mandatory: Add 1 Cardio exercise
         sessionPool.push(...(parts.cardio || []).sort(() => 0.5 - Math.random()).slice(0, 1));
 
-        // Fallback if any pool was empty
         if (sessionPool.length < 5) {
             sessionPool.push(...exerciseDatabase.sort(() => 0.5 - Math.random()).slice(0, 5 - sessionPool.length));
         }
@@ -832,7 +845,6 @@ function getExercisesByContext(options) {
             const rawInstructions = (ex.instructions && ex.instructions.length > 0) ? ex.instructions : ["천천히 정확한 자세로 수행하세요."];
             const detailedDesc = rawInstructions.map((step, idx) => `[${idx + 1}단계] ${step}`).join('<br>');
             
-            // Professional MET Mapping
             const metMap = { 'strength': 6.0, 'cardio': 8.0, 'stretching': 2.5, 'plyometrics': 8.0, 'abs': 4.0 };
             const currentMET = metMap[ex.category] || 5.0;
 
@@ -842,15 +854,24 @@ function getExercisesByContext(options) {
             const totalMinutes = (setsNum * (repsNum * 4 + 60)) / 60;
             const burned = Math.round((currentMET * 3.5 * weight / 200) * totalMinutes);
 
+            // Muscle name mapping for display
+            const muscleMap = { 
+                'chest': '가슴', 'back': '등', 'lats': '등', 'shoulders': '어깨', 
+                'biceps': '팔(이두)', 'triceps': '팔(삼두)', 'quads': '허벅지(앞)', 
+                'hamstrings': '허벅지(뒤)', 'glutes': '엉덩이', 'abs': '복근', 'cardio': '전신/심폐' 
+            };
+            const displayTarget = (ex.primaryMuscles || []).map(m => muscleMap[m] || m).join(', ') || '전신';
+
             return {
                 name: ex.name,
                 sets: `${setsNum}세트`,
-                reps: ex.category === 'cardio' ? "15분" : `${repsNum}회`,
+                reps: ex.category === 'cardio' ? "15~20분" : `${repsNum}회`,
                 rest: "60초",
                 desc: detailedDesc,
                 image: imgPath,
                 calories: burned,
-                primaryMuscles: ex.primaryMuscles || []
+                primaryMuscles: ex.primaryMuscles || [],
+                target: displayTarget
             };
         });
     } else {
@@ -860,7 +881,8 @@ function getExercisesByContext(options) {
             desc: "[1단계] 가볍게 제자리 뛰기로 몸을 풉니다.<br>[2단계] 스쿼트 15회를 수행합니다.<br>[3단계] 플랭크 30초를 유지합니다.",
             image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400",
             calories: 120,
-            primaryMuscles: ["full body"]
+            primaryMuscles: ["full body"],
+            target: "전신"
         }];
     }
     
@@ -936,6 +958,7 @@ workoutForm?.addEventListener('submit', async (e) => {
             workoutCard.setAttribute('desc', exercise.desc);
             workoutCard.setAttribute('image', exercise.image);
             workoutCard.setAttribute('calories', exercise.calories);
+            workoutCard.setAttribute('target', exercise.target);
             workoutContainer?.appendChild(workoutCard);
         });
         
