@@ -15,6 +15,7 @@ class WorkoutCard extends HTMLElement {
         const rest = this.getAttribute('rest') || '0s';
         const desc = this.getAttribute('desc') || 'Follow the trainer\'s guidance for this movement.';
         const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
+        const calories = this.getAttribute('calories') || '0';
 
         this.shadowRoot.innerHTML = `
             <style>
@@ -70,10 +71,13 @@ class WorkoutCard extends HTMLElement {
                     margin-bottom: 20px;
                     line-height: 1.6;
                     flex-grow: 1;
+                    background: rgba(255,255,255,0.03);
+                    padding: 12px;
+                    border-radius: 10px;
                 }
                 .stats {
                     display: grid;
-                    grid-template-columns: 1fr 1fr;
+                    grid-template-columns: 1fr 1fr 1fr;
                     gap: 12px;
                     margin-top: auto;
                 }
@@ -113,6 +117,21 @@ class WorkoutCard extends HTMLElement {
                     border-radius: 20px;
                     font-size: 0.85em;
                     font-weight: 700;
+                }
+                .calorie-badge {
+                    position: absolute;
+                    top: 12px;
+                    right: 12px;
+                    background: #ef4444;
+                    color: white;
+                    padding: 4px 10px;
+                    border-radius: 8px;
+                    font-size: 0.75em;
+                    font-weight: 800;
+                    z-index: 2;
+                    display: flex;
+                    align-items: center;
+                    gap: 4px;
                 }
                 .badge {
                     position: absolute;
@@ -193,12 +212,16 @@ class WorkoutCard extends HTMLElement {
                 }
             </style>
             <div class="badge">Professional Training Plan</div>
+            <div class="calorie-badge">🔥 ${calories} kcal</div>
             <div class="image-container">
                 <img src="${image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'">
             </div>
             <div class="content">
                 <h3>${name}</h3>
-                <p class="description">${desc}</p>
+                <div class="description">
+                    <strong>💡 초보자 가이드:</strong><br>
+                    ${desc}
+                </div>
                 <div class="stats">
                     <div class="stat-item">
                         <span class="label">Target Sets</span>
@@ -207,6 +230,10 @@ class WorkoutCard extends HTMLElement {
                     <div class="stat-item">
                         <span class="label">Target Reps</span>
                         <span class="value">${reps}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="label">Est. Calories</span>
+                        <span class="value">${calories} kcal</span>
                     </div>
                 </div>
                 <div class="rest-tag">
@@ -590,7 +617,8 @@ const activityLibrary = [
         indoor: true, 
         time: ["dawn", "night"], 
         desc: "호흡과 유연성에 집중하며 마음의 평화를 찾는 활동입니다.",
-        apiKeywords: ["yoga", "stretching"]
+        apiKeywords: ["yoga", "stretching"],
+        met: 3.0
     },
     { 
         name: "강력한 웨이트 트레이닝", 
@@ -600,7 +628,8 @@ const activityLibrary = [
         indoor: true, 
         time: ["morning", "afternoon"], 
         desc: "폭발적인 에너지를 발산하고 근력을 강화하는 고강도 운동입니다.",
-        apiKeywords: ["bodyweight", "dumbbells", "strength"]
+        apiKeywords: ["bodyweight", "dumbbells", "strength"],
+        met: 6.0
     },
     { 
         name: "코어 & 필라테스", 
@@ -610,7 +639,8 @@ const activityLibrary = [
         indoor: true, 
         time: ["morning", "afternoon", "dawn"], 
         desc: "속근육을 강화하고 체형 교정에 탁월한 정밀 운동입니다.",
-        apiKeywords: ["abs", "core", "pilates"]
+        apiKeywords: ["abs", "core", "pilates"],
+        met: 3.8
     },
     { 
         name: "파워 하체 강화", 
@@ -620,7 +650,8 @@ const activityLibrary = [
         indoor: true, 
         time: ["dawn", "morning", "night"], 
         desc: "안정적인 신체 밸런스를 위한 하체 위주 프로그램입니다.",
-        apiKeywords: ["legs", "quads", "glutes"]
+        apiKeywords: ["legs", "quads", "glutes"],
+        met: 5.0
     }
 ];
 
@@ -718,18 +749,29 @@ function getExercisesByContext(options) {
         const selectedFromApi = themeExercises.sort(() => 0.5 - Math.random()).slice(0, 3);
         
         recommendedList = selectedFromApi.map(ex => {
-            // Fix: ex.images already contains the relative path like 'ID/0.jpg'
             const imgPath = (ex.images && ex.images.length > 0) 
                 ? `${IMG_BASE_URL}${ex.images[0]}` 
                 : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
 
+            // Detailed beginner-friendly instruction logic
+            const rawInstructions = (ex.instructions && ex.instructions.length > 0) ? ex.instructions : ["천천히 정확한 자세로 수행하세요."];
+            const detailedDesc = rawInstructions.map((step, idx) => `[${idx + 1}단계] ${step}`).join('<br>');
+            
+            // Calorie estimation logic
+            const weight = userData.weight || 70; // fallback weight
+            const setsNum = fitnessLevel === 'beginner' ? 3 : 4;
+            const repsNum = fitnessLevel === 'advanced' ? 15 : 12;
+            const totalMinutes = (setsNum * (repsNum * 4 + 60)) / 60; // Est. 4s per rep + 60s rest
+            const burned = Math.round((theme.met * 3.5 * weight / 200) * totalMinutes);
+
             return {
                 name: ex.name,
-                sets: fitnessLevel === 'beginner' ? "3세트" : "4세트",
-                reps: fitnessLevel === 'advanced' ? "15회" : "12회",
+                sets: `${setsNum}세트`,
+                reps: `${repsNum}회`,
                 rest: "60초",
-                desc: (ex.instructions && ex.instructions.length > 0) ? ex.instructions[0] : "천천히 정확한 자세로 수행하세요.",
-                image: imgPath
+                desc: detailedDesc,
+                image: imgPath,
+                calories: burned
             };
         });
     } else {
@@ -737,8 +779,9 @@ function getExercisesByContext(options) {
         recommendedList = [{
             name: "기본 푸쉬업",
             sets: "3세트", reps: "15회", rest: "60초",
-            desc: "가장 기본적인 상체 근력 운동입니다.",
-            image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400"
+            desc: "[1단계] 양손을 어깨너비로 벌리고 바닥을 짚습니다.<br>[2단계] 몸을 일직선으로 유지하며 천천히 내려갑니다.<br>[3단계] 가슴 근육의 힘으로 다시 올라옵니다.",
+            image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400",
+            calories: 45
         }];
     }
     
@@ -790,6 +833,7 @@ workoutForm?.addEventListener('submit', async (e) => {
             workoutCard.setAttribute('rest', exercise.rest);
             workoutCard.setAttribute('desc', exercise.desc);
             workoutCard.setAttribute('image', exercise.image);
+            workoutCard.setAttribute('calories', exercise.calories);
             workoutContainer?.appendChild(workoutCard);
         });
         saveToHistory(recommendedWorkout);
