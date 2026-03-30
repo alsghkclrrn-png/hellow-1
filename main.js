@@ -634,29 +634,52 @@ function populateExerciseCatalog() {
     const catalogGrid = document.getElementById('catalog-grid');
     if (!catalogGrid) return;
     
+    // 안정적인 시각적 자료를 위해 고화질 운동 관련 이미지와 설명을 결합한 카드로 구성
     const categories = [
-        { name: "벤치 프레스 (Bench Press)", icon: "shield", desc: "가슴 전체의 매스를 키우는 가장 대표적인 운동", videoId: "rT7DgMEutwU" },
-        { name: "인클라인 덤벨 프레스 (Incline Press)", icon: "arrow-up-right", desc: "윗가슴을 타겟으로 하여 입체적인 가슴 라인을 완성", videoId: "8iPEnn-ltC8" },
-        { name: "덤벨 플라이 (Dumbbell Fly)", icon: "expand", desc: "가슴 안쪽 라인과 근육의 결을 살려주는 고립 운동", videoId: "eGjt4lk6gjw" },
-        { name: "푸쉬업 (Push-ups)", icon: "zap", desc: "언제 어디서나 가능한 가장 효과적인 가슴 맨몸 운동", videoId: "IODxDxX7oi4" },
-        { name: "딥스 (Dips)", icon: "arrow-down", desc: "아랫가슴과 삼두근을 동시에 발달시키는 강력한 상체 운동", videoId: "6kALZikpaLc" },
-        { name: "등 (Back)", icon: "align-justify", desc: "바른 자세와 넓은 프레임을 위한 광배근 운동", videoId: "n9Zp_as9_QU" },
-        { name: "어깨 (Shoulders)", icon: "triangle", desc: "입체적인 어깨 라인을 위한 삼각근 루틴", videoId: "3vcKaXadLWo" },
-        { name: "팔 (Arms)", icon: "armchair", desc: "이두와 삼두의 근지구력 및 근력 강화", videoId: "twW029LuyF8" },
-        { name: "하체 (Legs)", icon: "footprints", desc: "전신 근력의 기초가 되는 고강도 하체 트레이닝", videoId: "X0vL6733Ebc" },
-        { name: "코어 (Abs)", icon: "activity", desc: "신체 안정성을 높이는 복근 및 코어 집중 운동", videoId: "8AACH_ueZ_I" }
+        { 
+            name: "벤치 프레스 (Bench Press)", 
+            icon: "shield", 
+            desc: "가슴 전체의 매스를 키우는 가장 대표적인 운동입니다. 바벨을 가슴 높이까지 내렸다가 힘차게 밀어올리세요.",
+            img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=600"
+        },
+        { 
+            name: "인클라인 덤벨 프레스 (Incline Press)", 
+            icon: "arrow-up-right", 
+            desc: "윗가슴을 타겟으로 하여 입체적인 가슴 라인을 완성합니다. 벤치 각도를 30-45도로 설정하세요.",
+            img: "https://images.unsplash.com/photo-1581009146145-b5ef03a726ec?auto=format&fit=crop&q=80&w=600"
+        },
+        { 
+            name: "덤벨 플라이 (Dumbbell Fly)", 
+            icon: "expand", 
+            desc: "가슴 안쪽 라인과 근육의 결을 살려주는 고립 운동입니다. 가슴을 확장하며 천천히 근육을 이완하세요.",
+            img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600"
+        },
+        { 
+            name: "푸쉬업 (Push-ups)", 
+            icon: "zap", 
+            desc: "언제 어디서나 가능한 가장 효과적인 가슴 맨몸 운동입니다. 몸을 일직선으로 유지하는 것이 핵심입니다.",
+            img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=600"
+        },
+        { 
+            name: "딥스 (Dips)", 
+            icon: "arrow-down", 
+            desc: "아랫가슴과 삼두근을 동시에 발달시키는 강력한 상체 운동입니다. 상체를 약간 숙여 가슴에 집중하세요.",
+            img: "https://images.unsplash.com/photo-1590487988256-9ed24133863e?auto=format&fit=crop&q=80&w=600"
+        },
+        { 
+            name: "바벨 로우 (Barbell Row)", 
+            icon: "align-justify", 
+            desc: "등의 두께감을 키워주는 대표적인 운동입니다. 허리를 곧게 펴고 바벨을 배꼽 방향으로 당기세요.",
+            img: "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&q=80&w=600"
+        }
     ];
 
     catalogGrid.innerHTML = categories.map(cat => `
         <div class="catalog-item">
-            <div class="video-wrapper">
-                <iframe 
-                    src="https://www.youtube.com/embed/${cat.videoId}?rel=0&modestbranding=1" 
-                    title="${cat.name} 운동 영상"
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
+            <div class="video-wrapper" style="background-image: url('${cat.img}'); background-size: cover; background-position: center; height: 200px; position: relative;">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 10px;">
+                    <span style="color: white; font-size: 0.8em; font-weight: bold;">Pro Training Guide</span>
+                </div>
             </div>
             <div class="catalog-content-box">
                 <div class="catalog-header">
@@ -664,6 +687,9 @@ function populateExerciseCatalog() {
                     <h3>${cat.name}</h3>
                 </div>
                 <p class="rec-content">${cat.desc}</p>
+                <button class="secondary-btn" style="width: 100%; margin-top: 15px; padding: 10px;" onclick="alert('${cat.name}의 상세 운동 가이드 영상은 현재 준비 중입니다. 잠시만 기다려 주세요!')">
+                    가이드 영상 보기
+                </button>
             </div>
         </div>
     `).join('');
