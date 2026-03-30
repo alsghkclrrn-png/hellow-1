@@ -635,13 +635,16 @@ function populateExerciseCatalog() {
     if (!catalogGrid) return;
     
     const categories = [
-        { name: "가슴 (Chest)", icon: "shield", desc: "단단한 상체를 위한 최고의 가슴 운동 집약 가이드", videoId: "89e5180Hndw" },
+        { name: "벤치 프레스 (Bench Press)", icon: "shield", desc: "가슴 전체의 매스를 키우는 가장 대표적인 운동", videoId: "rT7DgMEutwU" },
+        { name: "인클라인 덤벨 프레스 (Incline Press)", icon: "arrow-up-right", desc: "윗가슴을 타겟으로 하여 입체적인 가슴 라인을 완성", videoId: "8iPEnn-ltC8" },
+        { name: "덤벨 플라이 (Dumbbell Fly)", icon: "expand", desc: "가슴 안쪽 라인과 근육의 결을 살려주는 고립 운동", videoId: "eGjt4lk6gjw" },
+        { name: "푸쉬업 (Push-ups)", icon: "zap", desc: "언제 어디서나 가능한 가장 효과적인 가슴 맨몸 운동", videoId: "IODxDxX7oi4" },
+        { name: "딥스 (Dips)", icon: "arrow-down", desc: "아랫가슴과 삼두근을 동시에 발달시키는 강력한 상체 운동", videoId: "6kALZikpaLc" },
         { name: "등 (Back)", icon: "align-justify", desc: "바른 자세와 넓은 프레임을 위한 광배근 운동", videoId: "n9Zp_as9_QU" },
         { name: "어깨 (Shoulders)", icon: "triangle", desc: "입체적인 어깨 라인을 위한 삼각근 루틴", videoId: "3vcKaXadLWo" },
         { name: "팔 (Arms)", icon: "armchair", desc: "이두와 삼두의 근지구력 및 근력 강화", videoId: "twW029LuyF8" },
         { name: "하체 (Legs)", icon: "footprints", desc: "전신 근력의 기초가 되는 고강도 하체 트레이닝", videoId: "X0vL6733Ebc" },
-        { name: "코어 (Abs)", icon: "activity", desc: "신체 안정성을 높이는 복근 및 코어 집중 운동", videoId: "8AACH_ueZ_I" },
-        { name: "유산소 (Cardio)", icon: "wind", desc: "체지방 연소와 심폐 지구력 향상 프로그램", videoId: "ml6cT4AZdqI" }
+        { name: "코어 (Abs)", icon: "activity", desc: "신체 안정성을 높이는 복근 및 코어 집중 운동", videoId: "8AACH_ueZ_I" }
     ];
 
     catalogGrid.innerHTML = categories.map(cat => `
