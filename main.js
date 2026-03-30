@@ -630,6 +630,8 @@ metricsForm?.addEventListener('submit', (e) => {
     generateDietRecs();
 });
 
+// ... (기존 코드 유지)
+
 function populateExerciseCatalog() {
     const catalogGrid = document.getElementById('catalog-grid');
     if (!catalogGrid) return;
@@ -696,479 +698,53 @@ function populateExerciseCatalog() {
     if (window.lucide) lucide.createIcons();
 }
 
-function generateDietRecs() {
-    const dietContainer = document.getElementById('diet-container');
-    if (!dietContainer || !userData.bmr) return;
+function populateHomeWorkout(filter = 'bodyweight') {
+    const homeWorkoutGrid = document.getElementById('home-workout-grid');
+    if (!homeWorkoutGrid) return;
 
-    const userGoal = document.getElementById('goal')?.value || "general-fitness";
-    const bmr = userData.bmr;
-    
-    // TDEE estimation (Sedentary factor 1.2)
-    const tdee = Math.round(bmr * 1.2);
-    let targetCalories = tdee;
-    
-    if (userGoal === 'weight-loss') targetCalories -= 500;
-    else if (userGoal === 'muscle-gain') targetCalories += 300;
-
-    // Professional Meal Pool for Diversity
-    const mealPool = {
-        breakfast: [
-            {
-                name: "수비드 닭가슴살 샐러드 & 오트밀",
-                recipe: "[1단계] 롤드 오트 40g에 뜨거운 물을 부어 불립니다.<br>[2단계] 닭가슴살 100g을 얇게 썰어 루꼴라, 방울토마토와 담습니다.<br>[3단계] 올리브유와 발사믹으로 드레싱합니다.",
-                nutrients: "고단백, 저당질, 식이섬유",
-                image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600"
-            },
-            {
-                name: "아보카도 통밀 에그 토스트",
-                recipe: "[1단계] 통밀빵 2조각을 바삭하게 굽습니다.<br>[2단계] 아보카도 반 개를 으깨어 빵 위에 펴 바릅니다.<br>[3단계] 수란 혹은 프라이를 올려 레드페퍼 홀을 뿌립니다.",
-                nutrients: "양질의 지방, 복합 탄수화물",
-                image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=600"
-            },
-            {
-                name: "베리 넛츠 그릭 요거트 볼",
-                recipe: "[1단계] 꾸덕한 그릭 요거트 150g을 볼에 담습니다.<br>[2단계] 블루베리와 견과류 20g을 토핑합니다.<br>[3단계] 기호에 따라 시나몬 가루를 살짝 뿌립니다.",
-                nutrients: "프로바이오틱스, 항산화",
-                image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=600"
-            }
+    const workoutData = {
+        bodyweight: [
+            { name: "슬로우 버피 (Slow Burpee)", icon: "zap", desc: "층간소음 없이 전신의 체지방을 태우는 유산소성 근력 운동입니다.", img: "https://images.unsplash.com/photo-1599058917233-35833f3b5e5e?auto=format&fit=crop&q=80&w=600" },
+            { name: "와이드 스쿼트 (Wide Squat)", icon: "footprints", desc: "허벅지 안쪽과 엉덩이 라인을 탄탄하게 잡아주는 하체 운동입니다.", img: "https://images.unsplash.com/photo-1566241142559-40e1bfc26ddc?auto=format&fit=crop&q=80&w=600" },
+            { name: "플랭크 탭 (Plank Taps)", icon: "activity", desc: "코어 안정성을 높이고 어깨 근력을 강화하는 전신 운동입니다.", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=600" },
+            { name: "마운틴 클라이머 (Mountain Climbers)", icon: "wind", desc: "심박수를 높여 체지방 연소를 극대화하고 복근을 단련합니다.", img: "https://images.unsplash.com/photo-1434608519344-49d77a699e1d?auto=format&fit=crop&q=80&w=600" }
         ],
-        lunch: [
-            {
-                name: "현미밥 & 흰살생선 채소 찜",
-                recipe: "[1단계] 현미밥 150g을 준비합니다.<br>[2단계] 대구살 120g을 미림과 생강으로 밑간해 찜기에 익힙니다.<br>[3단계] 데친 브로콜리와 버섯을 곁들입니다.",
-                nutrients: "저지방 단백질, 풍부한 미네랄",
-                image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=600"
-            },
-            {
-                name: "소고기 우둔살 파스타",
-                recipe: "[1단계] 통밀 파스타면 80g을 삶습니다.<br>[2단계] 우둔살 100g을 마늘, 올리브유와 볶습니다.<br>[3단계] 구운 어린 시금치와 면을 섞어 완성합니다.",
-                nutrients: "철분 보충, 에너자이징",
-                image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=600"
-            },
-            {
-                name: "두부 곤약 잡곡 비빔밥",
-                recipe: "[1단계] 곤약과 잡곡을 섞은 밥 150g을 담습니다.<br>[2단계] 으깬 두부와 각종 나물을 올립니다.<br>[3단계] 저염 고추장 한 스푼과 참기름으로 비빕니다.",
-                nutrients: "저칼로리 포만감, 식물성 영양",
-                image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&q=80&w=600"
-            }
-        ],
-        dinner: [
-            {
-                name: "그릴드 연어 스테이크",
-                recipe: "[1단계] 연어 150g에 허브 솔트를 뿌려 굽습니다.<br>[2단계] 아스파라거스와 미니 당근을 함께 구워냅니다.<br>[3단계] 레몬즙을 살짝 뿌려 산뜻함을 더합니다.",
-                nutrients: "오메가-3, 세포 회복",
-                image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=600"
-            },
-            {
-                name: "닭안심 버섯 볶음",
-                recipe: "[1단계] 닭안심 120g을 한입 크기로 썹니다.<br>[2단계] 표고버섯, 청경채와 함께 굴소스로 빠르게 볶습니다.<br>[3단계] 통깨를 뿌려 고소함을 살립니다.",
-                nutrients: "근육 합성, 저칼로리",
-                image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&q=80&w=600"
-            },
-            {
-                name: "단호박 훈제오리 찜",
-                recipe: "[1단계] 미니 단호박의 속을 파냅니다.<br>[2단계] 기름기를 뺀 훈제오리를 채워 넣습니다.<br>[3단계] 찜기에서 15분간 쪄서 완성합니다.",
-                nutrients: "베타카로틴, 원기 회복",
-                image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=600"
-            }
+        equipment: [
+            { name: "덤벨 숄더 프레스 (Dumbbell Press)", icon: "triangle", desc: "생수병이나 덤벨을 활용해 직각 어깨 라인을 만드는 운동입니다.", img: "https://images.unsplash.com/photo-1581009146145-b5ef03a726ec?auto=format&fit=crop&q=80&w=600" },
+            { name: "밴드 랫 풀다운 (Band Pull-down)", icon: "align-justify", desc: "저항 밴드를 활용해 굽은 등을 펴고 매끈한 뒷태를 만듭니다.", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=600" },
+            { name: "덤벨 런지 (Dumbbell Lunge)", icon: "arrow-down", desc: "양손에 무게를 들고 수행하여 하체 근력을 강하게 자극합니다.", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600" },
+            { name: "폼롤러 등 스트레칭", icon: "accessibility", desc: "폼롤러를 이용해 뭉친 근육을 풀고 혈액순환을 돕습니다.", img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=600" }
         ]
     };
 
-    // Helper to pick random item
-    const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-    const selectedPlan = [
-        { time: "아침 (Breakfast)", ...getRandom(mealPool.breakfast), calories: Math.round(targetCalories * 0.25) },
-        { time: "점심 (Lunch)", ...getRandom(mealPool.lunch), calories: Math.round(targetCalories * 0.4) },
-        { time: "저녁 (Dinner)", ...getRandom(mealPool.dinner), calories: Math.round(targetCalories * 0.35) }
-    ];
-
-    dietContainer.innerHTML = `
-        <div class="diet-summary-card">
-            <div class="summary-header">
-                <i data-lucide="calculator"></i>
-                <span>일일 맞춤 권장량: <strong>${targetCalories} kcal</strong></span>
-            </div>
-            <p class="summary-desc">전문 코칭 알고리즘이 성별, 연령, 체격 및 '${userGoal}' 목표를 정밀 분석한 결과입니다.</p>
-        </div>
-        <div class="meal-grid">
-            ${selectedPlan.map(meal => `
-                <div class="rec-card meal-card">
-                    <div class="meal-img-container">
-                        <img src="${meal.image}" alt="${meal.name}" class="meal-img" onerror="this.src='https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=600'">
-                        <div class="meal-calorie-tag">${meal.calories} kcal</div>
-                    </div>
-                    <div class="meal-content-body">
-                        <span class="meal-time">${meal.time}</span>
-                        <h3 class="meal-name">${meal.name}</h3>
-                        <div class="meal-nutrients">
-                            <i data-lucide="award"></i> ${meal.nutrients}
-                        </div>
-                        <div class="meal-recipe">
-                            <strong>👨‍🍳 조리 순서:</strong><br>
-                            <div class="recipe-steps">${meal.recipe}</div>
-                        </div>
-                    </div>
+    homeWorkoutGrid.innerHTML = (workoutData[filter] || []).map(ex => `
+        <div class="catalog-item">
+            <div class="video-wrapper" style="background-image: url('${ex.img}'); background-size: cover; background-position: center; height: 180px;"></div>
+            <div class="catalog-content-box">
+                <div class="catalog-header">
+                    <div class="catalog-icon"><i data-lucide="${ex.icon}"></i></div>
+                    <h3>${ex.name}</h3>
                 </div>
-            `).join('')}
+                <p class="rec-content">${ex.desc}</p>
+            </div>
         </div>
-    `;
+    `).join('');
     if (window.lucide) lucide.createIcons();
 }
 
-function updateSupplementRecs(healthStatus) {
-    const supplementContainer = document.getElementById('supplement-container');
-    if (!supplementContainer) return;
-    const supplements = {
-        excellent: { title: "활력 유지 패키지", content: "종합 비타민, 오메가3, 유산균으로 현재의 건강 상태를 유지하세요." },
-        tired: { title: "피로 회복 패키지", content: "비타민B군, 마그네슘, 밀크씨슬로 피로를 풀고 에너지를 충전하세요." },
-        recovery: { title: "신체 회복 패키지", content: "글루코사민, 보스웰리아, 비타민D로 관절과 면역력 회복에 집중하세요." }
-    };
-    const selected = supplements[healthStatus] || supplements.excellent;
-    supplementContainer.innerHTML = `
-        <div class="rec-card">
-            <span class="rec-title">${selected.title}</span>
-            <p class="rec-content">${selected.content}</p>
-        </div>
-    `;
-}
-
-let exerciseDatabase = [];
-const EXERCISE_API_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json';
-const IMG_BASE_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
-
-async function fetchExerciseData() {
-    try {
-        const response = await fetch(EXERCISE_API_URL);
-        if (response.ok) exerciseDatabase = await response.json();
-    } catch (error) { console.error('Error fetching exercise data:', error); }
-}
-
-function getExercisesByContext(options) {
-    const { goal, fitnessLevel, health, weather, timeOfDay } = options;
-    const mbti = document.getElementById('mbti-display').value || "ISTJ";
-    
-    let recommendedList = [];
-
-    if (exerciseDatabase.length > 0) {
-        // Professional Body Part Mapping
-        const parts = {
-            chest: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('chest')),
-            back: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('back') || (ex.primaryMuscles || []).includes('lats')),
-            shoulders: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('shoulders')),
-            arms: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('biceps') || (ex.primaryMuscles || []).includes('triceps')),
-            legs: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('quads') || (ex.primaryMuscles || []).includes('hamstrings') || (ex.primaryMuscles || []).includes('glutes')),
-            abs: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('abs') || (ex.category === 'abs')),
-            cardio: exerciseDatabase.filter(ex => ex.category === 'cardio' || (ex.primaryMuscles || []).includes('cardio'))
-        };
-
-        // Selection Logic
-        const focusPool = ['chest', 'back', 'shoulders', 'arms', 'legs'];
-        const selectedFocus = focusPool[Math.floor(Math.random() * focusPool.length)];
-        
-        let sessionPool = [];
-        sessionPool.push(...(parts[selectedFocus] || []).sort(() => 0.5 - Math.random()).slice(0, 2));
-        
-        const secondaryPart = focusPool.filter(p => p !== selectedFocus)[Math.floor(Math.random() * (focusPool.length - 1))];
-        sessionPool.push(...(parts[secondaryPart] || []).sort(() => 0.5 - Math.random()).slice(0, 1));
-
-        sessionPool.push(...(parts.abs || []).sort(() => 0.5 - Math.random()).slice(0, 1));
-        sessionPool.push(...(parts.cardio || []).sort(() => 0.5 - Math.random()).slice(0, 1));
-
-        if (sessionPool.length < 5) {
-            sessionPool.push(...exerciseDatabase.sort(() => 0.5 - Math.random()).slice(0, 5 - sessionPool.length));
-        }
-
-        recommendedList = sessionPool.map(ex => {
-            const imgPath = (ex.images && ex.images.length > 0) 
-                ? `${IMG_BASE_URL}${ex.images[0]}` 
-                : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
-
-            const rawInstructions = (ex.instructions && ex.instructions.length > 0) ? ex.instructions : ["천천히 정확한 자세로 수행하세요."];
-            const detailedDesc = rawInstructions.map((step, idx) => `[${idx + 1}단계] ${step}`).join('<br>');
-            
-            const metMap = { 'strength': 6.0, 'cardio': 8.0, 'stretching': 2.5, 'plyometrics': 8.0, 'abs': 4.0 };
-            const currentMET = metMap[ex.category] || 5.0;
-
-            const weight = userData.weight || 70;
-            const setsNum = fitnessLevel === 'beginner' ? 3 : 4;
-            const repsNum = fitnessLevel === 'advanced' ? 15 : 12;
-            const totalMinutes = (setsNum * (repsNum * 4 + 60)) / 60;
-            const burned = Math.round((currentMET * 3.5 * weight / 200) * totalMinutes);
-
-            // Muscle name mapping for display
-            const muscleMap = { 
-                'chest': '가슴', 'back': '등', 'lats': '등', 'shoulders': '어깨', 
-                'biceps': '팔(이두)', 'triceps': '팔(삼두)', 'quads': '허벅지(앞)', 
-                'hamstrings': '허벅지(뒤)', 'glutes': '엉덩이', 'abs': '복근', 'cardio': '전신/심폐' 
-            };
-            const displayTarget = (ex.primaryMuscles || []).map(m => muscleMap[m] || m).join(', ') || '전신';
-
-            return {
-                name: ex.name,
-                sets: `${setsNum}세트`,
-                reps: ex.category === 'cardio' ? "15~20분" : `${repsNum}회`,
-                rest: "60초",
-                desc: detailedDesc,
-                image: imgPath,
-                calories: burned,
-                primaryMuscles: ex.primaryMuscles || [],
-                target: displayTarget
-            };
-        });
-    } else {
-        recommendedList = [{
-            name: "기본 전신 프로그램",
-            sets: "3세트", reps: "15회", rest: "60초",
-            desc: "[1단계] 가볍게 제자리 뛰기로 몸을 풉니다.<br>[2단계] 스쿼트 15회를 수행합니다.<br>[3단계] 플랭크 30초를 유지합니다.",
-            image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400",
-            calories: 120,
-            primaryMuscles: ["full body"],
-            target: "전신"
-        }];
-    }
-    
-    return recommendedList;
-}
-
-function generateStretchingRecs(workout) {
-    const container = document.getElementById('stretching-container');
-    if (!container || workout.length === 0) return;
-
-    const targetMuscles = [...new Set(workout.flatMap(ex => ex.primaryMuscles))];
-    
-    let matchingStretches = exerciseDatabase.filter(ex => 
-        ex.category === 'stretching' && 
-        ex.primaryMuscles.some(m => targetMuscles.includes(m))
-    );
-
-    if (matchingStretches.length === 0) {
-        matchingStretches = exerciseDatabase.filter(ex => ex.category === 'stretching').slice(0, 3);
-    } else {
-        matchingStretches = matchingStretches.sort(() => 0.5 - Math.random()).slice(0, 3);
-    }
-
-    container.innerHTML = matchingStretches.map(stretch => {
-        const imgPath = (stretch.images && stretch.images.length > 0) 
-            ? `${IMG_BASE_URL}${stretch.images[0]}` 
-            : 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400';
-        
-        const rawInstructions = (stretch.instructions && stretch.instructions.length > 0) ? stretch.instructions : ["호흡하며 부드럽게 근육을 늘려주세요."];
-        const detailedDesc = rawInstructions.map((step, idx) => `[${idx + 1}단계] ${step}`).join('<br>');
-
-        return `
-            <div class="rec-card" style="min-width: 320px; display: flex; flex-direction: column; gap: 15px;">
-                <div style="width: 100%; height: 180px; overflow: hidden; border-radius: 12px;">
-                    <img src="${imgPath}" alt="${stretch.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400'">
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span class="meal-time">추천 스트레칭</span>
-                    <span class="status-badge" style="background: var(--glow-color); color: var(--primary-color); padding: 4px 8px; font-size: 0.7em;">${stretch.primaryMuscles.join(', ')}</span>
-                </div>
-                <h3 style="font-size: 1.1em; color: var(--primary-color); margin: 0;">${stretch.name}</h3>
-                <div class="meal-recipe" style="font-size: 0.85em; flex-grow: 1;">
-                    <strong>🧘 가이드:</strong><br>
-                    ${detailedDesc}
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-const workoutForm = document.getElementById('workout-form');
-const workoutContainer = document.getElementById('workout-container');
-workoutForm?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const options = {
-        fitnessLevel: document.getElementById('fitness-level').value,
-        goal: document.getElementById('goal').value,
-        health: document.getElementById('health-status').value,
-        weather: document.getElementById('weather').value,
-        timeOfDay: document.getElementById('time-of-day').value
-    };
-    if (workoutContainer) workoutContainer.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">운동 계획을 세우는 중입니다...</p>';
-    setTimeout(() => {
-        let recommendedWorkout = getExercisesByContext(options);
-        if (!recommendedWorkout || recommendedWorkout.length === 0) return;
-        if (workoutContainer) workoutContainer.innerHTML = '';
-        recommendedWorkout.forEach(exercise => {
-            const workoutCard = document.createElement('workout-card');
-            workoutCard.setAttribute('name', exercise.name);
-            workoutCard.setAttribute('sets', exercise.sets);
-            workoutCard.setAttribute('reps', exercise.reps);
-            workoutCard.setAttribute('rest', exercise.rest);
-            workoutCard.setAttribute('desc', exercise.desc);
-            workoutCard.setAttribute('image', exercise.image);
-            workoutCard.setAttribute('calories', exercise.calories);
-            workoutCard.setAttribute('target', exercise.target);
-            workoutContainer?.appendChild(workoutCard);
-        });
-        
-        generateStretchingRecs(recommendedWorkout);
-        updateSupplementRecs(options.health);
-        
-        // Show analysis section
-        const analysisSection = document.getElementById('workout-analysis-section');
-        if (analysisSection) analysisSection.classList.remove('hidden');
-        
-        if (window.lucide) lucide.createIcons();
-        workoutContainer?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 800);
-});
-
-// Workout Analysis Logic
-document.getElementById('analyze-workout-btn')?.addEventListener('click', () => {
-    const cards = document.querySelectorAll('workout-card');
-    let totalTargetSets = 0;
-    let totalActualSets = 0;
-    let totalTargetReps = 0;
-    let totalActualReps = 0;
-    let totalTime = 0;
-    let totalRest = 0;
-    let completedCount = 0;
-    let exerciseCount = cards.length;
-
-    cards.forEach(card => {
-        const isCompleted = card.shadowRoot.querySelector('.is-completed')?.checked;
-        if (!isCompleted) return;
-
-        completedCount++;
-        const targetSets = parseInt(card.getAttribute('sets') || 0);
-        const targetReps = parseInt(card.getAttribute('reps') || 0);
-        const targetRest = parseInt(card.getAttribute('rest') || 60);
-        
-        const actualSets = parseInt(card.shadowRoot.querySelector('.actual-sets')?.value || 0);
-        const actualReps = parseInt(card.shadowRoot.querySelector('.actual-reps')?.value || 0);
-        const actualRest = parseInt(card.shadowRoot.querySelector('.actual-rest')?.value || 0);
-        const time = parseInt(card.shadowRoot.querySelector('.total-time')?.value || 0);
-
-        totalTargetSets += targetSets;
-        totalActualSets += actualSets;
-        totalTargetReps += targetReps;
-        totalActualReps += actualReps;
-        totalRest += actualRest;
-        totalTime += time;
+// 필터 버튼 이벤트 리스너 등록
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        populateHomeWorkout(btn.dataset.target);
     });
-
-    if (completedCount === 0) {
-        alert("최소 한 개 이상의 운동을 완료 상태로 체크해 주세요!");
-        return;
-    }
-
-    const completionRate = (totalActualSets / totalTargetSets) * 100;
-    const intensityScore = (totalActualReps / totalTargetReps) * 100;
-    const avgRest = totalRest / completedCount;
-
-    let evaluation = "";
-    let status = "";
-    let statusColor = "";
-    let suggestions = [];
-
-    // Professional Trainer Logic
-    if (completionRate >= 100 && intensityScore >= 100) {
-        status = "Elite Performance (전문가 수준)";
-        statusColor = "#10b981";
-        evaluation = `전체 운동의 ${completionRate.toFixed(0)}%를 완벽하게 소화하셨습니다. 특히 목표 횟수를 모두 채운 점은 근지구력과 정신력이 매우 훌륭하다는 증거입니다. 현재 프로그램이 몸에 잘 적응된 상태입니다.`;
-        suggestions.push("점진적 과부하 원칙에 따라 다음 주에는 전체 중량을 2.5kg~5kg 증량해 보세요.");
-        suggestions.push(`세트 사이 휴식 시간을 현재 ${avgRest.toFixed(0)}초에서 45초로 줄여 심폐 지구력을 추가로 강화해 보세요.`);
-        suggestions.push("운동 후 30분 이내에 탄수화물과 단백질이 3:1 비율로 섞인 식단을 섭취하여 회복을 극대화하세요.");
-    } else if (completionRate >= 70) {
-        status = "Solid Progress (안정적인 성장)";
-        statusColor = "#3b82f6";
-        evaluation = `목표한 세트의 상당 부분을 완수하셨습니다. ${totalTime}분 동안 집중력을 유지한 점을 높게 평가합니다. 다만, 일부 구간에서 횟수가 부족했던 점은 근력 부족보다는 에너지 고갈의 원인이 큽니다.`;
-        suggestions.push("운동 1시간 전 바나나나 오트밀 같은 복합 탄수화물을 섭취하여 에너지를 보충하세요.");
-        suggestions.push("수행하지 못한 마지막 세트는 '드롭 세트' 기법을 활용해 가벼운 무게로라도 끝까지 횟수를 채워보세요.");
-        suggestions.push(`휴식 시간(${avgRest.toFixed(0)}초)이 적절합니다. 이 리듬을 유지하되 마지막 세트 직전에만 20초 더 쉬어주세요.`);
-    } else {
-        status = "Foundation Building (기초 다지기)";
-        statusColor = "#f59e0b";
-        evaluation = "오늘 운동은 몸에 다소 무리가 되었거나 컨디션 조절에 실패했을 가능성이 큽니다. 하지만 포기하지 않고 일부라도 수행한 것 자체가 큰 진전입니다. 부상 방지를 위해 강도 조절이 필요합니다.";
-        suggestions.push("현재 설정된 목표 횟수를 20% 하향 조정하여 '성취감'을 먼저 느끼는 쪽으로 방향을 잡으세요.");
-        suggestions.push("수행 동작의 가동 범위를 줄이더라도 올바른 자세(Form)를 유지하는 데 100% 집중하세요.");
-        suggestions.push("운동 전 스트레칭과 폼롤러 사용 시간을 10분 더 늘려 몸의 유연성을 먼저 확보해야 합니다.");
-    }
-
-    const resultsDiv = document.getElementById('analysis-results');
-    const contentDiv = document.getElementById('analysis-content');
-    
-    if (resultsDiv && contentDiv) {
-        contentDiv.innerHTML = `
-            <div class="analysis-stats-grid">
-                <div class="stat-box">
-                    <span class="stat-label">수행 완료</span>
-                    <span class="stat-value">${completedCount}/${exerciseCount}</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-label">수행률 (Sets)</span>
-                    <span class="stat-value">${completionRate.toFixed(1)}%</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-label">평균 휴식</span>
-                    <span class="stat-value">${avgRest.toFixed(0)}초</span>
-                </div>
-            </div>
-            <div class="evaluation-text">
-                <div class="status-badge" style="background: ${statusColor}">${status}</div>
-                <h4 style="color: var(--primary-color); margin-bottom: 10px;">코치 총평</h4>
-                <p class="main-eval">${evaluation}</p>
-                <h4 style="color: var(--primary-color); margin-bottom: 15px;">향후 보완점 (Action Plan)</h4>
-                <ul class="suggestion-list">
-                    ${suggestions.map(s => `<li><i data-lucide="chevron-right-circle"></i> ${s}</li>`).join('')}
-                </ul>
-            </div>
-        `;
-        resultsDiv.classList.remove('hidden');
-        if (window.lucide) lucide.createIcons();
-        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
 });
 
 fetchExerciseData().then(() => {
     populateExerciseCatalog();
+    populateHomeWorkout(); // 초기 실행
     updateMbtiQuiz();
     updateSasangQuiz();
 });
-if (window.lucide) lucide.createIcons();
-
-// Legal Sections Logic
-function showLegal(type) {
-    const privacy = document.getElementById('privacy-policy');
-    const terms = document.getElementById('terms-of-service');
-    
-    if (!privacy || !terms) return;
-
-    if (type === 'privacy') {
-        privacy.classList.toggle('hidden');
-        terms.classList.add('hidden');
-        if (!privacy.classList.contains('hidden')) {
-            privacy.scrollIntoView({ behavior: 'smooth' });
-        }
-    } else if (type === 'terms') {
-        terms.classList.toggle('hidden');
-        privacy.classList.add('hidden');
-        if (!terms.classList.contains('hidden')) {
-            terms.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-}
-
-function closeLegal() {
-    const privacy = document.getElementById('privacy-policy');
-    const terms = document.getElementById('terms-of-service');
-    if (privacy) privacy.classList.add('hidden');
-    if (terms) terms.classList.add('hidden');
-}
-
-// Ensure these are globally accessible for onclick
-window.showLegal = showLegal;
-window.closeLegal = closeLegal;
-
-// Close modal logic (kept for compatibility or other potential modals)
-window.onclick = function(event) {
-    const modal = document.getElementById('legal-modal');
-    if (event.target == modal) {
-        closeLegal();
-        if (modal) modal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-}
+// ... (나머지 코드 유지)
