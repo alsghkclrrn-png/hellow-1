@@ -635,20 +635,33 @@ function populateExerciseCatalog() {
     if (!catalogGrid) return;
     
     const categories = [
-        { name: "가슴 (Chest)", icon: "shield", desc: "단단한 상체를 위한 대흉근 강화 운동" },
-        { name: "등 (Back)", icon: "align-justify", desc: "바른 자세와 넓은 프레임을 위한 광배근 운동" },
-        { name: "어깨 (Shoulders)", icon: "triangle", desc: "입체적인 어깨 라인을 위한 삼각근 루틴" },
-        { name: "팔 (Arms)", icon: "armchair", desc: "이두와 삼두의 근지구력 및 근력 강화" },
-        { name: "하체 (Legs)", icon: "footprints", desc: "전신 근력의 기초가 되는 고강도 하체 트레이닝" },
-        { name: "코어 (Abs)", icon: "activity", desc: "신체 안정성을 높이는 복근 및 코어 집중 운동" },
-        { name: "유산소 (Cardio)", icon: "wind", desc: "체지방 연소와 심폐 지구력 향상 프로그램" }
+        { name: "가슴 (Chest)", icon: "shield", desc: "단단한 상체를 위한 대흉근 강화 운동", videoId: "vthMCtgVtFw" },
+        { name: "등 (Back)", icon: "align-justify", desc: "바른 자세와 넓은 프레임을 위한 광배근 운동", videoId: "n9Zp_as9_QU" },
+        { name: "어깨 (Shoulders)", icon: "triangle", desc: "입체적인 어깨 라인을 위한 삼각근 루틴", videoId: "3vcKaXadLWo" },
+        { name: "팔 (Arms)", icon: "armchair", desc: "이두와 삼두의 근지구력 및 근력 강화", videoId: "twW029LuyF8" },
+        { name: "하체 (Legs)", icon: "footprints", desc: "전신 근력의 기초가 되는 고강도 하체 트레이닝", videoId: "X0vL6733Ebc" },
+        { name: "코어 (Abs)", icon: "activity", desc: "신체 안정성을 높이는 복근 및 코어 집중 운동", videoId: "8AACH_ueZ_I" },
+        { name: "유산소 (Cardio)", icon: "wind", desc: "체지방 연소와 심폐 지구력 향상 프로그램", videoId: "ml6cT4AZdqI" }
     ];
 
     catalogGrid.innerHTML = categories.map(cat => `
         <div class="catalog-item">
-            <div class="catalog-icon"><i data-lucide="${cat.icon}"></i></div>
-            <h3>${cat.name}</h3>
-            <p class="rec-content">${cat.desc}</p>
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.youtube.com/embed/${cat.videoId}?rel=0&modestbranding=1" 
+                    title="${cat.name} 운동 영상"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="catalog-content-box">
+                <div class="catalog-header">
+                    <div class="catalog-icon"><i data-lucide="${cat.icon}"></i></div>
+                    <h3>${cat.name}</h3>
+                </div>
+                <p class="rec-content">${cat.desc}</p>
+            </div>
         </div>
     `).join('');
     if (window.lucide) lucide.createIcons();
