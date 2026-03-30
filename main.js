@@ -610,62 +610,25 @@ metricsForm?.addEventListener('submit', (e) => {
     generateDietRecs();
 });
 
-// Comprehensive Global Activity Database (Enhanced with API mapping)
-const activityLibrary = [
-    { 
-        name: "요가 & 명상", 
-        type: "Mindfulness", 
-        icon: "wind", 
-        mbti: ["I", "F", "N"], 
-        indoor: true, 
-        time: ["dawn", "night"], 
-        desc: "호흡과 유연성에 집중하며 마음의 평화를 찾는 활동입니다.",
-        apiKeywords: ["yoga", "stretching"],
-        met: 3.0
-    },
-    { 
-        name: "강력한 웨이트 트레이닝", 
-        type: "High Intensity", 
-        icon: "zap", 
-        mbti: ["E", "T", "S"], 
-        indoor: true, 
-        time: ["morning", "afternoon"], 
-        desc: "폭발적인 에너지를 발산하고 근력을 강화하는 고강도 운동입니다.",
-        apiKeywords: ["bodyweight", "dumbbells", "strength"],
-        met: 6.0
-    },
-    { 
-        name: "코어 & 필라테스", 
-        type: "Core Control", 
-        icon: "activity", 
-        mbti: ["S", "J", "F"], 
-        indoor: true, 
-        time: ["morning", "afternoon", "dawn"], 
-        desc: "속근육을 강화하고 체형 교정에 탁월한 정밀 운동입니다.",
-        apiKeywords: ["abs", "core", "pilates"],
-        met: 3.8
-    },
-    { 
-        name: "파워 하체 강화", 
-        type: "Lower Body", 
-        icon: "footprints", 
-        mbti: ["I", "S", "T", "J"], 
-        indoor: true, 
-        time: ["dawn", "morning", "night"], 
-        desc: "안정적인 신체 밸런스를 위한 하체 위주 프로그램입니다.",
-        apiKeywords: ["legs", "quads", "glutes"],
-        met: 5.0
-    }
-];
-
 function populateExerciseCatalog() {
     const catalogGrid = document.getElementById('catalog-grid');
     if (!catalogGrid) return;
-    catalogGrid.innerHTML = activityLibrary.map(act => `
+    
+    const categories = [
+        { name: "가슴 (Chest)", icon: "shield", desc: "단단한 상체를 위한 대흉근 강화 운동" },
+        { name: "등 (Back)", icon: "align-justify", desc: "바른 자세와 넓은 프레임을 위한 광배근 운동" },
+        { name: "어깨 (Shoulders)", icon: "triangle", desc: "입체적인 어깨 라인을 위한 삼각근 루틴" },
+        { name: "팔 (Arms)", icon: "armchair", desc: "이두와 삼두의 근지구력 및 근력 강화" },
+        { name: "하체 (Legs)", icon: "footprints", desc: "전신 근력의 기초가 되는 고강도 하체 트레이닝" },
+        { name: "코어 (Abs)", icon: "activity", desc: "신체 안정성을 높이는 복근 및 코어 집중 운동" },
+        { name: "유산소 (Cardio)", icon: "wind", desc: "체지방 연소와 심폐 지구력 향상 프로그램" }
+    ];
+
+    catalogGrid.innerHTML = categories.map(cat => `
         <div class="catalog-item">
-            <div class="catalog-icon"><i data-lucide="${act.icon}"></i></div>
-            <h3>${act.name}</h3>
-            <p class="rec-content">${act.desc}</p>
+            <div class="catalog-icon"><i data-lucide="${cat.icon}"></i></div>
+            <h3>${cat.name}</h3>
+            <p class="rec-content">${cat.desc}</p>
         </div>
     `).join('');
     if (window.lucide) lucide.createIcons();
@@ -823,55 +786,66 @@ function getExercisesByContext(options) {
     const { goal, fitnessLevel, health, weather, timeOfDay } = options;
     const mbti = document.getElementById('mbti-display').value || "ISTJ";
     
-    // 1. Filter Activity Based on Personality and Environment
-    let selectedTheme = activityLibrary.filter(act => {
-        const mbtiMatch = act.mbti.some(trait => mbti.includes(trait));
-        const timeMatch = act.time.includes(timeOfDay);
-        return mbtiMatch && timeMatch;
-    });
-
-    if (selectedTheme.length === 0) selectedTheme = [activityLibrary[Math.floor(Math.random() * activityLibrary.length)]];
-    const theme = selectedTheme[Math.floor(Math.random() * selectedTheme.length)];
-
     let recommendedList = [];
 
-    // 2. Select matching exercises from API database
     if (exerciseDatabase.length > 0) {
-        // Find exercises matching the theme's keywords
-        let themeExercises = exerciseDatabase.filter(ex => 
-            theme.apiKeywords.some(kw => 
-                (ex.name || "").toLowerCase().includes(kw) || 
-                (ex.primaryMuscles || []).some(m => m.toLowerCase().includes(kw)) ||
-                (ex.category || "").toLowerCase().includes(kw)
-            )
-        );
+        // Professional Body Part Mapping
+        const parts = {
+            chest: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('chest')),
+            back: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('back') || (ex.primaryMuscles || []).includes('lats')),
+            shoulders: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('shoulders')),
+            arms: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('biceps') || (ex.primaryMuscles || []).includes('triceps')),
+            legs: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('quads') || (ex.primaryMuscles || []).includes('hamstrings') || (ex.primaryMuscles || []).includes('glutes')),
+            abs: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('abs') || (ex.category === 'abs')),
+            cardio: exerciseDatabase.filter(ex => ex.category === 'cardio' || (ex.primaryMuscles || []).includes('cardio'))
+        };
 
-        // Fallback if no matching exercises
-        if (themeExercises.length === 0) themeExercises = exerciseDatabase;
-
-        // Pick 3 diverse exercises for the session
-        const selectedFromApi = themeExercises.sort(() => 0.5 - Math.random()).slice(0, 3);
+        // Selection Logic: Pick a primary focus based on theme/goal, but ensure variety
+        const focusPool = ['chest', 'back', 'shoulders', 'arms', 'legs'];
+        const selectedFocus = focusPool[Math.floor(Math.random() * focusPool.length)];
         
-        recommendedList = selectedFromApi.map(ex => {
+        let sessionPool = [];
+        
+        // 1. Add 2 main exercises from the focused body part
+        sessionPool.push(...(parts[selectedFocus] || []).sort(() => 0.5 - Math.random()).slice(0, 2));
+        
+        // 2. Add 1 exercise from another random body part for balance
+        const secondaryPart = focusPool.filter(p => p !== selectedFocus)[Math.floor(Math.random() * (focusPool.length - 1))];
+        sessionPool.push(...(parts[secondaryPart] || []).sort(() => 0.5 - Math.random()).slice(0, 1));
+
+        // 3. Mandatory: Add 1 Abdominal exercise
+        sessionPool.push(...(parts.abs || []).sort(() => 0.5 - Math.random()).slice(0, 1));
+
+        // 4. Mandatory: Add 1 Cardio exercise
+        sessionPool.push(...(parts.cardio || []).sort(() => 0.5 - Math.random()).slice(0, 1));
+
+        // Fallback if any pool was empty
+        if (sessionPool.length < 5) {
+            sessionPool.push(...exerciseDatabase.sort(() => 0.5 - Math.random()).slice(0, 5 - sessionPool.length));
+        }
+
+        recommendedList = sessionPool.map(ex => {
             const imgPath = (ex.images && ex.images.length > 0) 
                 ? `${IMG_BASE_URL}${ex.images[0]}` 
                 : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
 
-            // Detailed beginner-friendly instruction logic
             const rawInstructions = (ex.instructions && ex.instructions.length > 0) ? ex.instructions : ["천천히 정확한 자세로 수행하세요."];
             const detailedDesc = rawInstructions.map((step, idx) => `[${idx + 1}단계] ${step}`).join('<br>');
             
-            // Calorie estimation logic
-            const weight = userData.weight || 70; // fallback weight
+            // Professional MET Mapping
+            const metMap = { 'strength': 6.0, 'cardio': 8.0, 'stretching': 2.5, 'plyometrics': 8.0, 'abs': 4.0 };
+            const currentMET = metMap[ex.category] || 5.0;
+
+            const weight = userData.weight || 70;
             const setsNum = fitnessLevel === 'beginner' ? 3 : 4;
             const repsNum = fitnessLevel === 'advanced' ? 15 : 12;
-            const totalMinutes = (setsNum * (repsNum * 4 + 60)) / 60; // Est. 4s per rep + 60s rest
-            const burned = Math.round((theme.met * 3.5 * weight / 200) * totalMinutes);
+            const totalMinutes = (setsNum * (repsNum * 4 + 60)) / 60;
+            const burned = Math.round((currentMET * 3.5 * weight / 200) * totalMinutes);
 
             return {
                 name: ex.name,
                 sets: `${setsNum}세트`,
-                reps: `${repsNum}회`,
+                reps: ex.category === 'cardio' ? "15분" : `${repsNum}회`,
                 rest: "60초",
                 desc: detailedDesc,
                 image: imgPath,
@@ -880,14 +854,13 @@ function getExercisesByContext(options) {
             };
         });
     } else {
-        // Absolute fallback if API data is missing
         recommendedList = [{
-            name: "기본 푸쉬업",
+            name: "기본 전신 프로그램",
             sets: "3세트", reps: "15회", rest: "60초",
-            desc: "[1단계] 양손을 어깨너비로 벌리고 바닥을 짚습니다.<br>[2단계] 몸을 일직선으로 유지하며 천천히 내려갑니다.<br>[3단계] 가슴 근육의 힘으로 다시 올라옵니다.",
+            desc: "[1단계] 가볍게 제자리 뛰기로 몸을 풉니다.<br>[2단계] 스쿼트 15회를 수행합니다.<br>[3단계] 플랭크 30초를 유지합니다.",
             image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400",
-            calories: 45,
-            primaryMuscles: ["chest"]
+            calories: 120,
+            primaryMuscles: ["full body"]
         }];
     }
     
