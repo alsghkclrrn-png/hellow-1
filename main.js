@@ -678,109 +678,111 @@ function generateDietRecs() {
     const userGoal = document.getElementById('goal')?.value || "general-fitness";
     const bmr = userData.bmr;
     
-    // TDEE (Total Daily Energy Expenditure) estimation (Sedentary factor 1.2)
+    // TDEE estimation (Sedentary factor 1.2)
     const tdee = Math.round(bmr * 1.2);
     let targetCalories = tdee;
     
     if (userGoal === 'weight-loss') targetCalories -= 500;
     else if (userGoal === 'muscle-gain') targetCalories += 300;
 
-    const mealPlans = {
-        'weight-loss': [
+    // Professional Meal Pool for Diversity
+    const mealPool = {
+        breakfast: [
             {
-                time: "아침 (Breakfast)",
                 name: "수비드 닭가슴살 샐러드 & 오트밀",
-                calories: Math.round(targetCalories * 0.25),
-                recipe: "1. 롤드 오트 40g에 뜨거운 물을 부어 불립니다. 2. 닭가슴살 100g을 얇게 썰어 신선한 루꼴라, 방울토마토와 함께 담습니다. 3. 올리브유와 발사믹 식초로 드레싱하여 완성합니다.",
-                nutrients: "고단백, 저당질, 식이섬유 풍부"
+                recipe: "[1단계] 롤드 오트 40g에 뜨거운 물을 부어 불립니다.<br>[2단계] 닭가슴살 100g을 얇게 썰어 루꼴라, 방울토마토와 담습니다.<br>[3단계] 올리브유와 발사믹으로 드레싱합니다.",
+                nutrients: "고단백, 저당질, 식이섬유",
+                image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600"
             },
             {
-                time: "점심 (Lunch)",
-                name: "현미밥 & 흰살생선 찜",
-                calories: Math.round(targetCalories * 0.4),
-                recipe: "1. 현미밥 150g을 준비합니다. 2. 대구 혹은 가자미 120g을 찜기에 넣고 청주와 생강으로 잡내를 제거하며 익힙니다. 3. 구운 가지와 브로콜리를 곁들여 풍미를 더합니다.",
-                nutrients: "복합 탄수화물, 오메가-3, 미네랄"
+                name: "아보카도 통밀 에그 토스트",
+                recipe: "[1단계] 통밀빵 2조각을 바삭하게 굽습니다.<br>[2단계] 아보카도 반 개를 으깨어 빵 위에 펴 바릅니다.<br>[3단계] 수란 혹은 프라이를 올려 레드페퍼 홀을 뿌립니다.",
+                nutrients: "양질의 지방, 복합 탄수화물",
+                image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=600"
             },
             {
-                time: "저녁 (Dinner)",
-                name: "소고기 우둔살 채소 볶음",
-                calories: Math.round(targetCalories * 0.35),
-                recipe: "1. 지방이 적은 우둔살 100g을 채 썹니다. 2. 파프리카, 양파, 아스파라거스와 함께 센 불에서 빠르게 볶아 영양소 파괴를 최소화합니다. 3. 간은 최소한의 소금과 후추로만 합니다.",
-                nutrients: "고단백, 근육 회복 보조"
+                name: "베리 넛츠 그릭 요거트 볼",
+                recipe: "[1단계] 꾸덕한 그릭 요거트 150g을 볼에 담습니다.<br>[2단계] 블루베리와 견과류 20g을 토핑합니다.<br>[3단계] 기호에 따라 시나몬 가루를 살짝 뿌립니다.",
+                nutrients: "프로바이오틱스, 항산화",
+                image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=600"
             }
         ],
-        'muscle-gain': [
+        lunch: [
             {
-                time: "아침 (Breakfast)",
-                name: "바나나 베리 단백질 쉐이크 & 통밀 토스트",
-                calories: Math.round(targetCalories * 0.25),
-                recipe: "1. 유청 단백질 1스쿱, 바나나 1개, 냉동 블루베리를 우유 200ml와 블렌딩합니다. 2. 통밀빵 2조각을 바삭하게 구워 아보카도 슬라이스를 올립니다.",
-                nutrients: "빠른 에너지 공급, 아미노산 보충"
+                name: "현미밥 & 흰살생선 채소 찜",
+                recipe: "[1단계] 현미밥 150g을 준비합니다.<br>[2단계] 대구살 120g을 미림과 생강으로 밑간해 찜기에 익힙니다.<br>[3단계] 데친 브로콜리와 버섯을 곁들입니다.",
+                nutrients: "저지방 단백질, 풍부한 미네랄",
+                image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=600"
             },
             {
-                time: "점심 (Lunch)",
-                name: "소고기 등심 스테이크 & 고구마 매쉬",
-                calories: Math.round(targetCalories * 0.4),
-                recipe: "1. 지방을 제거한 소등심 150g을 미디엄 웰던으로 굽습니다. 2. 찐 고구마 200g을 으깨어 무지방 요거트와 섞어 부드럽게 만듭니다. 3. 구운 아스파라거스를 곁들입니다.",
-                nutrients: "크레아틴 공급, 근합성 최적화"
+                name: "소고기 우둔살 파스타",
+                recipe: "[1단계] 통밀 파스타면 80g을 삶습니다.<br>[2단계] 우둔살 100g을 마늘, 올리브유와 볶습니다.<br>[3단계] 구운 어린 시금치와 면을 섞어 완성합니다.",
+                nutrients: "철분 보충, 에너자이징",
+                image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=600"
             },
             {
-                time: "저녁 (Dinner)",
-                name: "연어 구이 & 퀴노아 필라프",
-                calories: Math.round(targetCalories * 0.35),
-                recipe: "1. 생연어 150g을 로즈마리와 함께 오븐에 굽습니다. 2. 삶은 퀴노아와 마늘, 올리브유를 볶아 필라프를 만듭니다. 3. 비타민이 풍부한 케일 샐러드를 곁들입니다.",
-                nutrients: "양질의 지방, 회복 가속화"
+                name: "두부 곤약 잡곡 비빔밥",
+                recipe: "[1단계] 곤약과 잡곡을 섞은 밥 150g을 담습니다.<br>[2단계] 으깬 두부와 각종 나물을 올립니다.<br>[3단계] 저염 고추장 한 스푼과 참기름으로 비빕니다.",
+                nutrients: "저칼로리 포만감, 식물성 영양",
+                image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&q=80&w=600"
             }
         ],
-        'general-fitness': [
+        dinner: [
             {
-                time: "아침 (Breakfast)",
-                name: "그릭 요거트 볼 & 견과류",
-                calories: Math.round(targetCalories * 0.25),
-                recipe: "1. 무가당 그릭 요거트 150g에 호두, 아몬드 등 견과류 20g을 넣습니다. 2. 제철 과일(사과 혹은 딸기)을 썰어 넣고 꿀 한 티스푼을 추가합니다.",
-                nutrients: "프로바이오틱스, 비타민 균형"
+                name: "그릴드 연어 스테이크",
+                recipe: "[1단계] 연어 150g에 허브 솔트를 뿌려 굽습니다.<br>[2단계] 아스파라거스와 미니 당근을 함께 구워냅니다.<br>[3단계] 레몬즙을 살짝 뿌려 산뜻함을 더합니다.",
+                nutrients: "오메가-3, 세포 회복",
+                image: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=600"
             },
             {
-                time: "점심 (Lunch)",
-                name: "닭가슴살 카레 & 잡곡밥",
-                calories: Math.round(targetCalories * 0.4),
-                recipe: "1. 잡곡밥 200g을 준비합니다. 2. 고형 카레 대신 강황 가루를 활용해 닭가슴살과 감자, 당근을 넣고 담백하게 끓여냅니다. 3. 김치 혹은 피클을 곁들입니다.",
-                nutrients: "항염 작용, 균형 잡힌 에너지"
+                name: "닭안심 버섯 볶음",
+                recipe: "[1단계] 닭안심 120g을 한입 크기로 썹니다.<br>[2단계] 표고버섯, 청경채와 함께 굴소스로 빠르게 볶습니다.<br>[3단계] 통깨를 뿌려 고소함을 살립니다.",
+                nutrients: "근육 합성, 저칼로리",
+                image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&q=80&w=600"
             },
             {
-                time: "저녁 (Dinner)",
-                name: "두부 스테이크 & 버섯 구이",
-                calories: Math.round(targetCalories * 0.35),
-                recipe: "1. 단단한 두부 한 모의 물기를 제거하고 노릇하게 굽습니다. 2. 양송이버섯과 느타리버섯을 발사믹 소스에 볶아 올립니다. 3. 신선한 쌈채소를 곁들여 식사합니다.",
-                nutrients: "식물성 단백질, 저칼로리 포만감"
+                name: "단호박 훈제오리 찜",
+                recipe: "[1단계] 미니 단호박의 속을 파냅니다.<br>[2단계] 기름기를 뺀 훈제오리를 채워 넣습니다.<br>[3단계] 찜기에서 15분간 쪄서 완성합니다.",
+                nutrients: "베타카로틴, 원기 회복",
+                image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=600"
             }
         ]
     };
 
-    const selectedPlan = mealPlans[userGoal] || mealPlans['general-fitness'];
+    // Helper to pick random item
+    const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+    const selectedPlan = [
+        { time: "아침 (Breakfast)", ...getRandom(mealPool.breakfast), calories: Math.round(targetCalories * 0.25) },
+        { time: "점심 (Lunch)", ...getRandom(mealPool.lunch), calories: Math.round(targetCalories * 0.4) },
+        { time: "저녁 (Dinner)", ...getRandom(mealPool.dinner), calories: Math.round(targetCalories * 0.35) }
+    ];
 
     dietContainer.innerHTML = `
         <div class="diet-summary-card">
             <div class="summary-header">
                 <i data-lucide="calculator"></i>
-                <span>일일 권장 섭취량: <strong>${targetCalories} kcal</strong></span>
+                <span>일일 맞춤 권장량: <strong>${targetCalories} kcal</strong></span>
             </div>
-            <p class="summary-desc">사용자의 BMR(${Math.round(bmr)}kcal)과 '${userGoal}' 목표를 반영한 최적의 영양 설계입니다.</p>
+            <p class="summary-desc">전문 코칭 알고리즘이 성별, 연령, 체격 및 '${userGoal}' 목표를 정밀 분석한 결과입니다.</p>
         </div>
         <div class="meal-grid">
             ${selectedPlan.map(meal => `
                 <div class="rec-card meal-card">
-                    <div class="meal-header">
+                    <div class="meal-img-container">
+                        <img src="${meal.image}" alt="${meal.name}" class="meal-img" onerror="this.src='https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=600'">
+                        <div class="meal-calorie-tag">${meal.calories} kcal</div>
+                    </div>
+                    <div class="meal-content-body">
                         <span class="meal-time">${meal.time}</span>
-                        <span class="meal-calories">${meal.calories} kcal</span>
-                    </div>
-                    <h3 class="meal-name">${meal.name}</h3>
-                    <div class="meal-nutrients">
-                        <i data-lucide="check-circle-2"></i> ${meal.nutrients}
-                    </div>
-                    <div class="meal-recipe">
-                        <strong>👨‍🍳 레시피:</strong><br>
-                        ${meal.recipe}
+                        <h3 class="meal-name">${meal.name}</h3>
+                        <div class="meal-nutrients">
+                            <i data-lucide="award"></i> ${meal.nutrients}
+                        </div>
+                        <div class="meal-recipe">
+                            <strong>👨‍🍳 조리 순서:</strong><br>
+                            <div class="recipe-steps">${meal.recipe}</div>
+                        </div>
                     </div>
                 </div>
             `).join('')}
