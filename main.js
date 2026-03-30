@@ -635,7 +635,7 @@ function populateExerciseCatalog() {
     if (!catalogGrid) return;
     
     const categories = [
-        { name: "가슴 (Chest)", icon: "shield", desc: "단단한 상체를 위한 대흉근 강화 운동", videoId: "vthMCtgVtFw" },
+        { name: "가슴 (Chest)", icon: "shield", desc: "단단한 상체를 위한 최고의 가슴 운동 집약 가이드", videoId: "89e5180Hndw" },
         { name: "등 (Back)", icon: "align-justify", desc: "바른 자세와 넓은 프레임을 위한 광배근 운동", videoId: "n9Zp_as9_QU" },
         { name: "어깨 (Shoulders)", icon: "triangle", desc: "입체적인 어깨 라인을 위한 삼각근 루틴", videoId: "3vcKaXadLWo" },
         { name: "팔 (Arms)", icon: "armchair", desc: "이두와 삼두의 근지구력 및 근력 강화", videoId: "twW029LuyF8" },
