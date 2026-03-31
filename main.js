@@ -9,11 +9,11 @@ class WorkoutCard extends HTMLElement {
     }
 
     render() {
-        const name = this.getAttribute('name') || 'Exercise';
+        const name = this.getAttribute('name') || '운동';
         const sets = this.getAttribute('sets') || '0';
         const reps = this.getAttribute('reps') || '0';
         const rest = this.getAttribute('rest') || '0s';
-        const desc = this.getAttribute('desc') || 'Follow the trainer\'s guidance for this movement.';
+        const desc = this.getAttribute('desc') || '트레이너의 안내에 따라 동작을 수행하세요.';
         const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
         const calories = this.getAttribute('calories') || '0';
         const target = this.getAttribute('target') || '전신';
@@ -223,7 +223,7 @@ class WorkoutCard extends HTMLElement {
                     box-shadow: 0 0 0 2px var(--glow-color);
                 }
             </style>
-            <div class="badge">Professional Training Plan</div>
+            <div class="badge">전문 트레이닝 플랜</div>
             <div class="calorie-badge">🔥 ${calories} kcal</div>
             <div class="image-container">
                 <img src="${image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'">
@@ -232,53 +232,53 @@ class WorkoutCard extends HTMLElement {
                 <div class="target-badge"><i data-lucide="target"></i> ${target}</div>
                 <h3>${name}</h3>
                 <div class="description">
-                    <strong>💡 초보자 가이드:</strong><br>
+                    <strong>💡 운동 가이드:</strong><br>
                     ${desc}
                 </div>
                 <div class="stats">
                     <div class="stat-item">
-                        <span class="label">Target Sets</span>
+                        <span class="label">목표 세트</span>
                         <span class="value">${sets}</span>
                     </div>
                     <div class="stat-item">
-                        <span class="label">Target Reps</span>
+                        <span class="label">목표 횟수</span>
                         <span class="value">${reps}</span>
                     </div>
                     <div class="stat-item">
-                        <span class="label">Est. Calories</span>
+                        <span class="label">소모 칼로리</span>
                         <span class="value">${calories} kcal</span>
                     </div>
                 </div>
                 <div class="rest-tag">
-                    <span class="rest-label">Recommended Rest</span>
+                    <span class="rest-label">권장 휴식 시간</span>
                     <span class="rest-value">${rest}</span>
                 </div>
 
                 <div class="performance-tracking">
                     <div class="performance-header">
-                        <div class="performance-title">Record Performance</div>
+                        <div class="performance-title">오늘의 운동 기록</div>
                         <label class="completion-checkbox">
-                            <input type="checkbox" class="is-completed" checked> Done
+                            <input type="checkbox" class="is-completed" checked> 완료
                         </label>
                     </div>
                     <div class="input-group">
                         <div class="input-field">
-                            <label>Actual Sets</label>
-                            <input type="number" class="actual-sets" placeholder="0" value="${sets}">
+                            <label>수행 세트</label>
+                            <input type="number" class="actual-sets" placeholder="0" value="${parseInt(sets) || 3}">
                         </div>
                         <div class="input-field">
-                            <label>Actual Reps</label>
-                            <input type="number" class="actual-reps" placeholder="0" value="${reps}">
+                            <label>수행 횟수</label>
+                            <input type="number" class="actual-reps" placeholder="0" value="${parseInt(reps) || 12}">
                         </div>
                     </div>
                     <div class="input-group">
                         <div class="input-field">
-                            <label>Rest Taken (sec)</label>
-                            <input type="number" class="actual-rest" placeholder="sec" value="${parseInt(rest) || 60}">
+                            <label>휴식 (초)</label>
+                            <input type="number" class="actual-rest" placeholder="초" value="${parseInt(rest) || 60}">
                         </div>
                         <div class="input-field">
-                            <label>Time Taken (min)</label>
-                            <input type="number" class="total-time" placeholder="min" value="10">
+                            <label>시간 (분)</label>
+                            <input type="number" class="total-time" placeholder="분" value="10">
                         </div>
                     </div>
                 </div>
@@ -332,7 +332,6 @@ document.querySelectorAll('.nav-links a, .nav-logo').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
         let targetId = this.getAttribute('href').substring(1);
-        // Map old history ID to new stretching ID if necessary, though nav links were already updated
         if (targetId === 'workout-history') targetId = 'stretching-recommendations';
         
         const targetElement = document.getElementById(targetId);
@@ -347,30 +346,30 @@ document.querySelectorAll('.nav-links a, .nav-logo').forEach(anchor => {
 
 // MBTI Quiz Logic
 const mbtiQuestions = [
-    { text: "I feel energized after a group workout session.", dimension: "EI", positive: true },
-    { text: "I prefer a quiet solo workout over a busy gym environment.", dimension: "EI", positive: false },
-    { text: "I enjoy interacting with others during rest periods.", dimension: "EI", positive: true },
-    { text: "I find that I focus better when training alone in a private space.", dimension: "EI", positive: false },
-    { text: "I like participating in fitness challenges with friends.", dimension: "EI", positive: true },
-    { text: "I prefer to keep my fitness goals and progress private.", dimension: "EI", positive: false },
-    { text: "I focus more on the exact form and data (reps/weight).", dimension: "SN", positive: true },
-    { text: "I enjoy trying new, creative, and unconventional exercises.", dimension: "SN", positive: false },
-    { text: "I prefer exercises with clear, immediate, and tangible results.", dimension: "SN", positive: true },
-    { text: "I find myself imagining different ways to modify a standard routine.", dimension: "SN", positive: false },
-    { text: "I value standard, proven techniques.", dimension: "SN", positive: true },
-    { text: "I get bored if my workout routine doesn't change frequently.", dimension: "SN", positive: false },
-    { text: "I choose exercises based on logical efficiency.", dimension: "TF", positive: true },
-    { text: "The mind-body connection is most important.", dimension: "TF", positive: false },
-    { text: "I am motivated by objective competition.", dimension: "TF", positive: true },
-    { text: "I am motivated by how a workout helps manage my emotions.", dimension: "TF", positive: false },
-    { text: "I analyze the scientific reasoning behind every movement.", dimension: "TF", positive: true },
-    { text: "I appreciate a supportive trainer over a purely technical one.", dimension: "TF", positive: false },
-    { text: "I strictly follow a pre-planned workout schedule.", dimension: "JP", positive: true },
-    { text: "I like to decide what to work out based on my mood.", dimension: "JP", positive: false },
-    { text: "I feel stressed if I have to skip a planned session.", dimension: "JP", positive: true },
-    { text: "I enjoy the spontaneity of trying a different exercise.", dimension: "JP", positive: false },
-    { text: "I like to have my entire workout written out before I start.", dimension: "JP", positive: true },
-    { text: "I often start a workout and see where the energy takes me.", dimension: "JP", positive: false }
+    { text: "나는 그룹 운동이나 북적이는 헬스장 환경을 선호한다.", dimension: "EI", positive: true },
+    { text: "나는 북적이는 곳보다 혼자 조용히 운동하는 것을 선호한다.", dimension: "EI", positive: false },
+    { text: "나는 휴식 시간에 다른 사람들과 대화하는 것을 즐긴다.", dimension: "EI", positive: true },
+    { text: "나는 개인적인 공간에서 운동할 때 더 잘 집중된다.", dimension: "EI", positive: false },
+    { text: "나는 친구들과 함께 피트니스 챌린지에 참여하는 것을 좋아한다.", dimension: "EI", positive: true },
+    { text: "나는 나의 운동 목표와 과정을 비공개로 유지하는 편이다.", dimension: "EI", positive: false },
+    { text: "나는 정확한 자세와 데이터(횟수/무게)에 집중한다.", dimension: "SN", positive: true },
+    { text: "나는 새롭고 창의적이며 색다른 운동을 시도하는 것을 즐긴다.", dimension: "SN", positive: false },
+    { text: "나는 명확하고 즉각적이며 실질적인 결과가 나오는 운동을 선호한다.", dimension: "SN", positive: true },
+    { text: "나는 표준 루틴을 나만의 방식으로 변형하는 상상을 자주 한다.", dimension: "SN", positive: false },
+    { text: "나는 검증된 표준 기술과 정석적인 방법을 중요하게 생각한다.", dimension: "SN", positive: true },
+    { text: "나는 운동 루틴이 자주 바뀌지 않으면 쉽게 지루함을 느낀다.", dimension: "SN", positive: false },
+    { text: "나는 논리적이고 효율적인 기준으로 운동을 선택한다.", dimension: "TF", positive: true },
+    { text: "나는 몸과 마음의 연결(심신 조화)을 가장 중요하게 생각한다.", dimension: "TF", positive: false },
+    { text: "나는 객관적인 경쟁을 통해 동기부여를 얻는다.", dimension: "TF", positive: true },
+    { text: "나는 운동이 나의 감정을 조절하는 데 얼마나 도움이 되는지에 집중한다.", dimension: "TF", positive: false },
+    { text: "나는 모든 동작 뒤에 숨겨진 과학적 원리를 분석한다.", dimension: "TF", positive: true },
+    { text: "나는 기술적인 코치보다 지지해주고 격려해주는 트레이너를 더 좋아한다.", dimension: "TF", positive: false },
+    { text: "나는 미리 짜여진 운동 일정을 엄격하게 준수한다.", dimension: "JP", positive: true },
+    { text: "나는 그날의 기분에 따라 어떤 운동을 할지 결정하는 편이다.", dimension: "JP", positive: false },
+    { text: "나는 계획된 세션을 건너뛰어야 할 때 스트레스를 받는다.", dimension: "JP", positive: true },
+    { text: "나는 다른 운동을 시도해보는 즉흥적인 상황을 즐긴다.", dimension: "JP", positive: false },
+    { text: "나는 시작하기 전에 전체 운동 계획을 세세하게 기록해둔다.", dimension: "JP", positive: true },
+    { text: "나는 일단 운동을 시작한 뒤 몸의 컨디션에 따라 진행하는 편이다.", dimension: "JP", positive: false }
 ];
 
 let currentMbtiIndex = 0;
@@ -389,7 +388,7 @@ function updateMbtiQuiz() {
     if (currentMbtiIndex < mbtiQuestions.length) {
         const q = mbtiQuestions[currentMbtiIndex];
         if (mbtiQuestionText) mbtiQuestionText.textContent = q.text;
-        if (mbtiProgressText) mbtiProgressText.textContent = `Step ${currentMbtiIndex + 1} of ${mbtiQuestions.length}`;
+        if (mbtiProgressText) mbtiProgressText.textContent = `24단계 중 ${currentMbtiIndex + 1}단계`;
         const progress = (currentMbtiIndex / mbtiQuestions.length) * 100;
         mbtiProgressBar?.style.setProperty('--progress', `${progress}%`);
     } else {
@@ -630,67 +629,77 @@ metricsForm?.addEventListener('submit', (e) => {
     generateDietRecs();
 });
 
-// Exercise Video Catalog Data (Categorized)
-let exerciseCatalogData = {
-    chest: [
-        { name: "벤치 프레스 (Bench Press)", icon: "shield", desc: "가슴 전체의 매스를 키우는 가장 대표적인 운동입니다.", img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/rT7DgVCn7iU" },
-        { name: "인클라인 덤벨 프레스", icon: "arrow-up-right", desc: "윗가슴을 타겟으로 하여 입체적인 가슴 라인을 완성합니다.", img: "https://images.unsplash.com/photo-1581009146145-b5ef03a726ec?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/8iPEnn-ltC8" },
-        { name: "덤벨 플라이 (Dumbbell Fly)", icon: "expand", desc: "가슴 안쪽 라인과 근육의 결을 살려주는 고립 운동입니다.", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/eGjt4lk6gjw" }
-    ],
-    back: [
-        { name: "바벨 로우 (Barbell Row)", icon: "align-justify", desc: "등의 두께감을 키워주는 대표적인 운동입니다.", img: "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/9efgcAjQW7E" },
-        { name: "풀업 (Pull-ups)", icon: "arrow-up", desc: "등의 넓이를 확장하고 상체 전반의 근력을 강화합니다.", img: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/eGo4IYlbE5g" },
-        { name: "렛 풀다운 (Lat Pulldown)", icon: "arrow-down", desc: "광배근을 고립시켜 역삼각형 뒤태를 만듭니다.", img: "https://images.unsplash.com/photo-1591940742888-243ad0512807?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/CAwf7n6Luuc" }
-    ],
-    shoulders: [
-        { name: "오버헤드 프레스", icon: "triangle", desc: "강력한 어깨 프레임을 만드는 상체 밀기 운동의 핵심입니다.", img: "https://images.unsplash.com/photo-1541534741688-6078c65b5a33?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/2yjwHeEdf9w" },
-        { name: "사이드 레터럴 레이즈", icon: "expand", desc: "측면 삼각근을 발달시켜 어깨를 더 넓어 보이게 합니다.", img: "https://images.unsplash.com/photo-1581009146145-b5ef03a726ec?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/3VcKaXpzqRo" }
-    ],
-    legs: [
-        { name: "바벨 스쿼트 (Squat)", icon: "footprints", desc: "하체 근력과 전신 안정성을 키우는 '운동의 왕'입니다.", img: "https://images.unsplash.com/photo-1566241142559-40e1bfc26ddc?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/MVMnk0HiTMg" },
-        { name: "런지 (Lunge)", icon: "arrow-down", desc: "하체의 균형 감각과 엉덩이 근육을 집중적으로 단련합니다.", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/QOVaHwm-Q6U" }
-    ],
-    arms: [
-        { name: "바벨 컬 (Bicep Curl)", icon: "zap", desc: "이두근의 크기를 키우는 가장 기본적인 운동입니다.", img: "https://images.unsplash.com/photo-1581009146145-b5ef03a726ec?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/ykJmrZ5v0Oo" },
-        { name: "트라이셉스 익스텐션", icon: "arrow-up", desc: "팔 뒷부분인 삼두근을 단련하여 팔의 두께를 완성합니다.", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/nRiJVZDpdL0" }
-    ],
-    core: [
-        { name: "플랭크 (Plank)", icon: "activity", desc: "코어 전체의 안정성과 버티는 힘을 기릅니다.", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/ASdvN_XEl_c" },
-        { name: "레그 레이즈", icon: "arrow-up", desc: "하복부 근육을 집중적으로 타격하여 복근 라인을 만듭니다.", img: "https://images.unsplash.com/photo-1599058917233-35833f3b5e5e?auto=format&fit=crop&q=80&w=600", video: "https://www.youtube.com/embed/l4kQd9eWclE" }
-    ]
-};
+// Exercise Video Catalog Data (Categorized & API Linked)
+let exerciseCatalogData = {};
 
 function populateExerciseCatalog(filterPart = 'all') {
     const catalogGrid = document.getElementById('catalog-grid');
     if (!catalogGrid) return;
     
-    let displayData = [];
-    if (filterPart === 'all') {
-        Object.values(exerciseCatalogData).forEach(partArr => displayData.push(...partArr));
-    } else {
-        displayData = exerciseCatalogData[filterPart] || [];
+    if (exerciseDatabase.length === 0) {
+        catalogGrid.innerHTML = '<p class="empty-msg">운동 데이터를 불러오는 중입니다...</p>';
+        return;
     }
 
-    catalogGrid.innerHTML = displayData.map(cat => `
-        <div class="catalog-item">
-            <div class="video-wrapper" style="background-image: url('${cat.img}'); background-size: cover; background-position: center; height: 200px; position: relative;">
-                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 10px;">
-                    <span style="color: white; font-size: 0.8em; font-weight: bold;">Virtual Character Guide</span>
+    // Map body parts to API muscle groups
+    const muscleMap = {
+        chest: ['chest'],
+        back: ['back', 'lats', 'middle back', 'lower back'],
+        shoulders: ['shoulders'],
+        arms: ['biceps', 'triceps', 'forearms'],
+        legs: ['quads', 'hamstrings', 'glutes', 'calves'],
+        core: ['abs']
+    };
+
+    let displayData = [];
+    if (filterPart === 'all') {
+        // Pick a few representative ones from each category for 'all'
+        Object.keys(muscleMap).forEach(part => {
+            const filtered = exerciseDatabase.filter(ex => 
+                ex.primaryMuscles.some(m => muscleMap[part].includes(m))
+            );
+            displayData.push(...filtered.slice(0, 2));
+        });
+    } else {
+        const muscles = muscleMap[filterPart] || [];
+        displayData = exerciseDatabase.filter(ex => 
+            ex.primaryMuscles.some(m => muscles.includes(m))
+        );
+    }
+
+    // Add user-uploaded exercises if they exist for this session
+    if (window.uploadedExercises && window.uploadedExercises[filterPart]) {
+        displayData = [...window.uploadedExercises[filterPart], ...displayData];
+    } else if (filterPart === 'all' && window.uploadedExercises) {
+        Object.values(window.uploadedExercises).forEach(arr => displayData.push(...arr));
+    }
+
+    catalogGrid.innerHTML = displayData.map(ex => {
+        const imgPath = ex.customImg || ((ex.images && ex.images.length > 0) 
+            ? `${IMG_BASE_URL}${ex.images[0]}` 
+            : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600');
+            
+        return `
+            <div class="catalog-item">
+                <div class="video-wrapper" style="background-image: url('${imgPath}'); background-size: cover; background-position: center; height: 200px; position: relative;">
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 10px;">
+                        <span style="color: white; font-size: 0.8em; font-weight: bold;">가상 캐릭터 운동 가이드</span>
+                    </div>
+                </div>
+                <div class="catalog-content-box">
+                    <div class="catalog-header">
+                        <div class="catalog-icon"><i data-lucide="layers"></i></div>
+                        <h3>${ex.name}</h3>
+                    </div>
+                    <p class="rec-content">${ex.instructions ? ex.instructions[0].substring(0, 100) + '...' : '전문가의 가이드를 확인하세요.'}</p>
+                    <button class="secondary-btn" style="width: 100%; margin-top: 15px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;" 
+                        onclick="openVideoPlayer('${ex.video || ''}', '${ex.name}', '${ex.instructions ? ex.instructions.join(' ') : ''}')">
+                        <i data-lucide="play-circle"></i> 가이드 영상 보기
+                    </button>
                 </div>
             </div>
-            <div class="catalog-content-box">
-                <div class="catalog-header">
-                    <div class="catalog-icon"><i data-lucide="${cat.icon}"></i></div>
-                    <h3>${cat.name}</h3>
-                </div>
-                <p class="rec-content">${cat.desc}</p>
-                <button class="secondary-btn" style="width: 100%; margin-top: 15px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;" 
-                    onclick="openVideoPlayer('${cat.video}', '${cat.name}', '${cat.desc}')">
-                    <i data-lucide="play-circle"></i> 가이드 영상 보기
-                </button>
-            </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
     if (window.lucide) lucide.createIcons();
 }
 
@@ -739,29 +748,55 @@ closeVideoBtn?.addEventListener('click', () => {
     document.body.style.overflow = 'auto';
 });
 
+// Persistent storage for uploaded exercises in current session
+window.uploadedExercises = {};
+
+// Drag and Drop Logic for File Upload
+const dropZone = document.querySelector('.file-input-wrapper');
+const fileInput = document.getElementById('upload-video-file');
+
+if (dropZone && fileInput) {
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--primary-color)';
+        dropZone.style.background = 'rgba(56, 189, 248, 0.1)';
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.style.borderColor = 'var(--border-color)';
+            dropZone.style.background = 'transparent';
+        });
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
+            updateFileHint(e.dataTransfer.files);
+        }
+    });
+
+    fileInput.addEventListener('change', () => {
+        updateFileHint(fileInput.files);
+    });
+}
+
+function updateFileHint(files) {
+    const hint = document.querySelector('.file-hint');
+    if (hint && files.length) {
+        hint.textContent = files.length > 1 ? `${files.length}개의 파일이 선택되었습니다.` : files[0].name;
+        hint.style.color = 'var(--primary-color)';
+    }
+}
+
 // Improved Upload Form Submission
-const uploadModal = document.getElementById('upload-modal');
-const openUploadBtn = document.getElementById('open-upload-btn');
-const closeUploadBtn = document.getElementById('close-upload-modal');
-const uploadForm = document.getElementById('upload-form');
-
-openUploadBtn?.addEventListener('click', () => {
-    uploadModal?.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-});
-
-closeUploadBtn?.addEventListener('click', () => {
-    uploadModal?.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-});
-
 uploadForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const name = document.getElementById('upload-name').value;
     const part = document.getElementById('upload-part').value;
     const youtubeUrl = document.getElementById('upload-video').value;
     const desc = document.getElementById('upload-desc').value;
-    const fileInput = document.getElementById('upload-video-file');
     
     let finalVideoUrl = youtubeUrl;
 
@@ -769,7 +804,6 @@ uploadForm?.addEventListener('submit', async (e) => {
         const firstFile = fileInput.files[0];
         // Local Blob URL for playback
         finalVideoUrl = URL.createObjectURL(firstFile);
-        console.log(`Local file upload simulation: ${firstFile.name}`);
     }
 
     if (!finalVideoUrl && !youtubeUrl) {
@@ -777,20 +811,27 @@ uploadForm?.addEventListener('submit', async (e) => {
         return;
     }
 
-    if (!exerciseCatalogData[part]) exerciseCatalogData[part] = [];
-    exerciseCatalogData[part].unshift({
+    if (!window.uploadedExercises[part]) window.uploadedExercises[part] = [];
+    
+    window.uploadedExercises[part].unshift({
         name: name,
-        icon: "plus-circle",
-        desc: desc,
-        img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=600",
-        video: finalVideoUrl
+        instructions: [desc],
+        customImg: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=600",
+        video: finalVideoUrl,
+        primaryMuscles: [part] // Simplified mapping
     });
 
-    populateExerciseCatalog('all');
+    // Re-populate with 'all' or current part
+    const activeTab = document.querySelector('#catalog-tabs .filter-btn.active');
+    populateExerciseCatalog(activeTab ? activeTab.dataset.part : 'all');
+    
     uploadModal?.classList.add('hidden');
     document.body.style.overflow = 'auto';
     uploadForm.reset();
-    alert(`'${name}' 운동 정보와 영상이 성공적으로 업로드되었습니다!`);
+    const hint = document.querySelector('.file-hint');
+    if (hint) hint.textContent = "가이드 영상을 선택하거나 폴더를 드래그하세요.";
+    
+    alert(`'${name}' 운동이 성공적으로 추가되었습니다! 하단 카탈로그에서 확인하세요.`);
 });
 
 // Catalog Tab Logic
