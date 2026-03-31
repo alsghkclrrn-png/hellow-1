@@ -288,8 +288,15 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="upload-video">Video URL (YouTube):</label>
-                        <input type="url" id="upload-video" placeholder="https://www.youtube.com/embed/..." required>
+                        <label for="upload-video-file">영상 파일/폴더 선택:</label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="upload-video-file" accept="video/*" webkitdirectory mozdirectory directory multiple>
+                            <span class="file-hint">가이드 영상을 선택하거나 폴더를 드래그하세요.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="upload-video">또는 Video URL (YouTube):</label>
+                        <input type="url" id="upload-video" placeholder="https://www.youtube.com/embed/...">
                     </div>
                     <div class="form-group">
                         <label for="upload-desc">설명:</label>
@@ -301,9 +308,16 @@
         </div>
 
         <section id="home-workout" class="feature-section">
-            <h2><i data-lucide="home"></i> 맞춤형 홈트 추천</h2>
-            <p class="section-desc">집에서도 효과적으로 할 수 있는 맨몸 운동과 소도구 활용 루틴을 제안합니다.</p>
-            <div class="workout-filter-tabs">
+            <div class="section-header-flex">
+                <div>
+                    <h2><i data-lucide="home"></i> 맞춤형 홈트 추천</h2>
+                    <p class="section-desc">집에서도 효과적으로 할 수 있는 간편하고 실용적인 루틴을 제안합니다.</p>
+                </div>
+                <button id="refresh-home-workout" class="secondary-btn refresh-btn">
+                    <i data-lucide="refresh-cw"></i> 다른 운동 추천
+                </button>
+            </div>
+            <div class="workout-filter-tabs" id="home-filter-tabs">
                 <button class="filter-btn active" data-target="bodyweight">맨몸 운동</button>
                 <button class="filter-btn" data-target="equipment">소도구 운동</button>
             </div>
