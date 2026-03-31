@@ -697,15 +697,37 @@ function populateExerciseCatalog(filterPart = 'all') {
 // Video Modal Logic
 const videoModal = document.getElementById('video-modal');
 const videoIframe = document.getElementById('video-iframe');
+const videoPlayer = document.getElementById('video-player');
 const videoTitle = document.getElementById('video-title');
 const videoDesc = document.getElementById('video-desc');
 const closeVideoBtn = document.getElementById('close-video-modal');
 
 function openVideoPlayer(url, title, desc) {
-    if (!videoModal || !videoIframe) return;
-    videoIframe.src = url + "?autoplay=1";
+    if (!videoModal) return;
+    
+    // Reset both
+    if (videoIframe) { videoIframe.src = ""; videoIframe.classList.add('hidden'); }
+    if (videoPlayer) { videoPlayer.src = ""; videoPlayer.classList.add('hidden'); }
+
+    if (url && (url.includes('youtube.com') || url.includes('youtu.be'))) {
+        if (videoIframe) {
+            videoIframe.src = url.includes('embed') ? url + "?autoplay=1" : url.replace('watch?v=', 'embed/') + "?autoplay=1";
+            videoIframe.classList.remove('hidden');
+        }
+    } else if (url) {
+        if (videoPlayer) {
+            videoPlayer.src = url;
+            videoPlayer.classList.remove('hidden');
+            videoPlayer.play().catch(e => console.log("Auto-play blocked or failed", e));
+        }
+    } else {
+        // Fallback or just show title/desc if no URL
+        if (videoDesc) videoDesc.innerHTML += "<br><small>(영상이 제공되지 않는 운동입니다. 설명을 참고하세요.)</small>";
+    }
+
     if (videoTitle) videoTitle.textContent = title;
-    if (videoDesc) videoDesc.textContent = desc;
+    if (videoDesc && desc) videoDesc.textContent = desc;
+    
     videoModal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 }
@@ -713,10 +735,11 @@ function openVideoPlayer(url, title, desc) {
 closeVideoBtn?.addEventListener('click', () => {
     videoModal?.classList.add('hidden');
     if (videoIframe) videoIframe.src = "";
+    if (videoPlayer) { videoPlayer.pause(); videoPlayer.src = ""; }
     document.body.style.overflow = 'auto';
 });
 
-// Improved Upload Logic
+// Improved Upload Form Submission
 const uploadModal = document.getElementById('upload-modal');
 const openUploadBtn = document.getElementById('open-upload-btn');
 const closeUploadBtn = document.getElementById('close-upload-modal');
@@ -742,17 +765,11 @@ uploadForm?.addEventListener('submit', async (e) => {
     
     let finalVideoUrl = youtubeUrl;
 
-    // Simulation of file/folder upload
     if (fileInput && fileInput.files.length > 0) {
-        const fileCount = fileInput.files.length;
         const firstFile = fileInput.files[0];
-        // In a real browser app, we'd use URL.createObjectURL(file) for local playback
-        try {
-            finalVideoUrl = URL.createObjectURL(firstFile);
-        } catch(e) {
-            finalVideoUrl = youtubeUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ";
-        }
-        console.log(`Uploaded ${fileCount} files. Path simulation: ${firstFile.webkitRelativePath || firstFile.name}`);
+        // Local Blob URL for playback
+        finalVideoUrl = URL.createObjectURL(firstFile);
+        console.log(`Local file upload simulation: ${firstFile.name}`);
     }
 
     if (!finalVideoUrl && !youtubeUrl) {
@@ -773,7 +790,7 @@ uploadForm?.addEventListener('submit', async (e) => {
     uploadModal?.classList.add('hidden');
     document.body.style.overflow = 'auto';
     uploadForm.reset();
-    alert(`'${name}' 운동 정보와 영상이 성공적으로 업로드되었습니다! (폴더/다중 파일 시뮬레이션 완료)`);
+    alert(`'${name}' 운동 정보와 영상이 성공적으로 업로드되었습니다!`);
 });
 
 // Catalog Tab Logic
@@ -791,43 +808,57 @@ function populateHomeWorkout(filter = 'bodyweight') {
     const homeWorkoutGrid = document.getElementById('home-workout-grid');
     if (!homeWorkoutGrid) return;
 
-    const workoutPool = {
-        bodyweight: [
-            { name: "슬로우 버피", icon: "zap", desc: "층간소음 없이 전신의 체지방을 태우는 유산소성 근력 운동입니다.", img: "https://images.unsplash.com/photo-1599058917233-35833f3b5e5e?auto=format&fit=crop&q=80&w=600" },
-            { name: "와이드 스쿼트", icon: "footprints", desc: "허벅지 안쪽과 엉덩이 라인을 탄탄하게 잡아주는 하체 운동입니다.", img: "https://images.unsplash.com/photo-1566241142559-40e1bfc26ddc?auto=format&fit=crop&q=80&w=600" },
-            { name: "플랭크 탭", icon: "activity", desc: "코어 안정성을 높이고 어깨 근력을 강화하는 전신 운동입니다.", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=600" },
-            { name: "벽 스쿼트 (Wall Sit)", icon: "home", desc: "벽에 기대어 하체 근지구력을 키우는 정적인 운동입니다.", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600" },
-            { name: "버드 독 (Bird Dog)", icon: "wind", desc: "코어와 등 근육을 강화하며 신체 균형을 잡아주는 운동입니다.", img: "https://images.unsplash.com/photo-1599058917233-35833f3b5e5e?auto=format&fit=crop&q=80&w=600" },
-            { name: "데드 버그 (Dead Bug)", icon: "target", desc: "허리 통증 완화와 코어 강화에 매우 효과적인 동작입니다.", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=600" },
-            { name: "의자 딥스 (Chair Dips)", icon: "arrow-down", desc: "의자를 활용해 팔 뒷부분(삼두)을 탄력 있게 만듭니다.", img: "https://images.unsplash.com/photo-1590487988256-9ed24133863e?auto=format&fit=crop&q=80&w=600" },
-            { name: "마운틴 클라이머", icon: "wind", desc: "심박수를 높여 체지방 연소를 극대화하고 복근을 단련합니다.", img: "https://images.unsplash.com/photo-1434608519344-49d77a699e1d?auto=format&fit=crop&q=80&w=600" }
-        ],
-        equipment: [
-            { name: "덤벨 숄더 프레스", icon: "triangle", desc: "생수병이나 덤벨을 활용해 직각 어깨 라인을 만드는 운동입니다.", img: "https://images.unsplash.com/photo-1581009146145-b5ef03a726ec?auto=format&fit=crop&q=80&w=600" },
-            { name: "밴드 랫 풀다운", icon: "align-justify", desc: "저항 밴드를 활용해 굽은 등을 펴고 매끈한 뒷태를 만듭니다.", img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=600" },
-            { name: "덤벨 런지", icon: "arrow-down", desc: "양손에 무게를 들고 수행하여 하체 근력을 강하게 자극합니다.", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600" },
-            { name: "폼롤러 등 스트레칭", icon: "accessibility", desc: "폼롤러를 이용해 뭉친 근육을 풀고 혈액순환을 돕습니다.", img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=600" },
-            { name: "수건 랫 풀다운", icon: "layers", desc: "수건 하나로 등 근육의 자극을 극대화하는 홈트 꿀팁입니다.", img: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&q=80&w=600" },
-            { name: "물병 사이드 레이즈", icon: "expand", desc: "500ml 물병 두 개로 어깨 측면 라인을 다듬을 수 있습니다.", img: "https://images.unsplash.com/photo-1541534741688-6078c65b5a33?auto=format&fit=crop&q=80&w=600" }
-        ]
-    };
+    if (exerciseDatabase.length === 0) {
+        homeWorkoutGrid.innerHTML = '<p class="empty-msg">데이터를 불러오는 중입니다...</p>';
+        return;
+    }
+
+    let filtered = [];
+    if (filter === 'bodyweight') {
+        // 'body only' equipment from API
+        filtered = exerciseDatabase.filter(ex => 
+            (ex.equipment === 'body only' || !ex.equipment) && 
+            ['strength', 'stretching', 'cardio', 'abs'].includes(ex.category)
+        );
+    } else {
+        // 'dumbbell', 'bands', 'kettlebells' etc for home equipment
+        const homeEquip = ['dumbbell', 'bands', 'foam roller', 'medicine ball', 'exercise ball'];
+        filtered = exerciseDatabase.filter(ex => 
+            homeEquip.includes(ex.equipment)
+        );
+    }
 
     // Shuffle and pick 4
-    const shuffled = [...(workoutPool[filter] || [])].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 4);
+    const selected = filtered.sort(() => 0.5 - Math.random()).slice(0, 4);
 
-    homeWorkoutGrid.innerHTML = selected.map(ex => `
-        <div class="catalog-item">
-            <div class="video-wrapper" style="background-image: url('${ex.img}'); background-size: cover; background-position: center; height: 180px;"></div>
-            <div class="catalog-content-box">
-                <div class="catalog-header">
-                    <div class="catalog-icon"><i data-lucide="${ex.icon}"></i></div>
-                    <h3>${ex.name}</h3>
+    if (selected.length === 0) {
+        homeWorkoutGrid.innerHTML = '<p class="empty-msg">해당 조건의 운동이 없습니다.</p>';
+        return;
+    }
+
+    homeWorkoutGrid.innerHTML = selected.map(ex => {
+        const imgPath = (ex.images && ex.images.length > 0) 
+            ? `${IMG_BASE_URL}${ex.images[0]}` 
+            : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600';
+            
+        return `
+            <div class="catalog-item">
+                <div class="video-wrapper" style="background-image: url('${imgPath}'); background-size: cover; background-position: center; height: 180px;">
+                    <div style="position: absolute; top: 10px; right: 10px; background: var(--primary-color); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7em; font-weight: bold; text-transform: uppercase;">
+                        ${ex.equipment || 'Bodyweight'}
+                    </div>
                 </div>
-                <p class="rec-content">${ex.desc}</p>
+                <div class="catalog-content-box">
+                    <div class="catalog-header">
+                        <div class="catalog-icon"><i data-lucide="activity"></i></div>
+                        <h3>${ex.name}</h3>
+                    </div>
+                    <p class="rec-content">${ex.instructions ? ex.instructions[0].substring(0, 100) + '...' : '가이드를 보려면 클릭하세요.'}</p>
+                    <button class="secondary-btn" style="width: 100%; margin-top: 10px; padding: 8px;" onclick="openVideoPlayer('', '${ex.name}', '${ex.instructions ? ex.instructions.join(' ') : ''}')">자세히 보기</button>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
     if (window.lucide) lucide.createIcons();
 }
 
@@ -1281,6 +1312,7 @@ document.getElementById('analyze-workout-btn')?.addEventListener('click', () => 
 
 fetchExerciseData().then(() => {
     populateExerciseCatalog();
+    populateHomeWorkout();
     updateMbtiQuiz();
     updateSasangQuiz();
 });
