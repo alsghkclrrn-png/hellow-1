@@ -534,10 +534,13 @@ const sasangInsightText = document.getElementById('sasang-insight-text');
 const retakeSasangBtn = document.getElementById('retake-sasang');
 
 function updateSasangQuiz() {
+    const quizContainer = document.getElementById('sasang-quiz');
+    if (!quizContainer) return;
+
     if (currentSasangIndex < sasangQuestions.length) {
         const q = sasangQuestions[currentSasangIndex];
         if (sasangQuestionText) sasangQuestionText.textContent = q.text;
-        if (sasangProgressText) sasangProgressText.textContent = `Step ${currentSasangIndex + 1} of ${sasangQuestions.length}`;
+        if (sasangProgressText) sasangProgressText.textContent = `${sasangQuestions.length}단계 중 ${currentSasangIndex + 1}단계`;
         const progress = (currentSasangIndex / sasangQuestions.length) * 100;
         sasangProgressBar?.style.setProperty('--progress', `${progress}%`);
         
@@ -678,7 +681,11 @@ function populateExerciseCatalog(filterPart = 'all') {
         const imgPath = ex.customImg || ((ex.images && ex.images.length > 0) 
             ? `${IMG_BASE_URL}${ex.images[0]}` 
             : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600');
-            
+        
+        // Ensure instructions is string for openVideoPlayer
+        const instructionsStr = Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || '가이드를 확인하세요.');
+        const videoUrl = ex.video || "https://www.youtube.com/embed/dQw4w9WgXcQ"; // Default video
+
         return `
             <div class="catalog-item">
                 <div class="video-wrapper" style="background-image: url('${imgPath}'); background-size: cover; background-position: center; height: 200px; position: relative;">
@@ -691,9 +698,9 @@ function populateExerciseCatalog(filterPart = 'all') {
                         <div class="catalog-icon"><i data-lucide="layers"></i></div>
                         <h3>${ex.name}</h3>
                     </div>
-                    <p class="rec-content">${ex.instructions ? ex.instructions[0].substring(0, 100) + '...' : '전문가의 가이드를 확인하세요.'}</p>
+                    <p class="rec-content">${instructionsStr.substring(0, 100)}...</p>
                     <button class="secondary-btn" style="width: 100%; margin-top: 15px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;" 
-                        onclick="openVideoPlayer('${ex.video || ''}', '${ex.name}', '${ex.instructions ? ex.instructions.join(' ') : ''}')">
+                        onclick="openVideoPlayer('${videoUrl}', '${ex.name.replace(/'/g, "\\'")}', '${instructionsStr.replace(/'/g, "\\'").substring(0, 300)}')">
                         <i data-lucide="play-circle"></i> 가이드 영상 보기
                     </button>
                 </div>
@@ -881,7 +888,10 @@ function populateHomeWorkout(filter = 'bodyweight') {
         const imgPath = (ex.images && ex.images.length > 0) 
             ? `${IMG_BASE_URL}${ex.images[0]}` 
             : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600';
-            
+        
+        const instructionsStr = Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || '가이드를 확인하세요.');
+        const videoUrl = ex.video || "https://www.youtube.com/embed/dQw4w9WgXcQ";
+
         return `
             <div class="catalog-item">
                 <div class="video-wrapper" style="background-image: url('${imgPath}'); background-size: cover; background-position: center; height: 180px;">
@@ -894,8 +904,9 @@ function populateHomeWorkout(filter = 'bodyweight') {
                         <div class="catalog-icon"><i data-lucide="activity"></i></div>
                         <h3>${ex.name}</h3>
                     </div>
-                    <p class="rec-content">${ex.instructions ? ex.instructions[0].substring(0, 100) + '...' : '가이드를 보려면 클릭하세요.'}</p>
-                    <button class="secondary-btn" style="width: 100%; margin-top: 10px; padding: 8px;" onclick="openVideoPlayer('', '${ex.name}', '${ex.instructions ? ex.instructions.join(' ') : ''}')">자세히 보기</button>
+                    <p class="rec-content">${instructionsStr.substring(0, 100)}...</p>
+                    <button class="secondary-btn" style="width: 100%; margin-top: 10px; padding: 8px;" 
+                        onclick="openVideoPlayer('${videoUrl}', '${ex.name.replace(/'/g, "\\'")}', '${instructionsStr.replace(/'/g, "\\'").substring(0, 300)}')">자세히 보기</button>
                 </div>
             </div>
         `;
@@ -1356,6 +1367,11 @@ fetchExerciseData().then(() => {
     populateHomeWorkout();
     updateMbtiQuiz();
     updateSasangQuiz();
+}).catch(err => {
+    console.error("Initialization failed:", err);
+    // Fallback if API fails
+    populateExerciseCatalog();
+    populateHomeWorkout();
 });
 if (window.lucide) lucide.createIcons();
 
