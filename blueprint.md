@@ -40,6 +40,8 @@ AI Workout Coach is a professional, AI-driven holistic health platform. It provi
 - [x] Implemented professional Sasang Constitution diagnostic test.
 - [x] Localized entire site to Korean.
 - [x] Fixed video upload and playback issues.
-- [x] Implemented Health Magazine section with 4 expert articles.
+- [ ] Implement 3D Virtual Coach using Three.js for procedural exercise animations.
+- [ ] Add animations for Squat, Push-up, Plank, Burpee, and 10+ other requested exercises.
+- [ ] Implement Health Magazine section with 4 expert articles.
 - [x] Created detailed Privacy Policy & Terms of Service sections.
 - [x] Optimized for mobile responsiveness and AdSense E-E-A-T standards.

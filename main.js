@@ -632,37 +632,231 @@ metricsForm?.addEventListener('submit', (e) => {
     generateDietRecs();
 });
 
-// Exercise Translation & Video Mapping
+// Three.js Virtual Coach Logic
+class VirtualCoach {
+    constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        if (!this.container) return;
+        
+        this.scene = new THREE.Scene();
+        this.camera = new THREE.PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 1000);
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        this.container.appendChild(this.renderer.domElement);
+        
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        this.scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(5, 10, 7);
+        this.scene.add(directionalLight);
+        
+        // Character Parts
+        this.character = new THREE.Group();
+        this.createCharacter();
+        this.scene.add(this.character);
+        
+        // Floor
+        const grid = new THREE.GridHelper(10, 10, 0x38bdf8, 0x27272a);
+        this.scene.add(grid);
+        
+        this.camera.position.set(0, 1.5, 4);
+        this.camera.lookAt(0, 1, 0);
+        
+        this.currentExercise = null;
+        this.clock = new THREE.Clock();
+        this.animate();
+        
+        window.addEventListener('resize', () => this.onWindowResize());
+    }
+
+    createCharacter() {
+        const material = new THREE.MeshPhongMaterial({ color: 0x38bdf8 });
+        
+        // Torso
+        const torsoGeo = new THREE.BoxGeometry(0.6, 0.8, 0.3);
+        this.torso = new THREE.Mesh(torsoGeo, material);
+        this.torso.position.y = 1.2;
+        this.character.add(this.torso);
+        
+        // Head
+        const headGeo = new THREE.SphereGeometry(0.2, 32, 32);
+        this.head = new THREE.Mesh(headGeo, material);
+        this.head.position.y = 0.6;
+        this.torso.add(this.head);
+        
+        // Arms
+        const armGeo = new THREE.BoxGeometry(0.15, 0.6, 0.15);
+        this.leftArm = new THREE.Mesh(armGeo, material);
+        this.leftArm.position.set(-0.4, 0.1, 0);
+        this.torso.add(this.leftArm);
+        
+        this.rightArm = new THREE.Mesh(armGeo, material);
+        this.rightArm.position.set(0.4, 0.1, 0);
+        this.torso.add(this.rightArm);
+        
+        // Legs
+        const legGeo = new THREE.BoxGeometry(0.2, 0.8, 0.2);
+        this.leftLeg = new THREE.Mesh(legGeo, material);
+        this.leftLeg.position.set(-0.2, -0.8, 0);
+        this.character.add(this.leftLeg);
+        
+        this.rightLeg = new THREE.Mesh(legGeo, material);
+        this.rightLeg.position.set(0.2, -0.8, 0);
+        this.character.add(this.rightLeg);
+    }
+
+    setExercise(type) {
+        this.currentExercise = type;
+        this.resetPose();
+    }
+
+    resetPose() {
+        this.character.position.set(0, 0, 0);
+        this.character.rotation.set(0, 0, 0);
+        this.torso.position.y = 1.2;
+        this.torso.rotation.x = 0;
+        this.leftArm.rotation.x = 0;
+        this.rightArm.rotation.x = 0;
+        this.leftLeg.rotation.x = 0;
+        this.rightLeg.rotation.x = 0;
+        this.character.scale.set(1, 1, 1);
+    }
+
+    onWindowResize() {
+        if (!this.container) return;
+        this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+    }
+
+    animate() {
+        requestAnimationFrame(() => this.animate());
+        const time = this.clock.getElapsedTime();
+        const speed = 2.5;
+        
+        if (this.currentExercise) {
+            switch(this.currentExercise) {
+                case 'squat':
+                case 'pistol_squat':
+                    const squatDepth = Math.sin(time * speed) * 0.4 - 0.4;
+                    this.torso.position.y = 1.2 + squatDepth;
+                    this.leftLeg.scale.y = 1 + squatDepth * 0.8;
+                    this.rightLeg.scale.y = 1 + squatDepth * 0.8;
+                    this.leftArm.rotation.x = -Math.PI / 3;
+                    this.rightArm.rotation.x = -Math.PI / 3;
+                    break;
+                case 'pushup':
+                case 'diamond_pushup':
+                case 'decline_pushup':
+                    this.character.rotation.x = Math.PI / 2.5;
+                    this.character.position.y = 0.5;
+                    const pushDepth = Math.sin(time * speed) * 0.2 + 0.2;
+                    this.character.position.z = pushDepth;
+                    this.leftArm.rotation.x = pushDepth * 2;
+                    this.rightArm.rotation.x = pushDepth * 2;
+                    break;
+                case 'plank':
+                    this.character.rotation.x = Math.PI / 2.5;
+                    this.character.position.y = 0.4;
+                    this.character.position.z = Math.sin(time * 10) * 0.01; // Shake effect
+                    break;
+                case 'burpee':
+                    const cycle = (time * 1.5) % 4;
+                    if (cycle < 1) { // Standing
+                        this.resetPose();
+                    } else if (cycle < 2) { // Going down to plank
+                        this.character.rotation.x = Math.PI / 2.5;
+                        this.character.position.y = 0.4;
+                    } else if (cycle < 3) { // Pushup in burpee
+                        this.character.rotation.x = Math.PI / 2.5;
+                        this.character.position.z = Math.sin(time * 10) * 0.1;
+                    } else { // Jump
+                        this.resetPose();
+                        this.character.position.y = Math.sin(time * 10) * 0.5;
+                    }
+                    break;
+                case 'mountain_climber':
+                    this.character.rotation.x = Math.PI / 2.5;
+                    this.character.position.y = 0.5;
+                    this.leftLeg.position.z = Math.sin(time * 10) * 0.4;
+                    this.rightLeg.position.z = -Math.sin(time * 10) * 0.4;
+                    break;
+                case 'superman':
+                    this.character.rotation.x = Math.PI / 2;
+                    this.character.position.y = 0.2;
+                    const lift = Math.sin(time * speed) * 0.2;
+                    this.leftArm.rotation.x = -lift;
+                    this.rightArm.rotation.x = -lift;
+                    this.leftLeg.rotation.x = lift;
+                    this.rightLeg.rotation.x = lift;
+                    break;
+                case 'flutter_kick':
+                    this.character.rotation.x = -Math.PI / 4;
+                    this.character.position.y = 0.8;
+                    this.leftLeg.rotation.x = Math.sin(time * 10) * 0.5;
+                    this.rightLeg.rotation.x = -Math.sin(time * 10) * 0.5;
+                    break;
+                case 'pullup':
+                case 'chinup':
+                    const pull = Math.sin(time * speed) * 0.3 + 0.3;
+                    this.character.position.y = pull;
+                    this.leftArm.rotation.x = Math.PI;
+                    this.rightArm.rotation.x = Math.PI;
+                    break;
+            }
+        }
+        
+        this.renderer.render(this.scene, this.camera);
+    }
+}
+
+let virtualCoachInstance = null;
+
+// Exercise Translation & Video Mapping (Now with 3D Support)
 const translationMap = {
-    "Bench Press": { name: "벤치 프레스", desc: "가슴 전체의 근력을 키우는 대표적인 운동입니다. 바벨을 천천히 내렸다가 가슴 근육의 힘으로 밀어 올리세요.", video: "https://www.youtube.com/embed/rT7DgVCn7iU" },
-    "Incline Dumbbell Press": { name: "인클라인 덤벨 프레스", desc: "윗가슴을 타겟으로 하여 입체적인 가슴 라인을 만듭니다. 덤벨이 서로 닿지 않게 주의하며 밀어주세요.", video: "https://www.youtube.com/embed/8iPEnn-ltC8" },
-    "Dumbbell Fly": { name: "덤벨 플라이", desc: "가슴 안쪽 근육을 모아주는 고립 운동입니다. 큰 나무를 껴안는 느낌으로 가슴을 확장하고 수축하세요.", video: "https://www.youtube.com/embed/eGjt4lk6gjw" },
-    "Push-ups": { name: "푸쉬업", desc: "언제 어디서나 할 수 있는 최고의 가슴 맨몸 운동입니다. 몸을 일직선으로 유지하는 것이 중요합니다.", video: "https://www.youtube.com/embed/rEB6BeZz648" },
-    "Barbell Row": { name: "바벨 로우", desc: "등의 두께감을 키워주는 운동입니다. 허리를 곧게 펴고 바벨을 배꼽 방향으로 당기세요.", video: "https://www.youtube.com/embed/9efgcAjQW7E" },
-    "Pull-ups": { name: "풀업", desc: "등의 넓이를 넓혀주는 광배근 운동입니다. 가슴을 하늘로 향하게 하고 턱을 바 너머로 올리세요.", video: "https://www.youtube.com/embed/eGo4IYlbE5g" },
-    "Lat Pulldown": { name: "렛 풀다운", desc: "초보자도 쉽게 등을 넓힐 수 있는 운동입니다. 견갑골을 먼저 내리며 바를 당기세요.", video: "https://www.youtube.com/embed/CAwf7n6Luuc" },
-    "Overhead Press": { name: "오버헤드 프레스", desc: "강력한 어깨 프레임을 만드는 운동입니다. 바벨을 머리 위로 수직으로 밀어 올리세요.", video: "https://www.youtube.com/embed/2yjwHeEdf9w" },
-    "Lateral Raise": { name: "사이드 레터럴 레이즈", desc: "어깨 측면을 발달시켜 넓은 어깨를 만듭니다. 팔꿈치를 살짝 굽히고 옆으로 들어 올리세요.", video: "https://www.youtube.com/embed/3VcKaXpzqRo" },
-    "Squat": { name: "스쿼트", desc: "하체 운동의 왕입니다. 골반을 뒤로 빼며 의자에 앉듯 천천히 내려갔다 올라오세요.", video: "https://www.youtube.com/embed/MVMnk0HiTMg" },
-    "Lunge": { name: "런지", desc: "하체의 균형과 엉덩이 근육을 발달시킵니다. 무릎이 바닥에 닿을 정도로 천천히 내려가세요.", video: "https://www.youtube.com/embed/QOVaHwm-Q6U" },
-    "Bicep Curl": { name: "바벨 컬", desc: "이두근의 크기를 키우는 대표적인 운동입니다. 팔꿈치를 옆구리에 고정하고 들어 올리세요.", video: "https://www.youtube.com/embed/ykJmrZ5v0Oo" },
-    "Tricep Extension": { name: "트라이셉스 익스텐션", desc: "팔 뒷부분인 삼두근을 단련합니다. 팔꿈치가 벌어지지 않게 고정하는 것이 핵심입니다.", video: "https://www.youtube.com/embed/nRiJVZDpdL0" },
-    "Plank": { name: "플랭크", desc: "코어 전체의 안정성을 기르는 운동입니다. 전신에 힘을 주고 일직선을 유지하세요.", video: "https://www.youtube.com/embed/ASdvN_XEl_c" },
-    "Leg Raise": { name: "레그 레이즈", desc: "하복부를 집중적으로 단련합니다. 허리가 바닥에서 뜨지 않도록 주의하며 다리를 내리세요.", video: "https://www.youtube.com/embed/l4kQd9eWclE" },
-    "Home Cardio": { name: "3분 전신 다이어트 홈트", desc: "집에서 좁은 공간에서도 할 수 있는 고효율 전신 유산소 운동입니다. 체지방 연소에 매우 효과적입니다.", video: "https://www.youtube.com/embed/DBA1eN2NtJI" }
+    "Bench Press": { name: "벤치 프레스", desc: "가슴 전체의 근력을 키우는 대표적인 운동입니다.", video: "https://www.youtube.com/embed/rT7DgVCn7iU" },
+    "Incline Dumbbell Press": { name: "인클라인 덤벨 프레스", desc: "윗가슴을 타겟으로 하여 입체적인 가슴 라인을 만듭니다.", video: "https://www.youtube.com/embed/8iPEnn-ltC8" },
+    "Dumbbell Fly": { name: "덤벨 플라이", desc: "가슴 안쪽 근육을 모아주는 고립 운동입니다.", video: "https://www.youtube.com/embed/eGjt4lk6gjw" },
+    "Push-ups": { name: "푸쉬업", desc: "최고의 가슴 맨몸 운동입니다.", video: "https://www.youtube.com/embed/rEB6BeZz648", threeType: "pushup" },
+    "Barbell Row": { name: "바벨 로우", desc: "등의 두께감을 키워주는 운동입니다.", video: "https://www.youtube.com/embed/9efgcAjQW7E" },
+    "Pull-ups": { name: "풀업", desc: "등의 넓이를 넓혀주는 광배근 운동입니다.", video: "https://www.youtube.com/embed/eGo4IYlbE5g", threeType: "pullup" },
+    "Lat Pulldown": { name: "렛 풀다운", desc: "초보자도 쉽게 등을 넓힐 수 있는 운동입니다.", video: "https://www.youtube.com/embed/CAwf7n6Luuc" },
+    "Overhead Press": { name: "오버헤드 프레스", desc: "강력한 어깨 프레임을 만드는 운동입니다.", video: "https://www.youtube.com/embed/2yjwHeEdf9w" },
+    "Lateral Raise": { name: "사이드 레터럴 레이즈", desc: "어깨 측면을 발달시켜 넓은 어깨를 만듭니다.", video: "https://www.youtube.com/embed/3VcKaXpzqRo" },
+    "Squat": { name: "스쿼트", desc: "하체 운동의 왕입니다.", video: "https://www.youtube.com/embed/MVMnk0HiTMg", threeType: "squat" },
+    "Lunge": { name: "런지", desc: "하체의 균형과 엉덩이 근육을 발달시킵니다.", video: "https://www.youtube.com/embed/QOVaHwm-Q6U" },
+    "Bicep Curl": { name: "바벨 컬", desc: "이두근의 크기를 키우는 대표적인 운동입니다.", video: "https://www.youtube.com/embed/ykJmrZ5v0Oo" },
+    "Tricep Extension": { name: "트라이셉스 익스텐션", desc: "팔 뒷부분인 삼두근을 단련합니다.", video: "https://www.youtube.com/embed/nRiJVZDpdL0" },
+    "Plank": { name: "플랭크", desc: "코어 전체의 안정성을 기르는 운동입니다.", video: "https://www.youtube.com/embed/ASdvN_XEl_c", threeType: "plank" },
+    "Leg Raise": { name: "레그 레이즈", desc: "하복부를 집중적으로 단련합니다.", video: "https://www.youtube.com/embed/l4kQd9eWclE" },
+    "Home Cardio": { name: "3분 전신 다이어트 홈트", desc: "고효율 전신 유산소 운동입니다.", video: "https://www.youtube.com/embed/DBA1eN2NtJI" },
+    
+    // New 3D Requested Exercises
+    "Jump Squat": { name: "점프 스쿼트", desc: "폭발적인 하체 힘과 유산소 효과를 동시에 얻는 운동입니다.", threeType: "squat" },
+    "Burpee": { name: "버피 테스트", desc: "전신 근력과 심폐 지구력을 극대화하는 최고의 운동입니다.", threeType: "burpee" },
+    "Flutter Kick": { name: "시티드 플러터 킥", desc: "복부 하부를 강력하게 자극하는 코어 운동입니다.", threeType: "flutter_kick" },
+    "Decline Push-up": { name: "디클라인 푸쉬업", desc: "윗가슴 근육을 더 강하게 자극하는 변형 푸쉬업입니다.", threeType: "pushup" },
+    "Diamond Push-up": { name: "다이아몬드 푸쉬업", desc: "가슴 안쪽과 삼두근을 집중적으로 발달시킵니다.", threeType: "pushup" },
+    "Plyometric Push-up": { name: "플라이오메트릭 푸쉬업", desc: "상체의 폭발적인 파워를 기르는 고강도 운동입니다.", threeType: "pushup" },
+    "Chin-up": { name: "친업", desc: "등 하부와 이두근을 효과적으로 발달시키는 턱걸이입니다.", threeType: "pullup" },
+    "Wide Pull-up": { name: "와이드 풀업", desc: "광배근 바깥쪽을 자극하여 넓은 등을 만듭니다.", threeType: "pullup" },
+    "Pistol Squat": { name: "피스톨 스쿼트", desc: "한 다리로 수행하는 고난도 하체 근력 및 균형 운동입니다.", threeType: "pistol_squat" },
+    "Mountain Climber": { name: "마운틴 클라이머", desc: "코어 강화와 체지방 연소를 돕는 전신 운동입니다.", threeType: "mountain_climber" },
+    "Superman": { name: "라잉 바디웨이트 슈퍼맨", desc: "척추기립근과 등 하부를 강화하는 허리 건강 운동입니다.", threeType: "superman" }
 };
 
 const getTranslatedData = (ex) => {
-    // Check for partial or direct matches in translationMap
     const key = Object.keys(translationMap).find(k => ex.name.toLowerCase().includes(k.toLowerCase()));
     if (key) {
         return {
             name: translationMap[key].name,
             desc: translationMap[key].desc,
-            video: translationMap[key].video
+            video: translationMap[key].video,
+            threeType: translationMap[key].threeType
         };
     }
-    // Fallback if no translation found
     return {
         name: ex.name,
         desc: Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || '전문 가이드를 확인하세요.'),
@@ -757,7 +951,7 @@ function populateExerciseCatalog(filterPart = 'all') {
                     </div>
                     <p class="rec-content">${finalDesc.substring(0, 100)}...</p>
                     <button class="secondary-btn" style="width: 100%; margin-top: 15px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;" 
-                        onclick="openVideoPlayer('${finalVideo}', '${finalName.replace(/'/g, "\\'")}', '${finalDesc.replace(/'/g, "\\'").substring(0, 300)}')">
+                        onclick="openVideoPlayer('${finalVideo}', '${finalName.replace(/'/g, "\\'")}', '${finalDesc.replace(/'/g, "\\'").substring(0, 300)}', '${ex.threeType || ''}')">
                         <i data-lucide="play-circle"></i> 가이드 영상 보기
                     </button>
                 </div>
@@ -781,14 +975,25 @@ const openUploadBtn = document.getElementById('open-upload-btn');
 const closeUploadBtn = document.getElementById('close-upload-modal');
 const uploadForm = document.getElementById('upload-form');
 
-function openVideoPlayer(url, title, desc) {
+function openVideoPlayer(url, title, desc, threeType) {
     if (!videoModal) return;
     
-    // Reset both
+    const threeContainer = document.getElementById('three-canvas-container');
+
+    // Reset all players
     if (videoIframe) { videoIframe.src = ""; videoIframe.classList.add('hidden'); }
     if (videoPlayer) { videoPlayer.pause(); videoPlayer.src = ""; videoPlayer.classList.add('hidden'); }
+    if (threeContainer) { threeContainer.classList.add('hidden'); }
 
-    if (url && (url.includes('youtube.com') || url.includes('youtu.be'))) {
+    if (threeType) {
+        if (threeContainer) {
+            threeContainer.classList.remove('hidden');
+            if (!virtualCoachInstance) {
+                virtualCoachInstance = new VirtualCoach('three-canvas-container');
+            }
+            virtualCoachInstance.setExercise(threeType);
+        }
+    } else if (url && (url.includes('youtube.com') || url.includes('youtu.be'))) {
         if (videoIframe) {
             let embedUrl = url;
             if (url.includes('shorts/')) {
@@ -988,7 +1193,7 @@ function populateHomeWorkout(filter = 'bodyweight') {
                     </div>
                     <p class="rec-content">${info.desc.substring(0, 100)}...</p>
                     <button class="secondary-btn" style="width: 100%; margin-top: 10px; padding: 8px;" 
-                        onclick="openVideoPlayer('${info.video}', '${info.name.replace(/'/g, "\\'")}', '${info.desc.replace(/'/g, "\\'").substring(0, 300)}')">자세히 보기</button>
+                        onclick="openVideoPlayer('${info.video}', '${info.name.replace(/'/g, "\\'")}', '${info.desc.replace(/'/g, "\\'").substring(0, 300)}', '${info.threeType || ''}')">자세히 보기</button>
                 </div>
             </div>
         `;
