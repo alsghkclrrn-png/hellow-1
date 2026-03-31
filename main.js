@@ -632,7 +632,43 @@ metricsForm?.addEventListener('submit', (e) => {
     generateDietRecs();
 });
 
-// Exercise Video Catalog Logic (API Linked)
+// Exercise Translation & Video Mapping
+const translationMap = {
+    "Bench Press": { name: "벤치 프레스", desc: "가슴 전체의 근력을 키우는 대표적인 운동입니다. 바벨을 천천히 내렸다가 가슴 근육의 힘으로 밀어 올리세요.", video: "https://www.youtube.com/embed/rT7DgVCn7iU" },
+    "Incline Dumbbell Press": { name: "인클라인 덤벨 프레스", desc: "윗가슴을 타겟으로 하여 입체적인 가슴 라인을 만듭니다. 덤벨이 서로 닿지 않게 주의하며 밀어주세요.", video: "https://www.youtube.com/embed/8iPEnn-ltC8" },
+    "Dumbbell Fly": { name: "덤벨 플라이", desc: "가슴 안쪽 근육을 모아주는 고립 운동입니다. 큰 나무를 껴안는 느낌으로 가슴을 확장하고 수축하세요.", video: "https://www.youtube.com/embed/eGjt4lk6gjw" },
+    "Push-ups": { name: "푸쉬업", desc: "언제 어디서나 할 수 있는 최고의 가슴 맨몸 운동입니다. 몸을 일직선으로 유지하는 것이 중요합니다.", video: "https://www.youtube.com/embed/rEB6BeZz648" },
+    "Barbell Row": { name: "바벨 로우", desc: "등의 두께감을 키워주는 운동입니다. 허리를 곧게 펴고 바벨을 배꼽 방향으로 당기세요.", video: "https://www.youtube.com/embed/9efgcAjQW7E" },
+    "Pull-ups": { name: "풀업", desc: "등의 넓이를 넓혀주는 광배근 운동입니다. 가슴을 하늘로 향하게 하고 턱을 바 너머로 올리세요.", video: "https://www.youtube.com/embed/eGo4IYlbE5g" },
+    "Lat Pulldown": { name: "렛 풀다운", desc: "초보자도 쉽게 등을 넓힐 수 있는 운동입니다. 견갑골을 먼저 내리며 바를 당기세요.", video: "https://www.youtube.com/embed/CAwf7n6Luuc" },
+    "Overhead Press": { name: "오버헤드 프레스", desc: "강력한 어깨 프레임을 만드는 운동입니다. 바벨을 머리 위로 수직으로 밀어 올리세요.", video: "https://www.youtube.com/embed/2yjwHeEdf9w" },
+    "Lateral Raise": { name: "사이드 레터럴 레이즈", desc: "어깨 측면을 발달시켜 넓은 어깨를 만듭니다. 팔꿈치를 살짝 굽히고 옆으로 들어 올리세요.", video: "https://www.youtube.com/embed/3VcKaXpzqRo" },
+    "Squat": { name: "스쿼트", desc: "하체 운동의 왕입니다. 골반을 뒤로 빼며 의자에 앉듯 천천히 내려갔다 올라오세요.", video: "https://www.youtube.com/embed/MVMnk0HiTMg" },
+    "Lunge": { name: "런지", desc: "하체의 균형과 엉덩이 근육을 발달시킵니다. 무릎이 바닥에 닿을 정도로 천천히 내려가세요.", video: "https://www.youtube.com/embed/QOVaHwm-Q6U" },
+    "Bicep Curl": { name: "바벨 컬", desc: "이두근의 크기를 키우는 대표적인 운동입니다. 팔꿈치를 옆구리에 고정하고 들어 올리세요.", video: "https://www.youtube.com/embed/ykJmrZ5v0Oo" },
+    "Tricep Extension": { name: "트라이셉스 익스텐션", desc: "팔 뒷부분인 삼두근을 단련합니다. 팔꿈치가 벌어지지 않게 고정하는 것이 핵심입니다.", video: "https://www.youtube.com/embed/nRiJVZDpdL0" },
+    "Plank": { name: "플랭크", desc: "코어 전체의 안정성을 기르는 운동입니다. 전신에 힘을 주고 일직선을 유지하세요.", video: "https://www.youtube.com/embed/ASdvN_XEl_c" },
+    "Leg Raise": { name: "레그 레이즈", desc: "하복부를 집중적으로 단련합니다. 허리가 바닥에서 뜨지 않도록 주의하며 다리를 내리세요.", video: "https://www.youtube.com/embed/l4kQd9eWclE" }
+};
+
+const getTranslatedData = (ex) => {
+    // Check for partial or direct matches in translationMap
+    const key = Object.keys(translationMap).find(k => ex.name.toLowerCase().includes(k.toLowerCase()));
+    if (key) {
+        return {
+            name: translationMap[key].name,
+            desc: translationMap[key].desc,
+            video: translationMap[key].video
+        };
+    }
+    // Fallback if no translation found
+    return {
+        name: ex.name,
+        desc: Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || '전문 가이드를 확인하세요.'),
+        video: ex.video || "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    };
+};
+
 function populateExerciseCatalog(filterPart = 'all') {
     const catalogGrid = document.getElementById('catalog-grid');
     if (!catalogGrid) return;
@@ -642,7 +678,6 @@ function populateExerciseCatalog(filterPart = 'all') {
         return;
     }
 
-    // Map body parts to API muscle groups
     const muscleMap = {
         chest: ['chest'],
         back: ['back', 'lats', 'middle back', 'lower back'],
@@ -652,27 +687,34 @@ function populateExerciseCatalog(filterPart = 'all') {
         core: ['abs']
     };
 
-    let displayData = [];
+    let rawData = [];
     if (filterPart === 'all') {
-        // Pick a few representative ones from each category for 'all'
         Object.keys(muscleMap).forEach(part => {
             const filtered = exerciseDatabase.filter(ex => 
                 ex.primaryMuscles.some(m => muscleMap[part].includes(m))
             );
-            displayData.push(...filtered.slice(0, 2));
+            rawData.push(...filtered.slice(0, 2));
         });
     } else {
         const muscles = muscleMap[filterPart] || [];
-        displayData = exerciseDatabase.filter(ex => 
+        rawData = exerciseDatabase.filter(ex => 
             ex.primaryMuscles.some(m => muscles.includes(m))
         );
     }
 
-    // Add user-uploaded exercises if they exist for this session
-    if (window.uploadedExercises && window.uploadedExercises[filterPart]) {
+    // Process translations and videos
+    let displayData = rawData.map(ex => {
+        const info = getTranslatedData(ex);
+        return { ...ex, ...info };
+    });
+
+    // Add user-uploaded exercises
+    if (filterPart === 'all' && window.uploadedExercises) {
+        Object.values(window.uploadedExercises).forEach(arr => {
+            displayData = [...arr, ...displayData];
+        });
+    } else if (window.uploadedExercises && window.uploadedExercises[filterPart]) {
         displayData = [...window.uploadedExercises[filterPart], ...displayData];
-    } else if (filterPart === 'all' && window.uploadedExercises) {
-        Object.values(window.uploadedExercises).forEach(arr => displayData.push(...arr));
     }
 
     catalogGrid.innerHTML = displayData.map(ex => {
@@ -680,25 +722,25 @@ function populateExerciseCatalog(filterPart = 'all') {
             ? `${IMG_BASE_URL}${ex.images[0]}` 
             : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600');
         
-        // Ensure instructions is string for openVideoPlayer
-        const instructionsStr = Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || '가이드를 확인하세요.');
-        const videoUrl = ex.video || "https://www.youtube.com/embed/dQw4w9WgXcQ"; // Default video
+        const finalName = ex.name;
+        const finalDesc = ex.desc || (Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || '가이드를 확인하세요.'));
+        const finalVideo = ex.video || "https://www.youtube.com/embed/dQw4w9WgXcQ";
 
         return `
             <div class="catalog-item">
                 <div class="video-wrapper" style="background-image: url('${imgPath}'); background-size: cover; background-position: center; height: 200px; position: relative;">
                     <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 10px;">
-                        <span style="color: white; font-size: 0.8em; font-weight: bold;">가상 캐릭터 운동 가이드</span>
+                        <span style="color: white; font-size: 0.8em; font-weight: bold;">${ex.isUploaded ? '사용자 업로드 가이드' : '가상 캐릭터 운동 가이드'}</span>
                     </div>
                 </div>
                 <div class="catalog-content-box">
                     <div class="catalog-header">
                         <div class="catalog-icon"><i data-lucide="layers"></i></div>
-                        <h3>${ex.name}</h3>
+                        <h3>${finalName}</h3>
                     </div>
-                    <p class="rec-content">${instructionsStr.substring(0, 100)}...</p>
+                    <p class="rec-content">${finalDesc.substring(0, 100)}...</p>
                     <button class="secondary-btn" style="width: 100%; margin-top: 15px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;" 
-                        onclick="openVideoPlayer('${videoUrl}', '${ex.name.replace(/'/g, "\\'")}', '${instructionsStr.replace(/'/g, "\\'").substring(0, 300)}')">
+                        onclick="openVideoPlayer('${finalVideo}', '${finalName.replace(/'/g, "\\'")}', '${finalDesc.replace(/'/g, "\\'").substring(0, 300)}')">
                         <i data-lucide="play-circle"></i> 가이드 영상 보기
                     </button>
                 </div>
@@ -836,10 +878,12 @@ uploadForm?.addEventListener('submit', async (e) => {
     
     window.uploadedExercises[part].unshift({
         name: name,
+        desc: desc, // Store directly as desc to bypass getTranslatedData logic in populate
         instructions: [desc],
         customImg: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=600",
         video: finalVideoUrl,
-        primaryMuscles: [part] // Simplified mapping
+        primaryMuscles: [part],
+        isUploaded: true // Flag to identify user uploads
     });
 
     // Re-populate with 'all' or current part
@@ -877,20 +921,17 @@ function populateHomeWorkout(filter = 'bodyweight') {
 
     let filtered = [];
     if (filter === 'bodyweight') {
-        // 'body only' equipment from API
         filtered = exerciseDatabase.filter(ex => 
             (ex.equipment === 'body only' || !ex.equipment) && 
             ['strength', 'stretching', 'cardio', 'abs'].includes(ex.category)
         );
     } else {
-        // 'dumbbell', 'bands', 'kettlebells' etc for home equipment
         const homeEquip = ['dumbbell', 'bands', 'foam roller', 'medicine ball', 'exercise ball'];
         filtered = exerciseDatabase.filter(ex => 
             homeEquip.includes(ex.equipment)
         );
     }
 
-    // Shuffle and pick 4
     const selected = filtered.sort(() => 0.5 - Math.random()).slice(0, 4);
 
     if (selected.length === 0) {
@@ -899,13 +940,11 @@ function populateHomeWorkout(filter = 'bodyweight') {
     }
 
     homeWorkoutGrid.innerHTML = selected.map(ex => {
+        const info = getTranslatedData(ex);
         const imgPath = (ex.images && ex.images.length > 0) 
             ? `${IMG_BASE_URL}${ex.images[0]}` 
             : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600';
-        
-        const instructionsStr = Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || '가이드를 확인하세요.');
-        const videoUrl = ex.video || "https://www.youtube.com/embed/dQw4w9WgXcQ";
-
+            
         return `
             <div class="catalog-item">
                 <div class="video-wrapper" style="background-image: url('${imgPath}'); background-size: cover; background-position: center; height: 180px;">
@@ -916,11 +955,11 @@ function populateHomeWorkout(filter = 'bodyweight') {
                 <div class="catalog-content-box">
                     <div class="catalog-header">
                         <div class="catalog-icon"><i data-lucide="activity"></i></div>
-                        <h3>${ex.name}</h3>
+                        <h3>${info.name}</h3>
                     </div>
-                    <p class="rec-content">${instructionsStr.substring(0, 100)}...</p>
+                    <p class="rec-content">${info.desc.substring(0, 100)}...</p>
                     <button class="secondary-btn" style="width: 100%; margin-top: 10px; padding: 8px;" 
-                        onclick="openVideoPlayer('${videoUrl}', '${ex.name.replace(/'/g, "\\'")}', '${instructionsStr.replace(/'/g, "\\'").substring(0, 300)}')">자세히 보기</button>
+                        onclick="openVideoPlayer('${info.video}', '${info.name.replace(/'/g, "\\'")}', '${info.desc.replace(/'/g, "\\'").substring(0, 300)}')">자세히 보기</button>
                 </div>
             </div>
         `;
@@ -1133,13 +1172,11 @@ function getExercisesByContext(options) {
         }
 
         recommendedList = sessionPool.map(ex => {
+            const info = getTranslatedData(ex);
             const imgPath = (ex.images && ex.images.length > 0) 
                 ? `${IMG_BASE_URL}${ex.images[0]}` 
                 : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
 
-            const rawInstructions = (ex.instructions && ex.instructions.length > 0) ? ex.instructions : ["천천히 정확한 자세로 수행하세요."];
-            const detailedDesc = rawInstructions.map((step, idx) => `[${idx + 1}단계] ${step}`).join('<br>');
-            
             const metMap = { 'strength': 6.0, 'cardio': 8.0, 'stretching': 2.5, 'plyometrics': 8.0, 'abs': 4.0 };
             const currentMET = metMap[ex.category] || 5.0;
 
@@ -1149,7 +1186,6 @@ function getExercisesByContext(options) {
             const totalMinutes = (setsNum * (repsNum * 4 + 60)) / 60;
             const burned = Math.round((currentMET * 3.5 * weight / 200) * totalMinutes);
 
-            // Muscle name mapping for display
             const muscleMap = { 
                 'chest': '가슴', 'back': '등', 'lats': '등', 'shoulders': '어깨', 
                 'biceps': '팔(이두)', 'triceps': '팔(삼두)', 'quads': '허벅지(앞)', 
@@ -1158,11 +1194,11 @@ function getExercisesByContext(options) {
             const displayTarget = (ex.primaryMuscles || []).map(m => muscleMap[m] || m).join(', ') || '전신';
 
             return {
-                name: ex.name,
+                name: info.name,
                 sets: `${setsNum}세트`,
                 reps: ex.category === 'cardio' ? "15~20분" : `${repsNum}회`,
                 rest: "60초",
-                desc: detailedDesc,
+                desc: info.desc,
                 image: imgPath,
                 calories: burned,
                 primaryMuscles: ex.primaryMuscles || [],
