@@ -1318,6 +1318,17 @@ document.getElementById('refresh-home-workout')?.addEventListener('click', () =>
     }
 });
 
+// Diet Refresh Button Listener
+document.getElementById('refresh-diet-btn')?.addEventListener('click', () => {
+    generateDietRecs();
+    const icon = document.querySelector('#refresh-diet-btn i');
+    if (icon) {
+        icon.style.transition = 'transform 0.5s ease';
+        icon.style.transform = 'rotate(360deg)';
+        setTimeout(() => { icon.style.transform = 'rotate(0deg)'; }, 500);
+    }
+});
+
 function generateDietRecs() {
     const dietContainer = document.getElementById('diet-container');
     if (!dietContainer || !userData.bmr) return;
