@@ -832,8 +832,6 @@ const translationMap = {
     "Plank": { name: "플랭크", desc: "코어 전체의 안정성을 기르는 운동입니다.", video: "https://www.youtube.com/embed/ASdvN_XEl_c", threeType: "plank" },
     "Leg Raise": { name: "레그 레이즈", desc: "하복부를 집중적으로 단련합니다.", video: "https://www.youtube.com/embed/l4kQd9eWclE" },
     "Home Cardio": { name: "3분 전신 다이어트 홈트", desc: "고효율 전신 유산소 운동입니다.", video: "https://www.youtube.com/embed/DBA1eN2NtJI" },
-    
-    // New 3D Requested Exercises
     "Jump Squat": { name: "점프 스쿼트", desc: "폭발적인 하체 힘과 유산소 효과를 동시에 얻는 운동입니다.", threeType: "squat" },
     "Burpee": { name: "버피 테스트", desc: "전신 근력과 심폐 지구력을 극대화하는 최고의 운동입니다.", threeType: "burpee" },
     "Flutter Kick": { name: "시티드 플러터 킥", desc: "복부 하부를 강력하게 자극하는 코어 운동입니다.", threeType: "flutter_kick" },
@@ -844,7 +842,11 @@ const translationMap = {
     "Wide Pull-up": { name: "와이드 풀업", desc: "광배근 바깥쪽을 자극하여 넓은 등을 만듭니다.", threeType: "pullup" },
     "Pistol Squat": { name: "피스톨 스쿼트", desc: "한 다리로 수행하는 고난도 하체 근력 및 균형 운동입니다.", threeType: "pistol_squat" },
     "Mountain Climber": { name: "마운틴 클라이머", desc: "코어 강화와 체지방 연소를 돕는 전신 운동입니다.", threeType: "mountain_climber" },
-    "Superman": { name: "라잉 바디웨이트 슈퍼맨", desc: "척추기립근과 등 하부를 강화하는 허리 건강 운동입니다.", threeType: "superman" }
+    "Superman": { name: "라잉 바디웨이트 슈퍼맨", desc: "척추기립근과 등 하부를 강화하는 허리 건강 운동입니다.", threeType: "superman" },
+    "Deadlift": { name: "데드리프트", desc: "후면 사슬 전체를 강화하는 최고의 전신 운동입니다.", video: "https://www.youtube.com/embed/op9kVnVimqQ" },
+    "Clean and Jerk": { name: "클린 앤 저크", desc: "폭발적인 힘과 협응력을 기르는 역도 동작입니다.", video: "https://www.youtube.com/embed/PjY1r_6sH_0" },
+    "Russian Twist": { name: "러시안 트위스트", desc: "외복사근을 자극하여 탄탄한 허리 라인을 만듭니다.", threeType: "flutter_kick" }, // Using flutter as base
+    "Mountain Climber": { name: "마운틴 클라이머", desc: "체지방 연소와 코어 강화에 탁월한 운동입니다.", threeType: "mountain_climber" }
 };
 
 const getTranslatedData = (ex) => {
@@ -897,7 +899,7 @@ function populateExerciseCatalog(filterPart = 'all') {
         );
     }
 
-    // Process translations and videos
+    // Process translations and videos for ALL raw data
     let displayData = rawData.map(ex => {
         const info = getTranslatedData(ex);
         return { ...ex, ...info };
