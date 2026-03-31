@@ -648,7 +648,8 @@ const translationMap = {
     "Bicep Curl": { name: "바벨 컬", desc: "이두근의 크기를 키우는 대표적인 운동입니다. 팔꿈치를 옆구리에 고정하고 들어 올리세요.", video: "https://www.youtube.com/embed/ykJmrZ5v0Oo" },
     "Tricep Extension": { name: "트라이셉스 익스텐션", desc: "팔 뒷부분인 삼두근을 단련합니다. 팔꿈치가 벌어지지 않게 고정하는 것이 핵심입니다.", video: "https://www.youtube.com/embed/nRiJVZDpdL0" },
     "Plank": { name: "플랭크", desc: "코어 전체의 안정성을 기르는 운동입니다. 전신에 힘을 주고 일직선을 유지하세요.", video: "https://www.youtube.com/embed/ASdvN_XEl_c" },
-    "Leg Raise": { name: "레그 레이즈", desc: "하복부를 집중적으로 단련합니다. 허리가 바닥에서 뜨지 않도록 주의하며 다리를 내리세요.", video: "https://www.youtube.com/embed/l4kQd9eWclE" }
+    "Leg Raise": { name: "레그 레이즈", desc: "하복부를 집중적으로 단련합니다. 허리가 바닥에서 뜨지 않도록 주의하며 다리를 내리세요.", video: "https://www.youtube.com/embed/l4kQd9eWclE" },
+    "Home Cardio": { name: "3분 전신 다이어트 홈트", desc: "집에서 좁은 공간에서도 할 수 있는 고효율 전신 유산소 운동입니다. 체지방 연소에 매우 효과적입니다.", video: "https://www.youtube.com/embed/DBA1eN2NtJI" }
 };
 
 const getTranslatedData = (ex) => {
@@ -708,6 +709,21 @@ function populateExerciseCatalog(filterPart = 'all') {
         return { ...ex, ...info };
     });
 
+    // Inject the new featured exercise
+    const featuredEx = {
+        name: translationMap["Home Cardio"].name,
+        desc: translationMap["Home Cardio"].desc,
+        video: translationMap["Home Cardio"].video,
+        customImg: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=600",
+        isFeatured: true
+    };
+
+    if (filterPart === 'all') {
+        displayData = [featuredEx, ...displayData];
+    } else if (filterPart === 'core' || filterPart === 'legs') { // Add to relevant categories too
+        displayData = [featuredEx, ...displayData];
+    }
+
     // Add user-uploaded exercises
     if (filterPart === 'all' && window.uploadedExercises) {
         Object.values(window.uploadedExercises).forEach(arr => {
@@ -732,6 +748,7 @@ function populateExerciseCatalog(filterPart = 'all') {
                     <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 10px;">
                         <span style="color: white; font-size: 0.8em; font-weight: bold;">${ex.isUploaded ? '사용자 업로드 가이드' : '가상 캐릭터 운동 가이드'}</span>
                     </div>
+                    ${ex.isFeatured ? '<div style="position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7em; font-weight: bold;">FEATURED</div>' : ''}
                 </div>
                 <div class="catalog-content-box">
                     <div class="catalog-header">
@@ -773,7 +790,12 @@ function openVideoPlayer(url, title, desc) {
 
     if (url && (url.includes('youtube.com') || url.includes('youtu.be'))) {
         if (videoIframe) {
-            const embedUrl = url.includes('embed') ? url : url.replace('watch?v=', 'embed/');
+            let embedUrl = url;
+            if (url.includes('shorts/')) {
+                embedUrl = url.replace('shorts/', 'embed/');
+            } else if (!url.includes('embed/')) {
+                embedUrl = url.replace('watch?v=', 'embed/');
+            }
             videoIframe.src = embedUrl + (embedUrl.includes('?') ? '&' : '?') + "autoplay=1";
             videoIframe.classList.remove('hidden');
         }
@@ -932,18 +954,24 @@ function populateHomeWorkout(filter = 'bodyweight') {
         );
     }
 
-    const selected = filtered.sort(() => 0.5 - Math.random()).slice(0, 4);
+    const selected = filtered.sort(() => 0.5 - Math.random()).slice(0, 3);
+    
+    // Inject the new featured exercise from YouTube link at the start
+    const featuredEx = {
+        name: translationMap["Home Cardio"].name,
+        desc: translationMap["Home Cardio"].desc,
+        video: translationMap["Home Cardio"].video,
+        img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=600",
+        equipment: "Full Body"
+    };
+    
+    const finalSelection = [featuredEx, ...selected];
 
-    if (selected.length === 0) {
-        homeWorkoutGrid.innerHTML = '<p class="empty-msg">해당 조건의 운동이 없습니다.</p>';
-        return;
-    }
-
-    homeWorkoutGrid.innerHTML = selected.map(ex => {
-        const info = getTranslatedData(ex);
-        const imgPath = (ex.images && ex.images.length > 0) 
+    homeWorkoutGrid.innerHTML = finalSelection.map(ex => {
+        const info = ex.video ? ex : getTranslatedData(ex); // If already has info (featured), use it
+        const imgPath = ex.img || ((ex.images && ex.images.length > 0) 
             ? `${IMG_BASE_URL}${ex.images[0]}` 
-            : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600';
+            : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600');
             
         return `
             <div class="catalog-item">
@@ -951,6 +979,7 @@ function populateHomeWorkout(filter = 'bodyweight') {
                     <div style="position: absolute; top: 10px; right: 10px; background: var(--primary-color); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7em; font-weight: bold; text-transform: uppercase;">
                         ${ex.equipment || 'Bodyweight'}
                     </div>
+                    ${ex.video === featuredEx.video ? '<div style="position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7em; font-weight: bold;">FEATURED</div>' : ''}
                 </div>
                 <div class="catalog-content-box">
                     <div class="catalog-header">
