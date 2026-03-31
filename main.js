@@ -632,9 +632,7 @@ metricsForm?.addEventListener('submit', (e) => {
     generateDietRecs();
 });
 
-// Exercise Video Catalog Data (Categorized & API Linked)
-let exerciseCatalogData = {};
-
+// Exercise Video Catalog Logic (API Linked)
 function populateExerciseCatalog(filterPart = 'all') {
     const catalogGrid = document.getElementById('catalog-grid');
     if (!catalogGrid) return;
@@ -718,27 +716,33 @@ const videoTitle = document.getElementById('video-title');
 const videoDesc = document.getElementById('video-desc');
 const closeVideoBtn = document.getElementById('close-video-modal');
 
+// Upload Modal & Form Elements
+const uploadModal = document.getElementById('upload-modal');
+const openUploadBtn = document.getElementById('open-upload-btn');
+const closeUploadBtn = document.getElementById('close-upload-modal');
+const uploadForm = document.getElementById('upload-form');
+
 function openVideoPlayer(url, title, desc) {
     if (!videoModal) return;
     
     // Reset both
     if (videoIframe) { videoIframe.src = ""; videoIframe.classList.add('hidden'); }
-    if (videoPlayer) { videoPlayer.src = ""; videoPlayer.classList.add('hidden'); }
+    if (videoPlayer) { videoPlayer.pause(); videoPlayer.src = ""; videoPlayer.classList.add('hidden'); }
 
     if (url && (url.includes('youtube.com') || url.includes('youtu.be'))) {
         if (videoIframe) {
-            videoIframe.src = url.includes('embed') ? url + "?autoplay=1" : url.replace('watch?v=', 'embed/') + "?autoplay=1";
+            const embedUrl = url.includes('embed') ? url : url.replace('watch?v=', 'embed/');
+            videoIframe.src = embedUrl + (embedUrl.includes('?') ? '&' : '?') + "autoplay=1";
             videoIframe.classList.remove('hidden');
         }
     } else if (url) {
         if (videoPlayer) {
             videoPlayer.src = url;
             videoPlayer.classList.remove('hidden');
-            videoPlayer.play().catch(e => console.log("Auto-play blocked or failed", e));
+            videoPlayer.play().catch(e => console.log("Auto-play blocked", e));
         }
     } else {
-        // Fallback or just show title/desc if no URL
-        if (videoDesc) videoDesc.innerHTML += "<br><small>(영상이 제공되지 않는 운동입니다. 설명을 참고하세요.)</small>";
+        if (videoDesc) videoDesc.innerHTML += "<br><small>(영상이 제공되지 않는 운동입니다.)</small>";
     }
 
     if (videoTitle) videoTitle.textContent = title;
@@ -752,6 +756,16 @@ closeVideoBtn?.addEventListener('click', () => {
     videoModal?.classList.add('hidden');
     if (videoIframe) videoIframe.src = "";
     if (videoPlayer) { videoPlayer.pause(); videoPlayer.src = ""; }
+    document.body.style.overflow = 'auto';
+});
+
+openUploadBtn?.addEventListener('click', () => {
+    uploadModal?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+});
+
+closeUploadBtn?.addEventListener('click', () => {
+    uploadModal?.classList.add('hidden');
     document.body.style.overflow = 'auto';
 });
 
@@ -1362,17 +1376,24 @@ document.getElementById('analyze-workout-btn')?.addEventListener('click', () => 
     }
 });
 
+// Immediate Initialization
+updateMbtiQuiz();
+updateSasangQuiz();
+populateExerciseCatalog();
+populateHomeWorkout();
+
 fetchExerciseData().then(() => {
     populateExerciseCatalog();
     populateHomeWorkout();
-    updateMbtiQuiz();
-    updateSasangQuiz();
+    // Re-check stretching if a workout was already generated
+    if (!document.getElementById('workout-analysis-section')?.classList.contains('hidden')) {
+        const activeTab = document.querySelector('#home-filter-tabs .filter-btn.active');
+        populateHomeWorkout(activeTab ? activeTab.dataset.target : 'bodyweight');
+    }
 }).catch(err => {
-    console.error("Initialization failed:", err);
-    // Fallback if API fails
-    populateExerciseCatalog();
-    populateHomeWorkout();
+    console.error("Data fetch failed, using fallbacks:", err);
 });
+
 if (window.lucide) lucide.createIcons();
 
 // Legal Sections Logic
