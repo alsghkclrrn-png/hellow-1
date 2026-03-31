@@ -38,6 +38,8 @@ AI Workout Coach is a professional, AI-driven holistic health platform. It provi
     - Visual guide cards with high-quality images.
     - Integrated logic for home-friendly movements (e.g., Slow Burpees).
 - [x] Maintained other body part categories (Back, Shoulders, Arms, Legs, Core).
+- [ ] Implement exercise catalog with categorized videos featuring virtual characters.
+- [ ] Add "Video Upload" simulation for administrative tasks.
 - [ ] Implement Health Magazine section with 3+ long-form articles.
 - [ ] Create detailed Privacy Policy & Terms of Service sections.
 - [ ] Enhance "About" section for E-E-A-T.
