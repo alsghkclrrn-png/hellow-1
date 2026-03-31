@@ -814,39 +814,124 @@ class VirtualCoach {
 
 let virtualCoachInstance = null;
 
-// Exercise Translation & Video Mapping (Now with 3D Support)
+// Exercise Translation & Professional Guide Mapping
 const translationMap = {
-    "Bench Press": { name: "벤치 프레스", desc: "가슴 전체의 근력을 키우는 대표적인 운동입니다.", video: "https://www.youtube.com/embed/rT7DgVCn7iU" },
-    "Incline Dumbbell Press": { name: "인클라인 덤벨 프레스", desc: "윗가슴을 타겟으로 하여 입체적인 가슴 라인을 만듭니다.", video: "https://www.youtube.com/embed/8iPEnn-ltC8" },
-    "Dumbbell Fly": { name: "덤벨 플라이", desc: "가슴 안쪽 근육을 모아주는 고립 운동입니다.", video: "https://www.youtube.com/embed/eGjt4lk6gjw" },
-    "Push-ups": { name: "푸쉬업", desc: "최고의 가슴 맨몸 운동입니다.", video: "https://www.youtube.com/embed/rEB6BeZz648", threeType: "pushup" },
-    "Barbell Row": { name: "바벨 로우", desc: "등의 두께감을 키워주는 운동입니다.", video: "https://www.youtube.com/embed/9efgcAjQW7E" },
-    "Pull-ups": { name: "풀업", desc: "등의 넓이를 넓혀주는 광배근 운동입니다.", video: "https://www.youtube.com/embed/eGo4IYlbE5g", threeType: "pullup" },
-    "Lat Pulldown": { name: "렛 풀다운", desc: "초보자도 쉽게 등을 넓힐 수 있는 운동입니다.", video: "https://www.youtube.com/embed/CAwf7n6Luuc" },
-    "Overhead Press": { name: "오버헤드 프레스", desc: "강력한 어깨 프레임을 만드는 운동입니다.", video: "https://www.youtube.com/embed/2yjwHeEdf9w" },
-    "Lateral Raise": { name: "사이드 레터럴 레이즈", desc: "어깨 측면을 발달시켜 넓은 어깨를 만듭니다.", video: "https://www.youtube.com/embed/3VcKaXpzqRo" },
-    "Squat": { name: "스쿼트", desc: "하체 운동의 왕입니다.", video: "https://www.youtube.com/embed/MVMnk0HiTMg", threeType: "squat" },
-    "Lunge": { name: "런지", desc: "하체의 균형과 엉덩이 근육을 발달시킵니다.", video: "https://www.youtube.com/embed/QOVaHwm-Q6U" },
-    "Bicep Curl": { name: "바벨 컬", desc: "이두근의 크기를 키우는 대표적인 운동입니다.", video: "https://www.youtube.com/embed/ykJmrZ5v0Oo" },
-    "Tricep Extension": { name: "트라이셉스 익스텐션", desc: "팔 뒷부분인 삼두근을 단련합니다.", video: "https://www.youtube.com/embed/nRiJVZDpdL0" },
-    "Plank": { name: "플랭크", desc: "코어 전체의 안정성을 기르는 운동입니다.", video: "https://www.youtube.com/embed/ASdvN_XEl_c", threeType: "plank" },
-    "Leg Raise": { name: "레그 레이즈", desc: "하복부를 집중적으로 단련합니다.", video: "https://www.youtube.com/embed/l4kQd9eWclE" },
-    "Home Cardio": { name: "3분 전신 다이어트 홈트", desc: "고효율 전신 유산소 운동입니다.", video: "https://www.youtube.com/embed/DBA1eN2NtJI" },
-    "Jump Squat": { name: "점프 스쿼트", desc: "폭발적인 하체 힘과 유산소 효과를 동시에 얻는 운동입니다.", threeType: "squat" },
-    "Burpee": { name: "버피 테스트", desc: "전신 근력과 심폐 지구력을 극대화하는 최고의 운동입니다.", threeType: "burpee" },
-    "Flutter Kick": { name: "시티드 플러터 킥", desc: "복부 하부를 강력하게 자극하는 코어 운동입니다.", threeType: "flutter_kick" },
-    "Decline Push-up": { name: "디클라인 푸쉬업", desc: "윗가슴 근육을 더 강하게 자극하는 변형 푸쉬업입니다.", threeType: "pushup" },
-    "Diamond Push-up": { name: "다이아몬드 푸쉬업", desc: "가슴 안쪽과 삼두근을 집중적으로 발달시킵니다.", threeType: "pushup" },
-    "Plyometric Push-up": { name: "플라이오메트릭 푸쉬업", desc: "상체의 폭발적인 파워를 기르는 고강도 운동입니다.", threeType: "pushup" },
-    "Chin-up": { name: "친업", desc: "등 하부와 이두근을 효과적으로 발달시키는 턱걸이입니다.", threeType: "pullup" },
-    "Wide Pull-up": { name: "와이드 풀업", desc: "광배근 바깥쪽을 자극하여 넓은 등을 만듭니다.", threeType: "pullup" },
-    "Pistol Squat": { name: "피스톨 스쿼트", desc: "한 다리로 수행하는 고난도 하체 근력 및 균형 운동입니다.", threeType: "pistol_squat" },
-    "Mountain Climber": { name: "마운틴 클라이머", desc: "코어 강화와 체지방 연소를 돕는 전신 운동입니다.", threeType: "mountain_climber" },
-    "Superman": { name: "라잉 바디웨이트 슈퍼맨", desc: "척추기립근과 등 하부를 강화하는 허리 건강 운동입니다.", threeType: "superman" },
-    "Deadlift": { name: "데드리프트", desc: "후면 사슬 전체를 강화하는 최고의 전신 운동입니다.", video: "https://www.youtube.com/embed/op9kVnVimqQ" },
-    "Clean and Jerk": { name: "클린 앤 저크", desc: "폭발적인 힘과 협응력을 기르는 역도 동작입니다.", video: "https://www.youtube.com/embed/PjY1r_6sH_0" },
-    "Russian Twist": { name: "러시안 트위스트", desc: "외복사근을 자극하여 탄탄한 허리 라인을 만듭니다.", threeType: "flutter_kick" }, // Using flutter as base
-    "Mountain Climber": { name: "마운틴 클라이머", desc: "체지방 연소와 코어 강화에 탁월한 운동입니다.", threeType: "mountain_climber" }
+    "Bench Press": { 
+        name: "벤치 프레스 (Bench Press)", 
+        desc: "가슴(대흉근)의 전체적인 부피와 근력을 키우는 최고의 상체 운동입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 벤치에 누워 발을 바닥에 고정하고 허리는 아치형을 만듭니다.<br>2. 바벨을 어깨너비보다 약간 넓게 잡고 쇄골 아래쪽으로 천천히 내립니다.<br>3. 가슴 근육의 수축을 느끼며 바벨을 수직으로 밀어 올립니다.<br><br><b>[초보자 팁]</b><br>바벨이 흔들리지 않도록 견갑골을 벤치에 단단히 밀착시키세요.",
+        video: "https://www.youtube.com/embed/rT7DgVCn7iU",
+        img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=600"
+    },
+    "Incline Dumbbell Press": { 
+        name: "인클라인 덤벨 프레스", 
+        desc: "윗가슴을 타겟으로 하여 입체감 있는 가슴 라인을 만듭니다.",
+        guide: "<b>[운동 방법]</b><br>1. 벤치 각도를 30~45도로 설정하고 덤벨을 들고 앉습니다.<br>2. 덤벨을 쇄골 방향으로 내리며 윗가슴 근육을 이완합니다.<br>3. 덤벨이 서로 모아지는 느낌으로 밀어 올립니다.<br><br><b>[초보자 팁]</b><br>너무 무거운 무게보다는 정확한 윗가슴 자극에 집중하세요.",
+        video: "https://www.youtube.com/embed/8iPEnn-ltC8",
+        img: "https://images.unsplash.com/photo-1581009146145-b5ef03a726ec?auto=format&fit=crop&q=80&w=600"
+    },
+    "Dumbbell Fly": { 
+        name: "덤벨 플라이 (Dumbbell Fly)", 
+        desc: "가슴 안쪽 근육의 결을 살려주는 대표적인 고립 운동입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 벤치에 누워 덤벨을 가슴 위로 마주 보게 듭니다.<br>2. 팔꿈치를 살짝 굽힌 채 큰 나무를 안듯 옆으로 벌립니다.<br>3. 가슴 근육을 모아주며 다시 시작 자세로 돌아옵니다.<br><br><b>[초보자 팁]</b><br>팔꿈치가 어깨 아래로 너무 깊게 내려가지 않도록 주의하세요.",
+        video: "https://www.youtube.com/embed/eGjt4lk6gjw",
+        img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600"
+    },
+    "Push-ups": { 
+        name: "푸쉬업 (Push-ups)", 
+        desc: "언제 어디서나 가능한 가장 효과적인 가슴 및 전신 맨몸 운동입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 양손을 어깨너비보다 넓게 짚고 몸을 일직선으로 만듭니다.<br>2. 가슴이 바닥에 닿기 직전까지 천천히 내려갑니다.<br>3. 가슴과 팔의 힘으로 지면을 강하게 밀어 올라옵니다.<br><br><b>[초보자 팁]</b><br>정석 자세가 어렵다면 무릎을 바닥에 대고 먼저 연습하세요.",
+        video: "https://www.youtube.com/embed/rEB6BeZz648", 
+        threeType: "pushup",
+        img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=600"
+    },
+    "Barbell Row": { 
+        name: "바벨 로우 (Barbell Row)", 
+        desc: "등 근육의 두께감을 키워주는 강력한 상체 운동입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 무릎을 살짝 굽히고 상체를 45도 정도 숙입니다.<br>2. 바벨을 배꼽 방향으로 당기며 날개뼈(견갑골)를 모아줍니다.<br>3. 등 근육의 긴장을 유지하며 천천히 바벨을 내립니다.<br><br><b>[초보자 팁]</b><br>허리가 굽지 않도록 복부에 힘을 주어 척추 중립을 유지하세요.",
+        video: "https://www.youtube.com/embed/9efgcAjQW7E",
+        img: "https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&q=80&w=600"
+    },
+    "Pull-ups": { 
+        name: "풀업 (Pull-ups / 턱걸이)", 
+        desc: "넓은 어깨와 탄탄한 등 라인을 만드는 최고의 등 운동입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 철봉을 어깨너비보다 넓게 잡고 가슴을 살짝 들어줍니다.<br>2. 팔의 힘이 아닌 등의 힘으로 가슴이 봉에 닿는 느낌으로 당깁니다.<br>3. 최대한 버티면서 천천히 내려와 근육을 이완합니다.<br><br><b>[초보자 팁]</b><br>등 근육 사용이 어렵다면 풀업 밴드의 도움을 받으세요.",
+        video: "https://www.youtube.com/embed/eGo4IYlbE5g", 
+        threeType: "pullup",
+        img: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&q=80&w=600"
+    },
+    "Lat Pulldown": { 
+        name: "렛 풀다운 (Lat Pulldown)", 
+        desc: "광배근을 타겟으로 하여 등 전체의 너비를 확장하는 운동입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 허벅지를 머신 패드에 고정하고 바를 넓게 잡습니다.<br>2. 바를 쇄골 쪽으로 끌어내리며 등을 수축합니다.<br>3. 팔이 다 펴지기 직전까지 천천히 올리며 이완합니다.<br><br><b>[초보자 팁]</b><br>상체를 너무 뒤로 눕히지 말고 수직 움직임에 집중하세요.",
+        video: "https://www.youtube.com/embed/CAwf7n6Luuc",
+        img: "https://images.unsplash.com/photo-1591940742888-243ad0512807?auto=format&fit=crop&q=80&w=600"
+    },
+    "Overhead Press": { 
+        name: "오버헤드 프레스 (OHP)", 
+        desc: "어깨 전체의 근력과 볼륨을 키우는 상체 밀기 운동의 핵심입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 바벨을 가슴 상단 높이에 위치시키고 단단히 잡습니다.<br>2. 머리 위 수직 방향으로 바벨을 밀어 올립니다.<br>3. 저항을 느끼며 천천히 내려 시작 자세로 돌아옵니다.<br><br><b>[초보자 팁]</b><br>동작 중 허리가 과하게 꺾이지 않도록 둔근과 복근에 힘을 주세요.",
+        video: "https://www.youtube.com/embed/2yjwHeEdf9w",
+        img: "https://images.unsplash.com/photo-1541534741688-6078c65b5a33?auto=format&fit=crop&q=80&w=600"
+    },
+    "Lateral Raise": { 
+        name: "사이드 레터럴 레이즈", 
+        desc: "어깨 측면(측면 삼각근)을 발달시켜 어깨 프레임을 넓힙니다.",
+        guide: "<b>[운동 방법]</b><br>1. 덤벨을 들고 차렷 자세에서 팔꿈치를 살짝 굽힙니다.<br>2. 덤벨을 어깨 높이까지만 옆으로 멀리 던지듯 들어 올립니다.<br>3. 천천히 내리며 어깨의 긴장을 끝까지 유지합니다.<br><br><b>[초보자 팁]</b><br>승모근이 과하게 개입되지 않도록 어깨를 누른 상태에서 수행하세요.",
+        video: "https://www.youtube.com/embed/3VcKaXpzqRo",
+        img: "https://images.unsplash.com/photo-1581009146145-b5ef03a726ec?auto=format&fit=crop&q=80&w=600"
+    },
+    "Squat": { 
+        name: "스쿼트 (Squat)", 
+        desc: "전신 근력 향상과 하체 발달에 필수적인 '운동의 왕'입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 발을 어깨너비로 벌리고 발끝을 살짝 바깥으로 둡니다.<br>2. 엉덩이를 뒤로 빼며 무릎이 발끝을 향하게 천천히 내려갑니다.<br>3. 발바닥 전체로 지면을 밀며 일어납니다.<br><br><b>[초보자 팁]</b><br>무릎이 안으로 모이지 않게 주의하고 허리를 곧게 펴세요.",
+        video: "https://www.youtube.com/embed/MVMnk0HiTMg", 
+        threeType: "squat",
+        img: "https://images.unsplash.com/photo-1566241142559-40e1bfc26ddc?auto=format&fit=crop&q=80&w=600"
+    },
+    "Lunge": { 
+        name: "런지 (Lunge)", 
+        desc: "하체의 균형과 탄력 있는 엉덩이 라인을 만드는 운동입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 한쪽 발을 앞으로 크게 내디디고 상체를 세웁니다.<br>2. 뒷무릎이 바닥에 닿기 직전까지 수직으로 내려갑니다.<br>3. 앞발 뒤꿈치에 힘을 주어 제자리로 돌아옵니다.<br><br><b>[초보자 팁]</b><br>상체가 앞으로 쏠리지 않도록 복부에 긴장을 유지하세요.",
+        video: "https://www.youtube.com/embed/QOVaHwm-Q6U",
+        img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600"
+    },
+    "Bicep Curl": { 
+        name: "바벨 컬 (Bicep Curl)", 
+        desc: "팔 앞쪽(이두근)의 볼륨감을 키우는 가장 기본적인 운동입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 어깨너비로 바벨을 잡고 팔꿈치를 옆구리에 고정합니다.<br>2. 이두근의 힘으로 바벨을 가슴 높이까지 들어 올립니다.<br>3. 천천히 저항을 느끼며 바벨을 내립니다.<br><br><b>[초보자 팁]</b><br>몸통을 흔들지 말고 팔의 고립에만 집중하세요.",
+        video: "https://www.youtube.com/embed/ykJmrZ5v0Oo",
+        img: "https://images.unsplash.com/photo-1581009146145-b5ef03a726ec?auto=format&fit=crop&q=80&w=600"
+    },
+    "Tricep Extension": { 
+        name: "트라이셉스 익스텐션", 
+        desc: "팔 뒤쪽(삼두근)을 단련하여 탄력 있는 팔을 만듭니다.",
+        guide: "<b>[운동 방법]</b><br>1. 덤벨을 양손으로 잡고 머리 위로 올립니다.<br>2. 팔꿈치를 고정한 채 덤벨을 머리 뒤로 천천히 내립니다.<br>3. 삼두근의 힘으로 팔을 끝까지 펴줍니다.<br><br><b>[초보자 팁]</b><br>팔꿈치가 옆으로 벌어지지 않도록 모아주세요.",
+        video: "https://www.youtube.com/embed/nRiJVZDpdL0",
+        img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600"
+    },
+    "Plank": { 
+        name: "플랭크 (Plank)", 
+        desc: "코어 안정성과 신체 정렬을 바로잡는 최고의 정적 운동입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 전완을 바닥에 대고 엎드려 어깨와 팔꿈치를 수직으로 둡니다.<br>2. 머리부터 발뒤꿈치까지 일직선이 되도록 코어에 힘을 줍니다.<br>3. 호흡을 일정하게 유지하며 정해진 시간을 버팁니다.<br><br><b>[초보자 팁]</b><br>엉덩이가 아래로 처지면 허리에 무리가 가니 주의하세요.",
+        video: "https://www.youtube.com/embed/ASdvN_XEl_c", 
+        threeType: "plank",
+        img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=600"
+    },
+    "Leg Raise": { 
+        name: "레그 레이즈 (Leg Raise)", 
+        desc: "하복부 근육을 집중적으로 단련하여 선명한 복근을 만듭니다.",
+        guide: "<b>[운동 방법]</b><br>1. 바닥에 누워 손을 엉덩이 옆에 둡니다.<br>2. 다리를 곧게 펴고 복부의 힘으로 들어 올립니다.<br>3. 허리가 바닥에서 뜨지 않는 지점까지 천천히 다리를 내립니다.<br><br><b>[초보자 팁]</b><br>다리를 내릴 때 배의 긴장이 풀리지 않도록 주의하세요.",
+        video: "https://www.youtube.com/embed/l4kQd9eWclE",
+        img: "https://images.unsplash.com/photo-1599058917233-35833f3b5e5e?auto=format&fit=crop&q=80&w=600"
+    },
+    "Home Cardio": { 
+        name: "3분 전신 다이어트 홈트", 
+        desc: "집에서 좁은 공간에서도 할 수 있는 고효율 전신 유산소 운동입니다.",
+        guide: "<b>[운동 방법]</b><br>1. 제자리에서 가볍게 뛰며 몸을 풉니다.<br>2. 팔벌려뛰기, 마운틴 클라이머 등 고강도 동작을 섞어 수행합니다.<br>3. 3분간 쉬지 않고 움직여 심박수를 높입니다.<br><br><b>[초보자 팁]</b><br>층간소음이 걱정된다면 뒤꿈치를 들고 가볍게 움직이세요.",
+        video: "https://www.youtube.com/embed/DBA1eN2NtJI",
+        img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=600"
+    }
 };
 
 const getTranslatedData = (ex) => {
@@ -855,14 +940,18 @@ const getTranslatedData = (ex) => {
         return {
             name: translationMap[key].name,
             desc: translationMap[key].desc,
+            guide: translationMap[key].guide,
             video: translationMap[key].video,
-            threeType: translationMap[key].threeType
+            threeType: translationMap[key].threeType,
+            img: translationMap[key].img
         };
     }
     return {
         name: ex.name,
-        desc: Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || '전문 가이드를 확인하세요.'),
-        video: ex.video || "https://www.youtube.com/embed/dQw4w9WgXcQ"
+        desc: "전문적인 운동 가이드를 준비 중입니다.",
+        guide: Array.isArray(ex.instructions) ? ex.instructions.map((s,i) => `${i+1}. ${s}`).join('<br>') : (ex.instructions || '전문 가이드를 확인하세요.'),
+        video: ex.video || "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600'
     };
 };
 
@@ -909,8 +998,9 @@ function populateExerciseCatalog(filterPart = 'all') {
     const featuredEx = {
         name: translationMap["Home Cardio"].name,
         desc: translationMap["Home Cardio"].desc,
+        guide: translationMap["Home Cardio"].guide,
         video: translationMap["Home Cardio"].video,
-        customImg: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=600",
+        customImg: translationMap["Home Cardio"].img,
         isFeatured: true
     };
 
@@ -930,19 +1020,20 @@ function populateExerciseCatalog(filterPart = 'all') {
     }
 
     catalogGrid.innerHTML = displayData.map(ex => {
-        const imgPath = ex.customImg || ((ex.images && ex.images.length > 0) 
+        const imgPath = ex.customImg || ex.img || ((ex.images && ex.images.length > 0) 
             ? `${IMG_BASE_URL}${ex.images[0]}` 
             : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600');
         
         const finalName = ex.name;
-        const finalDesc = ex.desc || (Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || '가이드를 확인하세요.'));
+        const finalDesc = ex.desc;
+        const finalGuide = ex.guide || (Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || '가이드를 확인하세요.'));
         const finalVideo = ex.video || "https://www.youtube.com/embed/dQw4w9WgXcQ";
 
         return `
             <div class="catalog-item">
                 <div class="video-wrapper" style="background-image: url('${imgPath}'); background-size: cover; background-position: center; height: 200px; position: relative;">
                     <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 10px;">
-                        <span style="color: white; font-size: 0.8em; font-weight: bold;">${ex.isUploaded ? '사용자 업로드 가이드' : '가상 캐릭터 운동 가이드'}</span>
+                        <span style="color: white; font-size: 0.8em; font-weight: bold;">${ex.isUploaded ? '사용자 업로드 가이드' : '전문가 추천 운동'}</span>
                     </div>
                     ${ex.isFeatured ? '<div style="position: absolute; top: 10px; left: 10px; background: #ef4444; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7em; font-weight: bold;">FEATURED</div>' : ''}
                 </div>
@@ -951,10 +1042,13 @@ function populateExerciseCatalog(filterPart = 'all') {
                         <div class="catalog-icon"><i data-lucide="layers"></i></div>
                         <h3>${finalName}</h3>
                     </div>
-                    <p class="rec-content">${finalDesc.substring(0, 100)}...</p>
-                    <button class="secondary-btn" style="width: 100%; margin-top: 15px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;" 
-                        onclick="openVideoPlayer('${finalVideo}', '${finalName.replace(/'/g, "\\'")}', '${finalDesc.replace(/'/g, "\\'").substring(0, 300)}', '${ex.threeType || ''}')">
-                        <i data-lucide="play-circle"></i> 가이드 영상 보기
+                    <p class="rec-content" style="margin-bottom: 15px; color: var(--primary-color); font-weight: 600;">${finalDesc}</p>
+                    <div class="guide-text-box" style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; font-size: 0.85em; color: var(--secondary-color); line-height: 1.6; margin-bottom: 15px; max-height: 120px; overflow-y: auto;">
+                        ${finalGuide}
+                    </div>
+                    <button class="secondary-btn" style="width: 100%; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;" 
+                        onclick="openVideoPlayer('${finalVideo}', '${finalName.replace(/'/g, "\\'")}', '${finalGuide.replace(/'/g, "\\'").substring(0, 500)}', '${ex.threeType || ''}')">
+                        <i data-lucide="play-circle"></i> 가이드 영상 및 3D 코치 보기
                     </button>
                 </div>
             </div>
