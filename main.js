@@ -1332,7 +1332,7 @@ function generateDietRecs() {
     if (userGoal === 'weight-loss') targetCalories -= 500;
     else if (userGoal === 'muscle-gain') targetCalories += 300;
 
-    // Professional Meal Pool for Diversity
+    // Global Professional Meal Pool for Extreme Diversity
     const mealPool = {
         breakfast: [
             {
@@ -1352,6 +1352,36 @@ function generateDietRecs() {
                 recipe: "[1단계] 꾸덕한 그릭 요거트 150g을 볼에 담습니다.<br>[2단계] 블루베리와 견과류 20g을 토핑합니다.<br>[3단계] 기호에 따라 시나몬 가루를 살짝 뿌립니다.",
                 nutrients: "프로바이오틱스, 항산화",
                 image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "지중해식 샤크슈카 (에그인헬)",
+                recipe: "[1단계] 토마토 소스에 양파와 파프리카를 볶습니다.<br>[2단계] 달걀 2알을 깨 넣고 뚜껑을 덮어 익힙니다.<br>[3단계] 통밀 브레드 한 조각과 함께 곁들입니다.",
+                nutrients: "라이코펜, 비타민 C",
+                image: "https://images.unsplash.com/photo-1590412200988-a436970781fa?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "일본식 낫또 잡곡 정식",
+                recipe: "[1단계] 잡곡밥 130g에 낫또 1팩을 준비합니다.<br>[2단계] 구운 김과 수란을 곁들입니다.<br>[3단계] 얇게 썬 파와 겨자를 섞어 비벼 먹습니다.",
+                nutrients: "식물성 단백질, 혈관 건강",
+                image: "https://images.unsplash.com/photo-1584210178302-3f191176bc11?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "멕시칸 블랙빈 브렉퍼스트 타코",
+                recipe: "[1단계] 옥수수 또띠아 2장에 으깬 검은콩을 올립니다.<br>[2단계] 스크램블 에그와 살사 소스를 얹습니다.<br>[3단계] 고수와 라임즙으로 마무리합니다.",
+                nutrients: "식이섬유, 복합 단백질",
+                image: "https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "퀴노아 슈퍼푸드 아침 볼",
+                recipe: "[1단계] 삶은 퀴노아 100g에 바나나와 딸기를 썹니다.<br>[2단계] 아몬드 슬라이스와 치아시드를 뿌립니다.<br>[3단계] 무가당 두유나 아몬드 밀크를 붓습니다.",
+                nutrients: "필수 아미노산, 에너지 업",
+                image: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "스위스식 오버나이트 오트 (뮤즐리)",
+                recipe: "[1단계] 전날 밤 오트밀과 사과즙을 섞어둡니다.<br>[2단계] 아침에 요거트와 다진 견과류를 섞습니다.<br>[3단계] 신선한 사과 슬라이스를 얹어 시원하게 먹습니다.",
+                nutrients: "저혈당 유지, 장 건강",
+                image: "https://images.unsplash.com/photo-1517673132405-a56a62b18caf?auto=format&fit=crop&q=80&w=600"
             }
         ],
         lunch: [
@@ -1372,6 +1402,36 @@ function generateDietRecs() {
                 recipe: "[1단계] 곤약과 잡곡을 섞은 밥 150g을 담습니다.<br>[2단계] 으깬 두부와 각종 나물을 올립니다.<br>[3단계] 저염 고추장 한 스푼과 참기름으로 비빕니다.",
                 nutrients: "저칼로리 포만감, 식물성 영양",
                 image: "https://images.unsplash.com/photo-1590301157890-4810ed352733?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "하와이안 참치 포케 볼",
+                recipe: "[1단계] 깍둑썰기한 생참치에 간장 소스를 버무립니다.<br>[2단계] 현미밥 위에 아보카도, 미역줄기, 오이를 올립니다.<br>[3단계] 풋콩과 양파 후레이크를 토핑합니다.",
+                nutrients: "DHA, 오메가 지방산",
+                image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "태국식 똠얌 쌀국수 (건강식)",
+                recipe: "[1단계] 현미 쌀국수 면을 사용합니다.<br>[2단계] 새우와 각종 버섯을 넣은 매콤새콤한 육수를 끓입니다.<br>[3단계] 숙주를 듬뿍 넣어 아삭한 식감을 살립니다.",
+                nutrients: "대사 촉진, 풍부한 단백질",
+                image: "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "터키식 병아리콩 샐러드 (후무스)",
+                recipe: "[1단계] 삶은 병아리콩, 오이, 토마토를 작게 썹니다.<br>[2단계] 레몬즙, 파슬리, 올리브유로 드레싱합니다.<br>[3단계] 후무스 한 스푼을 곁들여 단백질을 보충합니다.",
+                nutrients: "식물성 단백질, 고식이섬유",
+                image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "그리스식 기로스 보울",
+                recipe: "[1단계] 구운 닭가슴살을 얇게 썹니다.<br>[2단계] 올리브, 페타 치즈, 적양파를 현미밥과 담습니다.<br>[3단계] 무가당 요거트로 만든 차지키 소스를 뿌립니다.",
+                nutrients: "칼슘, 저탄수 고단백",
+                image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "베트남식 반미 샐러드",
+                recipe: "[1단계] 돼지고기 뒷다리살을 간장 양념에 굽습니다.<br>[2단계] 무/당근 절임과 고수를 준비합니다.<br>[3단계] 빵 대신 신선한 믹스 채소와 함께 섞어 먹습니다.",
+                nutrients: "비타민 B1, 근육 피로 회복",
+                image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=600"
             }
         ],
         dinner: [
@@ -1392,6 +1452,36 @@ function generateDietRecs() {
                 recipe: "[1단계] 미니 단호박의 속을 파냅니다.<br>[2단계] 기름기를 뺀 훈제오리를 채워 넣습니다.<br>[3단계] 찜기에서 15분간 쪄서 완성합니다.",
                 nutrients: "베타카로틴, 원기 회복",
                 image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "프랑스식 래따뚜이 & 흰강낭콩",
+                recipe: "[1단계] 가지, 주키니, 토마토를 얇게 썰어 냄비에 겹칩니다.<br>[2단계] 토마토 페이스트와 허브를 넣어 뭉근히 끓입니다.<br>[3단계] 삶은 흰강낭콩을 섞어 단백질을 보충합니다.",
+                nutrients: "칼륨, 나트륨 배출 도움",
+                image: "https://images.unsplash.com/photo-1572453800999-e8d2d1589b7c?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "인도식 렌틸콩 커리 (달)",
+                recipe: "[1단계] 렌틸콩과 강황가루를 물에 넣고 삶습니다.<br>[2단계] 큐민과 가람마살라로 향을 낸 소스를 만듭니다.<br>[3단계] 기름기 없는 통밀 난 1/2개와 함께 먹습니다.",
+                nutrients: "커큐민 항염, 고단백 식물성",
+                image: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "스페인식 해산물 빠에야 (건강식)",
+                recipe: "[1단계] 오징어, 조개, 새우를 손질합니다.<br>[2단계] 현미와 샤프란(또는 카레가루)을 넣고 볶습니다.<br>[3단계] 완두콩과 피망을 넣어 저탄소 방식으로 익힙니다.",
+                nutrients: "타우린, 간 해독",
+                image: "https://images.unsplash.com/photo-1534080564607-6816db7559d0?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "모로코식 양고기 타진 (지방제거)",
+                recipe: "[1단계] 지방을 제거한 양고기살을 큐브 모양으로 썹니다.<br>[2단계] 시나몬, 자두와 함께 압력솥에 익힙니다.<br>[3단계] 세계에서 가장 작은 파스타 '쿠스쿠스'와 먹습니다.",
+                nutrients: "L-카르니틴, 지방 연소 촉진",
+                image: "https://images.unsplash.com/photo-1541518763669-279f00ed59ae?auto=format&fit=crop&q=80&w=600"
+            },
+            {
+                name: "한국식 황태 해장국 정식",
+                recipe: "[1단계] 황태채를 들기름에 볶다가 물을 붓습니다.<br>[2단계] 무와 콩나물을 넣어 시원하게 끓입니다.<br>[3단계] 두부 반 모를 넣어 단백질 함량을 높입니다.",
+                nutrients: "고농축 단백질, 아미노산 풍부",
+                image: "https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&q=80&w=600"
             }
         ]
     };
