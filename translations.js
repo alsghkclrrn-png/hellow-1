@@ -328,3 +328,24 @@ const translations = {
         'filter-equipment': 'Equipment'
     }
 };
+
+const exerciseTranslations = {
+    "Pushups": { ko: "푸쉬업 (Push-ups)", en: "Push-ups", desc: "양손을 어깨너비보다 넓게 벌리고 몸을 일직선으로 유지하며 가슴 근육을 사용하여 내려갔다 올라옵니다. 초보자는 무릎을 땅에 대고 시작하세요." },
+    "Squats": { ko: "스쿼트 (Squats)", en: "Squats", desc: "의자에 앉듯이 골반을 뒤로 빼며 내려갑니다. 무릎이 발가락보다 앞으로 나가지 않도록 주의하며 허벅지와 엉덩이의 힘을 사용하세요." },
+    "Plank": { ko: "플랭크 (Plank)", en: "Plank", desc: "팔꿈치를 바닥에 대고 몸을 일직선으로 유지하며 복부에 힘을 줍니다. 엉덩이가 너무 올라가거나 내려가지 않도록 주의하세요." },
+    "Lunge": { ko: "런지 (Lunge)", en: "Lunge", desc: "한쪽 발을 앞으로 내딛고 양 무릎이 90도가 될 때까지 내려갑니다. 앞발의 뒤꿈치에 무게중심을 두고 일어납니다." },
+    "Burpees": { ko: "버피 테스트 (Burpees)", en: "Burpees", desc: "서 있는 상태에서 엎드려 푸쉬업 자세를 취한 뒤, 다시 일어나며 가볍게 점프합니다. 전신 근력을 사용하는 고강도 유산소 운동입니다." },
+    "Mountain Climbers": { ko: "마운틴 클라이머 (Mountain Climbers)", en: "Mountain Climbers", desc: "푸쉬업 자세에서 양 무릎을 번갈아 가며 가슴 쪽으로 빠르게 당겨 올립니다. 복근 강화와 유산소 효과가 동시에 있습니다." },
+    "Jumping Jacks": { ko: "팔 벌려 뛰기 (Jumping Jacks)", en: "Jumping Jacks", desc: "양발을 벌리며 팔을 머리 위로 올렸다가 다시 모으는 동작을 반복합니다. 심박수를 높이는 데 아주 효과적입니다." },
+    "Crunches": { ko: "크런치 (Crunches)", en: "Crunches", desc: "바닥에 누워 무릎을 굽히고 상체를 살짝 들어 올려 복근을 수축시킵니다. 허리가 바닥에서 떨어지지 않도록 주의하세요." },
+    "Leg Raises": { ko: "레그 레이즈 (Leg Raises)", en: "Leg Raises", desc: "바닥에 누워 양다리를 일직선으로 들어 올렸다가 천천히 내립니다. 아랫배(하복부) 근육을 자극하는 데 효과적입니다." },
+    "Dips": { ko: "딥스 (Dips)", en: "Dips", desc: "의자나 벤치를 잡고 팔을 굽혔다 펴며 삼두근과 하부 가슴을 단련합니다. 어깨 통증이 느껴지지 않는 범위까지만 내려가세요." },
+    "Bench Press": { ko: "벤치 프레스 (Bench Press)", en: "Bench Press", desc: "벤치에 누워 바벨을 가슴 높이까지 내렸다가 밀어올립니다. 가슴 전체의 근력을 키우는 가장 대표적인 운동입니다." },
+    "Pullups": { ko: "풀업 (Pull-ups)", en: "Pull-ups", desc: "철봉을 잡고 가슴이 철봉에 닿을 듯이 몸을 끌어올립니다. 광배근과 이두근을 강화하는 최고의 등 운동입니다." },
+    "Deadlift": { ko: "데드리프트 (Deadlift)", en: "Deadlift", desc: "바닥에 놓인 바벨을 허리를 곧게 편 상태로 들어올립니다. 전신 근력과 코어, 하체 후면 근육을 동시에 강화합니다." },
+    "Bicep Curls": { ko: "덤벨 컬 (Bicep Curls)", en: "Bicep Curls", desc: "덤벨을 잡고 팔꿈치를 고정한 채 팔을 굽혀 이두근을 수축시킵니다. 천천히 저항을 느끼며 내리는 것이 중요합니다." },
+    "Tricep Extensions": { ko: "트라이셉스 익스텐션 (Tricep Extensions)", en: "Tricep Extensions", desc: "덤벨을 머리 뒤로 넘겼다가 팔을 쭉 펴면서 삼두근을 자극합니다. 팔꿈치가 벌어지지 않도록 주의하세요." },
+    "Shoulder Press": { ko: "숄더 프레스 (Shoulder Press)", en: "Shoulder Press", desc: "덤벨이나 바벨을 머리 위로 밀어올려 어깨 근육을 강화합니다. 허리가 과하게 꺾이지 않도록 코어에 힘을 주세요." },
+    "Side Lateral Raise": { ko: "사이드 레터럴 레이즈 (Side Lateral Raise)", en: "Side Lateral Raise", desc: "양손에 덤벨을 들고 팔을 옆으로 들어 올려 어깨 측면을 단련합니다. 어깨 높이까지만 들어 올리세요." },
+    "Russian Twist": { ko: "러시안 트위스트 (Russian Twist)", en: "Russian Twist", desc: "앉은 자세에서 몸통을 좌우로 비틀어 복사근(옆구리)을 강화합니다. 다리를 들고 하면 강도가 높아집니다." }
+};

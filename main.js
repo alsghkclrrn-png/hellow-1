@@ -798,13 +798,100 @@ class VirtualCoach {
 
 let virtualCoachInstance = null;
 
-// Mock Data
+// Global Exercise Database
+let exerciseDatabase = [];
+const EXERCISE_API_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json';
+const IMG_BASE_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+
 async function fetchExerciseData() {
-    return [
-        { id: 1, name: "푸쉬업", target: "chest", sets: 3, reps: 15, rest: 60, desc: "바닥에 엎드려 팔을 굽혔다 펴세요." },
-        { id: 2, name: "스쿼트", target: "legs", sets: 4, reps: 20, rest: 90, desc: "의자에 앉듯 골반을 뒤로 빼며 내려가세요." },
-        { id: 3, name: "플랭크", target: "core", sets: 3, reps: 60, rest: 60, desc: "팔꿈치로 몸을 지탱하며 일직선을 유지하세요." }
-    ];
+    try {
+        const response = await fetch(EXERCISE_API_URL);
+        if (response.ok) {
+            exerciseDatabase = await response.json();
+            return exerciseDatabase;
+        }
+    } catch (error) { console.error('Error fetching exercise data:', error); }
+    return [];
+}
+
+function getTranslatedData(ex) {
+    const key = Object.keys(exerciseTranslations).find(k => ex.name.toLowerCase().includes(k.toLowerCase()));
+    if (key) {
+        return {
+            name: exerciseTranslations[key][currentLang],
+            desc: exerciseTranslations[key].desc
+        };
+    }
+    return { name: ex.name, desc: ex.instructions?.[0] || "Follow the guide for this movement." };
+}
+
+function getExercisesByContext(options) {
+    const { goal, fitnessLevel, health, weather, timeOfDay } = options;
+    
+    if (exerciseDatabase.length === 0) return [];
+
+    // Filter by body part mapping
+    const parts = {
+        chest: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('chest')),
+        back: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('back') || (ex.primaryMuscles || []).includes('lats')),
+        shoulders: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('shoulders')),
+        arms: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('biceps') || (ex.primaryMuscles || []).includes('triceps')),
+        legs: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('quads') || (ex.primaryMuscles || []).includes('hamstrings') || (ex.primaryMuscles || []).includes('glutes')),
+        abs: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('abs') || (ex.category === 'abs')),
+        cardio: exerciseDatabase.filter(ex => ex.category === 'cardio')
+    };
+
+    // Smart Selection Logic
+    const focusPool = ['chest', 'back', 'shoulders', 'arms', 'legs'];
+    const selectedFocus = focusPool[Math.floor(Math.random() * focusPool.length)];
+    
+    let sessionPool = [];
+    sessionPool.push(...(parts[selectedFocus] || []).sort(() => 0.5 - Math.random()).slice(0, 2));
+    
+    const secondaryPart = focusPool.filter(p => p !== selectedFocus)[Math.floor(Math.random() * (focusPool.length - 1))];
+    sessionPool.push(...(parts[secondaryPart] || []).sort(() => 0.5 - Math.random()).slice(0, 1));
+
+    sessionPool.push(...(parts.abs || []).sort(() => 0.5 - Math.random()).slice(0, 1));
+    sessionPool.push(...(parts.cardio || []).sort(() => 0.5 - Math.random()).slice(0, 1));
+
+    if (sessionPool.length < 5) {
+        sessionPool.push(...exerciseDatabase.sort(() => 0.5 - Math.random()).slice(0, 5 - sessionPool.length));
+    }
+
+    return sessionPool.map(ex => {
+        const info = getTranslatedData(ex);
+        const imgPath = (ex.images && ex.images.length > 0) 
+            ? `${IMG_BASE_URL}${ex.images[0]}` 
+            : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
+
+        const metMap = { 'strength': 6.0, 'cardio': 8.0, 'stretching': 2.5, 'plyometrics': 8.0, 'abs': 4.0 };
+        const currentMET = metMap[ex.category] || 5.0;
+
+        const weight = userData.weight || 70;
+        const setsNum = fitnessLevel === 'beginner' ? 3 : 4;
+        const repsNum = fitnessLevel === 'advanced' ? 15 : 12;
+        const totalMinutes = (setsNum * (repsNum * 4 + 60)) / 60;
+        const burned = Math.round((currentMET * 3.5 * weight / 200) * totalMinutes);
+
+        const muscleMap = { 
+            'chest': '가슴', 'back': '등', 'lats': '등', 'shoulders': '어깨', 
+            'biceps': '팔(이두)', 'triceps': '팔(삼두)', 'quads': '허벅지(앞)', 
+            'hamstrings': '허벅지(뒤)', 'glutes': '엉덩이', 'abs': '복근', 'cardio': '전신/심폐' 
+        };
+        const displayTarget = (ex.primaryMuscles || []).map(m => muscleMap[m] || m).join(', ') || '전신';
+
+        return {
+            name: info.name,
+            sets: `${setsNum} sets`,
+            reps: ex.category === 'cardio' ? "15~20 min" : `${repsNum} reps`,
+            rest: "60s",
+            desc: info.desc,
+            image: imgPath,
+            calories: burned,
+            primaryMuscles: ex.primaryMuscles || [],
+            target: displayTarget
+        };
+    });
 }
 
 function populateExerciseCatalog() {
@@ -849,27 +936,42 @@ workoutForm?.addEventListener('submit', (e) => {
     const workoutContainer = document.getElementById('workout-container');
     if (!workoutContainer) return;
 
+    const options = {
+        fitnessLevel: document.getElementById('fitness-level').value,
+        goal: document.getElementById('goal').value,
+        health: document.getElementById('health-status').value,
+        weather: document.getElementById('weather').value,
+        timeOfDay: document.getElementById('time-of-day').value
+    };
+
     workoutContainer.innerHTML = '<p class="loading">AI가 최적의 루틴을 생성 중입니다...</p>';
     
     setTimeout(() => {
         workoutContainer.innerHTML = '';
-        fetchExerciseData().then(exercises => {
-            exercises.forEach(exercise => {
-                const workoutCard = document.createElement('workout-card');
-                workoutCard.setAttribute('name', exercise.name);
-                workoutCard.setAttribute('sets', exercise.sets);
-                workoutCard.setAttribute('reps', exercise.reps);
-                workoutCard.setAttribute('rest', exercise.rest);
-                workoutCard.setAttribute('desc', exercise.desc);
-                workoutCard.setAttribute('target', exercise.target);
-                workoutContainer.appendChild(workoutCard);
-            });
-            
-            generateStretchingRecs();
-            document.getElementById('workout-analysis-section')?.classList.remove('hidden');
-            if (window.lucide) lucide.createIcons();
-            workoutContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const exercises = getExercisesByContext(options);
+        
+        if (exercises.length === 0) {
+            workoutContainer.innerHTML = '<p class="empty-msg">운동 데이터를 불러오는 중입니다. 잠시 후 다시 시도해 주세요.</p>';
+            return;
+        }
+
+        exercises.forEach(exercise => {
+            const workoutCard = document.createElement('workout-card');
+            workoutCard.setAttribute('name', exercise.name);
+            workoutCard.setAttribute('sets', exercise.sets);
+            workoutCard.setAttribute('reps', exercise.reps);
+            workoutCard.setAttribute('rest', exercise.rest);
+            workoutCard.setAttribute('desc', exercise.desc);
+            workoutCard.setAttribute('target', exercise.target);
+            workoutCard.setAttribute('image', exercise.image);
+            workoutCard.setAttribute('calories', exercise.calories);
+            workoutContainer.appendChild(workoutCard);
         });
+        
+        generateStretchingRecs();
+        document.getElementById('workout-analysis-section')?.classList.remove('hidden');
+        if (window.lucide) lucide.createIcons();
+        workoutContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 800);
 });
 
@@ -877,11 +979,51 @@ workoutForm?.addEventListener('submit', (e) => {
 document.getElementById('analyze-workout-btn')?.addEventListener('click', () => {
     const resultsDiv = document.getElementById('analysis-results');
     const contentDiv = document.getElementById('analysis-content');
+    const cards = document.querySelectorAll('workout-card');
     
-    if (resultsDiv && contentDiv) {
-        contentDiv.innerHTML = `
-            <p>오늘도 수고하셨습니다! 당신의 운동 수행률은 100%입니다.</p>
-        `;
+    if (resultsDiv && contentDiv && cards.length > 0) {
+        let totalTargetSets = 0;
+        let totalActualSets = 0;
+        let completedCount = 0;
+
+        cards.forEach(card => {
+            const targetSets = parseInt(card.getAttribute('sets')) || 0;
+            const actualSets = parseInt(card.shadowRoot.querySelector('.actual-sets')?.value) || 0;
+            const isCompleted = card.shadowRoot.querySelector('.is-completed')?.checked;
+
+            totalTargetSets += targetSets;
+            totalActualSets += actualSets;
+            if (isCompleted) completedCount++;
+        });
+
+        const achievementRate = Math.min(100, Math.round((totalActualSets / totalTargetSets) * 100));
+        let feedback = "";
+
+        if (currentLang === 'ko') {
+            if (achievementRate >= 100) {
+                feedback = `<h4>완벽합니다! (달성률 ${achievementRate}%)</h4>
+                           <p>설정한 목표를 모두 달성하셨습니다. 현재의 강도가 적절하거나 약간 낮을 수 있으니, 다음 세션에서는 중량이나 횟수를 5-10% 늘려보는 것을 추천합니다.</p>`;
+            } else if (achievementRate >= 70) {
+                feedback = `<h4>훌륭한 시도였습니다! (달성률 ${achievementRate}%)</h4>
+                           <p>목표의 대부분을 소화하셨습니다. 근육에 충분한 자극이 전달되었을 것입니다. 충분한 휴식과 단백질 섭취를 통해 회복에 집중하세요.</p>`;
+            } else {
+                feedback = `<h4>꾸준함이 정답입니다! (달성률 ${achievementRate}%)</h4>
+                           <p>오늘은 컨디션이 조금 저조했을 수 있습니다. 무리하지 않고 끝까지 수행한 것만으로도 충분히 의미가 있습니다. 내일은 더 나은 에너지를 기대해 봅시다.</p>`;
+            }
+        } else {
+            if (achievementRate >= 100) {
+                feedback = `<h4>Perfect! (Achievement: ${achievementRate}%)</h4>
+                           <p>You have reached all your goals. The current intensity might be just right or a bit low. Consider increasing weight or reps by 5-10% next session.</p>`;
+            } else if (achievementRate >= 70) {
+                feedback = `<h4>Great job! (Achievement: ${achievementRate}%)</h4>
+                           <p>You completed most of your goals. Your muscles should have received enough stimulation. Focus on recovery with rest and protein.</p>`;
+            } else {
+                feedback = `<h4>Consistency is key! (Achievement: ${achievementRate}%)</h4>
+                           <p>You might have been a bit tired today. Completing the session itself is meaningful. Let's aim for better energy tomorrow.</p>`;
+            }
+        }
+
+        contentDiv.innerHTML = feedback;
         resultsDiv.classList.remove('hidden');
         if (window.lucide) lucide.createIcons();
         resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -889,14 +1031,15 @@ document.getElementById('analyze-workout-btn')?.addEventListener('click', () => 
 });
 
 // Immediate Initialization
-updateMbtiQuiz();
-updateSasangQuiz();
-populateExerciseCatalog();
-populateHomeWorkout();
-
-fetchGlobalMeals();
-
-if (window.lucide) lucide.createIcons();
+document.addEventListener('DOMContentLoaded', async () => {
+    await fetchExerciseData();
+    updateMbtiQuiz();
+    updateSasangQuiz();
+    populateExerciseCatalog();
+    populateHomeWorkout();
+    fetchGlobalMeals();
+    if (window.lucide) lucide.createIcons();
+});
 
 // Legal Sections Logic
 function showLegal(type) {
