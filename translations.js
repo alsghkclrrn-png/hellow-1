@@ -161,7 +161,9 @@ const translations = {
         'home-workout-desc': '집에서도 효과적으로 할 수 있는 간편하고 실용적인 루틴을 제안합니다.',
         'refresh-home-workout': '다른 운동 추천',
         'filter-bodyweight': '맨몸 운동',
-        'filter-equipment': '소도구 운동'
+        'filter-equipment': '소도구 운동',
+        'magazine-title': '건강 & 지혜 매거진',
+        'magazine-desc': '전문가가 제안하는 데이터 기반의 건강 관리 전략과 깊이 있는 건강 지식입니다.'
     },
     en: {
         'nav-logo': 'AI Workout Coach',
@@ -325,7 +327,9 @@ const translations = {
         'home-workout-desc': 'Simple and practical routines you can effectively do at home.',
         'refresh-home-workout': 'Refresh Workouts',
         'filter-bodyweight': 'Bodyweight',
-        'filter-equipment': 'Equipment'
+        'filter-equipment': 'Equipment',
+        'magazine-title': 'Health & Wisdom Magazine',
+        'magazine-desc': 'Data-driven health management strategies and in-depth health knowledge proposed by experts.'
     }
 };
 
