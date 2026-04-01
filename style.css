@@ -103,6 +103,34 @@ body {
     color: var(--primary-color);
 }
 
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lang-toggle-nav {
+    background: var(--glow-color);
+    border: 1px solid var(--border-color);
+    color: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 800;
+    font-size: 0.8em;
+}
+
+.lang-toggle-nav:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+}
+
 .theme-toggle-nav {
     background: transparent;
     border: none;

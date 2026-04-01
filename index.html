@@ -26,6 +26,7 @@
     <meta name="keywords" content="AI Workout, Sasang Constitution, MBTI Fitness, Personalized Diet, Health Magazine, Fitness Coach">
     <title>AI 운동 코치 | 개인 맞춤형 건강 & 지혜 매거진</title>
     <link rel="stylesheet" href="style.css">
+    <script src="translations.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
 </head>
@@ -36,88 +37,89 @@
         <div class="nav-container">
             <a href="#home" class="nav-logo"><i data-lucide="dumbbell"></i> AI 코치</a>
             <ul class="nav-links">
-                <li><a href="#stretching-recommendations">스트레칭 추천</a></li>
-                <li><a href="#exercise-catalog">운동의 종류</a></li>
-                <li><a href="#home-workout">홈트 추천</a></li>
-                <li><a href="#diet-recommendations">식단 추천</a></li>
-                <li><a href="#sasang-analysis">나의 한방 체질</a></li>
-                <li><a href="#supplement-recommendations">영양제 추천</a></li>
+                <li><a href="#stretching-recommendations" data-i18n="nav-stretching">스트레칭 추천</a></li>
+                <li><a href="#exercise-catalog" data-i18n="nav-catalog">운동의 종류</a></li>
+                <li><a href="#home-workout" data-i18n="nav-home-workout">홈트 추천</a></li>
+                <li><a href="#diet-recommendations" data-i18n="nav-diet">식단 추천</a></li>
+                <li><a href="#sasang-analysis" data-i18n="nav-sasang">나의 한방 체질</a></li>
+                <li><a href="#supplement-recommendations" data-i18n="nav-supplement">영양제 추천</a></li>
             </ul>
-            <button id="theme-toggle" class="theme-toggle-nav" aria-label="테마 변경">
-                <i data-lucide="moon" id="theme-icon"></i>
-            </button>
+            <div class="nav-controls">
+                <button id="lang-toggle" class="lang-toggle-nav" onclick="setLanguage(currentLang === 'ko' ? 'en' : 'ko')" aria-label="언어 변경">
+                    EN
+                </button>
+                <button id="theme-toggle" class="theme-toggle-nav" aria-label="테마 변경">
+                    <i data-lucide="moon" id="theme-icon"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
     <header id="home">
         <div class="logo">
             <i data-lucide="dumbbell"></i>
-            <h1>AI 운동 코치</h1>
+            <h1 data-i18n="nav-logo">AI 운동 코치</h1>
         </div>
-        <p>AI가 제안하는 당신만을 위한 라이프스타일 & 운동 플랜.</p>
+        <p data-i18n="header-subtitle">AI가 제안하는 당신만을 위한 라이프스타일 & 운동 플랜.</p>
     </header>
 
     <main>
         <!-- 기존 핵심 분석 섹션 -->
         <section id="body-metrics">
-            <h2>신체 지표 분석</h2>
+            <h2 data-i18n="metrics-title">신체 지표 분석</h2>
             <form id="metrics-form">
                 <div class="metrics-grid">
                     <div class="form-group">
-                        <label for="gender">성별:</label>
+                        <label for="gender" data-i18n="label-gender">성별:</label>
                         <select id="gender" name="gender">
-                            <option value="male">남성</option>
-                            <option value="female">여성</option>
+                            <option value="male" data-i18n="option-male">남성</option>
+                            <option value="female" data-i18n="option-female">여성</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="age">나이:</label>
-                        <input type="number" id="age" name="age" placeholder="세" required min="1" max="120">
+                        <label for="age" data-i18n="label-age">나이:</label>
+                        <input type="number" id="age" name="age" placeholder="세" data-i18n="placeholder-age" required min="1" max="120">
                     </div>
                     <div class="form-group">
-                        <label for="height">신장 (cm):</label>
-                        <input type="number" id="height" name="height" placeholder="cm" required min="50" max="250">
+                        <label for="height" data-i18n="label-height">신장 (cm):</label>
+                        <input type="number" id="height" name="height" placeholder="cm" data-i18n="placeholder-height" required min="50" max="250">
                     </div>
                     <div class="form-group">
-                        <label for="weight">체중 (kg):</label>
-                        <input type="number" id="weight" name="weight" placeholder="kg" required min="10" max="300">
+                        <label for="weight" data-i18n="label-weight">체중 (kg):</label>
+                        <input type="number" id="weight" name="weight" placeholder="kg" data-i18n="placeholder-weight" required min="10" max="300">
                     </div>
                 </div>
-                <button type="submit" id="calculate-btn">나의 신체 분석하기</button>
+                <button type="submit" id="calculate-btn" data-i18n="calculate-btn">나의 신체 분석하기</button>
             </form>
             <div id="metrics-results" class="hidden">
                 <div class="result-cards">
                     <div class="result-card">
-                        <span class="result-label">BMI 지수</span>
+                        <span class="result-label" data-i18n="bmi-label">BMI 지수</span>
                         <span id="bmi-value" class="result-value">--</span>
                         <span id="bmi-status" class="result-status">--</span>
                     </div>
                     <div class="result-card">
-                        <span class="result-label">기초대사량 (BMR)</span>
+                        <span class="result-label" data-i18n="bmr-label">기초대사량 (BMR)</span>
                         <span id="bmr-value" class="result-value">--</span>
-                        <span class="result-unit">kcal/일</span>
+                        <span class="result-unit" data-i18n="bmr-unit">kcal/일</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="mbti-analysis">
-            <h2>성격 및 마인드셋 분석 (MBTI)</h2>
-            <p class="section-desc">심리적 프로필에 맞는 운동 루틴을 찾아 지속 가능성과 즐거움을 극대화하세요.</p>
+            <h2 data-i18n="mbti-title">성격 및 마인드셋 분석 (MBTI)</h2>
+            <p class="section-desc" data-i18n="mbti-desc">심리적 프로필에 맞는 운동 루틴을 찾아 지속 가능성과 즐거움을 극대화하세요.</p>
             
             <div id="mbti-quiz" class="quiz-container">
                 <div id="mbti-progress-container">
                     <div id="mbti-progress-bar"></div>
-                    <span id="mbti-progress-text">24단계 중 1단계</span>
+                    <span id="mbti-progress-text"></span>
                 </div>
                 <div id="mbti-question-card" class="question-card">
-                    <h3 id="mbti-question-text">나는 그룹 운동이나 북적이는 헬스장 환경을 선호한다.</h3>
+                    <h3 id="mbti-question-text"></h3>
                     <div class="mbti-options">
-                        <button class="mbti-opt" data-score="1">매우 그렇지 않다</button>
-                        <button class="mbti-opt" data-score="2">그렇지 않다</button>
-                        <button class="mbti-opt" data-score="3">보통이다</button>
-                        <button class="mbti-opt" data-score="4">그렇다</button>
-                        <button class="mbti-opt" data-score="5">매우 그렇다</button>
+                        <!-- Injected via JS -->
                     </div>
                 </div>
             </div>
@@ -125,143 +127,143 @@
             <div id="mbti-results" class="hidden">
                 <div class="mbti-badge-container">
                     <div class="mbti-type-card">
-                        <span class="mbti-label">당신의 MBTI 프로필</span>
+                        <span class="mbti-label" data-i18n="mbti-default-type">당신의 MBTI 프로필</span>
                         <h3 id="mbti-type-value">--</h3>
-                        <p id="mbti-type-desc" class="mbti-desc">퀴즈를 통해 이상적인 운동 성향을 확인하세요.</p>
+                        <p id="mbti-type-desc" class="mbti-desc" data-i18n="mbti-default-desc">퀴즈를 통해 이상적인 운동 성향을 확인하세요.</p>
                     </div>
                     <div class="mbti-recommendation-card">
-                        <span class="mbti-label">성격 인사이트</span>
+                        <span class="mbti-label" data-i18n="mbti-insight-label">성격 인사이트</span>
                         <p id="mbti-insight-text">--</p>
                     </div>
                 </div>
-                <button id="retake-mbti" class="secondary-btn">퀴즈 다시 하기</button>
+                <button id="retake-mbti" class="secondary-btn" data-i18n="retake-mbti">퀴즈 다시 하기</button>
             </div>
         </section>
 
         <form id="workout-form">
-            <h2><i data-lucide="settings-2"></i> 세션 개인화 설정</h2>
-            <p class="section-desc">당신의 현재 상태와 목표에 맞춰 AI가 최적의 운동 루틴을 구성합니다.</p>
+            <h2 data-i18n="workout-personalization-title"><i data-lucide="settings-2"></i> 세션 개인화 설정</h2>
+            <p class="section-desc" data-i18n="workout-personalization-desc">당신의 현재 상태와 목표에 맞춰 AI가 최적의 운동 루틴을 구성합니다.</p>
             
             <div class="form-main-container">
                 <div class="form-info-banner">
                     <div class="form-group">
-                        <label for="mbti-display"><i data-lucide="user"></i> 당신의 MBTI 프로필</label>
-                        <input type="text" id="mbti-display" name="mbti-display" placeholder="상단에서 퀴즈를 진행해 주세요" readonly class="auto-input">
+                        <label for="mbti-display" data-i18n="mbti-display-label"><i data-lucide="user"></i> 당신의 MBTI 프로필</label>
+                        <input type="text" id="mbti-display" name="mbti-display" placeholder="상단에서 퀴즈를 진행해 주세요" data-i18n="mbti-display-placeholder" readonly class="auto-input">
                     </div>
                     <div class="form-group">
-                        <label for="metrics-display"><i data-lucide="activity"></i> 신체 지표 요약</label>
-                        <input type="text" id="metrics-display" name="metrics-display" placeholder="상단에서 신체 지표를 분석해 주세요" readonly class="auto-input">
+                        <label for="metrics-display" data-i18n="metrics-display-label"><i data-lucide="activity"></i> 신체 지표 요약</label>
+                        <input type="text" id="metrics-display" name="metrics-display" placeholder="상단에서 신체 지표를 분석해 주세요" data-i18n="metrics-display-placeholder" readonly class="auto-input">
                     </div>
                 </div>
 
                 <div class="workout-grid-enhanced">
                     <div class="form-group">
-                        <label for="fitness-level">운동 숙련도</label>
+                        <label for="fitness-level" data-i18n="fitness-level-label">운동 숙련도</label>
                         <div class="select-wrapper">
                             <select id="fitness-level" name="fitness-level">
-                                <option value="beginner">초보자 (Beginner)</option>
-                                <option value="intermediate">중급자 (Intermediate)</option>
-                                <option value="advanced">상급자 (Advanced)</option>
+                                <option value="beginner" data-i18n="fitness-beginner">초보자 (Beginner)</option>
+                                <option value="intermediate" data-i18n="fitness-intermediate">중급자 (Intermediate)</option>
+                                <option value="advanced" data-i18n="fitness-advanced">상급자 (Advanced)</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="goal">운동 목표</label>
+                        <label for="goal" data-i18n="goal-label">운동 목표</label>
                         <div class="select-wrapper">
                             <select id="goal" name="goal">
-                                <option value="weight-loss">체중 감량 (Weight Loss)</option>
-                                <option value="muscle-gain">근육 증가 (Muscle Gain)</option>
-                                <option value="general-fitness">건강 유지 (General Fitness)</option>
+                                <option value="weight-loss" data-i18n="goal-weight-loss">체중 감량 (Weight Loss)</option>
+                                <option value="muscle-gain" data-i18n="goal-muscle-gain">근육 증가 (Muscle Gain)</option>
+                                <option value="general-fitness" data-i18n="goal-general-fitness">건강 유지 (General Fitness)</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="health-status">현재 컨디션</label>
+                        <label for="health-status" data-i18n="health-status-label">현재 컨디션</label>
                         <div class="select-wrapper">
                             <select id="health-status" name="health-status">
-                                <option value="excellent">최상/보통 (Excellent)</option>
-                                <option value="tired">피로함 (Tired)</option>
-                                <option value="recovery">회복 중/부상 (Recovery)</option>
+                                <option value="excellent" data-i18n="health-excellent">최상/보통 (Excellent)</option>
+                                <option value="tired" data-i18n="health-tired">피로함 (Tired)</option>
+                                <option value="recovery" data-i18n="health-recovery">회복 중/부상 (Recovery)</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="weather">현재 날씨</label>
+                        <label for="weather" data-i18n="weather-label">현재 날씨</label>
                         <div class="select-wrapper">
                             <select id="weather" name="weather">
-                                <option value="sunny">맑음/실내 (Sunny)</option>
-                                <option value="rainy">비/눈 (Rainy)</option>
-                                <option value="hot">폭염 (Hot)</option>
-                                <option value="cold">한파 (Cold)</option>
+                                <option value="sunny" data-i18n="weather-sunny">맑음/실내 (Sunny)</option>
+                                <option value="rainy" data-i18n="weather-rainy">비/눈 (Rainy)</option>
+                                <option value="hot" data-i18n="weather-hot">폭염 (Hot)</option>
+                                <option value="cold" data-i18n="weather-cold">한파 (Cold)</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="time-of-day">시간대</label>
+                        <label for="time-of-day" data-i18n="time-of-day-label">시간대</label>
                         <div class="select-wrapper">
                             <select id="time-of-day" name="time-of-day">
-                                <option value="dawn">새벽 (Dawn)</option>
-                                <option value="morning">오전 (Morning)</option>
-                                <option value="afternoon">오후 (Afternoon)</option>
-                                <option value="night">밤 (Night)</option>
+                                <option value="dawn" data-i18n="time-dawn">새벽 (Dawn)</option>
+                                <option value="morning" data-i18n="time-morning">오전 (Morning)</option>
+                                <option value="afternoon" data-i18n="time-afternoon">오후 (Afternoon)</option>
+                                <option value="night" data-i18n="time-night">밤 (Night)</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
             <button type="submit" class="generate-btn">
-                <span>상황 맞춤형 운동 생성하기</span>
+                <span data-i18n="generate-workout-btn">상황 맞춤형 운동 생성하기</span>
                 <i data-lucide="sparkles"></i>
             </button>
         </form>
 
         <section id="workout-plan">
-            <h2><i data-lucide="dumbbell"></i> 당신의 맞춤 운동 플랜</h2>
+            <h2 data-i18n="workout-plan-title"><i data-lucide="dumbbell"></i> 당신의 맞춤 운동 플랜</h2>
             <div id="workout-container"></div>
             
             <div id="workout-analysis-section" class="hidden">
                 <hr class="section-divider">
-                <h2><i data-lucide="clipboard-check"></i> 운동 세션 분석</h2>
-                <p class="section-desc">수행하신 운동 결과를 입력해 주세요. AI 코치가 귀하의 운동 강도와 효율성을 분석해 드립니다.</p>
+                <h2 data-i18n="workout-analysis-title"><i data-lucide="clipboard-check"></i> 운동 세션 분석</h2>
+                <p class="section-desc" data-i18n="workout-analysis-desc">수행하신 운동 결과를 입력해 주세요. AI 코치가 귀하의 운동 강도와 효율성을 분석해 드립니다.</p>
                 <div id="analysis-results" class="analysis-card hidden">
                     <div class="analysis-header">
                         <i data-lucide="award" class="award-icon"></i>
-                        <h3>AI 코치의 평가</h3>
+                        <h3 data-i18n="ai-evaluation-title">AI 코치의 평가</h3>
                     </div>
                     <div id="analysis-content"></div>
                 </div>
-                <button id="analyze-workout-btn" class="secondary-btn">분석 및 피드백 받기</button>
+                <button id="analyze-workout-btn" class="secondary-btn" data-i18n="analyze-workout-btn">분석 및 피드백 받기</button>
             </div>
         </section>
 
         <!-- NEW SECTIONS -->
         <section id="stretching-recommendations" class="feature-section">
-            <h2><i data-lucide="accessibility"></i> 맞춤형 스트레칭 추천</h2>
-            <p class="section-desc">생성된 운동의 주요 타겟 근육을 분석하여 부상을 방지하고 회복을 돕는 최적의 스트레칭을 제안합니다.</p>
+            <h2 data-i18n="stretching-title"><i data-lucide="accessibility"></i> 맞춤형 스트레칭 추천</h2>
+            <p class="section-desc" data-i18n="stretching-desc">생성된 운동의 주요 타겟 근육을 분석하여 부상을 방지하고 회복을 돕는 최적의 스트레칭을 제안합니다.</p>
             <div id="stretching-container" class="scroll-container">
-                <p class="empty-msg">상단에서 운동을 먼저 생성해 주세요! 운동 부위에 맞는 스트레칭이 여기에 표시됩니다.</p>
+                <p class="empty-msg" data-i18n="stretching-empty">상단에서 운동을 먼저 생성해 주세요! 운동 부위에 맞는 스트레칭이 여기에 표시됩니다.</p>
             </div>
         </section>
 
         <section id="exercise-catalog" class="feature-section">
             <div class="section-header-flex">
                 <div>
-                    <h2><i data-lucide="layers"></i> 운동의 종류</h2>
-                    <p class="section-desc">AI 코치가 추천하는 부위별 맞춤 운동 영상 가이드입니다.</p>
+                    <h2 data-i18n="exercise-catalog-title"><i data-lucide="layers"></i> 운동의 종류</h2>
+                    <p class="section-desc" data-i18n="exercise-catalog-desc">AI 코치가 추천하는 부위별 맞춤 운동 영상 가이드입니다.</p>
                 </div>
-                <button id="open-upload-btn" class="secondary-btn admin-only">
+                <button id="open-upload-btn" class="secondary-btn admin-only" data-i18n="upload-btn">
                     <i data-lucide="plus-circle"></i> 영상 업로드
                 </button>
             </div>
 
             <div class="workout-filter-tabs" id="catalog-tabs">
-                <button class="filter-btn active" data-part="all">전체</button>
-                <button class="filter-btn" data-part="chest">가슴</button>
-                <button class="filter-btn" data-part="back">등</button>
-                <button class="filter-btn" data-part="shoulders">어깨</button>
-                <button class="filter-btn" data-part="arms">팔</button>
-                <button class="filter-btn" data-part="legs">하체</button>
-                <button class="filter-btn" data-part="core">복근</button>
+                <button class="filter-btn active" data-part="all" data-i18n="filter-all">전체</button>
+                <button class="filter-btn" data-part="chest" data-i18n="filter-chest">가슴</button>
+                <button class="filter-btn" data-part="back" data-i18n="filter-back">등</button>
+                <button class="filter-btn" data-part="shoulders" data-i18n="filter-shoulders">어깨</button>
+                <button class="filter-btn" data-part="arms" data-i18n="filter-arms">팔</button>
+                <button class="filter-btn" data-part="legs" data-i18n="filter-legs">하체</button>
+                <button class="filter-btn" data-part="core" data-i18n="filter-core">복근</button>
             </div>
 
             <div id="catalog-grid" class="catalog-grid">
@@ -330,16 +332,16 @@
         <section id="home-workout" class="feature-section">
             <div class="section-header-flex">
                 <div>
-                    <h2><i data-lucide="home"></i> 맞춤형 홈트 추천</h2>
-                    <p class="section-desc">집에서도 효과적으로 할 수 있는 간편하고 실용적인 루틴을 제안합니다.</p>
+                    <h2 data-i18n="home-workout-title"><i data-lucide="home"></i> 맞춤형 홈트 추천</h2>
+                    <p class="section-desc" data-i18n="home-workout-desc">집에서도 효과적으로 할 수 있는 간편하고 실용적인 루틴을 제안합니다.</p>
                 </div>
                 <button id="refresh-home-workout" class="secondary-btn refresh-btn">
-                    <i data-lucide="refresh-cw"></i> 다른 운동 추천
+                    <i data-lucide="refresh-cw"></i> <span data-i18n="refresh-home-workout">다른 운동 추천</span>
                 </button>
             </div>
             <div class="workout-filter-tabs" id="home-filter-tabs">
-                <button class="filter-btn active" data-target="bodyweight">맨몸 운동</button>
-                <button class="filter-btn" data-target="equipment">소도구 운동</button>
+                <button class="filter-btn active" data-target="bodyweight" data-i18n="filter-bodyweight">맨몸 운동</button>
+                <button class="filter-btn" data-target="equipment" data-i18n="filter-equipment">소도구 운동</button>
             </div>
             <div id="home-workout-grid" class="catalog-grid">
                 <!-- Injected via JS -->
@@ -349,29 +351,29 @@
         <section id="diet-recommendations" class="feature-section">
             <div class="section-header-flex">
                 <div>
-                    <h2><i data-lucide="apple"></i> 맞춤형 식단 추천</h2>
-                    <p class="section-desc">현재 체격 지수와 운동 목표에 최적화된 영양 가이드를 제공합니다.</p>
+                    <h2 data-i18n="diet-title"><i data-lucide="apple"></i> 맞춤형 식단 추천</h2>
+                    <p class="section-desc" data-i18n="diet-desc">현재 체격 지수와 운동 목표에 최적화된 영양 가이드를 제공합니다.</p>
                 </div>
                 <button id="refresh-diet-btn" class="secondary-btn refresh-btn">
-                    <i data-lucide="refresh-cw"></i> 다른 식단 추천
+                    <i data-lucide="refresh-cw"></i> <span data-i18n="refresh-diet">다른 식단 추천</span>
                 </button>
             </div>
             <div id="diet-container" class="rec-card-container">
-                <p class="empty-msg">신체 지표 분석을 먼저 완료해 주세요.</p>
+                <p class="empty-msg" data-i18n="diet-empty">신체 지표 분석을 먼저 완료해 주세요.</p>
             </div>
         </section>
 
         <section id="sasang-analysis" class="feature-section">
-            <h2><i data-lucide="leaf"></i> 나의 한방 체질 (사상체질)</h2>
-            <p class="section-desc">한방 의학의 지혜를 빌려 당신의 타고난 체질을 분석하고 건강 관리법을 제안합니다.</p>
+            <h2 data-i18n="sasang-title"><i data-lucide="leaf"></i> 나의 한방 체질 (사상체질)</h2>
+            <p class="section-desc" data-i18n="sasang-desc">한방 의학의 지혜를 빌려 당신의 타고난 체질을 분석하고 건강 관리법을 제안합니다.</p>
             
             <div id="sasang-quiz" class="quiz-container">
                 <div id="sasang-progress-container">
                     <div id="sasang-progress-bar"></div>
-                    <span id="sasang-progress-text">12단계 중 1단계</span>
+                    <span id="sasang-progress-text"></span>
                 </div>
                 <div id="sasang-question-card" class="question-card">
-                    <h3 id="sasang-question-text">나의 체격은 어떤 편인가요?</h3>
+                    <h3 id="sasang-question-text"></h3>
                     <div class="mbti-options" id="sasang-options">
                         <!-- Options injected via JS -->
                     </div>
@@ -381,16 +383,16 @@
             <div id="sasang-results" class="hidden">
                 <div class="mbti-badge-container">
                     <div class="mbti-type-card">
-                        <span class="mbti-label">당신의 사상체질</span>
+                        <span class="mbti-label" data-i18n="sasang-default-type">당신의 사상체질</span>
                         <h3 id="sasang-type-value">--</h3>
                         <p id="sasang-type-desc" class="mbti-desc">분석 결과를 기다려 주세요.</p>
                     </div>
                     <div class="mbti-recommendation-card">
-                        <span class="mbti-label">체질별 건강 조언</span>
+                        <span class="mbti-label" data-i18n="sasang-insight-label">체질별 건강 조언</span>
                         <p id="sasang-insight-text">--</p>
                     </div>
                 </div>
-                <button id="retake-sasang" class="secondary-btn">다시 테스트하기</button>
+                <button id="retake-sasang" class="secondary-btn" data-i18n="sasang-retake">다시 테스트하기</button>
             </div>
         </section>
 

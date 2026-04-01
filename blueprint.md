@@ -31,15 +31,17 @@ AI Workout Coach is a professional, AI-driven holistic health platform. It provi
 - Standardize language (Korean/English) for a more professional multi-lingual experience.
 - Refine the UI to ensure no sections appear "under construction" or empty.
 
-## Current Status: Full System Integrated
+## Current Status: Bilingual Support Implemented
 - [x] Expanded the "Exercise Type" (운동의 종류) section with API-driven exercises.
-- [x] Implemented "Home Workout" (홈트 추천) section with:
-    - Filterable categories: Bodyweight (맨몸) vs Equipment (소도구).
-    - Randomized refresh feature.
+- [x] Implemented "Home Workout" (홈트 추천) section with filterable categories.
 - [x] Integrated exercise catalog with categorized videos and virtual character guides.
 - [x] Implemented professional Sasang Constitution diagnostic test.
 - [x] Localized entire site to Korean.
-- [x] Fixed video upload and playback issues.
+- [x] Implemented Bilingual Support (Korean/English).
+    - [x] Create translation infrastructure in `translations.js`.
+    - [x] Tag `index.html` elements with `data-i18n`.
+    - [x] Add language switcher UI to `main-nav`.
+    - [x] Translate all dynamic content (Analysis, Suggestions, Quizzes).
 - [ ] Implement 3D Virtual Coach using Three.js for procedural exercise animations.
 - [ ] Add animations for Squat, Push-up, Plank, Burpee, and 10+ other requested exercises.
 - [ ] Implement Health Magazine section with 4 expert articles.
