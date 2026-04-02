@@ -24,11 +24,18 @@ function setLanguage(lang) {
         if (translations[lang] && translations[lang][key]) {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = translations[lang][key];
+            } else if (el.tagName === 'SELECT') {
+                // For select, we usually translate the options inside, but data-i18n on select itself is rare.
+                // If it exists, we might ignore or handle specifically.
             } else {
                 el.textContent = translations[lang][key];
             }
         }
     });
+
+    // Update document title
+    const titleSuffix = lang === 'ko' ? ' | 개인 맞춤형 건강 & 지혜 매거진' : ' | Personalized Health & Wisdom Magazine';
+    document.title = translations[lang]['nav-logo'] + titleSuffix;
 
     const themeBtn = document.getElementById('theme-toggle');
     if (themeBtn) themeBtn.setAttribute('aria-label', translations[lang]['theme-toggle']);
@@ -42,7 +49,23 @@ function setLanguage(lang) {
     if (metricsDisplay && userData.bmi && userData.bmr) {
         const statusKey = bmiStatus ? bmiStatus.getAttribute('data-status-key') : '';
         const status = statusKey ? translations[lang][statusKey] : '';
-        metricsDisplay.value = `BMI: ${userData.bmi} (${status}), BMR: ${Math.round(userData.bmr)} kcal`;
+        let summary = translations[lang]['metrics-summary'] || "BMI: {bmi} ({status}), BMR: {bmr} kcal/day";
+        summary = summary.replace('{bmi}', userData.bmi).replace('{status}', status).replace('{bmr}', Math.round(userData.bmr));
+        metricsDisplay.value = summary;
+    }
+
+    // Update Result Descriptions if results are visible
+    if (userData.sasang) {
+        const sasangDesc = document.getElementById('sasang-type-desc');
+        if (sasangDesc) {
+            sasangDesc.textContent = translations[lang][`sasang-insight-${userData.sasang}`] || translations[lang]['sasang-type-desc-default'];
+        }
+    }
+    if (userData.mbti) {
+        const mbtiDesc = document.getElementById('mbti-type-desc');
+        if (mbtiDesc) {
+            mbtiDesc.textContent = translations[lang][`mbti-insight-${userData.mbti}`] || translations[lang]['mbti-default-desc'];
+        }
     }
 
     // Re-render components if needed
@@ -71,14 +94,14 @@ class WorkoutCard extends HTMLElement {
     connectedCallback() { this.render(); }
     render() {
         if (typeof translations === 'undefined') return;
-        const name = this.getAttribute('name') || translations[currentLang]['workout-card-default-name'];
+        const lang = currentLang;
+        const name = this.getAttribute('name') || translations[lang]['workout-card-default-name'];
         const sets = this.getAttribute('sets') || '0';
         const reps = this.getAttribute('reps') || '0';
         const rest = this.getAttribute('rest') || '0s';
-        const desc = this.getAttribute('desc') || translations[currentLang]['workout-card-default-desc'];
+        const desc = this.getAttribute('desc') || translations[lang]['workout-card-default-desc'];
         const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
         const calories = this.getAttribute('calories') || '0';
-        const target = this.getAttribute('target') || translations[currentLang]['workout-card-default-target'];
 
         this.shadowRoot.innerHTML = `
             <style>
@@ -97,39 +120,39 @@ class WorkoutCard extends HTMLElement {
                 .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
                 input { padding: 8px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); width: 100%; box-sizing: border-box; font-size: 0.85em; }
             </style>
-            <div class="badge">${translations[currentLang]['workout-card-badge']}</div>
+            <div class="badge">${translations[lang]['workout-card-badge']}</div>
             <div class="image-container"><img src="${image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'"></div>
             <div class="content">
                 <h3>${name}</h3>
-                <div class="description"><strong>💡 ${translations[currentLang]['workout-card-guide']}:</strong><br>${desc}</div>
+                <div class="description"><strong>💡 ${translations[lang]['workout-card-guide']}:</strong><br>${desc}</div>
                 <div class="stats">
-                    <div class="stat-item"><span class="label">${translations[currentLang]['workout-card-target-sets']}</span><span class="value">${sets}</span></div>
-                    <div class="stat-item"><span class="label">${translations[currentLang]['workout-card-target-reps']}</span><span class="value">${reps}</span></div>
+                    <div class="stat-item"><span class="label">${translations[lang]['workout-card-target-sets']}</span><span class="value">${sets}</span></div>
+                    <div class="stat-item"><span class="label">${translations[lang]['workout-card-target-reps']}</span><span class="value">${reps}</span></div>
                     <div class="stat-item"><span class="label">KCAL</span><span class="value">${calories}</span></div>
                 </div>
                 <div class="performance-tracking">
                     <div class="input-group">
                         <div class="input-field">
-                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[currentLang]['workout-card-actual-sets-label']}</label>
-                            <input type="number" class="actual-sets" value="${parseInt(sets)}" placeholder="Sets">
+                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[lang]['workout-card-actual-sets-label']}</label>
+                            <input type="number" class="actual-sets" value="${parseInt(sets)}" placeholder="${translations[lang]['workout-card-placeholder-sets']}">
                         </div>
                         <div class="input-field">
-                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[currentLang]['workout-card-actual-reps-label']}</label>
-                            <input type="number" class="actual-reps" value="${parseInt(reps)}" placeholder="Reps">
+                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[lang]['workout-card-actual-reps-label']}</label>
+                            <input type="number" class="actual-reps" value="${parseInt(reps)}" placeholder="${translations[lang]['workout-card-placeholder-reps']}">
                         </div>
                     </div>
                     <div class="input-group">
                         <div class="input-field">
-                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[currentLang]['workout-card-actual-rest-label']}</label>
-                            <input type="number" class="actual-rest" value="60" placeholder="Sec">
+                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[lang]['workout-card-actual-rest-label']}</label>
+                            <input type="number" class="actual-rest" value="60" placeholder="${translations[lang]['workout-card-placeholder-rest']}">
                         </div>
                         <div class="input-field">
-                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[currentLang]['workout-card-actual-time-label']}</label>
-                            <input type="number" class="total-time" value="10" placeholder="Min">
+                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[lang]['workout-card-actual-time-label']}</label>
+                            <input type="number" class="total-time" value="10" placeholder="${translations[lang]['workout-card-placeholder-time']}">
                         </div>
                     </div>
                     <label style="display:flex; align-items:center; gap:5px; margin-top:10px; font-size:0.8em; color:var(--primary-color); cursor:pointer;">
-                        <input type="checkbox" class="is-completed" checked style="width:auto;"> ${translations[currentLang]['workout-card-completed-status']}
+                        <input type="checkbox" class="is-completed" checked style="width:auto;"> ${translations[lang]['workout-card-completed-status']}
                     </label>
                 </div>
             </div>
@@ -195,23 +218,23 @@ function getExercisesByContext(options) {
             desc: info.desc,
             image: imgPath,
             calories: burned,
-            target: ex.primaryMuscles?.[0] || "전신"
+            target: ex.primaryMuscles?.[0] || translations[currentLang]['workout-card-default-target']
         };
     });
 }
 
 // MBTI Quiz Logic
 const mbtiQuestions = [
-    { text: "나는 그룹 운동이나 북적이는 헬스장 환경을 선호한다.", dimension: "EI", positive: true },
-    { text: "나는 북적이는 곳보다 혼자 조용히 운동하는 것을 선호한다.", dimension: "EI", positive: false },
-    { text: "나는 휴식 시간에 다른 사람들과 대화하는 것을 즐긴다.", dimension: "EI", positive: true },
-    { text: "나는 개인적인 공간에서 운동할 때 더 잘 집중된다.", dimension: "EI", positive: false },
-    { text: "나는 정확한 자세와 데이터(횟수/무게)에 집중한다.", dimension: "SN", positive: true },
-    { text: "나는 새롭고 창의적이며 색다른 운동을 시도하는 것을 즐긴다.", dimension: "SN", positive: false },
-    { text: "나는 논리적이고 효율적인 기준으로 운동을 선택한다.", dimension: "TF", positive: true },
-    { text: "나는 몸과 마음의 연결(심신 조화)을 가장 중요하게 생각한다.", dimension: "TF", positive: false },
-    { text: "나는 미리 짜여진 운동 일정을 엄격하게 준수한다.", dimension: "JP", positive: true },
-    { text: "나는 그날의 기분에 따라 어떤 운동을 할지 결정하는 편이다.", dimension: "JP", positive: false }
+    { dimension: "EI", positive: true },
+    { dimension: "EI", positive: false },
+    { dimension: "EI", positive: true },
+    { dimension: "EI", positive: false },
+    { dimension: "SN", positive: true },
+    { dimension: "SN", positive: false },
+    { dimension: "TF", positive: true },
+    { dimension: "TF", positive: false },
+    { dimension: "JP", positive: true },
+    { dimension: "JP", positive: false }
 ];
 let currentMbtiIndex = 0;
 let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
@@ -219,17 +242,28 @@ let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
 function updateMbtiQuiz() {
     const container = document.getElementById('mbti-quiz');
     if (!container || container.classList.contains('hidden')) return;
+    
+    // Update progress
+    const progressText = document.getElementById('mbti-progress-text');
+    const progressBar = document.getElementById('mbti-progress-bar');
+    if (progressText) {
+        const stepText = translations[currentLang]['mbti-step'] || "Step";
+        const suffixText = translations[currentLang]['mbti-step-suffix'] || "of";
+        progressText.textContent = `${stepText} ${currentMbtiIndex + 1} ${suffixText} ${mbtiQuestions.length}`;
+    }
+    if (progressBar) progressBar.style.width = `${((currentMbtiIndex + 1) / mbtiQuestions.length) * 100}%`;
+
     if (currentMbtiIndex < mbtiQuestions.length) {
         const q = mbtiQuestions[currentMbtiIndex];
         const qKey = `mbti-q${currentMbtiIndex + 1}`;
-        document.getElementById('mbti-question-text').textContent = (typeof translations !== 'undefined' && translations[currentLang][qKey]) || q.text;
+        document.getElementById('mbti-question-text').textContent = translations[currentLang][qKey] || "Question";
         const optionsContainer = document.querySelector('#mbti-quiz .mbti-options');
         if (optionsContainer) {
             optionsContainer.innerHTML = '';
             [1, 2, 3, 4, 5].forEach(score => {
                 const btn = document.createElement('button');
                 btn.className = 'mbti-opt';
-                btn.textContent = (typeof translations !== 'undefined' && translations[currentLang][`mbti-opt-${score}`]) || score;
+                btn.textContent = translations[currentLang][`mbti-opt-${score}`] || score;
                 btn.onclick = () => {
                     const weight = score - 3;
                     const dim1 = q.dimension[0]; const dim2 = q.dimension[1];
@@ -254,12 +288,16 @@ function showMbtiResults() {
     document.getElementById('mbti-display').value = type;
     document.getElementById('mbti-quiz').classList.add('hidden');
     document.getElementById('mbti-results').classList.remove('hidden');
+    
+    // Update description immediately
+    const mbtiDesc = document.getElementById('mbti-type-desc');
+    if (mbtiDesc) mbtiDesc.textContent = translations[currentLang][`mbti-insight-${type}`] || translations[currentLang]['mbti-default-desc'];
 }
 
 // Sasang Logic
 const sasangQuestions = [
-    { text: "나의 체격은 어떤 편인가요?", options: [{text:"상체발달",type:"TY"}, {text:"골격큼",type:"TE"}, {text:"가슴발달",type:"SY"}, {text:"균형잡힘",type:"SE"}] },
-    { text: "나의 성격은 어떤가요?", options: [{text:"추진력강함",type:"TY"}, {text:"인내심있음",type:"TE"}, {text:"판단이빠름",type:"SY"}, {text:"꼼꼼함",type:"SE"}] }
+    { options: ["TY", "TE", "SY", "SE"] },
+    { options: ["TY", "TE", "SY", "SE"] }
 ];
 let currentSasangIndex = 0;
 let sasangScores = { TY: 0, TE: 0, SY: 0, SE: 0 };
@@ -267,19 +305,30 @@ let sasangScores = { TY: 0, TE: 0, SY: 0, SE: 0 };
 function updateSasangQuiz() {
     const container = document.getElementById('sasang-quiz');
     if (!container || container.classList.contains('hidden')) return;
+    
+    // Update progress
+    const progressText = document.getElementById('sasang-progress-text');
+    const progressBar = document.getElementById('sasang-progress-bar');
+    if (progressText) {
+        const stepText = translations[currentLang]['mbti-step'] || "Step";
+        const suffixText = translations[currentLang]['mbti-step-suffix'] || "of";
+        progressText.textContent = `${stepText} ${currentSasangIndex + 1} ${suffixText} ${sasangQuestions.length}`;
+    }
+    if (progressBar) progressBar.style.width = `${((currentSasangIndex + 1) / sasangQuestions.length) * 100}%`;
+
     if (currentSasangIndex < sasangQuestions.length) {
         const q = sasangQuestions[currentSasangIndex];
         const qKey = `sasang-q${currentSasangIndex + 1}`;
-        document.getElementById('sasang-question-text').textContent = (typeof translations !== 'undefined' && translations[currentLang][qKey]) || q.text;
+        document.getElementById('sasang-question-text').textContent = translations[currentLang][qKey] || "Question";
         const optContainer = document.getElementById('sasang-options');
         if (optContainer) {
             optContainer.innerHTML = '';
-            q.options.forEach((opt, idx) => {
+            q.options.forEach((type, idx) => {
                 const btn = document.createElement('button');
                 btn.className = 'mbti-opt';
                 const optKey = `sasang-q${currentSasangIndex + 1}-opt${idx + 1}`;
-                btn.textContent = (typeof translations !== 'undefined' && translations[currentLang][optKey]) || opt.text;
-                btn.onclick = () => { sasangScores[opt.type]++; currentSasangIndex++; updateSasangQuiz(); };
+                btn.textContent = translations[currentLang][optKey] || "Option";
+                btn.onclick = () => { sasangScores[type]++; currentSasangIndex++; updateSasangQuiz(); };
                 optContainer.appendChild(btn);
             });
         }
@@ -292,6 +341,10 @@ function showSasangResults() {
     document.getElementById('sasang-type-value').textContent = type;
     document.getElementById('sasang-quiz').classList.add('hidden');
     document.getElementById('sasang-results').classList.remove('hidden');
+    
+    // Update description immediately
+    const sasangDesc = document.getElementById('sasang-type-desc');
+    if (sasangDesc) sasangDesc.textContent = translations[currentLang][`sasang-insight-${type}`] || translations[currentLang]['sasang-type-desc-default'];
 }
 
 // Initialization
@@ -320,6 +373,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         document.getElementById('bmi-value').textContent = userData.bmi;
         document.getElementById('bmr-value').textContent = Math.round(userData.bmr);
+        
+        let statusKey = 'bmi-normal';
+        if (userData.bmi < 18.5) statusKey = 'bmi-underweight';
+        else if (userData.bmi >= 25 && userData.bmi < 30) statusKey = 'bmi-overweight';
+        else if (userData.bmi >= 30) statusKey = 'bmi-obese';
+        
+        const bmiStatus = document.getElementById('bmi-status');
+        if (bmiStatus) {
+            bmiStatus.setAttribute('data-status-key', statusKey);
+            bmiStatus.textContent = translations[currentLang][statusKey];
+        }
+
         document.getElementById('metrics-results').classList.remove('hidden');
         setLanguage(currentLang);
     });
@@ -327,11 +392,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     workoutForm?.addEventListener('submit', (e) => {
         e.preventDefault();
         const workoutContainer = document.getElementById('workout-container');
-        workoutContainer.innerHTML = '<p class="loading">AI 루틴 생성 중...</p>';
+        workoutContainer.innerHTML = `<p class="loading">${translations[currentLang]['workout-loading']}</p>`;
         setTimeout(() => {
             workoutContainer.innerHTML = '';
             const exercises = getExercisesByContext({ fitnessLevel: document.getElementById('fitness-level').value });
-            if (exercises.length === 0) { workoutContainer.innerHTML = '<p>데이터를 불러오지 못했습니다.</p>'; return; }
+            if (exercises.length === 0) { workoutContainer.innerHTML = `<p>${translations[currentLang]['workout-fetch-error']}</p>`; return; }
             exercises.forEach(ex => {
                 const card = document.createElement('workout-card');
                 card.setAttribute('name', ex.name);
@@ -379,7 +444,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         const rate = Math.round((actualSets/totalSets)*100);
         document.getElementById('analysis-results').classList.remove('hidden');
-        document.getElementById('analysis-content').innerHTML = `<h4>달성률: ${rate}%</h4><p>오늘의 노력이 내일의 당신을 만듭니다!</p>`;
+        document.getElementById('analysis-content').innerHTML = `<h4>${translations[currentLang]['analysis-completion-rate']}: ${rate}%</h4><p>${translations[currentLang]['analysis-motivation']}</p>`;
         document.getElementById('analysis-results').scrollIntoView({ behavior: 'smooth' });
     });
 

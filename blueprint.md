@@ -1,49 +1,32 @@
-# AI Workout Coach - Blueprint
+# AI Workout Coach - Project Blueprint
 
 ## Project Overview
-AI Workout Coach is a professional, AI-driven holistic health platform. It provides personalized workout plans, nutrition guidance, Sasang Constitution Analysis, and supplement recommendations by cross-analyzing body metrics, MBTI personality, and traditional oriental medicine principles. The platform is designed to provide high-value informational content alongside its interactive tools to meet Google AdSense "Valuable Inventory" standards.
+A professional holistic health platform that provides personalized workout plans, Sasang Constitution analysis, MBTI-based fitness guidance, and expert health insights. The application is built with vanilla HTML, CSS, and JavaScript, leveraging modern web standards and AI-driven personalization.
 
-## Core Features & Content Strategy (AdSense Optimization)
-- **High-Value Health Magazine:** A dedicated section featuring long-form, expert-level articles on Sasang Constitution, MBTI-based fitness psychology, and nutritional science.
-- **Sasang Constitution Analysis:** Professional diagnostic test based on traditional Korean medicine (Tae-Yang, Tae-Eum, So-Yang, So-Eum).
-- **MBTI Workout Alignment:** Psychology-driven workout recommendations for maximum consistency.
-- **Body Metrics & BMR:** Scientific calculation of body composition and caloric needs.
-- **Comprehensive Legal & Transparency:** Detailed Privacy Policy, Terms of Service, and "About the Methodology" sections to establish E-E-A-T.
+## Key Features
+- **Body Metrics Analysis:** Calculates BMI and BMR using user-provided data (gender, age, height, weight).
+- **MBTI-based Fitness Guidance:** Analyzes psychological profiles to recommend suitable workout environments and styles.
+- **Sasang Constitution Diagnosis:** Traditional Oriental medicine approach to categorize users into four types (Taeyangin, Taeeumin, Soyangin, Soeumin) for personalized health advice.
+- **Personalized Workout Plans:** Generates custom workout routines based on fitness level, goals, health status, and even weather/time of day.
+- **Health & Wisdom Magazine:** Provides deep-dive articles on fitness science, nutrition, and psychology.
+- **Multilingual Support:** Seamlessly switches between Korean and English with natural, localized phrasing.
+- **Theme Customization:** Supports light and dark modes.
 
-## AdSense Compliance Strategy (Expert Fixes)
-1.  **Content Enrichment:** Moving beyond a "tool-only" site by adding 3,000+ words of original, high-quality health information.
-2.  **E-E-A-T Establishment:** Adding detailed explanations of the "why" and "how" behind the recommendations, citing traditional and modern health principles.
-3.  **Navigation Clarity:** Ensuring a clear hierarchy that doesn't place ads on "behavioral" or "notification" screens.
-4.  **Legal Transparency:** Providing easily accessible and thorough legal documentation required for AdSense publishers.
+## Implementation Details
+- **Frontend:** Pure HTML5, CSS3 (using modern features like custom properties, flexbox, and grid), and ES Modules.
+- **Localization:** Uses a centralized `translations.js` and `data-i18n` attributes for dynamic content updates.
+- **Web Components:** Custom elements like `<workout-card>` for encapsulated and reusable UI logic.
+- **Icons:** Powered by Lucide icons for a consistent and modern look.
+- **External APIs:** Integrates a free exercise database for high-quality workout content.
 
-## Implementation Steps
-### 1. Content Expansion (The "Expert" Fix)
-- Create a "Health & Wisdom Magazine" section in `index.html`.
-- Add long-form articles: "Understanding Sasang Constitution in Modern Fitness," "The Psychology of MBTI and Exercise," and "The Science of BMR."
-- Ensure these articles are indexable and provide immediate value without user input.
+## Recent Changes & Localization Improvements
+- **Natural Korean Translations:** Removed English in parentheses from Korean text to provide a more immersive and natural experience for Korean users.
+- **Full Localization:** Ensured that all UI elements, including document titles, selection options, and dynamically generated fallback text (like "Full Body"), are correctly translated based on the selected language.
+- **Clean UI:** Removed hardcoded strings from `main.js` and `index.html`, consolidating all text into the translation framework.
+- **Bug Fixes:** Resolved issues where some text remained in the previous language after switching.
 
-### 2. Legal & Trust Infrastructure
-- Replace placeholder legal links with comprehensive Privacy Policy and Terms of Service content.
-- Add an "Expert Methodology" section explaining the integration of Sasang Constitution and MBTI.
-
-### 3. SEO & Professional Polish
-- Update `<title>` and `<meta>` tags for better crawling.
-- Standardize language (Korean/English) for a more professional multi-lingual experience.
-- Refine the UI to ensure no sections appear "under construction" or empty.
-
-## Current Status: Bilingual Support Implemented
-- [x] Expanded the "Exercise Type" (운동의 종류) section with API-driven exercises.
-- [x] Implemented "Home Workout" (홈트 추천) section with filterable categories.
-- [x] Integrated exercise catalog with categorized videos and virtual character guides.
-- [x] Implemented professional Sasang Constitution diagnostic test.
-- [x] Localized entire site to Korean.
-- [x] Implemented Bilingual Support (Korean/English).
-    - [x] Create translation infrastructure in `translations.js`.
-    - [x] Tag `index.html` elements with `data-i18n`.
-    - [x] Add language switcher UI to `main-nav`.
-    - [x] Translate all dynamic content (Analysis, Suggestions, Quizzes).
-- [ ] Implement 3D Virtual Coach using Three.js for procedural exercise animations.
-- [ ] Add animations for Squat, Push-up, Plank, Burpee, and 10+ other requested exercises.
-- [ ] Implement Health Magazine section with 4 expert articles.
-- [x] Created detailed Privacy Policy & Terms of Service sections.
-- [x] Optimized for mobile responsiveness and AdSense E-E-A-T standards.
+## Future Roadmap
+- [ ] Integration with real-time health tracking APIs (e.g., Google Fit, Apple Health).
+- [ ] Advanced 3D exercise visualizations using Three.js.
+- [ ] Social features for community feedback and shared workouts.
+- [ ] Progress tracking and history logging via local storage or cloud sync.
