@@ -32,7 +32,7 @@ function setLanguage(lang) {
 
     // Update document title
     const titleSuffix = lang === 'ko' ? ' | 개인 맞춤형 건강 & 지혜 매거진' : ' | Personalized Health & Wisdom Magazine';
-    document.title = translations[lang]['nav-logo'] + titleSuffix;
+    document.title = (translations[lang]['nav-logo'] || 'AI Workout Coach') + titleSuffix;
 
     const themeBtn = document.getElementById('theme-toggle');
     if (themeBtn) themeBtn.setAttribute('aria-label', translations[lang]['theme-toggle']);
@@ -40,15 +40,6 @@ function setLanguage(lang) {
     const bmiStatus = document.getElementById('bmi-status');
     if (bmiStatus && bmiStatus.getAttribute('data-status-key')) {
         bmiStatus.textContent = translations[lang][bmiStatus.getAttribute('data-status-key')];
-    }
-
-    const metricsDisplay = document.getElementById('metrics-display');
-    if (metricsDisplay && userData.bmi && userData.bmr) {
-        const statusKey = bmiStatus ? bmiStatus.getAttribute('data-status-key') : '';
-        const status = statusKey ? translations[lang][statusKey] : '';
-        let summary = translations[lang]['metrics-summary'] || "BMI: {bmi} ({status}), BMR: {bmr} kcal/day";
-        summary = summary.replace('{bmi}', userData.bmi).replace('{status}', status).replace('{bmr}', Math.round(userData.bmr));
-        metricsDisplay.value = summary;
     }
 
     // Update Result Descriptions
@@ -66,7 +57,7 @@ function setLanguage(lang) {
     updateLanguageSwitcherUI();
     updateMbtiQuiz();
     updateSasangQuiz();
-    renderStretchingRecommendations(); // Refresh stretching translations
+    renderStretchingRecommendations(); 
 }
 
 function updateLanguageSwitcherUI() {
@@ -192,10 +183,8 @@ function getTranslatedData(ex) {
     if (typeof exerciseTranslations === 'undefined') return { name: ex.name, desc: ex.instructions?.[0] || "", primary: "", secondary: "", image: null };
     
     const exNameLower = ex.name.toLowerCase();
-    // Try exact match first
     let translation = exerciseTranslations[exNameLower];
     
-    // If no exact match, try finding a key that is contained in the name
     if (!translation) {
         const key = Object.keys(exerciseTranslations).find(k => exNameLower.includes(k));
         if (key) translation = exerciseTranslations[key];
@@ -314,10 +303,15 @@ function renderStretchingRecommendations() {
     container.style.padding = '10px 0';
 }
 
-// MBTI Quiz Logic
+// MBTI Quiz Logic - Enhanced with 20 questions
 let currentMbtiIndex = 0;
 let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-const mbtiQuestions = [{dimension:"EI",pos:true},{dimension:"EI",pos:false},{dimension:"EI",pos:true},{dimension:"EI",pos:false},{dimension:"SN",pos:true},{dimension:"SN",pos:false},{dimension:"TF",pos:true},{dimension:"TF",pos:false},{dimension:"JP",pos:true},{dimension:"JP",pos:false}];
+const mbtiQuestions = [
+    {dimension:"EI",pos:true}, {dimension:"EI",pos:false}, {dimension:"EI",pos:true}, {dimension:"EI",pos:false}, {dimension:"EI",pos:true},
+    {dimension:"SN",pos:true}, {dimension:"SN",pos:false}, {dimension:"SN",pos:true}, {dimension:"SN",pos:false}, {dimension:"SN",pos:true},
+    {dimension:"TF",pos:true}, {dimension:"TF",pos:false}, {dimension:"TF",pos:true}, {dimension:"TF",pos:false}, {dimension:"TF",pos:true},
+    {dimension:"JP",pos:true}, {dimension:"JP",pos:false}, {dimension:"JP",pos:true}, {dimension:"JP",pos:false}, {dimension:"JP",pos:true}
+];
 
 function updateMbtiQuiz() {
     const container = document.getElementById('mbti-quiz');
@@ -339,8 +333,8 @@ function updateMbtiQuiz() {
                 const q = mbtiQuestions[currentMbtiIndex];
                 const weight = score - 3;
                 const d1 = q.dimension[0], d2 = q.dimension[1];
-                if (q.pos) { if(weight>0) mbtiScores[d1]+=weight; else mbtiScores[d2]+=Math.abs(weight); }
-                else { if(weight>0) mbtiScores[d2]+=weight; else mbtiScores[d1]+=Math.abs(weight); }
+                if (q.pos) { if(weight>0) mbtiScores[d1]+=weight; else if(weight<0) mbtiScores[d2]+=Math.abs(weight); }
+                else { if(weight>0) mbtiScores[d2]+=weight; else if(weight<0) mbtiScores[d1]+=Math.abs(weight); }
                 currentMbtiIndex++; updateMbtiQuiz();
             };
             optCont.appendChild(btn);
@@ -352,10 +346,15 @@ function showMbtiResults() {
     let type = (mbtiScores.E>=mbtiScores.I?"E":"I")+(mbtiScores.S>=mbtiScores.N?"S":"N")+(mbtiScores.T>=mbtiScores.F?"T":"F")+(mbtiScores.J>=mbtiScores.P?"J":"P");
     userData.mbti = type;
     document.getElementById('mbti-type-value').textContent = type;
-    document.getElementById('mbti-display').value = type;
+    const displayEl = document.getElementById('mbti-display');
+    if (displayEl) displayEl.value = type;
     document.getElementById('mbti-quiz').classList.add('hidden');
     document.getElementById('mbti-results').classList.remove('hidden');
-    document.getElementById('mbti-type-desc').textContent = translations[currentLang][`mbti-insight-${type}`];
+    document.getElementById('mbti-type-desc').textContent = translations[currentLang][`mbti-insight-${type}`] || translations[currentLang]['mbti-default-desc'];
+    
+    // Also update recommendation card if present
+    const insightText = document.getElementById('mbti-insight-text');
+    if (insightText) insightText.textContent = translations[currentLang][`mbti-insight-${type}`] || "";
 }
 
 // Sasang Logic
@@ -396,23 +395,43 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     document.getElementById('metrics-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
-        userData.age = parseInt(document.getElementById('age').value);
-        userData.height = parseInt(document.getElementById('height').value);
-        userData.weight = parseInt(document.getElementById('weight').value);
-        userData.gender = document.getElementById('gender').value;
+        const ageVal = document.getElementById('age').value;
+        const heightVal = document.getElementById('height').value;
+        const weightVal = document.getElementById('weight').value;
+        const genderVal = document.getElementById('gender').value;
+
+        if (!ageVal || !heightVal || !weightVal) return;
+
+        userData.age = parseInt(ageVal);
+        userData.height = parseInt(heightVal);
+        userData.weight = parseInt(weightVal);
+        userData.gender = genderVal;
+
         const heightM = userData.height / 100;
         userData.bmi = parseFloat((userData.weight / (heightM * heightM)).toFixed(1));
         userData.bmr = (userData.gender === 'male') ? (10 * userData.weight + 6.25 * userData.height - 5 * userData.age + 5) : (10 * userData.weight + 6.25 * userData.height - 5 * userData.age - 161);
+        
         document.getElementById('bmi-value').textContent = userData.bmi;
         document.getElementById('bmr-value').textContent = Math.round(userData.bmr);
+        
         let statusKey = 'bmi-normal';
         if (userData.bmi < 18.5) statusKey = 'bmi-underweight';
         else if (userData.bmi >= 25 && userData.bmi < 30) statusKey = 'bmi-overweight';
         else if (userData.bmi >= 30) statusKey = 'bmi-obese';
-        document.getElementById('bmi-status').setAttribute('data-status-key', statusKey);
-        document.getElementById('bmi-status').textContent = translations[currentLang][statusKey];
+        
+        const bmiStatusEl = document.getElementById('bmi-status');
+        bmiStatusEl.setAttribute('data-status-key', statusKey);
+        bmiStatusEl.textContent = translations[currentLang][statusKey];
+        
         document.getElementById('metrics-results').classList.remove('hidden');
-        setLanguage(currentLang);
+        
+        // Update summary display in personalization section
+        const metricsDisplay = document.getElementById('metrics-display');
+        if (metricsDisplay) {
+            let summary = translations[currentLang]['metrics-summary'] || "BMI: {bmi} ({status}), BMR: {bmr} kcal/day";
+            summary = summary.replace('{bmi}', userData.bmi).replace('{status}', translations[currentLang][statusKey]).replace('{bmr}', Math.round(userData.bmr));
+            metricsDisplay.value = summary;
+        }
     });
 
     document.getElementById('workout-form')?.addEventListener('submit', (e) => {
@@ -437,10 +456,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const cards = document.querySelectorAll('workout-card');
         let totalSets = 0, actualSets = 0;
         cards.forEach(c => {
-            totalSets += parseInt(c.getAttribute('sets'));
-            actualSets += parseInt(c.shadowRoot.querySelector('.actual-sets').value);
+            totalSets += parseInt(c.getAttribute('sets') || 0);
+            const actualVal = c.shadowRoot.querySelector('.actual-sets')?.value;
+            actualSets += parseInt(actualVal || 0);
         });
-        const rate = Math.round((actualSets / totalSets) * 100);
+        const rate = totalSets > 0 ? Math.round((actualSets / totalSets) * 100) : 0;
         let evalKey = 'analysis-eval-low';
         if (rate >= 100) evalKey = 'analysis-eval-perfect';
         else if (rate >= 80) evalKey = 'analysis-eval-good';
