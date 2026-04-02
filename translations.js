@@ -247,7 +247,13 @@ const translations = {
         'muscle-core': '코어',
         'muscle-abs': '복근',
         'muscle-full-body': '전신',
-        'muscle-cardio': '유산소'
+        'muscle-cardio': '유산소',
+        'analysis-eval-perfect': '완벽한 수행력입니다! 설정한 목표를 100% 달성하셨네요. 현재의 강도가 몸에 익숙해졌다면, 다음 세션에서는 세트 수를 늘리거나 휴식 시간을 10초 줄여 과부하를 주는 것을 추천합니다.',
+        'analysis-eval-good': '훌륭한 성과입니다! 대부분의 루틴을 성공적으로 마치셨습니다. 부족했던 부분은 근지구력의 한계일 수 있으니, 해당 종목의 반복 횟수를 조절하여 점진적으로 체력을 길러보세요.',
+        'analysis-eval-fair': '절반 이상의 운동을 완료하셨습니다. 첫술에 배부를 순 없죠! 오늘 수행하지 못한 세트는 다음 운동 시 첫 번째 순서로 배치하여 집중력을 높여보시길 권장합니다.',
+        'analysis-eval-low': '오늘은 컨디션이 저조하셨나 보네요. 무리한 운동보다는 가벼운 산책이나 스트레칭으로 몸을 회복하는 것도 훈련의 일부입니다. 내일은 오늘보다 나은 컨디션으로 다시 시작해봅시다!',
+        'analysis-tip-intensity': '전문가 조언: 운동 강도는 \'약간 힘들다\'고 느끼는 수준이 성장에 가장 효과적입니다.',
+        'stretching-item-desc': '[효과] {target} 근육의 긴장을 완화하고 가동 범위를 넓힙니다. [방법] 통증이 없는 범위 내에서 20초간 유지하며 깊게 호흡하세요.'
     },
     en: {
         'nav-logo': 'AI Workout Coach',
@@ -497,7 +503,13 @@ const translations = {
         'muscle-core': 'Core',
         'muscle-abs': 'Abs',
         'muscle-full-body': 'Full Body',
-        'muscle-cardio': 'Cardio'
+        'muscle-cardio': 'Cardio',
+        'analysis-eval-perfect': 'Perfect performance! You have achieved 100% of your goals. If the intensity feels comfortable, try increasing sets or decreasing rest time.',
+        'analysis-eval-good': 'Great job! You completed most of the routine. If you missed some reps, it might be a limit of endurance; keep consistent.',
+        'analysis-eval-fair': 'You completed more than half. Focus on the missed sets first in your next session.',
+        'analysis-eval-low': 'Maybe you were tired today. Recovery is part of training. Let\'s try again with better condition tomorrow!',
+        'analysis-tip-intensity': 'Expert Tip: Exercise is most effective when you feel "somewhat hard".',
+        'stretching-item-desc': '[Effect] Relieves {target} muscle tension and improves ROM. [Method] Hold for 20s while breathing deeply.'
     }
 };
 
@@ -719,3 +731,15 @@ const exerciseTranslations = {
         }
     }
 };
+
+const stretchingDatabase = [
+    { name: { ko: '흉근 스트레칭', en: 'Chest Stretch' }, target: 'chest', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400' },
+    { name: { ko: '광배근 스트레칭', en: 'Lat Stretch' }, target: 'back', image: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?auto=format&fit=crop&q=80&w=400' },
+    { name: { ko: '크로스 암 어깨 스트레칭', en: 'Cross Arm Shoulder Stretch' }, target: 'shoulders', image: 'https://images.unsplash.com/photo-1510894347713-fc3ad6cb0322?auto=format&fit=crop&q=80&w=400' },
+    { name: { ko: '삼두근 스트레칭', en: 'Triceps Stretch' }, target: 'arms', image: 'https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?auto=format&fit=crop&q=80&w=400' },
+    { name: { ko: '쿼드(허벅지 앞) 스트레칭', en: 'Quad Stretch' }, target: 'legs', image: 'https://images.unsplash.com/photo-1552196564-97c84883b22e?auto=format&fit=crop&q=80&w=400' },
+    { name: { ko: '햄스트링 스트레칭', en: 'Hamstring Stretch' }, target: 'legs', image: 'https://images.unsplash.com/photo-1591343395082-e120087004b4?auto=format&fit=crop&q=80&w=400' },
+    { name: { ko: '이상근(엉덩이) 스트레칭', en: 'Glute Stretch' }, target: 'legs', image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=400' },
+    { name: { ko: '고양이 자세 (척추)', en: 'Cat-Cow' }, target: 'core', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400' },
+    { name: { ko: '코브라 자세 (복근)', en: 'Cobra Stretch' }, target: 'abs', image: 'https://images.unsplash.com/photo-1510894347713-fc3ad6cb0322?auto=format&fit=crop&q=80&w=400' }
+];

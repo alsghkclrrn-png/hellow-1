@@ -24,9 +24,6 @@ function setLanguage(lang) {
         if (translations[lang] && translations[lang][key]) {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = translations[lang][key];
-            } else if (el.tagName === 'SELECT') {
-                // For select, we usually translate the options inside, but data-i18n on select itself is rare.
-                // If it exists, we might ignore or handle specifically.
             } else {
                 el.textContent = translations[lang][key];
             }
@@ -54,43 +51,32 @@ function setLanguage(lang) {
         metricsDisplay.value = summary;
     }
 
-    // Update Result Descriptions if results are visible
+    // Update Result Descriptions
     if (userData.sasang) {
         const sasangDesc = document.getElementById('sasang-type-desc');
-        if (sasangDesc) {
-            sasangDesc.textContent = translations[lang][`sasang-insight-${userData.sasang}`] || translations[lang]['sasang-type-desc-default'];
-        }
+        if (sasangDesc) sasangDesc.textContent = translations[lang][`sasang-insight-${userData.sasang}`] || translations[lang]['sasang-type-desc-default'];
     }
     if (userData.mbti) {
         const mbtiDesc = document.getElementById('mbti-type-desc');
-        if (mbtiDesc) {
-            mbtiDesc.textContent = translations[lang][`mbti-insight-${userData.mbti}`] || translations[lang]['mbti-default-desc'];
-        }
+        if (mbtiDesc) mbtiDesc.textContent = translations[lang][`mbti-insight-${userData.mbti}`] || translations[lang]['mbti-default-desc'];
     }
 
-    // Re-render components if needed
-    document.querySelectorAll('workout-card').forEach(card => {
-        if (card.render) card.render();
-    });
-
+    // Re-render components
+    document.querySelectorAll('workout-card').forEach(card => card.render?.());
     updateLanguageSwitcherUI();
     updateMbtiQuiz();
     updateSasangQuiz();
+    renderStretchingRecommendations(); // Refresh stretching translations
 }
 
 function updateLanguageSwitcherUI() {
     const btn = document.getElementById('lang-toggle');
-    if (btn) {
-        btn.textContent = currentLang === 'ko' ? 'EN' : 'KO';
-    }
+    if (btn) btn.textContent = currentLang === 'ko' ? 'EN' : 'KO';
 }
 
 // Web Components
 class WorkoutCard extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
+    constructor() { super(); this.attachShadow({ mode: 'open' }); }
     connectedCallback() { this.render(); }
     render() {
         if (typeof translations === 'undefined') return;
@@ -117,14 +103,14 @@ class WorkoutCard extends HTMLElement {
                 .label { font-size: 0.7em; text-transform: uppercase; color: var(--secondary-color); font-weight: 700; }
                 .value { font-weight: 600; font-size: 0.9em; }
                 .badge { position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.7em; font-weight: bold; z-index: 2; }
-                .target-badge { position: absolute; top: 10px; right: 10px; background: var(--accent-color, #ff4757); color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.7em; font-weight: bold; z-index: 2; }
+                .target-badge { position: absolute; top: 10px; right: 10px; background: #ff4757; color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.7em; font-weight: bold; z-index: 2; }
                 .performance-tracking { margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color); }
                 .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
                 input { padding: 8px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); width: 100%; box-sizing: border-box; font-size: 0.85em; }
             </style>
             <div class="badge">${translations[lang]['workout-card-badge']}</div>
             <div class="target-badge">${target}</div>
-            <div class="image-container"><img src="${image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'"></div>
+            <div class="image-container"><img src="${image}" alt="${name}"></div>
             <div class="content">
                 <h3>${name}</h3>
                 <div class="description"><strong>💡 ${translations[lang]['workout-card-guide']}:</strong><br>${desc}</div>
@@ -169,7 +155,7 @@ async function fetchExerciseData() {
     try {
         const response = await fetch(EXERCISE_API_URL);
         if (response.ok) { exerciseDatabase = await response.json(); return exerciseDatabase; }
-    } catch (error) { console.error('Error fetching exercise data:', error); }
+    } catch (error) { console.error('Error:', error); }
     return [];
 }
 
@@ -180,11 +166,13 @@ function getTranslatedData(ex) {
         const translation = exerciseTranslations[key];
         return { 
             name: translation[currentLang], 
-            desc: translation.desc?.[currentLang] || translation.desc || (ex.instructions?.[0] || "Follow the guide for this movement.")
+            desc: translation.desc?.[currentLang] || translation.desc || (ex.instructions?.[0] || "Follow the guide.")
         };
     }
-    return { name: ex.name, desc: ex.instructions?.[0] || "Follow the guide for this movement." };
+    return { name: ex.name, desc: ex.instructions?.[0] || "Follow the guide." };
 }
+
+let lastGeneratedTargets = [];
 
 function getExercisesByContext(options) {
     const { fitnessLevel } = options;
@@ -212,15 +200,16 @@ function getExercisesByContext(options) {
 
     if (sessionPool.length < 5) sessionPool.push(...exerciseDatabase.sort(() => 0.5 - Math.random()).slice(0, 5 - sessionPool.length));
 
+    lastGeneratedTargets = sessionPool.map(ex => ex.primaryMuscles?.[0] || 'full-body');
+
     return sessionPool.map(ex => {
         const info = getTranslatedData(ex);
         const imgPath = (ex.images && ex.images.length > 0) ? `${IMG_BASE_URL}${ex.images[0]}` : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
-        const metMap = { 'strength': 6.0, 'cardio': 8.0, 'stretching': 2.5, 'plyometrics': 8.0, 'abs': 4.0 };
+        const metMap = { 'strength': 6.0, 'cardio': 8.0, 'plyometrics': 8.0, 'abs': 4.0 };
         const burned = Math.round(((metMap[ex.category] || 5.0) * 3.5 * (userData.weight || 70) / 200) * 15);
         
         const rawTarget = ex.primaryMuscles?.[0] || 'full-body';
-        const targetTranslationKey = `muscle-${rawTarget.toLowerCase()}`;
-        const translatedTarget = translations[currentLang][targetTranslationKey] || rawTarget;
+        const translatedTarget = translations[currentLang][`muscle-${rawTarget.toLowerCase()}`] || rawTarget;
 
         return {
             name: info.name,
@@ -235,206 +224,192 @@ function getExercisesByContext(options) {
     });
 }
 
+function renderStretchingRecommendations() {
+    const container = document.getElementById('stretching-container');
+    if (!container) return;
+    
+    if (lastGeneratedTargets.length === 0) {
+        container.innerHTML = `<p class="empty-msg" data-i18n="stretching-empty">${translations[currentLang]['stretching-empty']}</p>`;
+        return;
+    }
+
+    const uniqueTargets = [...new Set(lastGeneratedTargets)];
+    let selectedStretches = [];
+    
+    uniqueTargets.forEach(target => {
+        const matches = stretchingDatabase.filter(s => s.target === target);
+        selectedStretches.push(...matches);
+    });
+
+    if (selectedStretches.length < 5) {
+        const extras = stretchingDatabase.filter(s => !selectedStretches.includes(s)).sort(() => 0.5 - Math.random());
+        selectedStretches.push(...extras.slice(0, 5 - selectedStretches.length));
+    }
+
+    container.innerHTML = selectedStretches.slice(0, 6).map(s => `
+        <div class="stretching-card" style="min-width: 250px; background: var(--card-background); border-radius: 15px; overflow: hidden; border: 1px solid var(--border-color); flex-shrink: 0;">
+            <img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover;">
+            <div style="padding: 15px;">
+                <h4 style="color: var(--primary-color); margin: 0 0 10px 0;">${s.name[currentLang]}</h4>
+                <p style="font-size: 0.8em; color: var(--secondary-color); line-height: 1.4;">
+                    ${translations[currentLang]['stretching-item-desc'].replace('{target}', translations[currentLang][`muscle-${s.target}`] || s.target)}
+                </p>
+            </div>
+        </div>
+    `).join('');
+    container.style.display = 'flex';
+    container.style.gap = '15px';
+    container.style.overflowX = 'auto';
+    container.style.padding = '10px 0';
+}
+
 // MBTI Quiz Logic
-const mbtiQuestions = [
-    { dimension: "EI", positive: true },
-    { dimension: "EI", positive: false },
-    { dimension: "EI", positive: true },
-    { dimension: "EI", positive: false },
-    { dimension: "SN", positive: true },
-    { dimension: "SN", positive: false },
-    { dimension: "TF", positive: true },
-    { dimension: "TF", positive: false },
-    { dimension: "JP", positive: true },
-    { dimension: "JP", positive: false }
-];
 let currentMbtiIndex = 0;
 let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+const mbtiQuestions = [{dimension:"EI",pos:true},{dimension:"EI",pos:false},{dimension:"EI",pos:true},{dimension:"EI",pos:false},{dimension:"SN",pos:true},{dimension:"SN",pos:false},{dimension:"TF",pos:true},{dimension:"TF",pos:false},{dimension:"JP",pos:true},{dimension:"JP",pos:false}];
 
 function updateMbtiQuiz() {
     const container = document.getElementById('mbti-quiz');
     if (!container || container.classList.contains('hidden')) return;
-    
-    // Update progress
     const progressText = document.getElementById('mbti-progress-text');
     const progressBar = document.getElementById('mbti-progress-bar');
-    if (progressText) {
-        const stepText = translations[currentLang]['mbti-step'] || "Step";
-        const suffixText = translations[currentLang]['mbti-step-suffix'] || "of";
-        progressText.textContent = `${stepText} ${currentMbtiIndex + 1} ${suffixText} ${mbtiQuestions.length}`;
-    }
-    if (progressBar) progressBar.style.width = `${((currentMbtiIndex + 1) / mbtiQuestions.length) * 100}%`;
-
+    if (progressText) progressText.textContent = `${translations[currentLang]['mbti-step']} ${currentMbtiIndex+1} ${translations[currentLang]['mbti-step-suffix']} ${mbtiQuestions.length}`;
+    if (progressBar) progressBar.style.width = `${((currentMbtiIndex+1)/mbtiQuestions.length)*100}%`;
+    
     if (currentMbtiIndex < mbtiQuestions.length) {
-        const q = mbtiQuestions[currentMbtiIndex];
-        const qKey = `mbti-q${currentMbtiIndex + 1}`;
-        document.getElementById('mbti-question-text').textContent = translations[currentLang][qKey] || "Question";
-        const optionsContainer = document.querySelector('#mbti-quiz .mbti-options');
-        if (optionsContainer) {
-            optionsContainer.innerHTML = '';
-            [1, 2, 3, 4, 5].forEach(score => {
-                const btn = document.createElement('button');
-                btn.className = 'mbti-opt';
-                btn.textContent = translations[currentLang][`mbti-opt-${score}`] || score;
-                btn.onclick = () => {
-                    const weight = score - 3;
-                    const dim1 = q.dimension[0]; const dim2 = q.dimension[1];
-                    if (q.positive) { if (weight > 0) mbtiScores[dim1] += weight; else mbtiScores[dim2] += Math.abs(weight); }
-                    else { if (weight > 0) mbtiScores[dim2] += weight; else mbtiScores[dim1] += Math.abs(weight); }
-                    currentMbtiIndex++; updateMbtiQuiz();
-                };
-                optionsContainer.appendChild(btn);
-            });
-        }
-    } else { showMbtiResults(); }
+        document.getElementById('mbti-question-text').textContent = translations[currentLang][`mbti-q${currentMbtiIndex+1}`];
+        const optCont = document.querySelector('#mbti-quiz .mbti-options');
+        optCont.innerHTML = '';
+        [1,2,3,4,5].forEach(score => {
+            const btn = document.createElement('button');
+            btn.className = 'mbti-opt';
+            btn.textContent = translations[currentLang][`mbti-opt-${score}`];
+            btn.onclick = () => {
+                const q = mbtiQuestions[currentMbtiIndex];
+                const weight = score - 3;
+                const d1 = q.dimension[0], d2 = q.dimension[1];
+                if (q.pos) { if(weight>0) mbtiScores[d1]+=weight; else mbtiScores[d2]+=Math.abs(weight); }
+                else { if(weight>0) mbtiScores[d2]+=weight; else mbtiScores[d1]+=Math.abs(weight); }
+                currentMbtiIndex++; updateMbtiQuiz();
+            };
+            optCont.appendChild(btn);
+        });
+    } else showMbtiResults();
 }
 
 function showMbtiResults() {
-    let type = "";
-    type += mbtiScores.E >= mbtiScores.I ? "E" : "I";
-    type += mbtiScores.S >= mbtiScores.N ? "S" : "N";
-    type += mbtiScores.T >= mbtiScores.F ? "T" : "F";
-    type += mbtiScores.J >= mbtiScores.P ? "J" : "P";
+    let type = (mbtiScores.E>=mbtiScores.I?"E":"I")+(mbtiScores.S>=mbtiScores.N?"S":"N")+(mbtiScores.T>=mbtiScores.F?"T":"F")+(mbtiScores.J>=mbtiScores.P?"J":"P");
     userData.mbti = type;
     document.getElementById('mbti-type-value').textContent = type;
     document.getElementById('mbti-display').value = type;
     document.getElementById('mbti-quiz').classList.add('hidden');
     document.getElementById('mbti-results').classList.remove('hidden');
-    
-    // Update description immediately
-    const mbtiDesc = document.getElementById('mbti-type-desc');
-    if (mbtiDesc) mbtiDesc.textContent = translations[currentLang][`mbti-insight-${type}`] || translations[currentLang]['mbti-default-desc'];
+    document.getElementById('mbti-type-desc').textContent = translations[currentLang][`mbti-insight-${type}`];
 }
 
 // Sasang Logic
-const sasangQuestions = [
-    { options: ["TY", "TE", "SY", "SE"] },
-    { options: ["TY", "TE", "SY", "SE"] }
-];
 let currentSasangIndex = 0;
 let sasangScores = { TY: 0, TE: 0, SY: 0, SE: 0 };
-
 function updateSasangQuiz() {
     const container = document.getElementById('sasang-quiz');
     if (!container || container.classList.contains('hidden')) return;
-    
-    // Update progress
     const progressText = document.getElementById('sasang-progress-text');
-    const progressBar = document.getElementById('sasang-progress-bar');
-    if (progressText) {
-        const stepText = translations[currentLang]['mbti-step'] || "Step";
-        const suffixText = translations[currentLang]['mbti-step-suffix'] || "of";
-        progressText.textContent = `${stepText} ${currentSasangIndex + 1} ${suffixText} ${sasangQuestions.length}`;
-    }
-    if (progressBar) progressBar.style.width = `${((currentSasangIndex + 1) / sasangQuestions.length) * 100}%`;
-
-    if (currentSasangIndex < sasangQuestions.length) {
-        const q = sasangQuestions[currentSasangIndex];
-        const qKey = `sasang-q${currentSasangIndex + 1}`;
-        document.getElementById('sasang-question-text').textContent = translations[currentLang][qKey] || "Question";
-        const optContainer = document.getElementById('sasang-options');
-        if (optContainer) {
-            optContainer.innerHTML = '';
-            q.options.forEach((type, idx) => {
-                const btn = document.createElement('button');
-                btn.className = 'mbti-opt';
-                const optKey = `sasang-q${currentSasangIndex + 1}-opt${idx + 1}`;
-                btn.textContent = translations[currentLang][optKey] || "Option";
-                btn.onclick = () => { sasangScores[type]++; currentSasangIndex++; updateSasangQuiz(); };
-                optContainer.appendChild(btn);
-            });
-        }
-    } else { showSasangResults(); }
+    if (progressText) progressText.textContent = `${translations[currentLang]['mbti-step']} ${currentSasangIndex+1} ${translations[currentLang]['mbti-step-suffix']} 2`;
+    if (currentSasangIndex < 2) {
+        document.getElementById('sasang-question-text').textContent = translations[currentLang][`sasang-q${currentSasangIndex+1}`];
+        const optCont = document.getElementById('sasang-options');
+        optCont.innerHTML = '';
+        ["TY","TE","SY","SE"].forEach((type, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'mbti-opt';
+            btn.textContent = translations[currentLang][`sasang-q${currentSasangIndex+1}-opt${idx+1}`];
+            btn.onclick = () => { sasangScores[type]++; currentSasangIndex++; updateSasangQuiz(); };
+            optCont.appendChild(btn);
+        });
+    } else showSasangResults();
 }
 
 function showSasangResults() {
-    let type = Object.keys(sasangScores).reduce((a, b) => sasangScores[a] > sasangScores[b] ? a : b);
+    let type = Object.keys(sasangScores).reduce((a,b)=>sasangScores[a]>sasangScores[b]?a:b);
     userData.sasang = type;
-    const typeName = translations[currentLang][`sasang-type-${type}`] || type;
-    document.getElementById('sasang-type-value').textContent = typeName;
+    document.getElementById('sasang-type-value').textContent = translations[currentLang][`sasang-type-${type}`];
     document.getElementById('sasang-quiz').classList.add('hidden');
     document.getElementById('sasang-results').classList.remove('hidden');
-    
-    // Update description immediately
-    const sasangDesc = document.getElementById('sasang-type-desc');
-    if (sasangDesc) {
-        sasangDesc.textContent = translations[currentLang][`sasang-insight-${type}`] || translations[currentLang]['sasang-type-desc-default'];
-    }
+    document.getElementById('sasang-type-desc').textContent = translations[currentLang][`sasang-insight-${type}`];
 }
 
 // Initialization
 document.addEventListener('DOMContentLoaded', async () => {
-    // UI Elements Initialization
-    const metricsForm = document.getElementById('metrics-form');
-    const workoutForm = document.getElementById('workout-form');
-    const themeToggle = document.getElementById('theme-toggle');
-
-    // Language Initial Setup
     setLanguage(currentLang);
-
-    // Fetch Initial Data
     await fetchExerciseData();
 
-    // Event Listeners
-    metricsForm?.addEventListener('submit', (e) => {
+    document.getElementById('metrics-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
-        userData.gender = document.getElementById('gender').value;
         userData.age = parseInt(document.getElementById('age').value);
         userData.height = parseInt(document.getElementById('height').value);
         userData.weight = parseInt(document.getElementById('weight').value);
+        userData.gender = document.getElementById('gender').value;
         const heightM = userData.height / 100;
         userData.bmi = parseFloat((userData.weight / (heightM * heightM)).toFixed(1));
         userData.bmr = (userData.gender === 'male') ? (10 * userData.weight + 6.25 * userData.height - 5 * userData.age + 5) : (10 * userData.weight + 6.25 * userData.height - 5 * userData.age - 161);
-        
         document.getElementById('bmi-value').textContent = userData.bmi;
         document.getElementById('bmr-value').textContent = Math.round(userData.bmr);
-        
         let statusKey = 'bmi-normal';
         if (userData.bmi < 18.5) statusKey = 'bmi-underweight';
         else if (userData.bmi >= 25 && userData.bmi < 30) statusKey = 'bmi-overweight';
         else if (userData.bmi >= 30) statusKey = 'bmi-obese';
-        
-        const bmiStatus = document.getElementById('bmi-status');
-        if (bmiStatus) {
-            bmiStatus.setAttribute('data-status-key', statusKey);
-            bmiStatus.textContent = translations[currentLang][statusKey];
-        }
-
+        document.getElementById('bmi-status').setAttribute('data-status-key', statusKey);
+        document.getElementById('bmi-status').textContent = translations[currentLang][statusKey];
         document.getElementById('metrics-results').classList.remove('hidden');
         setLanguage(currentLang);
     });
 
-    workoutForm?.addEventListener('submit', (e) => {
+    document.getElementById('workout-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
         const workoutContainer = document.getElementById('workout-container');
         workoutContainer.innerHTML = `<p class="loading">${translations[currentLang]['workout-loading']}</p>`;
         setTimeout(() => {
             workoutContainer.innerHTML = '';
             const exercises = getExercisesByContext({ fitnessLevel: document.getElementById('fitness-level').value });
-            if (exercises.length === 0) { workoutContainer.innerHTML = `<p>${translations[currentLang]['workout-fetch-error']}</p>`; return; }
             exercises.forEach(ex => {
                 const card = document.createElement('workout-card');
-                card.setAttribute('name', ex.name);
-                card.setAttribute('sets', ex.sets);
-                card.setAttribute('reps', ex.reps);
-                card.setAttribute('rest', ex.rest);
-                card.setAttribute('desc', ex.desc);
-                card.setAttribute('image', ex.image);
-                card.setAttribute('calories', ex.calories);
-                card.setAttribute('target', ex.target);
+                Object.entries(ex).forEach(([k, v]) => card.setAttribute(k, v));
                 workoutContainer.appendChild(card);
             });
             document.getElementById('workout-analysis-section').classList.remove('hidden');
-            if (window.lucide) lucide.createIcons();
+            renderStretchingRecommendations();
             workoutContainer.scrollIntoView({ behavior: 'smooth' });
         }, 1000);
     });
 
-    themeToggle?.addEventListener('click', () => {
+    document.getElementById('analyze-workout-btn')?.addEventListener('click', () => {
+        const cards = document.querySelectorAll('workout-card');
+        let totalSets = 0, actualSets = 0;
+        cards.forEach(c => {
+            totalSets += parseInt(c.getAttribute('sets'));
+            actualSets += parseInt(c.shadowRoot.querySelector('.actual-sets').value);
+        });
+        const rate = Math.round((actualSets / totalSets) * 100);
+        let evalKey = 'analysis-eval-low';
+        if (rate >= 100) evalKey = 'analysis-eval-perfect';
+        else if (rate >= 80) evalKey = 'analysis-eval-good';
+        else if (rate >= 50) evalKey = 'analysis-eval-fair';
+        
+        document.getElementById('analysis-results').classList.remove('hidden');
+        document.getElementById('analysis-content').innerHTML = `
+            <div style="padding: 15px; border-left: 4px solid var(--primary-color); background: rgba(var(--primary-rgb), 0.1);">
+                <h4 style="margin-top:0;">${translations[currentLang]['analysis-completion-rate']}: ${rate}%</h4>
+                <p style="font-size: 0.9em; line-height: 1.6;">${translations[currentLang][evalKey]}</p>
+                <p style="font-size: 0.85em; font-style: italic; color: var(--secondary-color); margin-top: 10px;">${translations[currentLang]['analysis-tip-intensity']}</p>
+            </div>
+        `;
+        document.getElementById('analysis-results').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.getElementById('theme-toggle')?.addEventListener('click', () => {
         const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
-        if (window.lucide) lucide.createIcons();
     });
 
     document.getElementById('retake-mbti')?.addEventListener('click', () => {
@@ -450,28 +425,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('sasang-results').classList.add('hidden');
         updateSasangQuiz();
     });
-
-    document.getElementById('analyze-workout-btn')?.addEventListener('click', () => {
-        const cards = document.querySelectorAll('workout-card');
-        let totalSets = 0; let actualSets = 0;
-        cards.forEach(c => {
-            totalSets += parseInt(c.getAttribute('sets'));
-            actualSets += parseInt(c.shadowRoot.querySelector('.actual-sets').value);
-        });
-        const rate = Math.round((actualSets/totalSets)*100);
-        document.getElementById('analysis-results').classList.remove('hidden');
-        document.getElementById('analysis-content').innerHTML = `<h4>${translations[currentLang]['analysis-completion-rate']}: ${rate}%</h4><p>${translations[currentLang]['analysis-motivation']}</p>`;
-        document.getElementById('analysis-results').scrollIntoView({ behavior: 'smooth' });
-    });
-
-    if (window.lucide) lucide.createIcons();
 });
 
 window.setLanguage = setLanguage;
 function showLegal(t) {
     document.getElementById('privacy-policy').classList.add('hidden');
     document.getElementById('terms-of-service').classList.add('hidden');
-    if(t==='privacy') { document.getElementById('privacy-policy').classList.remove('hidden'); document.getElementById('privacy-policy').scrollIntoView({behavior:'smooth'}); }
-    else { document.getElementById('terms-of-service').classList.remove('hidden'); document.getElementById('terms-of-service').scrollIntoView({behavior:'smooth'}); }
+    document.getElementById(t === 'privacy' ? 'privacy-policy' : 'terms-of-service').classList.remove('hidden');
+    document.getElementById(t === 'privacy' ? 'privacy-policy' : 'terms-of-service').scrollIntoView({ behavior: 'smooth' });
 }
 window.showLegal = showLegal;
