@@ -338,13 +338,16 @@ function updateSasangQuiz() {
 function showSasangResults() {
     let type = Object.keys(sasangScores).reduce((a, b) => sasangScores[a] > sasangScores[b] ? a : b);
     userData.sasang = type;
-    document.getElementById('sasang-type-value').textContent = type;
+    const typeName = translations[currentLang][`sasang-type-${type}`] || type;
+    document.getElementById('sasang-type-value').textContent = typeName;
     document.getElementById('sasang-quiz').classList.add('hidden');
     document.getElementById('sasang-results').classList.remove('hidden');
     
     // Update description immediately
     const sasangDesc = document.getElementById('sasang-type-desc');
-    if (sasangDesc) sasangDesc.textContent = translations[currentLang][`sasang-insight-${type}`] || translations[currentLang]['sasang-type-desc-default'];
+    if (sasangDesc) {
+        sasangDesc.textContent = translations[currentLang][`sasang-insight-${type}`] || translations[currentLang]['sasang-type-desc-default'];
+    }
 }
 
 // Initialization

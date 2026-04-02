@@ -156,7 +156,7 @@ const translations = {
         'mag-art1-p2': '소음인은 신진대사가 느려 쉽게 지칠 수 있으므로 저강도에서 중강도의 유산소 운동과 유연성 훈련이 권장됩니다. 반면 태양인은 폐 기능이 강해 에너지가 넘치지만 간 기능이 약하므로 무리한 육류 섭취보다는 담백한 식단과 함께 상체보다는 하체 위주의 안정감 있는 운동을 병행해야 합니다. AI 운동 코치는 이러한 고전적 지혜를 알고리즘으로 승화시켜 당신만의 맞춤형 로드맵을 제공합니다.',
         'mag-art2-badge': '심리학',
         'mag-art2-title': 'MBTI와 운동 심리학: 작심삼일을 끝내는 방법',
-        'mag-art2-p1': '운동을 시작하는 것은 쉽지만 지속하는 것은 어렵습니다. 그 이유는 자신의 성격 유형과 맞지 않는 운동 방식을 선택했기 때문일 가능성이 큽니다. 외향형(E)은 타인과의 상호작용에서 에너지를 얻으므로 크로스핏, 동호회 러닝, 구기 종목에서 즐거움을 느킵니다. 반면 내향형(I)은 자신만의 공간에서 깊이 있게 집중할 때 에너지가 충전되므로 요가, 필라테스, 개인 홈 트레이닝이 더 적합할 수 있습니다.',
+        'mag-art2-p1': '운동을 시작하는 것은 쉽지만 지속하는 것은 어렵습니다. 그 이유는 자신의 성격 유형과 맞지 않는 운동 방식을 선택했기 때문일 가능성이 큽니다. 외향형(E)은 타인과의 상호작용에서 에너지를 얻으므로 크로스핏, 동호회 러닝, 구기 종목에서 즐거움을 느낍니다. 반면 내향형(I)은 자신만의 공간에서 깊이 있게 집중할 때 에너지가 충전되므로 요가, 필라테스, 개인 홈 트레이닝이 더 적합할 수 있습니다.',
         'mag-art2-p2': '인식형(P)은 즉흥적이고 변화를 선호하므로 매일 다른 운동 루틴을 즐기는 것이 좋고, 판단형(J)은 체계적인 계획과 기록에서 성취감을 느끼므로 정해진 스케줄을 따르는 것이 중요합니다. AI 운동 코치의 MBTI 연동 시스템은 단순한 흥미 위주가 아닌, 당신의 심리적 기저를 분석하여 심리적 저항 없이 매일 즐겁게 실천할 수 있는 운동 습관을 설계해 드립니다.',
         'mag-art3-badge': '과학',
         'mag-art3-title': '기초대사량(BMR)의 과학: 당신의 엔진을 이해하라',
@@ -230,7 +230,15 @@ const translations = {
         'noscript-disqus': 'Disqus 댓글을 보려면 자바스크립트를 활성화해주세요.',
         'footer-link-mbti': '성격 유형 분석',
         'footer-link-lifestyle': '건강 가이드',
-        'metrics-summary': 'BMI: {bmi} ({status}), BMR: {bmr} kcal/일'
+        'metrics-summary': 'BMI: {bmi} ({status}), BMR: {bmr} kcal/일',
+        'sasang-type-TY': '태양인 (Taeyangin)',
+        'sasang-type-TE': '태음인 (Taeeumin)',
+        'sasang-type-SY': '소양인 (Soyangin)',
+        'sasang-type-SE': '소음인 (Soeumin)',
+        'sasang-insight-TY': '태양인은 폐 기능이 강하고 간 기능이 약합니다. 하체가 약해지기 쉬우므로 하체 근력 운동이 중요합니다.',
+        'sasang-insight-TE': '태음인은 간 기능이 강하고 폐 기능이 약합니다. 비만이 되기 쉬우므로 땀을 흘리는 유산소 운동이 필수적입니다.',
+        'sasang-insight-SY': '소양인은 소화 기능이 좋고 신장 기능이 약합니다. 상체가 발달한 반면 하체가 부실하므로 하체 강화에 집중하세요.',
+        'sasang-insight-SE': '소음인은 신장 기능이 강하고 소화 기능이 약합니다. 체력이 약해지기 쉬우므로 저강도의 꾸준한 운동이 좋습니다.'
     },
     en: {
         'nav-logo': 'AI Workout Coach',
@@ -463,6 +471,152 @@ const translations = {
         'noscript-disqus': 'Please enable JavaScript to view the Disqus comments.',
         'footer-link-mbti': 'Personality Analysis',
         'footer-link-lifestyle': 'Health Guide',
-        'metrics-summary': 'BMI: {bmi} ({status}), BMR: {bmr} kcal/day'
+        'metrics-summary': 'BMI: {bmi} ({status}), BMR: {bmr} kcal/day',
+        'sasang-type-TY': 'Taeyangin',
+        'sasang-type-TE': 'Taeeumin',
+        'sasang-type-SY': 'Soyangin',
+        'sasang-type-SE': 'Soeumin',
+        'sasang-insight-TY': 'Taeyangin have strong lung function but weak liver function. Lower body strengthening is key.',
+        'sasang-insight-TE': 'Taeeumin have strong liver function but weak lung function. High-intensity aerobic exercise is essential.',
+        'sasang-insight-SY': 'Soyangin have good digestion but weak kidney function. Focus on lower body exercises like squats.',
+        'sasang-insight-SE': 'Soeumin have strong kidney function but weak digestion. Low-to-moderate intensity exercise is recommended.'
+    }
+};
+
+const exerciseTranslations = {
+    'push-up': {
+        ko: '푸시업 (팔굽혀펴기)',
+        en: 'Push-up',
+        desc: '가슴과 팔 근육을 강화하는 기본 맨몸 운동입니다. 허리를 곧게 펴고 수행하세요.'
+    },
+    'push up': {
+        ko: '푸시업 (팔굽혀펴기)',
+        en: 'Push-up',
+        desc: '가슴과 팔 근육을 강화하는 기본 맨몸 운동입니다. 허리를 곧게 펴고 수행하세요.'
+    },
+    'squat': {
+        ko: '스쿼트',
+        en: 'Squat',
+        desc: '하체 근력을 강화하는 핵심 운동입니다. 무릎이 발가락보다 앞으로 나가지 않게 주의하세요.'
+    },
+    'plank': {
+        ko: '플랭크',
+        en: 'Plank',
+        desc: '코어 근육을 강화하는 정적 운동입니다. 몸이 일직선이 되도록 유지하세요.'
+    },
+    'lunges': {
+        ko: '런지',
+        en: 'Lunges',
+        desc: '허벅지와 엉덩이 근육을 발달시키는 운동입니다. 보폭을 적절히 조절하세요.'
+    },
+    'lunge': {
+        ko: '런지',
+        en: 'Lunge',
+        desc: '허벅지와 엉덩이 근육을 발달시키는 운동입니다. 보폭을 적절히 조절하세요.'
+    },
+    'burpee': {
+        ko: '버피 테스트',
+        en: 'Burpee',
+        desc: '전신 근력과 유산소 능력을 동시에 향상시키는 고강도 운동입니다.'
+    },
+    'crunch': {
+        ko: '크런치',
+        en: 'Crunch',
+        desc: '복부 상부 근육을 집중적으로 강화하는 운동입니다.'
+    },
+    'deadlift': {
+        ko: '데드리프트',
+        en: 'Deadlift',
+        desc: '전신 근력, 특히 뒷면 사슬 근육을 강화하는 운동입니다.'
+    },
+    'bench press': {
+        ko: '벤치 프레스',
+        en: 'Bench Press',
+        desc: '가슴 근력을 키우는 대표적인 웨이트 트레이닝입니다.'
+    },
+    'pull-up': {
+        ko: '풀업 (턱걸이)',
+        en: 'Pull-up',
+        desc: '등 근육과 팔 근육을 강화하는 상체 운동입니다.'
+    },
+    'pull up': {
+        ko: '풀업 (턱걸이)',
+        en: 'Pull-up',
+        desc: '등 근육과 팔 근육을 강화하는 상체 운동입니다.'
+    },
+    'dumbell': {
+        ko: '덤벨 운동',
+        en: 'Dumbbell Exercise',
+        desc: '덤벨을 사용하여 해당 부위의 근력을 강화합니다.'
+    },
+    'dumbbell': {
+        ko: '덤벨 운동',
+        en: 'Dumbbell Exercise',
+        desc: '덤벨을 사용하여 해당 부위의 근력을 강화합니다.'
+    },
+    'running': {
+        ko: '러닝 (달리기)',
+        en: 'Running',
+        desc: '심폐 지구력을 향상시키고 체지방을 연소하는 유산소 운동입니다.'
+    },
+    'bicep': {
+        ko: '이두근 운동',
+        en: 'Bicep Exercise',
+        desc: '팔 앞쪽 근육인 이두근을 강화하는 운동입니다.'
+    },
+    'tricep': {
+        ko: '삼두근 운동',
+        en: 'Tricep Exercise',
+        desc: '팔 뒤쪽 근육인 삼두근을 강화하는 운동입니다.'
+    },
+    'shoulder': {
+        ko: '어깨 운동',
+        en: 'Shoulder Exercise',
+        desc: '어깨 근육(삼각근)을 발달시켜 넓고 튼튼한 어깨를 만듭니다.'
+    },
+    'press': {
+        ko: '프레스 운동',
+        en: 'Press Exercise',
+        desc: '무게를 밀어올려 해당 근육을 강화하는 운동입니다.'
+    },
+    'row': {
+        ko: '로우 운동',
+        en: 'Row Exercise',
+        desc: '무게를 몸 쪽으로 당겨 등 근육을 강화하는 운동입니다.'
+    },
+    'dip': {
+        ko: '딥스',
+        en: 'Dips',
+        desc: '가슴 하부와 삼두근을 강화하는 상체 운동입니다.'
+    },
+    'calf': {
+        ko: '종아리 운동',
+        en: 'Calf Exercise',
+        desc: '종아리 근육을 강화하고 발목의 안정성을 높입니다.'
+    },
+    'leg': {
+        ko: '하체 운동',
+        en: 'Leg Exercise',
+        desc: '허벅지와 엉덩이 등 하체 전반을 강화하는 운동입니다.'
+    },
+    'back': {
+        ko: '등 운동',
+        en: 'Back Exercise',
+        desc: '광배근과 척추기립근 등 등 근육 전반을 강화합니다.'
+    },
+    'chest': {
+        ko: '가슴 운동',
+        en: 'Chest Exercise',
+        desc: '대흉근을 발달시켜 탄탄한 가슴을 만듭니다.'
+    },
+    'abs': {
+        ko: '복근 운동',
+        en: 'Abs Exercise',
+        desc: '코어와 복부 근육을 강화하여 신체 안정성을 높입니다.'
+    },
+    'stretch': {
+        ko: '스트레칭',
+        en: 'Stretching',
+        desc: '근육의 긴장을 완화하고 유연성을 높여 부상을 방지합니다.'
     }
 };
