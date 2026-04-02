@@ -98,10 +98,11 @@ class WorkoutCard extends HTMLElement {
         const name = this.getAttribute('name') || translations[lang]['workout-card-default-name'];
         const sets = this.getAttribute('sets') || '0';
         const reps = this.getAttribute('reps') || '0';
-        const rest = this.getAttribute('rest') || '0s';
+        const rest = this.getAttribute('rest') || '0';
         const desc = this.getAttribute('desc') || translations[lang]['workout-card-default-desc'];
         const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
         const calories = this.getAttribute('calories') || '0';
+        const target = this.getAttribute('target') || translations[lang]['workout-card-default-target'];
 
         this.shadowRoot.innerHTML = `
             <style>
@@ -116,11 +117,13 @@ class WorkoutCard extends HTMLElement {
                 .label { font-size: 0.7em; text-transform: uppercase; color: var(--secondary-color); font-weight: 700; }
                 .value { font-weight: 600; font-size: 0.9em; }
                 .badge { position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.7em; font-weight: bold; z-index: 2; }
+                .target-badge { position: absolute; top: 10px; right: 10px; background: var(--accent-color, #ff4757); color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.7em; font-weight: bold; z-index: 2; }
                 .performance-tracking { margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color); }
                 .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
                 input { padding: 8px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); width: 100%; box-sizing: border-box; font-size: 0.85em; }
             </style>
             <div class="badge">${translations[lang]['workout-card-badge']}</div>
+            <div class="target-badge">${target}</div>
             <div class="image-container"><img src="${image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'"></div>
             <div class="content">
                 <h3>${name}</h3>
@@ -144,7 +147,7 @@ class WorkoutCard extends HTMLElement {
                     <div class="input-group">
                         <div class="input-field">
                             <label style="font-size:0.7em; color:var(--secondary-color);">${translations[lang]['workout-card-actual-rest-label']}</label>
-                            <input type="number" class="actual-rest" value="60" placeholder="${translations[lang]['workout-card-placeholder-rest']}">
+                            <input type="number" class="actual-rest" value="${rest}" placeholder="${translations[lang]['workout-card-placeholder-rest']}">
                         </div>
                         <div class="input-field">
                             <label style="font-size:0.7em; color:var(--secondary-color);">${translations[lang]['workout-card-actual-time-label']}</label>
@@ -174,7 +177,11 @@ function getTranslatedData(ex) {
     if (typeof exerciseTranslations === 'undefined') return { name: ex.name, desc: ex.instructions?.[0] || "" };
     const key = Object.keys(exerciseTranslations).find(k => ex.name.toLowerCase().includes(k.toLowerCase()));
     if (key) {
-        return { name: exerciseTranslations[key][currentLang], desc: exerciseTranslations[key].desc };
+        const translation = exerciseTranslations[key];
+        return { 
+            name: translation[currentLang], 
+            desc: translation.desc?.[currentLang] || translation.desc || (ex.instructions?.[0] || "Follow the guide for this movement.")
+        };
     }
     return { name: ex.name, desc: ex.instructions?.[0] || "Follow the guide for this movement." };
 }
@@ -210,6 +217,11 @@ function getExercisesByContext(options) {
         const imgPath = (ex.images && ex.images.length > 0) ? `${IMG_BASE_URL}${ex.images[0]}` : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
         const metMap = { 'strength': 6.0, 'cardio': 8.0, 'stretching': 2.5, 'plyometrics': 8.0, 'abs': 4.0 };
         const burned = Math.round(((metMap[ex.category] || 5.0) * 3.5 * (userData.weight || 70) / 200) * 15);
+        
+        const rawTarget = ex.primaryMuscles?.[0] || 'full-body';
+        const targetTranslationKey = `muscle-${rawTarget.toLowerCase()}`;
+        const translatedTarget = translations[currentLang][targetTranslationKey] || rawTarget;
+
         return {
             name: info.name,
             sets: fitnessLevel === 'beginner' ? 3 : 4,
@@ -218,7 +230,7 @@ function getExercisesByContext(options) {
             desc: info.desc,
             image: imgPath,
             calories: burned,
-            target: ex.primaryMuscles?.[0] || translations[currentLang]['workout-card-default-target']
+            target: translatedTarget
         };
     });
 }
@@ -409,6 +421,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 card.setAttribute('desc', ex.desc);
                 card.setAttribute('image', ex.image);
                 card.setAttribute('calories', ex.calories);
+                card.setAttribute('target', ex.target);
                 workoutContainer.appendChild(card);
             });
             document.getElementById('workout-analysis-section').classList.remove('hidden');

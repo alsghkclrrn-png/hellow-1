@@ -238,7 +238,16 @@ const translations = {
         'sasang-insight-TY': '태양인은 폐 기능이 강하고 간 기능이 약합니다. 하체가 약해지기 쉬우므로 하체 근력 운동이 중요합니다.',
         'sasang-insight-TE': '태음인은 간 기능이 강하고 폐 기능이 약합니다. 비만이 되기 쉬우므로 땀을 흘리는 유산소 운동이 필수적입니다.',
         'sasang-insight-SY': '소양인은 소화 기능이 좋고 신장 기능이 약합니다. 상체가 발달한 반면 하체가 부실하므로 하체 강화에 집중하세요.',
-        'sasang-insight-SE': '소음인은 신장 기능이 강하고 소화 기능이 약합니다. 체력이 약해지기 쉬우므로 저강도의 꾸준한 운동이 좋습니다.'
+        'sasang-insight-SE': '소음인은 신장 기능이 강하고 소화 기능이 약합니다. 체력이 약해지기 쉬우므로 저강도의 꾸준한 운동이 좋습니다.',
+        'muscle-chest': '가슴',
+        'muscle-back': '등',
+        'muscle-shoulders': '어깨',
+        'muscle-arms': '팔',
+        'muscle-legs': '하체',
+        'muscle-core': '코어',
+        'muscle-abs': '복근',
+        'muscle-full-body': '전신',
+        'muscle-cardio': '유산소'
     },
     en: {
         'nav-logo': 'AI Workout Coach',
@@ -479,7 +488,16 @@ const translations = {
         'sasang-insight-TY': 'Taeyangin have strong lung function but weak liver function. Lower body strengthening is key.',
         'sasang-insight-TE': 'Taeeumin have strong liver function but weak lung function. High-intensity aerobic exercise is essential.',
         'sasang-insight-SY': 'Soyangin have good digestion but weak kidney function. Focus on lower body exercises like squats.',
-        'sasang-insight-SE': 'Soeumin have strong kidney function but weak digestion. Low-to-moderate intensity exercise is recommended.'
+        'sasang-insight-SE': 'Soeumin have strong kidney function but weak digestion. Low-to-moderate intensity exercise is recommended.',
+        'muscle-chest': 'Chest',
+        'muscle-back': 'Back',
+        'muscle-shoulders': 'Shoulders',
+        'muscle-arms': 'Arms',
+        'muscle-legs': 'Legs',
+        'muscle-core': 'Core',
+        'muscle-abs': 'Abs',
+        'muscle-full-body': 'Full Body',
+        'muscle-cardio': 'Cardio'
     }
 };
 
@@ -487,136 +505,217 @@ const exerciseTranslations = {
     'push-up': {
         ko: '푸시업 (팔굽혀펴기)',
         en: 'Push-up',
-        desc: '가슴과 팔 근육을 강화하는 기본 맨몸 운동입니다. 허리를 곧게 펴고 수행하세요.'
+        desc: {
+            ko: '가슴, 어깨, 삼두근을 강화하는 기초 전신 근력 운동입니다. [방법] 1. 양손을 어깨너비로 벌리고 바닥을 짚습니다. 2. 머리부터 발끝까지 몸을 일직선으로 유지하며 가슴이 바닥에 닿기 직전까지 내려갑니다. 3. 호흡을 내뱉으며 바닥을 밀어올려 시작 자세로 돌아옵니다. [주의] 허리가 아래로 처지지 않도록 복부에 힘을 줍니다.',
+            en: 'Foundational strength exercise for chest, shoulders, and triceps. [Method] 1. Place hands shoulder-width apart on the floor. 2. Keep body in a straight line and lower until chest almost touches the floor. 3. Exhale and push back up. [Caution] Engage core to prevent lower back from sagging.'
+        }
     },
     'push up': {
         ko: '푸시업 (팔굽혀펴기)',
         en: 'Push-up',
-        desc: '가슴과 팔 근육을 강화하는 기본 맨몸 운동입니다. 허리를 곧게 펴고 수행하세요.'
+        desc: {
+            ko: '가슴, 어깨, 삼두근을 강화하는 기초 전신 근력 운동입니다. [방법] 1. 양손을 어깨너비로 벌리고 바닥을 짚습니다. 2. 머리부터 발끝까지 몸을 일직선으로 유지하며 가슴이 바닥에 닿기 직전까지 내려갑니다. 3. 호흡을 내뱉으며 바닥을 밀어올려 시작 자세로 돌아옵니다. [주의] 허리가 아래로 처지지 않도록 복부에 힘을 줍니다.',
+            en: 'Foundational strength exercise for chest, shoulders, and triceps. [Method] 1. Place hands shoulder-width apart on the floor. 2. Keep body in a straight line and lower until chest almost touches the floor. 3. Exhale and push back up. [Caution] Engage core to prevent lower back from sagging.'
+        }
     },
     'squat': {
         ko: '스쿼트',
         en: 'Squat',
-        desc: '하체 근력을 강화하는 핵심 운동입니다. 무릎이 발가락보다 앞으로 나가지 않게 주의하세요.'
+        desc: {
+            ko: '하체 근력의 핵심인 대퇴사두근과 둔근을 강화합니다. [방법] 1. 발을 어깨너비로 벌리고 섭니다. 2. 의자에 앉듯이 엉덩이를 뒤로 빼며 무릎을 굽힙니다. 3. 발뒤꿈치에 무게 중심을 두고 밀어 올리듯 일어납니다. [주의] 무릎이 발가락보다 과하게 앞으로 나오지 않도록 주의하며 허리를 곧게 폅니다.',
+            en: 'Core exercise for quadriceps and glutes. [Method] 1. Stand with feet shoulder-width apart. 2. Lower hips back as if sitting in a chair. 3. Drive through heels to stand up. [Caution] Keep knees aligned with toes and maintain a neutral spine.'
+        }
     },
     'plank': {
         ko: '플랭크',
         en: 'Plank',
-        desc: '코어 근육을 강화하는 정적 운동입니다. 몸이 일직선이 되도록 유지하세요.'
+        desc: {
+            ko: '코어 전체의 안정성을 높이는 최고의 정적 운동입니다. [방법] 1. 팔꿈치를 바닥에 대고 엎드려 몸을 지탱합니다. 2. 어깨와 팔꿈치가 수직이 되도록 합니다. 3. 복부와 엉덩이에 힘을 주어 몸이 일직선이 되게 유지하며 버팁니다. [주의] 엉덩이가 너무 높게 올라가거나 허리가 꺾이지 않도록 집중합니다.',
+            en: 'Isometric exercise for core stability. [Method] 1. Support body on forearms and toes. 2. Keep elbows directly under shoulders. 3. Maintain a straight line from head to heels by engaging core and glutes. [Caution] Avoid arching or sagging the lower back.'
+        }
     },
     'lunges': {
         ko: '런지',
         en: 'Lunges',
-        desc: '허벅지와 엉덩이 근육을 발달시키는 운동입니다. 보폭을 적절히 조절하세요.'
+        desc: {
+            ko: '하체 균형과 둔근 발달에 효과적인 운동입니다. [방법] 1. 한쪽 발을 크게 앞으로 내디뎌 양쪽 무릎이 90도가 되도록 내려갑니다. 2. 앞발의 뒤꿈치를 밀어주며 제자리로 돌아옵니다. 3. 반대쪽도 동일하게 반복합니다. [주의] 상체를 곧게 세우고 무릎이 바닥에 강하게 부딪히지 않도록 조절합니다.',
+            en: 'Effective for lower body balance and glute development. [Method] 1. Step forward and lower until both knees are at 90 degrees. 2. Push through the front heel to return. 3. Repeat on the other side. [Caution] Keep torso upright and lower back knee gently.'
+        }
     },
     'lunge': {
         ko: '런지',
         en: 'Lunge',
-        desc: '허벅지와 엉덩이 근육을 발달시키는 운동입니다. 보폭을 적절히 조절하세요.'
+        desc: {
+            ko: '하체 균형과 둔근 발달에 효과적인 운동입니다. [방법] 1. 한쪽 발을 크게 앞으로 내디뎌 양쪽 무릎이 90도가 되도록 내려갑니다. 2. 앞발의 뒤꿈치를 밀어주며 제자리로 돌아옵니다. 3. 반대쪽도 동일하게 반복합니다. [주의] 상체를 곧게 세우고 무릎이 바닥에 강하게 부딪히지 않도록 조절합니다.',
+            en: 'Effective for lower body balance and glute development. [Method] 1. Step forward and lower until both knees are at 90 degrees. 2. Push through the front heel to return. 3. Repeat on the other side. [Caution] Keep torso upright and lower back knee gently.'
+        }
     },
     'burpee': {
         ko: '버피 테스트',
         en: 'Burpee',
-        desc: '전신 근력과 유산소 능력을 동시에 향상시키는 고강도 운동입니다.'
+        desc: {
+            ko: '전신 지방 연소와 근력을 동시에 잡는 고강도 운동입니다. [방법] 1. 선 자세에서 바닥을 짚고 엎드려 푸시업 자세를 만듭니다. 2. 다시 다리를 가슴 쪽으로 당겨 점프하며 만세 동작을 합니다. [주의] 동작을 빠르게 연결하되, 허리 부상을 방지하기 위해 복부 긴장을 놓지 않습니다.',
+            en: 'High-intensity exercise for full-body fat burning and strength. [Method] 1. From standing, drop to a push-up position. 2. Jump feet back to chest and explode upwards with a reach. [Caution] Maintain core tension throughout to protect lower back.'
+        }
     },
     'crunch': {
         ko: '크런치',
         en: 'Crunch',
-        desc: '복부 상부 근육을 집중적으로 강화하는 운동입니다.'
+        desc: {
+            ko: '상복부를 집중적으로 타겟팅하는 복근 운동입니다. [방법] 1. 바닥에 누워 무릎을 굽힙니다. 2. 어깨날만 바닥에서 살짝 떨어진다는 느낌으로 상체를 들어 올립니다. 3. 복부의 수축을 느끼며 천천히 내려갑니다. [주의] 목을 과하게 당기지 말고 복부 근육의 힘으로만 움직입니다.',
+            en: 'Abdominal exercise targeting the upper abs. [Method] 1. Lie on back with knees bent. 2. Lift shoulders off the floor slightly. 3. Squeeze abs at the top and lower slowly. [Caution] Do not pull on your neck; use only abdominal strength.'
+        }
     },
     'deadlift': {
         ko: '데드리프트',
         en: 'Deadlift',
-        desc: '전신 근력, 특히 뒷면 사슬 근육을 강화하는 운동입니다.'
+        desc: {
+            ko: '신체 뒷면 근육 전체를 강화하는 파워풀한 운동입니다. [방법] 1. 바벨을 몸에 밀착시킨 뒤 힙 힌지 동작으로 상체를 숙여 잡습니다. 2. 가슴을 펴고 바닥을 밀어내는 힘으로 일어섭니다. [주의] 허리가 굽지 않도록 척추 중립을 유지하는 것이 가장 중요합니다.',
+            en: 'Powerful exercise for the entire posterior chain. [Method] 1. Grip the bar with a hip hinge, keeping it close to shins. 2. Keep chest up and drive through the floor to stand. [Caution] Maintaining a neutral spine is critical to prevent injury.'
+        }
     },
     'bench press': {
         ko: '벤치 프레스',
         en: 'Bench Press',
-        desc: '가슴 근력을 키우는 대표적인 웨이트 트레이닝입니다.'
+        desc: {
+            ko: '가슴 근육의 전체적인 크기를 키우는 대표적인 웨이트 트레이닝입니다. [방법] 1. 벤치에 누워 바벨을 가슴 중앙 위치로 내립니다. 2. 겨드랑이에 힘을 주며 바벨을 수직으로 밀어 올립니다. [주의] 손목이 뒤로 꺾이지 않게 주의하고 견갑골을 벤치에 고정합니다.',
+            en: 'Foundational weight training for overall chest mass. [Method] 1. Lie on bench and lower bar to mid-chest. 2. Drive bar straight up while engaging pectorals. [Caution] Keep wrists straight and shoulder blades retracted.'
+        }
     },
     'pull-up': {
         ko: '풀업 (턱걸이)',
         en: 'Pull-up',
-        desc: '등 근육과 팔 근육을 강화하는 상체 운동입니다.'
+        desc: {
+            ko: '광배근을 발달시켜 넓은 등을 만드는 최고의 상체 운동입니다. [방법] 1. 바를 어깨보다 넓게 잡고 매달립니다. 2. 가슴을 바 쪽으로 끌어올린다는 느낌으로 당깁니다. 3. 광배근의 긴장을 유지하며 천천히 내려옵니다. [주의] 어깨가 으쓱 올라가지 않도록 날개뼈를 아래로 눌러줍니다.',
+            en: 'Premier upper body exercise for wide lat development. [Method] 1. Grip bar wider than shoulders. 2. Pull chest toward the bar. 3. Lower slowly while maintaining tension. [Caution] Depress shoulder blades to avoid shrugging.'
+        }
     },
     'pull up': {
         ko: '풀업 (턱걸이)',
         en: 'Pull-up',
-        desc: '등 근육과 팔 근육을 강화하는 상체 운동입니다.'
+        desc: {
+            ko: '광배근을 발달시켜 넓은 등을 만드는 최고의 상체 운동입니다. [방법] 1. 바를 어깨보다 넓게 잡고 매달립니다. 2. 가슴을 바 쪽으로 끌어올린다는 느낌으로 당깁니다. 3. 광배근의 긴장을 유지하며 천천히 내려옵니다. [주의] 어깨가 으쓱 올라가지 않도록 날개뼈를 아래로 눌러줍니다.',
+            en: 'Premier upper body exercise for wide lat development. [Method] 1. Grip bar wider than shoulders. 2. Pull chest toward the bar. 3. Lower slowly while maintaining tension. [Caution] Depress shoulder blades to avoid shrugging.'
+        }
     },
     'dumbell': {
         ko: '덤벨 운동',
         en: 'Dumbbell Exercise',
-        desc: '덤벨을 사용하여 해당 부위의 근력을 강화합니다.'
+        desc: {
+            ko: '덤벨을 이용한 고립 운동으로 근육의 선명도를 높입니다. [방법] 목표 부위에 따라 덤벨을 들고 가동 범위를 충분히 활용하여 수축과 이완을 반복합니다. [주의] 반동을 이용하지 말고 목표 근육의 자극에 집중합니다.',
+            en: 'Isolation exercise using dumbbells for muscle definition. [Method] Use full range of motion for target area. [Caution] Focus on muscle contraction rather than using momentum.'
+        }
     },
     'dumbbell': {
         ko: '덤벨 운동',
         en: 'Dumbbell Exercise',
-        desc: '덤벨을 사용하여 해당 부위의 근력을 강화합니다.'
+        desc: {
+            ko: '덤벨을 이용한 고립 운동으로 근육의 선명도를 높입니다. [방법] 목표 부위에 따라 덤벨을 들고 가동 범위를 충분히 활용하여 수축과 이완을 반복합니다. [주의] 반동을 이용하지 말고 목표 근육의 자극에 집중합니다.',
+            en: 'Isolation exercise using dumbbells for muscle definition. [Method] Use full range of motion for target area. [Caution] Focus on muscle contraction rather than using momentum.'
+        }
     },
     'running': {
         ko: '러닝 (달리기)',
         en: 'Running',
-        desc: '심폐 지구력을 향상시키고 체지방을 연소하는 유산소 운동입니다.'
+        desc: {
+            ko: '심폐 지구력을 강화하고 체지방을 연소하는 가장 접근성이 좋은 유산소 운동입니다. [방법] 1. 시선은 정면을 향하고 어깨의 힘을 뺍니다. 2. 가볍게 지면을 차며 일정한 호흡 리듬을 유지합니다. [주의] 무릎 충격을 줄이기 위해 부드러운 지면이나 적절한 러닝화를 착용합니다.',
+            en: 'Accessible cardio for endurance and fat loss. [Method] 1. Look forward and relax shoulders. 2. Maintain a steady breathing rhythm. [Caution] Wear proper shoes to minimize impact on joints.'
+        }
     },
     'bicep': {
         ko: '이두근 운동',
         en: 'Bicep Exercise',
-        desc: '팔 앞쪽 근육인 이두근을 강화하는 운동입니다.'
+        desc: {
+            ko: '팔 앞쪽 근육을 발달시켜 탄탄한 팔 라인을 만듭니다. [방법] 팔꿈치를 옆구리에 고정하고 무게를 들어 올리며 이두근을 수축합니다. [주의] 팔꿈치가 앞뒤로 흔들리지 않도록 주의합니다.',
+            en: 'Exercises for bicep peaks and arm definition. [Method] Curl weights while keeping elbows pinned to sides. [Caution] Prevent elbows from swinging forward or back.'
+        }
     },
     'tricep': {
         ko: '삼두근 운동',
         en: 'Tricep Exercise',
-        desc: '팔 뒤쪽 근육인 삼두근을 강화하는 운동입니다.'
+        desc: {
+            ko: '팔 뒤쪽 근육을 강화하여 팔의 전반적인 볼륨감을 키웁니다. [방법] 팔을 뒤로 펴거나 머리 위로 밀어 올리며 삼두근의 강한 수축을 이끌어냅니다. [주의] 동작 중 어깨 통증이 느껴지지 않도록 가동 범위를 조절합니다.',
+            en: 'Strengthens the back of the arm for volume. [Method] Extend arms to isolate triceps. [Caution] Adjust range of motion to avoid shoulder discomfort.'
+        }
     },
     'shoulder': {
         ko: '어깨 운동',
         en: 'Shoulder Exercise',
-        desc: '어깨 근육(삼각근)을 발달시켜 넓고 튼튼한 어깨를 만듭니다.'
+        desc: {
+            ko: '어깨 근육(삼각근)을 강화하여 상체 프레임을 넓힙니다. [방법] 프레스 또는 레이즈 동작을 통해 어깨의 전, 측, 후면을 고르게 발달시킵니다. [주의] 과도한 무게보다는 정확한 자극 위주로 수행합니다.',
+            en: 'Strengthens deltoids for a broader frame. [Method] Perform presses or raises for all shoulder heads. [Caution] Prioritize form and muscle engagement over heavy weights.'
+        }
     },
     'press': {
         ko: '프레스 운동',
         en: 'Press Exercise',
-        desc: '무게를 밀어올려 해당 근육을 강화하는 운동입니다.'
+        desc: {
+            ko: '무게를 밀어 올리는 동작으로 미는 근력을 키웁니다. [방법] 안정적인 자세에서 수직 방향으로 무게를 밀고 천천히 버티며 내려옵니다. [주의] 관절이 완전히 잠기기 직전까지 밀어 근육의 긴장을 유지합니다.',
+            en: 'Compound movements for pushing strength. [Method] Push weight vertically and lower with control. [Caution] Maintain muscle tension by not fully locking joints.'
+        }
     },
     'row': {
         ko: '로우 운동',
         en: 'Row Exercise',
-        desc: '무게를 몸 쪽으로 당겨 등 근육을 강화하는 운동입니다.'
+        desc: {
+            ko: '무게를 몸 쪽으로 당겨 등의 두께감을 발달시킵니다. [방법] 견갑골을 먼저 움직이며 팔꿈치를 뒤로 당겨 등 근육을 수축합니다. [주의] 상체가 과하게 흔들리지 않도록 코어 힘을 유지합니다.',
+            en: 'Pulling movements for back thickness. [Method] Initiate with shoulder blades and pull elbows back. [Caution] Maintain a stable torso by engaging the core.'
+        }
     },
     'dip': {
         ko: '딥스',
         en: 'Dips',
-        desc: '가슴 하부와 삼두근을 강화하는 상체 운동입니다.'
+        desc: {
+            ko: '자신의 체중을 이용하여 가슴 하부와 삼두근을 강화합니다. [방법] 평행봉을 잡고 몸을 내렸다가 팔의 힘으로 다시 올라옵니다. [주의] 상체를 약간 숙이면 가슴에, 세우면 삼두근에 더 많은 자극이 갑니다.',
+            en: 'Bodyweight exercise for lower chest and triceps. [Method] Lower body between parallel bars and push up. [Caution] Lean forward for chest focus; stay upright for triceps.'
+        }
     },
     'calf': {
         ko: '종아리 운동',
         en: 'Calf Exercise',
-        desc: '종아리 근육을 강화하고 발목의 안정성을 높입니다.'
+        desc: {
+            ko: '종아리 근육을 강화하여 발목의 안정성과 추진력을 높입니다. [방법] 발끝으로 서서 뒤꿈치를 최대한 높이 들어 올린 뒤 천천히 내립니다. [주의] 가동 범위를 최대한 활용하여 깊은 스트레칭과 수축을 반복합니다.',
+            en: 'Exercises for calf strength and ankle stability. [Method] Raise heels as high as possible and lower slowly. [Caution] Use full range of motion for maximum benefit.'
+        }
     },
     'leg': {
         ko: '하체 운동',
         en: 'Leg Exercise',
-        desc: '허벅지와 엉덩이 등 하체 전반을 강화하는 운동입니다.'
+        desc: {
+            ko: '신체에서 가장 큰 근육군인 하체를 단련하여 대사량을 높입니다. [방법] 스쿼트, 런지 등 다양한 동작으로 허벅지와 둔근을 고르게 발달시킵니다. [주의] 무릎 관절에 무리가 가지 않도록 올바른 정렬을 유지합니다.',
+            en: 'Trains the largest muscle groups to boost metabolism. [Method] Develop legs and glutes through various movements. [Caution] Maintain proper alignment to protect knee joints.'
+        }
     },
     'back': {
         ko: '등 운동',
         en: 'Back Exercise',
-        desc: '광배근과 척추기립근 등 등 근육 전반을 강화합니다.'
+        desc: {
+            ko: '등 전체 근육을 강화하여 바른 자세를 유지하고 상체 프레임을 완성합니다. [방법] 당기는 동작 위주로 광배근, 승모근, 척추기립근을 자극합니다. [주의] 팔의 힘보다는 등 근육의 움직임에 집중합니다.',
+            en: 'Strengthens back muscles for posture and frame. [Method] Target lats, traps, and erectors with pulling moves. [Caution] Focus on back muscle movement rather than just pulling with arms.'
+        }
     },
     'chest': {
         ko: '가슴 운동',
         en: 'Chest Exercise',
-        desc: '대흉근을 발달시켜 탄탄한 가슴을 만듭니다.'
+        desc: {
+            ko: '대흉근을 발달시켜 탄탄하고 입체적인 가슴 라인을 만듭니다. [방법] 벤치 프레스, 푸시업 등 미는 동작을 통해 가슴 근육을 수축합니다. [주의] 어깨 부상을 방지하기 위해 가슴을 활짝 펴고 동작합니다.',
+            en: 'Develops pectorals for a defined chest. [Method] Use pushing movements to contract chest muscles. [Caution] Keep chest open to prevent shoulder impingement.'
+        }
     },
     'abs': {
         ko: '복근 운동',
         en: 'Abs Exercise',
-        desc: '코어와 복부 근육을 강화하여 신체 안정성을 높입니다.'
+        desc: {
+            ko: '코어 근육을 강화하여 신체의 전반적인 안정성을 확보합니다. [방법] 크런치, 레그 레이즈 등으로 복근의 상, 하부를 고르게 자극합니다. [주의] 허리 통증이 느껴진다면 가동 범위를 줄이거나 동작을 수정합니다.',
+            en: 'Strengthens core for total body stability. [Method] Target upper and lower abs with various movements. [Caution] Modify range if you feel lower back pain.'
+        }
     },
     'stretch': {
         ko: '스트레칭',
         en: 'Stretching',
-        desc: '근육의 긴장을 완화하고 유연성을 높여 부상을 방지합니다.'
+        desc: {
+            ko: '근육의 긴장을 풀고 유연성을 향상시켜 부상을 방지합니다. [방법] 목표 근육이 시원하게 늘어나는 지점에서 15~30초간 호흡하며 머뭅니다. [주의] 반동을 주지 말고 천천히 호흡과 함께 근육을 이완합니다.',
+            en: 'Improves flexibility and prevents injury. [Method] Hold stretches for 15-30 seconds with steady breathing. [Caution] Avoid bouncing; move smoothly and relax into the stretch.'
+        }
     }
 };
