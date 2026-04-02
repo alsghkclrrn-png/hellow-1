@@ -88,32 +88,61 @@ class WorkoutCard extends HTMLElement {
         const desc = this.getAttribute('desc') || translations[lang]['workout-card-default-desc'];
         const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
         const calories = this.getAttribute('calories') || '0';
-        const target = this.getAttribute('target') || translations[lang]['workout-card-default-target'];
+        const primaryTarget = this.getAttribute('primary-target') || translations[lang]['workout-card-default-target'];
+        const secondaryTarget = this.getAttribute('secondary-target') || '';
+
+        const formattedDesc = desc.split('[').map((part, i) => {
+            if (i === 0) return part;
+            const splitIdx = part.indexOf(']');
+            if (splitIdx === -1) return part;
+            const title = part.substring(0, splitIdx);
+            const content = part.substring(splitIdx + 1);
+            return `<div class="desc-item"><span class="desc-title">${title}</span><span class="desc-content">${content}</span></div>`;
+        }).join('');
 
         this.shadowRoot.innerHTML = `
             <style>
                 :host { display: block; background: var(--card-background); border-radius: 20px; border: 1px solid var(--border-color); transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; margin-bottom: 20px; }
-                .image-container { width: 100%; height: 200px; overflow: hidden; }
+                .image-container { width: 100%; height: 220px; overflow: hidden; position: relative; }
                 .image-container img { width: 100%; height: 100%; object-fit: cover; }
                 .content { padding: 20px; flex-grow: 1; }
-                h3 { color: var(--primary-color); margin: 0 0 10px 0; font-size: 1.2em; }
-                .description { font-size: 0.85em; color: var(--secondary-color); line-height: 1.6; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 10px; margin-bottom: 15px; }
-                .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-                .stat-item { display: flex; flex-direction: column; }
-                .label { font-size: 0.7em; text-transform: uppercase; color: var(--secondary-color); font-weight: 700; }
-                .value { font-weight: 600; font-size: 0.9em; }
-                .badge { position: absolute; top: 10px; left: 10px; background: var(--primary-color); color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.7em; font-weight: bold; z-index: 2; }
-                .target-badge { position: absolute; top: 10px; right: 10px; background: #ff4757; color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.7em; font-weight: bold; z-index: 2; }
+                h3 { color: var(--primary-color); margin: 0 0 10px 0; font-size: 1.3em; font-weight: 800; }
+                .target-info { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; }
+                .target-row { display: flex; align-items: center; gap: 8px; font-size: 0.8em; }
+                .target-label { font-weight: bold; padding: 2px 6px; border-radius: 4px; min-width: 60px; text-align: center; }
+                .primary-label { background: var(--primary-color); color: white; }
+                .secondary-label { background: var(--secondary-color); color: white; opacity: 0.8; }
+                .description { font-size: 0.85em; color: var(--secondary-color); line-height: 1.6; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid var(--primary-color); }
+                .desc-item { margin-bottom: 8px; }
+                .desc-title { font-weight: bold; color: var(--primary-color); display: block; margin-bottom: 2px; }
+                .desc-content { display: block; padding-left: 5px; opacity: 0.9; }
+                .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+                .stat-item { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; text-align: center; }
+                .label { font-size: 0.65em; text-transform: uppercase; color: var(--secondary-color); font-weight: 700; display: block; margin-bottom: 4px; }
+                .value { font-weight: 700; font-size: 1em; color: var(--primary-color); }
+                .badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7em; font-weight: bold; z-index: 2; border: 1px solid rgba(255,255,255,0.2); }
                 .performance-tracking { margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color); }
                 .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-                input { padding: 8px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); width: 100%; box-sizing: border-box; font-size: 0.85em; }
+                input { padding: 10px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); width: 100%; box-sizing: border-box; font-size: 0.85em; }
             </style>
             <div class="badge">${translations[lang]['workout-card-badge']}</div>
-            <div class="target-badge">${target}</div>
             <div class="image-container"><img src="${image}" alt="${name}"></div>
             <div class="content">
+                <div class="target-info">
+                    <div class="target-row">
+                        <span class="target-label primary-label">주요 타겟</span>
+                        <span class="target-value">${primaryTarget}</span>
+                    </div>
+                    ${secondaryTarget ? `
+                    <div class="target-row">
+                        <span class="target-label secondary-label">보조 타겟</span>
+                        <span class="target-value">${secondaryTarget}</span>
+                    </div>` : ''}
+                </div>
                 <h3>${name}</h3>
-                <div class="description"><strong>💡 ${translations[lang]['workout-card-guide']}:</strong><br>${desc}</div>
+                <div class="description">
+                    ${formattedDesc}
+                </div>
                 <div class="stats">
                     <div class="stat-item"><span class="label">${translations[lang]['workout-card-target-sets']}</span><span class="value">${sets}</span></div>
                     <div class="stat-item"><span class="label">${translations[lang]['workout-card-target-reps']}</span><span class="value">${reps}</span></div>
@@ -140,8 +169,8 @@ class WorkoutCard extends HTMLElement {
                             <input type="number" class="total-time" value="10" placeholder="${translations[lang]['workout-card-placeholder-time']}">
                         </div>
                     </div>
-                    <label style="display:flex; align-items:center; gap:5px; margin-top:10px; font-size:0.8em; color:var(--primary-color); cursor:pointer;">
-                        <input type="checkbox" class="is-completed" checked style="width:auto;"> ${translations[lang]['workout-card-completed-status']}
+                    <label style="display:flex; align-items:center; gap:8px; margin-top:12px; font-size:0.9em; color:var(--primary-color); cursor:pointer; font-weight:600;">
+                        <input type="checkbox" class="is-completed" checked style="width:auto; height:18px; width:18px; border-radius:4px;"> ${translations[lang]['workout-card-completed-status']}
                     </label>
                 </div>
             </div>
@@ -160,16 +189,34 @@ async function fetchExerciseData() {
 }
 
 function getTranslatedData(ex) {
-    if (typeof exerciseTranslations === 'undefined') return { name: ex.name, desc: ex.instructions?.[0] || "" };
-    const key = Object.keys(exerciseTranslations).find(k => ex.name.toLowerCase().includes(k.toLowerCase()));
-    if (key) {
-        const translation = exerciseTranslations[key];
+    if (typeof exerciseTranslations === 'undefined') return { name: ex.name, desc: ex.instructions?.[0] || "", primary: "", secondary: "", image: null };
+    
+    const exNameLower = ex.name.toLowerCase();
+    // Try exact match first
+    let translation = exerciseTranslations[exNameLower];
+    
+    // If no exact match, try finding a key that is contained in the name
+    if (!translation) {
+        const key = Object.keys(exerciseTranslations).find(k => exNameLower.includes(k));
+        if (key) translation = exerciseTranslations[key];
+    }
+
+    if (translation) {
         return { 
             name: translation[currentLang], 
-            desc: translation.desc?.[currentLang] || translation.desc || (ex.instructions?.[0] || "Follow the guide.")
+            desc: translation.desc?.[currentLang] || translation.desc || (ex.instructions?.[0] || "Follow the guide."),
+            primary: translation.primary?.[currentLang] || "",
+            secondary: translation.secondary?.[currentLang] || "",
+            image: translation.image || null
         };
     }
-    return { name: ex.name, desc: ex.instructions?.[0] || "Follow the guide." };
+    return { name: ex.name, desc: ex.instructions?.[0] || "Follow the guide.", primary: "", secondary: "", image: null };
+}
+
+function translateMuscle(muscle) {
+    if (typeof muscleTranslations === 'undefined') return muscle;
+    const lang = currentLang || 'ko';
+    return muscleTranslations[lang]?.[muscle.toLowerCase()] || muscle;
 }
 
 let lastGeneratedTargets = [];
@@ -200,16 +247,19 @@ function getExercisesByContext(options) {
 
     if (sessionPool.length < 5) sessionPool.push(...exerciseDatabase.sort(() => 0.5 - Math.random()).slice(0, 5 - sessionPool.length));
 
-    lastGeneratedTargets = sessionPool.map(ex => ex.primaryMuscles?.[0] || 'full-body');
+    lastGeneratedTargets = sessionPool.map(ex => ex.primaryMuscles?.[0] || 'full body');
 
     return sessionPool.map(ex => {
         const info = getTranslatedData(ex);
-        const imgPath = (ex.images && ex.images.length > 0) ? `${IMG_BASE_URL}${ex.images[0]}` : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
+        const imgPath = info.image || ((ex.images && ex.images.length > 0) ? `${IMG_BASE_URL}${ex.images[0]}` : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400');
         const metMap = { 'strength': 6.0, 'cardio': 8.0, 'plyometrics': 8.0, 'abs': 4.0 };
         const burned = Math.round(((metMap[ex.category] || 5.0) * 3.5 * (userData.weight || 70) / 200) * 15);
         
-        const rawTarget = ex.primaryMuscles?.[0] || 'full-body';
-        const translatedTarget = translations[currentLang][`muscle-${rawTarget.toLowerCase()}`] || rawTarget;
+        const rawPrimary = ex.primaryMuscles?.[0] || 'full body';
+        const primaryTarget = info.primary || translateMuscle(rawPrimary);
+        
+        const rawSecondary = ex.secondaryMuscles?.[0] || '';
+        const secondaryTarget = info.secondary || (rawSecondary ? translateMuscle(rawSecondary) : "");
 
         return {
             name: info.name,
@@ -219,7 +269,8 @@ function getExercisesByContext(options) {
             desc: info.desc,
             image: imgPath,
             calories: burned,
-            target: translatedTarget
+            'primary-target': primaryTarget,
+            'secondary-target': secondaryTarget
         };
     });
 }
@@ -252,7 +303,7 @@ function renderStretchingRecommendations() {
             <div style="padding: 15px;">
                 <h4 style="color: var(--primary-color); margin: 0 0 10px 0;">${s.name[currentLang]}</h4>
                 <p style="font-size: 0.8em; color: var(--secondary-color); line-height: 1.4;">
-                    ${translations[currentLang]['stretching-item-desc'].replace('{target}', translations[currentLang][`muscle-${s.target}`] || s.target)}
+                    ${translations[currentLang]['stretching-item-desc'].replace('{target}', translateMuscle(s.target))}
                 </p>
             </div>
         </div>
@@ -429,9 +480,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 window.setLanguage = setLanguage;
 function showLegal(t) {
-    document.getElementById('privacy-policy').classList.add('hidden');
-    document.getElementById('terms-of-service').classList.add('hidden');
-    document.getElementById(t === 'privacy' ? 'privacy-policy' : 'terms-of-service').classList.remove('hidden');
-    document.getElementById(t === 'privacy' ? 'privacy-policy' : 'terms-of-service').scrollIntoView({ behavior: 'smooth' });
+    const priv = document.getElementById('privacy-policy');
+    const term = document.getElementById('terms-of-service');
+    if (priv) priv.classList.add('hidden');
+    if (term) term.classList.add('hidden');
+    const target = document.getElementById(t === 'privacy' ? 'privacy-policy' : 'terms-of-service');
+    if (target) {
+        target.classList.remove('hidden');
+        target.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 window.showLegal = showLegal;
