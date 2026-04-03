@@ -461,20 +461,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             actualSets += parseInt(actualVal || 0);
         });
         const rate = totalSets > 0 ? Math.round((actualSets / totalSets) * 100) : 0;
-        let evalKey = 'analysis-eval-low';
-        if (rate >= 100) evalKey = 'analysis-eval-perfect';
-        else if (rate >= 80) evalKey = 'analysis-eval-good';
-        else if (rate >= 50) evalKey = 'analysis-eval-fair';
         
         document.getElementById('analysis-results').classList.remove('hidden');
-        document.getElementById('analysis-content').innerHTML = `
-            <div style="padding: 15px; border-left: 4px solid var(--primary-color); background: rgba(var(--primary-rgb), 0.1);">
-                <h4 style="margin-top:0;">${translations[currentLang]['analysis-completion-rate']}: ${rate}%</h4>
-                <p style="font-size: 0.9em; line-height: 1.6;">${translations[currentLang][evalKey]}</p>
-                <p style="font-size: 0.85em; font-style: italic; color: var(--secondary-color); margin-top: 10px;">${translations[currentLang]['analysis-tip-intensity']}</p>
-            </div>
-        `;
-        document.getElementById('analysis-results').scrollIntoView({ behavior: 'smooth' });
+        const contentArea = document.getElementById('analysis-content');
+        contentArea.innerHTML = `<p class="loading">${translations[currentLang]['workout-loading']}</p>`;
+        
+        // AI 코치 피드백 생성 (시뮬레이션)
+        setTimeout(() => {
+            const feedback = getAiCoachFeedback(rate);
+            renderAiCoachFeedback(feedback, contentArea);
+            document.getElementById('analysis-results').scrollIntoView({ behavior: 'smooth' });
+        }, 1500);
     });
 
     document.getElementById('theme-toggle')?.addEventListener('click', () => {
@@ -497,6 +494,84 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateSasangQuiz();
     });
 });
+
+function getAiCoachFeedback(completionRate) {
+    const lang = currentLang;
+    const isKo = lang === 'ko';
+    const profile = {
+        mbti: userData.mbti || 'ISTJ',
+        sasang: userData.sasang || 'TE',
+        bmi: userData.bmi || 23.0
+    };
+
+    // MBTI 및 사상체질별 페르소나 매핑
+    const personas = {
+        TY: isKo ? '과단성 있는 태양인' : 'Decisive Taeyangin',
+        TE: isKo ? '중후한 태음인' : 'Dignified Taeeumin',
+        SY: isKo ? '민첩한 소양인' : 'Agile Soyangin',
+        SE: isKo ? '섬세한 소음인' : 'Delicate Soeumin'
+    };
+
+    let analysisText = "";
+    if (isKo) {
+        analysisText = `${personas[profile.sasang]} 코치의 분석입니다. 당신의 MBTI(${profile.mbti})와 신체 지표(BMI ${profile.bmi})를 종합했을 때, 오늘의 달성률 ${completionRate}%는 `;
+        if (completionRate >= 90) analysisText += "완벽에 가까운 성취입니다. 당신의 철저한 자기 관리 능력은 다른 이들에게 귀감이 될 것입니다.";
+        else if (completionRate >= 60) analysisText += "상당히 고무적인 결과입니다. 꾸준함이 정답입니다. 조금 더 페이스를 높여보세요.";
+        else analysisText += "회복과 재정비가 필요한 시점임을 시사합니다. 무리하지 말고 내일의 성장을 위해 충분히 휴식하세요.";
+        
+        analysisText += ` 특히 ${profile.sasang === 'TE' ? '순환 기능이 약한 태음인' : profile.sasang === 'SY' ? '하체가 부실해지기 쉬운 소양인' : '기력이 소진되기 쉬운 소음인'}의 특성을 고려하여, 다음 세션에서는 조금 더 집중력 있는 훈련이 필요합니다.`;
+    } else {
+        analysisText = `Analysis from your ${personas[profile.sasang]} coach. Considering your MBTI(${profile.mbti}) and body metrics (BMI ${profile.bmi}), today's ${completionRate}% completion rate is `;
+        if (completionRate >= 90) analysisText += "nearly perfect. Your self-discipline is exemplary.";
+        else if (completionRate >= 60) analysisText += "encouraging. Consistency is key. Keep pushing slightly harder.";
+        else analysisText += "a signal that you need recovery. Rest well for tomorrow's growth.";
+    }
+
+    const recs = [
+        {
+            name: isKo ? "폼롤러 전신 마사지" : "Full-body Foam Rolling",
+            description: isKo ? "운동 후 쌓인 근막의 긴장을 완화하고 혈액순환을 촉진합니다. 특히 하체와 등 부위를 집중적으로 풀어주세요." : "Relieve myofascial tension and promote blood circulation. Focus on your legs and back.",
+            image_prompt: "A peaceful minimalist studio setting with a foam roller on a yoga mat, warm morning light, high resolution, photorealistic",
+            type: "workout"
+        },
+        {
+            name: isKo ? "구운 소고기와 구운 채소" : "Grilled Beef and Roasted Vegetables",
+            description: isKo ? "단백질 보충과 더불어 섬유질 섭취를 돕습니다. 태음인에게는 소고기가, 소양인에게는 신선한 채소가 특히 유익합니다." : "High protein with essential fibers. Great for muscle recovery and metabolic health.",
+            image_prompt: "Gourmet plate of perfectly grilled steak slices and colorful roasted vegetables, cinematic lighting, food photography style",
+            type: "diet"
+        }
+    ];
+
+    return { analysis: analysisText, recommendations: recs };
+}
+
+function renderAiCoachFeedback(feedback, container) {
+    const lang = currentLang;
+    container.innerHTML = `
+        <div class="ai-analysis-container">
+            <div class="ai-analysis-text">
+                ${feedback.analysis}
+            </div>
+            <div class="ai-recommendations-grid">
+                ${feedback.recommendations.map((rec, i) => `
+                    <div class="ai-rec-card">
+                        <div class="ai-rec-image" style="background-image: url('https://images.unsplash.com/photo-${i === 0 ? '1544367567-0f2fcb009e0b' : '1504674900247-0877df9cc836'}?auto=format&fit=crop&q=80&w=400')">
+                            <span class="ai-rec-badge">${translations[lang][rec.type === 'workout' ? 'ai-rec-badge-workout' : 'ai-rec-badge-diet']}</span>
+                        </div>
+                        <div class="ai-rec-content">
+                            <h4 class="ai-rec-name">${rec.name}</h4>
+                            <p class="ai-rec-desc">${rec.description}</p>
+                        </div>
+                        <div class="ai-rec-prompt-container">
+                            <span class="ai-rec-prompt-label">${translations[lang]['ai-rec-prompt-label']}</span>
+                            <span class="ai-rec-prompt">${rec.image_prompt}</span>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
 
 window.setLanguage = setLanguage;
 function showLegal(t) {

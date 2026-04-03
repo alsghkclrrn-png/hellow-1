@@ -125,7 +125,11 @@ const translations = {
         'analysis-eval-perfect': '완벽한 수행력입니다!',
         'analysis-eval-good': '훌륭한 성과입니다!',
         'analysis-eval-fair': '절반 이상의 운동을 완료하셨습니다.',
-        'analysis-eval-low': '회복도 훈련의 일부입니다.'
+        'analysis-eval-low': '회복도 훈련의 일부입니다.',
+        'ai-evaluation-title': '전문 AI 코치의 종합 분석',
+        'ai-rec-badge-workout': '추천 운동',
+        'ai-rec-badge-diet': '추천 식단',
+        'ai-rec-prompt-label': '이미지 생성을 위한 묘사(프롬프트)'
     },
     en: {
         'nav-logo': 'AI Workout Coach',
@@ -217,7 +221,11 @@ const translations = {
         'analysis-eval-perfect': 'Perfect performance!',
         'analysis-eval-good': 'Great job!',
         'analysis-eval-fair': 'Completed more than half.',
-        'analysis-eval-low': 'Recovery is part of training.'
+        'analysis-eval-low': 'Recovery is part of training.',
+        'ai-evaluation-title': 'Expert AI Coach Comprehensive Analysis',
+        'ai-rec-badge-workout': 'Recommended Workout',
+        'ai-rec-badge-diet': 'Recommended Diet',
+        'ai-rec-prompt-label': 'Image Generation Prompt'
     }
 };
 
