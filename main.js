@@ -593,6 +593,14 @@ function getAiCoachFeedback(completionRate) {
         SE: isKo ? "소음인" : "Soeumin"
     };
 
+    // 사상체질별 고정 이미지 매칭
+    const sasangImages = {
+        TY: "https://images.unsplash.com/photo-1599058917232-d750c1822000?auto=format&fit=crop&q=80&w=400",
+        TE: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&q=80&w=400",
+        SY: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400",
+        SE: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80&w=400"
+    };
+
     // 체질별 외형 특징 묘사 (프롬프트용)
     const sasangVisualPrompts = {
         TY: "A person with a strong upper body, thick neck, and intense gaze, representing the 'Solar' type in traditional medicine, heroic and charismatic aura",
@@ -603,56 +611,85 @@ function getAiCoachFeedback(completionRate) {
 
     let analysisText = "";
     if (isKo) {
+        // 구체적 수치 활용 분석
+        const bmiVal = profile.bmi;
+        let bmiAnalysis = "";
+        if (bmiVal < 18.5) {
+            bmiAnalysis = `현재 BMI는 ${bmiVal}로 저체중군에 속하며, 이는 근감소증 위험이 정상군 대비 약 20% 높을 수 있음을 시사합니다.`;
+        } else if (bmiVal < 23) {
+            bmiAnalysis = `현재 BMI는 ${bmiVal}로 이상적인 범위 내에 있으며, 대사 질환 위험도가 가장 낮은 안정적인 상태입니다.`;
+        } else if (bmiVal < 25) {
+            bmiAnalysis = `현재 BMI는 ${bmiVal}로 '과체중 경계'에 위치합니다. 연구에 따르면 이 수치에서 동양인의 경우 고혈압 및 당뇨 발생 위험도가 정상군 대비 약 1.5배 상승할 수 있습니다.`;
+        } else {
+            bmiAnalysis = `현재 BMI는 ${bmiVal}로 비만군에 해당하며, 심혈관 질환 위험도가 유의미하게 높은 상태입니다. 즉각적인 식단 조절과 유산소 운동 병행이 필수적입니다.`;
+        }
+
         analysisText = `[${personaTitle}의 심층 분석]\n\n`;
-        analysisText += `귀하의 신체 지표(BMI ${profile.bmi}, 기초대사량 ${Math.round(profile.bmr)}kcal)와 심리적 프로필(${profile.mbti}), 그리고 선천적 체질(${sasangNames[profile.sasang]})을 과학적으로 분석한 결과입니다.\n\n`;
+        analysisText += `귀하의 정밀 신체 지표(BMI ${profile.bmi}, BMR ${Math.round(profile.bmr)}kcal)와 심리 프로필(${profile.mbti}), 선천적 체질(${sasangNames[profile.sasang]})을 분석한 결과입니다.\n\n`;
+        analysisText += `1. 스포츠 과학적 소견: ${bmiAnalysis} 오늘의 운동 달성률 ${completionRate}%는 `;
         
-        // BMI 분석
-        const bmiStatus = profile.bmi < 18.5 ? "에너지 저장력이 부족한 상태" : profile.bmi < 25 ? "이상적인 신체 균형" : "에너지 과잉 및 순환 저하 상태";
-        analysisText += `1. 스포츠 과학적 관점: 현재 BMI는 '${bmiStatus}'입니다. 이는 자동차로 비유하자면 ${profile.bmi >= 25 ? '연료는 가득 찼으나 엔진의 배기 효율이 떨어진 상태' : '엔진은 좋으나 연료 탱크가 비어가는 상태'}와 같습니다. 오늘의 달성률 ${completionRate}%는 `;
-        
-        if (completionRate >= 90) analysisText += "현재의 엔진 효율이 매우 극대화되어 있음을 증명합니다. ";
-        else analysisText += "지속 가능한 성장을 위해 페이스 조절이 필요한 구간임을 나타냅니다. ";
+        if (completionRate >= 90) analysisText += "당신의 신체 엔진이 최상의 연소 효율을 보이고 있음을 증명합니다. ";
+        else analysisText += "현재 신체 부하를 고려할 때, 전략적 휴식을 통해 과훈련 증후군을 예방해야 하는 구간입니다. ";
 
-        // 사상체질 및 심리 분석
-        analysisText += `\n\n2. 한방 및 심리적 관점: ${sasangNames[profile.sasang]}으로서 귀하는 ${profile.sasang === 'TE' ? '간의 흡수력은 좋으나 폐의 발산력이 약해 노폐물이 쌓이기 쉬운' : '비위의 기능은 좋으나 신장의 정력이 약해 하체가 부실해지기 쉬운'} 특징을 가집니다. ${profile.mbti} 특유의 계획성을 발휘하여 이 약점을 보완해야 합니다.`;
-        
-        analysisText += `\n\n[체질 시각화 프롬프트]: ${sasangVisualPrompts[profile.sasang]}`;
+        analysisText += `\n\n2. 한방 및 심리적 관점: ${sasangNames[profile.sasang]}으로서 귀하는 ${profile.sasang === 'TE' ? '간의 흡수력은 강하나 폐의 발산 기능이 상대적으로 약해 체내 노폐물이 축적되기 쉬운' : '소화기(비위)는 발달했으나 신장의 정력이 부족해 하체 관절 건강에 유의해야 하는'} 특징이 있습니다. ${profile.mbti}의 성향을 활용해 꾸준한 루틴을 유지하는 것이 핵심입니다.`;
     } else {
-        analysisText = `[Analysis from ${personaTitle}]\n\n`;
-        analysisText += `Scientific integration of your metrics (BMI ${profile.bmi}, BMR ${Math.round(profile.bmr)}kcal), psychology (${profile.mbti}), and constitution (${sasangNames[profile.sasang]}).\n\n`;
-        
-        analysisText += `1. Sports Science: Your BMI indicates a '${profile.bmi < 25 ? 'balanced' : 'high-energy storage'} state. Like a car engine, your ${completionRate}% completion today shows `;
-        analysisText += completionRate >= 90 ? "optimal performance. " : "a need for strategic recovery. ";
+        const bmiVal = profile.bmi;
+        let bmiAnalysis = "";
+        if (bmiVal < 18.5) {
+            bmiAnalysis = `Your BMI is ${bmiVal} (Underweight), which may increase the risk of sarcopenia by approximately 20% compared to the normal range.`;
+        } else if (bmiVal < 23) {
+            bmiAnalysis = `Your BMI is ${bmiVal} (Normal), representing an optimal metabolic state with the lowest risk for lifestyle diseases.`;
+        } else if (bmiVal < 25) {
+            bmiAnalysis = `Your BMI is ${bmiVal} (Overweight Borderline). For Asians, this level is associated with a 1.5x higher risk of hypertension and diabetes.`;
+        } else {
+            bmiAnalysis = `Your BMI is ${bmiVal} (Obese), indicating a significantly elevated risk for cardiovascular diseases. Immediate intervention is required.`;
+        }
 
-        analysisText += `\n\n2. Oriental Medicine & Psychology: As a ${sasangNames[profile.sasang]}, you have a natural tendency for ${profile.sasang === 'TE' ? 'high absorption but low metabolic excretion' : 'strong digestion but weaker lower-body stability'}. Use your ${profile.mbti} traits to bridge this gap.`;
-        
-        analysisText += `\n\n[Visual Prompt]: ${sasangVisualPrompts[profile.sasang]}`;
+        analysisText = `[Analysis from ${personaTitle}]\n\n`;
+        analysisText += `Data-driven integration of your metrics (BMI ${profile.bmi}, BMR ${Math.round(profile.bmr)}kcal), psychology (${profile.mbti}), and constitution (${sasangNames[profile.sasang]}).\n\n`;
+        analysisText += `1. Sports Science: ${bmiAnalysis} Your ${completionRate}% completion rate today indicates `;
+        analysisText += completionRate >= 90 ? "optimal engine efficiency. " : "the need for strategic recovery to prevent overtraining. ";
+
+        analysisText += `\n\n2. Oriental Medicine & Psychology: As a ${sasangNames[profile.sasang]}, you possess ${profile.sasang === 'TE' ? 'strong absorption but weaker metabolic excretion' : 'robust digestion but potentially weaker lower-body stability'}. Leveraging your ${profile.mbti} traits will be crucial for long-term health.`;
     }
 
     const recs = [
         {
             name: isKo ? "체질 맞춤형 기능성 스트레칭" : "Constitution-based Functional Stretch",
-            description: isKo ? "사상체질별 취약 부위를 집중적으로 보강합니다. 특히 하체 순환을 돕고 척추의 정렬을 바로잡는 동작을 15분간 실시하세요." : "Targets vulnerable areas based on your type. Focus on lower-body circulation and spinal alignment for 15 mins.",
+            description: isKo ? "사상체질별 취약 부위를 집중 보강합니다. 하체 순환을 돕고 척추 정렬을 바로잡는 동작을 15분간 실시하세요." : "Targets vulnerable areas based on your type. Focus on lower-body circulation and spinal alignment for 15 mins.",
             image_prompt: `A professional athlete performing a precise stretching pose in a high-tech lab setting, detailed muscle anatomy, soft cinematic lighting, 8k resolution`,
             type: "workout"
         },
         {
             name: isKo ? "대사 촉진 영양 식단" : "Metabolism Boosting Nutrition Plan",
-            description: isKo ? "귀하의 BMR을 고려한 고단백, 저염분 식단입니다. 체내 염증을 줄이고 근육 합성을 극대화하는 신선한 식재료를 사용하세요." : "High-protein, low-sodium meal optimized for your BMR. Uses fresh ingredients to reduce inflammation and maximize protein synthesis.",
+            description: isKo ? "귀하의 기초대사량(BMR)을 고려한 맞춤 식단입니다. 체내 염증을 줄이고 근육 합성을 극대화하는 신선한 단백질 위주로 구성하세요." : "High-protein meal optimized for your BMR. Uses fresh ingredients to reduce inflammation and maximize protein synthesis.",
             image_prompt: "A balanced healthy meal with grilled salmon, quinoa, and vibrant steamed greens, professional food photography, natural lighting",
             type: "diet"
         }
     ];
 
-    return { analysis: analysisText, recommendations: recs };
+    return { 
+        analysis: analysisText, 
+        recommendations: recs,
+        sasangImage: sasangImages[profile.sasang],
+        visualPrompt: sasangVisualPrompts[profile.sasang]
+    };
 }
 
 function renderAiCoachFeedback(feedback, container) {
     const lang = currentLang;
     container.innerHTML = `
         <div class="ai-analysis-container">
-            <div class="ai-analysis-text">
-                ${feedback.analysis}
+            <div class="ai-analysis-header-flex" style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+                <div class="sasang-character-img" style="flex: 0 0 200px; height: 200px; border-radius: 20px; overflow: hidden; border: 2px solid var(--primary-color);">
+                    <img src="${feedback.sasangImage}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="ai-analysis-text" style="flex: 1; min-width: 300px;">
+                    ${feedback.analysis}
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color); font-size: 0.8em; color: var(--secondary-color);">
+                        <strong>[Visual Prompt]:</strong> ${feedback.visualPrompt}
+                    </div>
+                </div>
             </div>
             <div class="ai-recommendations-grid">
                 ${feedback.recommendations.map((rec, i) => `
