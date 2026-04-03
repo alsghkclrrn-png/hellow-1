@@ -501,43 +501,71 @@ function getAiCoachFeedback(completionRate) {
     const profile = {
         mbti: userData.mbti || 'ISTJ',
         sasang: userData.sasang || 'TE',
-        bmi: userData.bmi || 23.0
+        bmi: userData.bmi || 23.0,
+        age: userData.age || 30,
+        gender: userData.gender || 'male',
+        bmr: userData.bmr || 1500
     };
 
-    // MBTI 및 사상체질별 페르소나 매핑
-    const personas = {
-        TY: isKo ? '과단성 있는 태양인' : 'Decisive Taeyangin',
-        TE: isKo ? '중후한 태음인' : 'Dignified Taeeumin',
-        SY: isKo ? '민첩한 소양인' : 'Agile Soyangin',
-        SE: isKo ? '섬세한 소음인' : 'Delicate Soeumin'
+    // 전문 페르소나 설정
+    const personaTitle = isKo 
+        ? "세계 최고 스포츠 과학자 & 한방 전문의" 
+        : "World-Class Sports Scientist & Oriental Medicine Expert";
+
+    const sasangNames = {
+        TY: isKo ? "태양인" : "Taeyangin",
+        TE: isKo ? "태음인" : "Taeeumin",
+        SY: isKo ? "소양인" : "Soyangin",
+        SE: isKo ? "소음인" : "Soeumin"
+    };
+
+    // 체질별 외형 특징 묘사 (프롬프트용)
+    const sasangVisualPrompts = {
+        TY: "A person with a strong upper body, thick neck, and intense gaze, representing the 'Solar' type in traditional medicine, heroic and charismatic aura",
+        TE: "A person with a sturdy build, broad shoulders, and a calm, reliable expression, representing the 'Great Lunar' type, stable and grounded presence",
+        SY: "A person with an agile and slender frame, sharp features, and energetic movements, representing the 'Lesser Yang' type, vibrant and quick-witted look",
+        SE: "A person with a delicate and well-proportioned figure, soft facial lines, and a thoughtful expression, representing the 'Lesser Lunar' type, graceful and meticulous appearance"
     };
 
     let analysisText = "";
     if (isKo) {
-        analysisText = `${personas[profile.sasang]} 코치의 분석입니다. 당신의 MBTI(${profile.mbti})와 신체 지표(BMI ${profile.bmi})를 종합했을 때, 오늘의 달성률 ${completionRate}%는 `;
-        if (completionRate >= 90) analysisText += "완벽에 가까운 성취입니다. 당신의 철저한 자기 관리 능력은 다른 이들에게 귀감이 될 것입니다.";
-        else if (completionRate >= 60) analysisText += "상당히 고무적인 결과입니다. 꾸준함이 정답입니다. 조금 더 페이스를 높여보세요.";
-        else analysisText += "회복과 재정비가 필요한 시점임을 시사합니다. 무리하지 말고 내일의 성장을 위해 충분히 휴식하세요.";
+        analysisText = `[${personaTitle}의 심층 분석]\n\n`;
+        analysisText += `귀하의 신체 지표(BMI ${profile.bmi}, 기초대사량 ${Math.round(profile.bmr)}kcal)와 심리적 프로필(${profile.mbti}), 그리고 선천적 체질(${sasangNames[profile.sasang]})을 과학적으로 분석한 결과입니다.\n\n`;
         
-        analysisText += ` 특히 ${profile.sasang === 'TE' ? '순환 기능이 약한 태음인' : profile.sasang === 'SY' ? '하체가 부실해지기 쉬운 소양인' : '기력이 소진되기 쉬운 소음인'}의 특성을 고려하여, 다음 세션에서는 조금 더 집중력 있는 훈련이 필요합니다.`;
+        // BMI 분석
+        const bmiStatus = profile.bmi < 18.5 ? "에너지 저장력이 부족한 상태" : profile.bmi < 25 ? "이상적인 신체 균형" : "에너지 과잉 및 순환 저하 상태";
+        analysisText += `1. 스포츠 과학적 관점: 현재 BMI는 '${bmiStatus}'입니다. 이는 자동차로 비유하자면 ${profile.bmi >= 25 ? '연료는 가득 찼으나 엔진의 배기 효율이 떨어진 상태' : '엔진은 좋으나 연료 탱크가 비어가는 상태'}와 같습니다. 오늘의 달성률 ${completionRate}%는 `;
+        
+        if (completionRate >= 90) analysisText += "현재의 엔진 효율이 매우 극대화되어 있음을 증명합니다. ";
+        else analysisText += "지속 가능한 성장을 위해 페이스 조절이 필요한 구간임을 나타냅니다. ";
+
+        // 사상체질 및 심리 분석
+        analysisText += `\n\n2. 한방 및 심리적 관점: ${sasangNames[profile.sasang]}으로서 귀하는 ${profile.sasang === 'TE' ? '간의 흡수력은 좋으나 폐의 발산력이 약해 노폐물이 쌓이기 쉬운' : '비위의 기능은 좋으나 신장의 정력이 약해 하체가 부실해지기 쉬운'} 특징을 가집니다. ${profile.mbti} 특유의 계획성을 발휘하여 이 약점을 보완해야 합니다.`;
+        
+        analysisText += `\n\n[체질 시각화 프롬프트]: ${sasangVisualPrompts[profile.sasang]}`;
     } else {
-        analysisText = `Analysis from your ${personas[profile.sasang]} coach. Considering your MBTI(${profile.mbti}) and body metrics (BMI ${profile.bmi}), today's ${completionRate}% completion rate is `;
-        if (completionRate >= 90) analysisText += "nearly perfect. Your self-discipline is exemplary.";
-        else if (completionRate >= 60) analysisText += "encouraging. Consistency is key. Keep pushing slightly harder.";
-        else analysisText += "a signal that you need recovery. Rest well for tomorrow's growth.";
+        analysisText = `[Analysis from ${personaTitle}]\n\n`;
+        analysisText += `Scientific integration of your metrics (BMI ${profile.bmi}, BMR ${Math.round(profile.bmr)}kcal), psychology (${profile.mbti}), and constitution (${sasangNames[profile.sasang]}).\n\n`;
+        
+        analysisText += `1. Sports Science: Your BMI indicates a '${profile.bmi < 25 ? 'balanced' : 'high-energy storage'} state. Like a car engine, your ${completionRate}% completion today shows `;
+        analysisText += completionRate >= 90 ? "optimal performance. " : "a need for strategic recovery. ";
+
+        analysisText += `\n\n2. Oriental Medicine & Psychology: As a ${sasangNames[profile.sasang]}, you have a natural tendency for ${profile.sasang === 'TE' ? 'high absorption but low metabolic excretion' : 'strong digestion but weaker lower-body stability'}. Use your ${profile.mbti} traits to bridge this gap.`;
+        
+        analysisText += `\n\n[Visual Prompt]: ${sasangVisualPrompts[profile.sasang]}`;
     }
 
     const recs = [
         {
-            name: isKo ? "폼롤러 전신 마사지" : "Full-body Foam Rolling",
-            description: isKo ? "운동 후 쌓인 근막의 긴장을 완화하고 혈액순환을 촉진합니다. 특히 하체와 등 부위를 집중적으로 풀어주세요." : "Relieve myofascial tension and promote blood circulation. Focus on your legs and back.",
-            image_prompt: "A peaceful minimalist studio setting with a foam roller on a yoga mat, warm morning light, high resolution, photorealistic",
+            name: isKo ? "체질 맞춤형 기능성 스트레칭" : "Constitution-based Functional Stretch",
+            description: isKo ? "사상체질별 취약 부위를 집중적으로 보강합니다. 특히 하체 순환을 돕고 척추의 정렬을 바로잡는 동작을 15분간 실시하세요." : "Targets vulnerable areas based on your type. Focus on lower-body circulation and spinal alignment for 15 mins.",
+            image_prompt: `A professional athlete performing a precise stretching pose in a high-tech lab setting, detailed muscle anatomy, soft cinematic lighting, 8k resolution`,
             type: "workout"
         },
         {
-            name: isKo ? "구운 소고기와 구운 채소" : "Grilled Beef and Roasted Vegetables",
-            description: isKo ? "단백질 보충과 더불어 섬유질 섭취를 돕습니다. 태음인에게는 소고기가, 소양인에게는 신선한 채소가 특히 유익합니다." : "High protein with essential fibers. Great for muscle recovery and metabolic health.",
-            image_prompt: "Gourmet plate of perfectly grilled steak slices and colorful roasted vegetables, cinematic lighting, food photography style",
+            name: isKo ? "대사 촉진 영양 식단" : "Metabolism Boosting Nutrition Plan",
+            description: isKo ? "귀하의 BMR을 고려한 고단백, 저염분 식단입니다. 체내 염증을 줄이고 근육 합성을 극대화하는 신선한 식재료를 사용하세요." : "High-protein, low-sodium meal optimized for your BMR. Uses fresh ingredients to reduce inflammation and maximize protein synthesis.",
+            image_prompt: "A balanced healthy meal with grilled salmon, quinoa, and vibrant steamed greens, professional food photography, natural lighting",
             type: "diet"
         }
     ];
