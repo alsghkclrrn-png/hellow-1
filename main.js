@@ -388,10 +388,82 @@ function showSasangResults() {
     document.getElementById('sasang-type-desc').textContent = translations[currentLang][`sasang-insight-${type}`];
 }
 
+// Core Diagnosis Logic
+let currentCoreIndex = 0;
+let coreScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0, TY: 0, TE: 0, SY: 0, SE: 0 };
+const coreWeightMap = [
+    { a: { E: 2, SY: 2 }, b: { E: 1, TE: 2 }, c: { I: 2, SE: 2 }, d: { I: 1, TY: 2 } },
+    { a: { S: 2, TE: 2 }, b: { S: 1, SE: 2 }, c: { N: 2, SY: 2 }, d: { N: 1, TY: 2 } },
+    { a: { T: 2, TY: 2 }, b: { T: 1, SY: 2 }, c: { F: 2, TE: 2 }, d: { F: 1, SE: 2 } },
+    { a: { P: 2, SY: 2 }, b: { P: 1, TY: 2 }, c: { J: 2, TE: 2 }, d: { J: 1, SE: 2 } },
+    { a: { SY: 3 }, b: { TE: 3 }, c: { SE: 3 }, d: { TY: 3 } }
+];
+
+function updateCoreQuiz() {
+    const container = document.getElementById('core-quiz');
+    if (!container || container.classList.contains('hidden')) return;
+    const progressText = document.getElementById('core-progress-text');
+    const progressBar = document.getElementById('core-progress-bar');
+    if (progressText) progressText.textContent = `${translations[currentLang]['mbti-step']} ${currentCoreIndex + 1} / 5`;
+    if (progressBar) progressBar.style.width = `${((currentCoreIndex + 1) / 5) * 100}%`;
+
+    if (currentCoreIndex < 5) {
+        document.getElementById('core-question-text').textContent = translations[currentLang][`core-q${currentCoreIndex + 1}`];
+        const optCont = document.getElementById('core-options');
+        optCont.innerHTML = '';
+        ['a', 'b', 'c', 'd'].forEach(optKey => {
+            const btn = document.createElement('button');
+            btn.className = 'mbti-opt';
+            btn.textContent = translations[currentLang][`core-q${currentCoreIndex + 1}-${optKey}`];
+            btn.onclick = () => {
+                const weights = coreWeightMap[currentCoreIndex][optKey];
+                Object.entries(weights).forEach(([key, val]) => coreScores[key] += val);
+                currentCoreIndex++;
+                updateCoreQuiz();
+            };
+            optCont.appendChild(btn);
+        });
+    } else showCoreResults();
+}
+
+function showCoreResults() {
+    // Determine MBTI
+    const mbti = (coreScores.E >= coreScores.I ? 'E' : 'I') +
+                 (coreScores.S >= coreScores.N ? 'S' : 'N') +
+                 (coreScores.T >= coreScores.F ? 'T' : 'F') +
+                 (coreScores.J >= coreScores.P ? 'J' : 'P');
+    
+    // Determine Sasang
+    const sasang = Object.keys({ TY: 0, TE: 0, SY: 0, SE: 0 }).reduce((a, b) => coreScores[a] > coreScores[b] ? a : b);
+    
+    userData.mbti = mbti;
+    userData.sasang = sasang;
+    
+    document.getElementById('core-mbti-value').textContent = mbti;
+    document.getElementById('core-sasang-value').textContent = translations[currentLang][`sasang-type-${sasang}`];
+    document.getElementById('core-insight-text').textContent = translations[currentLang][`sasang-insight-${sasang}`];
+    
+    // Auto-populate displays
+    const mbtiDisp = document.getElementById('mbti-display');
+    if (mbtiDisp) mbtiDisp.value = mbti;
+    
+    document.getElementById('core-quiz').classList.add('hidden');
+    document.getElementById('core-results').classList.remove('hidden');
+}
+
 // Initialization
 document.addEventListener('DOMContentLoaded', async () => {
     setLanguage(currentLang);
     await fetchExerciseData();
+    updateCoreQuiz();
+
+    document.getElementById('retake-core')?.addEventListener('click', () => {
+        currentCoreIndex = 0;
+        coreScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0, TY: 0, TE: 0, SY: 0, SE: 0 };
+        document.getElementById('core-quiz').classList.remove('hidden');
+        document.getElementById('core-results').classList.add('hidden');
+        updateCoreQuiz();
+    });
 
     document.getElementById('metrics-form')?.addEventListener('submit', (e) => {
         e.preventDefault();

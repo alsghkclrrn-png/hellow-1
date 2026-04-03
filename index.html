@@ -66,6 +66,42 @@
 
     <main>
         <!-- 기존 핵심 분석 섹션 -->
+        <section id="core-diagnosis" class="feature-section">
+            <h2 data-i18n="core-quiz-title"><i data-lucide="scan-face"></i> 전문가용 핵심 통합 진단</h2>
+            <p class="section-desc" data-i18n="core-quiz-desc">5개의 핵심 질문으로 당신의 MBTI와 사상체질을 과학적으로 도출합니다.</p>
+            
+            <div id="core-quiz" class="quiz-container">
+                <div id="core-progress-container" class="quiz-progress-wrapper">
+                    <div id="core-progress-bar" class="quiz-progress-bar"></div>
+                    <span id="core-progress-text"></span>
+                </div>
+                <div id="core-question-card" class="question-card">
+                    <h3 id="core-question-text"></h3>
+                    <div class="mbti-options" id="core-options">
+                        <!-- Options injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="core-results" class="hidden">
+                <div class="mbti-badge-container">
+                    <div class="mbti-type-card">
+                        <span class="mbti-label">분석된 MBTI</span>
+                        <h3 id="core-mbti-value">--</h3>
+                    </div>
+                    <div class="mbti-type-card">
+                        <span class="mbti-label">분석된 사상체질</span>
+                        <h3 id="core-sasang-value">--</h3>
+                    </div>
+                </div>
+                <div class="mbti-recommendation-card" style="margin-top: 20px;">
+                    <span class="mbti-label">통합 건강 제언</span>
+                    <p id="core-insight-text">--</p>
+                </div>
+                <button id="retake-core" class="secondary-btn" style="margin-top: 20px;" data-i18n="sasang-retake">다시 테스트하기</button>
+            </div>
+        </section>
+
         <section id="body-metrics">
             <h2 data-i18n="metrics-title">신체 지표 분석</h2>
             <form id="metrics-form">
