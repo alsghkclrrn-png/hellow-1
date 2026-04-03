@@ -303,17 +303,57 @@ const exerciseTranslations = {
         ko: '푸시업 (팔굽혀펴기)', en: 'Push-up', primary: { ko: '가슴', en: 'Chest' }, secondary: { ko: '어깨, 삼두근', en: 'Shoulders, Triceps' },
         image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400',
         desc: {
-            ko: '[시작 자세] 양손을 어깨너비보다 약간 넓게 바닥에 짚고, 머리부터 발끝까지 일직선을 유지합니다. [동작] 가슴이 바닥에 닿기 직전까지 천천히 몸을 내렸다가, 바닥을 밀어내며 시작 자세로 돌아옵니다. [호흡] 내려갈 때 들이마시고, 올라올 때 내뱉습니다. [주의] 허리가 아래로 처지거나 엉덩이가 들리지 않도록 복부에 힘을 줍니다. [추천] 12~15회, 3~4세트.',
-            en: '[Start] Hands slightly wider than shoulders, body in a straight line. [Action] Lower chest towards floor, then push back up. [Breathing] Inhale down, exhale up. [Caution] Keep core engaged to prevent sagging. [Recommended] 12-15 reps, 3-4 sets.'
+            ko: '[시작 자세] 양손을 어깨너비보다 약간 넓게 바닥에 짚고, 몸을 일직선으로 유지합니다. [동작] 가슴이 바닥에 닿기 직전까지 천천히 내렸다가 바닥을 밀며 올라옵니다. [호흡] 내려갈 때 마시고 올라올 때 뱉습니다. [주의] 허리가 꺾이지 않게 복부에 힘을 줍니다.',
+            en: '[Start] Hands slightly wider than shoulders, body in a straight line. [Action] Lower chest towards floor, then push back up. [Breathing] Inhale down, exhale up. [Caution] Keep core engaged.'
         }
     },
     'squat': {
         ko: '스쿼트', en: 'Squat', primary: { ko: '대퇴사두근 (허벅지 앞)', en: 'Quadriceps' }, secondary: { ko: '둔근 (엉덩이), 햄스트링', en: 'Glutes, Hamstrings' },
         image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=400',
         desc: {
-            ko: '[시작 자세] 발을 어깨너비로 벌리고 서서 시선은 정면을 향합니다. [동작] 의자에 앉듯이 엉덩이를 뒤로 빼며 무릎을 굽혀 내려갑니다. 허벅지가 바닥과 평행이 될 때까지 내려간 후 일어납니다. [호흡] 내려갈 때 들이마시고, 올라올 때 내뱉습니다. [주의] 무릎이 발끝보다 과하게 나오지 않도록 하며 허리를 곧게 폅니다. [추천] 15~20회, 3~5세트.',
-            en: '[Start] Feet shoulder-width apart, look forward. [Action] Sit back into a squat until thighs are parallel to floor, then stand up. [Breathing] Inhale down, exhale up. [Caution] Keep back straight, knees aligned with toes. [Recommended] 15-20 reps, 3-5 sets.'
+            ko: '[시작 자세] 발을 어깨너비로 벌리고 섭니다. [동작] 의자에 앉듯 엉덩이를 뒤로 빼며 무릎을 굽혀 내려갑니다. 허벅지가 바닥과 평행이 되면 일어납니다. [호흡] 내려갈 때 마시고 올라올 때 뱉습니다. [주의] 무릎이 발끝보다 너무 나가지 않게 합니다.',
+            en: '[Start] Feet shoulder-width apart. [Action] Sit back until thighs are parallel to floor, then stand up. [Breathing] Inhale down, exhale up. [Caution] Keep back straight.'
         }
+    },
+    'bench press': {
+        ko: '벤치 프레스', en: 'Bench Press', primary: { ko: '가슴', en: 'Chest' }, secondary: { ko: '어깨, 삼두근', en: 'Shoulders, Triceps' },
+        desc: { ko: '벤치에 누워 바벨을 가슴 높이에서 들어 올립니다. 가슴 근육의 수축과 이완에 집중하세요.', en: 'Lie on a bench and lift the barbell from chest height. Focus on chest contraction.' }
+    },
+    'deadlift': {
+        ko: '데드리프트', en: 'Deadlift', primary: { ko: '전신, 등 하부', en: 'Full Body, Lower Back' }, secondary: { ko: '햄스트링, 둔근', en: 'Hamstrings, Glutes' },
+        desc: { ko: '바닥에 놓인 바벨을 정석적인 자세로 들어 올립니다. 전신 근력을 강화하는 최고의 운동입니다.', en: 'Lift the barbell from the floor with correct form. Best for overall strength.' }
+    },
+    'pull-up': {
+        ko: '풀업 (턱걸이)', en: 'Pull-up', primary: { ko: '등', en: 'Back' }, secondary: { ko: '이두근, 어깨', en: 'Biceps, Shoulders' },
+        desc: { ko: '바를 잡고 턱이 바 위에 올 때까지 몸을 당겨 올립니다. 등의 넓이를 키우는 데 효과적입니다.', en: 'Pull yourself up until your chin is over the bar. Great for back width.' }
+    },
+    'overhead press': {
+        ko: '오버헤드 프레스', en: 'Overhead Press', primary: { ko: '어깨', en: 'Shoulders' }, secondary: { ko: '삼두근', en: 'Triceps' },
+        desc: { ko: '서거나 앉아서 바벨이나 덤벨을 머리 위로 들어 올립니다. 어깨 전체의 근력을 키웁니다.', en: 'Lift weights over your head. Builds overall shoulder strength.' }
+    },
+    'lunge': {
+        ko: '런지', en: 'Lunge', primary: { ko: '대퇴사두근, 둔근', en: 'Quadriceps, Glutes' }, secondary: { ko: '햄스트링', en: 'Hamstrings' },
+        desc: { ko: '한쪽 발을 앞으로 내디디며 양쪽 무릎을 굽힙니다. 하체 균형과 근력을 동시에 잡습니다.', en: 'Step forward and bend both knees. Improves balance and leg strength.' }
+    },
+    'plank': {
+        ko: '플랭크', en: 'Plank', primary: { ko: '복근 (코어)', en: 'Abs (Core)' }, secondary: { ko: '전신', en: 'Full Body' },
+        desc: { ko: '팔꿈치를 바닥에 대고 몸을 일직선으로 유지하며 버팁니다. 코어 강화의 핵심 운동입니다.', en: 'Hold a straight body position on your elbows. Essential for core strength.' }
+    },
+    'bicep curl': {
+        ko: '이두 컬', en: 'Bicep Curl', primary: { ko: '이두근 (팔 앞쪽)', en: 'Biceps' },
+        desc: { ko: '덤벨이나 바벨을 들고 팔꿈치를 고정한 채 팔을 굽힙니다. 팔 근육의 선명도를 높입니다.', en: 'Curl weights to build bicep peaks. Improves arm definition.' }
+    },
+    'tricep extension': {
+        ko: '삼두 익스텐션', en: 'Tricep Extension', primary: { ko: '삼두근 (팔 뒤쪽)', en: 'Triceps' },
+        desc: { ko: '팔을 머리 뒤로 넘겨 펴거나 케이블을 밀어 내립니다. 팔 뒤쪽 근육을 강화합니다.', en: 'Extend your arms to build triceps. Strengthens back of the arms.' }
+    },
+    'lat pulldown': {
+        ko: '렛 풀다운', en: 'Lat Pulldown', primary: { ko: '등 (광배근)', en: 'Back (Lats)' },
+        desc: { ko: '케이블 바를 가슴 쪽으로 당겨 내립니다. 초보자도 쉽게 등의 자극을 느낄 수 있습니다.', en: 'Pull the cable bar down to your chest. Easy for beginners to feel back muscles.' }
+    },
+    'running': {
+        ko: '러닝 (달리기)', en: 'Running', primary: { ko: '심폐 지구력', en: 'Cardio' },
+        desc: { ko: '일정한 속도로 달립니다. 심폐 기능을 향상시키고 체지방을 연소합니다.', en: 'Run at a steady pace. Improves heart health and burns fat.' }
     }
 };
 

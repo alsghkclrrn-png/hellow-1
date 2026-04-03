@@ -72,11 +72,27 @@ class WorkoutCard extends HTMLElement {
     render() {
         if (typeof translations === 'undefined') return;
         const lang = currentLang;
-        const name = this.getAttribute('name') || translations[lang]['workout-card-default-name'];
+        
+        // Try to translate on the fly if it's a dynamic exercise card
+        let name = this.getAttribute('name');
+        let desc = this.getAttribute('desc');
+        const exName = this.getAttribute('ex-name');
+        
+        if (exName && typeof exerciseDatabase !== 'undefined') {
+            const exData = exerciseDatabase.find(e => e.name === exName);
+            if (exData) {
+                const info = getTranslatedData(exData);
+                name = info.name;
+                desc = info.desc;
+            }
+        }
+        
+        name = name || translations[lang]['workout-card-default-name'];
+        desc = desc || translations[lang]['workout-card-default-desc'];
+        
         const sets = this.getAttribute('sets') || '0';
         const reps = this.getAttribute('reps') || '0';
         const rest = this.getAttribute('rest') || '0';
-        const desc = this.getAttribute('desc') || translations[lang]['workout-card-default-desc'];
         const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
         const calories = this.getAttribute('calories') || '0';
         const primaryTarget = this.getAttribute('primary-target') || translations[lang]['workout-card-default-target'];
@@ -121,12 +137,12 @@ class WorkoutCard extends HTMLElement {
             <div class="content">
                 <div class="target-info">
                     <div class="target-row">
-                        <span class="target-label primary-label">주요 타겟</span>
+                        <span class="target-label primary-label">${lang === 'ko' ? '주요 타겟' : 'Primary'}</span>
                         <span class="target-value">${primaryTarget}</span>
                     </div>
                     ${secondaryTarget ? `
                     <div class="target-row">
-                        <span class="target-label secondary-label">보조 타겟</span>
+                        <span class="target-label secondary-label">${lang === 'ko' ? '보조 타겟' : 'Secondary'}</span>
                         <span class="target-value">${secondaryTarget}</span>
                     </div>` : ''}
                 </div>
@@ -180,11 +196,13 @@ async function fetchExerciseData() {
 }
 
 function getTranslatedData(ex) {
+    const lang = currentLang;
     if (typeof exerciseTranslations === 'undefined') return { name: ex.name, desc: ex.instructions?.[0] || "", primary: "", secondary: "", image: null };
     
     const exNameLower = ex.name.toLowerCase();
     let translation = exerciseTranslations[exNameLower];
     
+    // Partial match if exact match not found
     if (!translation) {
         const key = Object.keys(exerciseTranslations).find(k => exNameLower.includes(k));
         if (key) translation = exerciseTranslations[key];
@@ -192,13 +210,39 @@ function getTranslatedData(ex) {
 
     if (translation) {
         return { 
-            name: translation[currentLang], 
-            desc: translation.desc?.[currentLang] || translation.desc || (ex.instructions?.[0] || "Follow the guide."),
-            primary: translation.primary?.[currentLang] || "",
-            secondary: translation.secondary?.[currentLang] || "",
+            name: translation[lang], 
+            desc: translation.desc?.[lang] || translation.desc || (ex.instructions?.[0] || (lang === 'ko' ? "가이드를 따라 동작을 수행하세요." : "Follow the guide.")),
+            primary: translation.primary?.[lang] || "",
+            secondary: translation.secondary?.[lang] || "",
             image: translation.image || null
         };
     }
+
+    // Fallback if no translation found at all
+    if (lang === 'ko') {
+        // Basic translation mapping for common words in names
+        let name = ex.name;
+        const replacements = {
+            'barbell': '바벨', 'dumbbell': '덤벨', 'cable': '케이블', 'bench': '벤치',
+            'press': '프레스', 'row': '로우', 'curl': '컬', 'extension': '익스텐션',
+            'squat': '스쿼트', 'lunge': '런지', 'deadlift': '데드리프트', 'fly': '플라이',
+            'raise': '레이즈', 'pulldown': '풀다운', 'pushup': '푸시업', 'pullup': '풀업',
+            'incline': '인클라인', 'decline': '디클라인', 'seated': '시티드', 'standing': '스탠딩'
+        };
+        Object.entries(replacements).forEach(([en, ko]) => {
+            const regex = new RegExp(en, 'gi');
+            name = name.replace(regex, ko);
+        });
+
+        return {
+            name: name,
+            desc: "가이드를 따라 올바른 자세로 운동을 수행해 보세요. 부상 방지를 위해 적절한 무게를 선택하는 것이 중요합니다.",
+            primary: "",
+            secondary: "",
+            image: null
+        };
+    }
+
     return { name: ex.name, desc: ex.instructions?.[0] || "Follow the guide.", primary: "", secondary: "", image: null };
 }
 
@@ -259,7 +303,8 @@ function getExercisesByContext(options) {
             image: imgPath,
             calories: burned,
             'primary-target': primaryTarget,
-            'secondary-target': secondaryTarget
+            'secondary-target': secondaryTarget,
+            'ex-name': ex.name
         };
     });
 }
