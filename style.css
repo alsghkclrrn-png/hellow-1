@@ -573,24 +573,22 @@ button:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* MBTI Progress */
-#mbti-progress-bar {
-    height: 6px;
+/* Quiz Progress Bars */
+.quiz-progress-wrapper {
     background: var(--border-color);
+    height: 6px;
     border-radius: 3px;
+    margin-bottom: 20px;
     position: relative;
     overflow: hidden;
 }
 
-#mbti-progress-bar::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
+.quiz-progress-bar {
     height: 100%;
-    width: var(--progress, 0%);
     background: var(--primary-color);
-    transition: width 0.4s ease;
+    width: 0%;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px var(--glow-color);
 }
 
 .mbti-options {

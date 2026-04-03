@@ -364,7 +364,9 @@ function updateSasangQuiz() {
     const container = document.getElementById('sasang-quiz');
     if (!container || container.classList.contains('hidden')) return;
     const progressText = document.getElementById('sasang-progress-text');
+    const progressBar = document.getElementById('sasang-progress-bar');
     if (progressText) progressText.textContent = `${translations[currentLang]['mbti-step']} ${currentSasangIndex+1} ${translations[currentLang]['mbti-step-suffix']} 2`;
+    if (progressBar) progressBar.style.width = `${((currentSasangIndex + 1) / 2) * 100}%`;
     if (currentSasangIndex < 2) {
         document.getElementById('sasang-question-text').textContent = translations[currentLang][`sasang-q${currentSasangIndex+1}`];
         const optCont = document.getElementById('sasang-options');
