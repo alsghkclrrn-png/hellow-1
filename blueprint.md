@@ -25,6 +25,10 @@ A professional holistic health platform that provides personalized workout plans
 - **External APIs:** Integrates a free exercise database for high-quality workout content.
 
 ## Recent Changes & Localization Improvements
+- **Icon Preservation during Translation:** Updated `setLanguage` function to use `childNodes` iteration, ensuring that Lucide icons (`<i>` and `<svg>` tags) are preserved when switching languages.
+- **Comprehensive Translation Coverage:** Added over 50 missing translation keys to `translations.js`, covering all UI elements including navigation, forms, modals, and the magazine section.
+- **Lucide Re-initialization:** Integrated `lucide.createIcons()` into the language switching flow to ensure all icons are correctly rendered after DOM updates.
+- **Document Title Localization:** Added dynamic document title updates based on the selected language.
 - **Expert Core Scan Integration:** Replaced/supplemented lengthy quizzes with a 5-question integrated diagnostic tool for faster, more accurate personalization.
 - **Advanced AI Persona:** Upgraded AI coaching tone to reflect the expertise of world-class sports scientists and Oriental medicine specialists.
 - **Dynamic Visual Prompts:** Included detailed prompts for image generation within the AI analysis cards.

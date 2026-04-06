@@ -25,21 +25,41 @@ function setLanguage(lang) {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = translations[lang][key];
             } else {
-                el.textContent = translations[lang][key];
+                // Preserve icons if they exist
+                const icon = el.querySelector('i[data-lucide], svg.lucide');
+                if (icon) {
+                    const translatedText = translations[lang][key];
+                    // Keep the icon and update only the text node
+                    Array.from(el.childNodes).forEach(node => {
+                        if (node.nodeType === Node.TEXT_NODE) {
+                            node.textContent = node.textContent.trim() ? ` ${translatedText}` : translatedText;
+                        }
+                    });
+                    // If no text node found, append one
+                    if (!Array.from(el.childNodes).some(n => n.nodeType === Node.TEXT_NODE)) {
+                        el.appendChild(document.createTextNode(` ${translatedText}`));
+                    }
+                } else {
+                    el.textContent = translations[lang][key];
+                }
             }
         }
     });
 
     // Update document title
     const titleSuffix = lang === 'ko' ? ' | 개인 맞춤형 건강 & 지혜 매거진' : ' | Personalized Health & Wisdom Magazine';
-    document.title = (translations[lang]['nav-logo'] || 'AI Workout Coach') + titleSuffix;
+    const logoText = translations[lang]['nav-logo'] || 'AI Workout Coach';
+    document.title = logoText + titleSuffix;
 
     const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) themeBtn.setAttribute('aria-label', translations[lang]['theme-toggle']);
+    if (themeBtn) {
+        themeBtn.setAttribute('aria-label', translations[lang]['theme-toggle'] || 'Toggle Theme');
+    }
 
     const bmiStatus = document.getElementById('bmi-status');
     if (bmiStatus && bmiStatus.getAttribute('data-status-key')) {
-        bmiStatus.textContent = translations[lang][bmiStatus.getAttribute('data-status-key')];
+        const statusKey = bmiStatus.getAttribute('data-status-key');
+        bmiStatus.textContent = translations[lang][statusKey] || statusKey;
     }
 
     // Update Result Descriptions
@@ -52,11 +72,16 @@ function setLanguage(lang) {
         if (mbtiDesc) mbtiDesc.textContent = translations[lang][`mbti-insight-${userData.mbti}`] || translations[lang]['mbti-default-desc'];
     }
 
-    // Re-render components
+    // Re-render components and icons
     document.querySelectorAll('workout-card').forEach(card => card.render?.());
     updateLanguageSwitcherUI();
-    updateMbtiQuiz();
-    updateSasangQuiz();
+    if (window.lucide) window.lucide.createIcons();
+    
+    // Update Quizzes if they are active
+    if (!document.getElementById('core-quiz')?.classList.contains('hidden')) updateCoreQuiz();
+    if (!document.getElementById('mbti-quiz')?.classList.contains('hidden')) updateMbtiQuiz();
+    if (!document.getElementById('sasang-quiz')?.classList.contains('hidden')) updateSasangQuiz();
+    
     renderStretchingRecommendations(); 
 }
 
