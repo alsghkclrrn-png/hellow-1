@@ -67,7 +67,7 @@ function setLanguage(lang) {
         if (mbtiDesc) mbtiDesc.textContent = translations[lang][`mbti-insight-${userData.mbti}`] || translations[lang]['mbti-default-desc'];
     }
 
-    // Re-render components
+    // Re-render components and icons
     document.querySelectorAll('workout-card').forEach(card => {
         if (typeof card.render === 'function') card.render();
     });
@@ -95,14 +95,14 @@ class WorkoutCard extends HTMLElement {
         let desc = this.getAttribute('desc');
         let image = this.getAttribute('image');
         
-        // Match with database for accurate translation and image
+        // Accurate matching from DB on every render
         if (exName && exerciseDatabase.length > 0) {
             const exData = exerciseDatabase.find(e => e.name === exName);
             if (exData) {
                 const info = getTranslatedData(exData);
                 name = info.name;
                 desc = info.desc;
-                if (info.image) image = info.image; // Use translated/mapped image if available
+                if (info.image) image = info.image;
             }
         }
         
@@ -130,7 +130,8 @@ class WorkoutCard extends HTMLElement {
             <style>
                 :host { display: block; background: var(--card-background); border-radius: 20px; border: 1px solid var(--border-color); transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; margin-bottom: 20px; }
                 .image-container { width: 100%; height: 220px; overflow: hidden; position: relative; }
-                .image-container img { width: 100%; height: 100%; object-fit: cover; }
+                .image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+                :host(:hover) .image-container img { transform: scale(1.05); }
                 .content { padding: 20px; flex-grow: 1; }
                 h3 { color: var(--primary-color); margin: 0 0 10px 0; font-size: 1.3em; font-weight: 800; }
                 .target-info { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; }
@@ -185,16 +186,6 @@ class WorkoutCard extends HTMLElement {
                             <input type="number" class="actual-reps" value="${parseInt(reps)}" placeholder="${translations[lang]['workout-card-placeholder-reps']}">
                         </div>
                     </div>
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[lang]['workout-card-actual-rest-label']}</label>
-                            <input type="number" class="actual-rest" value="${rest}" placeholder="${translations[lang]['workout-card-placeholder-rest']}">
-                        </div>
-                        <div class="input-field">
-                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[lang]['workout-card-actual-time-label']}</label>
-                            <input type="number" class="total-time" value="10" placeholder="${translations[lang]['workout-card-placeholder-time']}">
-                        </div>
-                    </div>
                     <label style="display:flex; align-items:center; gap:8px; margin-top:12px; font-size:0.9em; color:var(--primary-color); cursor:pointer; font-weight:600;">
                         <input type="checkbox" class="is-completed" checked style="width:auto; height:18px; width:18px; border-radius:4px;"> ${translations[lang]['workout-card-completed-status']}
                     </label>
@@ -210,7 +201,7 @@ async function fetchExerciseData() {
     try {
         const response = await fetch(EXERCISE_API_URL);
         if (response.ok) { exerciseDatabase = await response.json(); return exerciseDatabase; }
-    } catch (error) { console.error('Error:', error); }
+    } catch (error) { console.error('Error fetching exercise data:', error); }
     return [];
 }
 
@@ -219,12 +210,11 @@ function getTranslatedData(ex) {
     const defaultDesc = lang === 'ko' ? "가이드를 따라 올바른 자세로 동작을 수행하세요. 부상 방지를 위해 적절한 무게를 선택하는 것이 중요합니다." : "Follow the guide carefully and maintain proper form. It is important to choose an appropriate weight to prevent injury.";
     
     const rawInstructions = Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || "");
+    const exNameLower = ex.name.toLowerCase();
     
     if (typeof exerciseTranslations === 'undefined') return { name: ex.name, desc: rawInstructions || defaultDesc, primary: "", secondary: "", image: null };
     
-    const exNameLower = ex.name.toLowerCase();
     let translation = exerciseTranslations[exNameLower];
-    
     if (!translation) {
         const key = Object.keys(exerciseTranslations).find(k => exNameLower.includes(k));
         if (key) translation = exerciseTranslations[key];
@@ -245,6 +235,7 @@ function getTranslatedData(ex) {
         };
     }
 
+    // Fallback logic
     if (lang === 'ko') {
         let name = ex.name;
         const replacements = {
@@ -258,7 +249,6 @@ function getTranslatedData(ex) {
             const regex = new RegExp(`\\b${en}\\b`, 'gi');
             name = name.replace(regex, ko);
         });
-
         return { name: name, desc: defaultDesc, primary: "", secondary: "", image: null };
     }
 
@@ -304,15 +294,8 @@ function getExercisesByContext(options) {
     return sessionPool.map(ex => {
         const info = getTranslatedData(ex);
         const imgPath = info.image || ((ex.images && ex.images.length > 0) ? `${IMG_BASE_URL}${ex.images[0]}` : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400');
-        const metMap = { 'strength': 6.0, 'cardio': 8.0, 'plyometrics': 8.0, 'abs': 4.0 };
-        const burned = Math.round(((metMap[ex.category] || 5.0) * 3.5 * (userData.weight || 70) / 200) * 15);
+        const burned = Math.round((6.0 * 3.5 * (userData.weight || 70) / 200) * 15);
         
-        const rawPrimary = ex.primaryMuscles?.[0] || 'full body';
-        const primaryTarget = info.primary || translateMuscle(rawPrimary);
-        
-        const rawSecondary = ex.secondaryMuscles?.[0] || '';
-        const secondaryTarget = info.secondary || (rawSecondary ? translateMuscle(rawSecondary) : "");
-
         return {
             name: info.name,
             sets: fitnessLevel === 'beginner' ? 3 : 4,
@@ -321,8 +304,8 @@ function getExercisesByContext(options) {
             desc: info.desc,
             image: imgPath,
             calories: burned,
-            'primary-target': primaryTarget,
-            'secondary-target': secondaryTarget,
+            'primary-target': info.primary || translateMuscle(ex.primaryMuscles?.[0] || 'full body'),
+            'secondary-target': info.secondary || translateMuscle(ex.secondaryMuscles?.[0] || ''),
             'ex-name': ex.name
         };
     });
@@ -330,12 +313,7 @@ function getExercisesByContext(options) {
 
 function renderStretchingRecommendations() {
     const container = document.getElementById('stretching-container');
-    if (!container) return;
-    
-    if (lastGeneratedTargets.length === 0) {
-        container.innerHTML = `<p class="empty-msg" data-i18n="stretching-empty">${translations[currentLang]['stretching-empty']}</p>`;
-        return;
-    }
+    if (!container || lastGeneratedTargets.length === 0) return;
 
     const uniqueTargets = [...new Set(lastGeneratedTargets)];
     let selectedStretches = [];
@@ -346,11 +324,6 @@ function renderStretchingRecommendations() {
             selectedStretches.push(...matches);
         }
     });
-
-    if (selectedStretches.length < 5 && typeof stretchingDatabase !== 'undefined') {
-        const extras = stretchingDatabase.filter(s => !selectedStretches.includes(s)).sort(() => 0.5 - Math.random());
-        selectedStretches.push(...extras.slice(0, 5 - selectedStretches.length));
-    }
 
     container.innerHTML = selectedStretches.slice(0, 6).map(s => `
         <div class="stretching-card" style="min-width: 250px; background: var(--card-background); border-radius: 15px; overflow: hidden; border: 1px solid var(--border-color); flex-shrink: 0;">
@@ -367,56 +340,6 @@ function renderStretchingRecommendations() {
     container.style.gap = '15px';
     container.style.overflowX = 'auto';
     container.style.padding = '10px 0';
-}
-
-// MBTI & Quiz Logics
-let currentMbtiIndex = 0;
-let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-const mbtiQuestions = [
-    {dimension:"EI",pos:true}, {dimension:"EI",pos:false}, {dimension:"EI",pos:true}, {dimension:"EI",pos:false}, {dimension:"EI",pos:true},
-    {dimension:"SN",pos:true}, {dimension:"SN",pos:false}, {dimension:"SN",pos:true}, {dimension:"SN",pos:false}, {dimension:"SN",pos:true},
-    {dimension:"TF",pos:true}, {dimension:"TF",pos:false}, {dimension:"TF",pos:true}, {dimension:"TF",pos:false}, {dimension:"TF",pos:true},
-    {dimension:"JP",pos:true}, {dimension:"JP",pos:false}, {dimension:"JP",pos:true}, {dimension:"JP",pos:false}, {dimension:"JP",pos:true}
-];
-
-function updateMbtiQuiz() {
-    const container = document.getElementById('mbti-quiz');
-    if (!container || container.classList.contains('hidden')) return;
-    const progressText = document.getElementById('mbti-progress-text');
-    const progressBar = document.getElementById('mbti-progress-bar');
-    if (progressText) progressText.textContent = `${translations[currentLang]['mbti-step']} ${currentMbtiIndex+1} ${translations[currentLang]['mbti-step-suffix']} ${mbtiQuestions.length}`;
-    if (progressBar) progressBar.style.width = `${((currentMbtiIndex+1)/mbtiQuestions.length)*100}%`;
-    
-    if (currentMbtiIndex < mbtiQuestions.length) {
-        document.getElementById('mbti-question-text').textContent = translations[currentLang][`mbti-q${currentMbtiIndex+1}`];
-        const optCont = document.querySelector('#mbti-quiz .mbti-options');
-        optCont.innerHTML = '';
-        [1,2,3,4,5].forEach(score => {
-            const btn = document.createElement('button');
-            btn.className = 'mbti-opt';
-            btn.textContent = translations[currentLang][`mbti-opt-${score}`];
-            btn.onclick = () => {
-                const q = mbtiQuestions[currentMbtiIndex];
-                const weight = score - 3;
-                const d1 = q.dimension[0], d2 = q.dimension[1];
-                if (q.pos) { if(weight>0) mbtiScores[d1]+=weight; else if(weight<0) mbtiScores[d2]+=Math.abs(weight); }
-                else { if(weight>0) mbtiScores[d2]+=weight; else if(weight<0) mbtiScores[d1]+=Math.abs(weight); }
-                currentMbtiIndex++; updateMbtiQuiz();
-            };
-            optCont.appendChild(btn);
-        });
-    } else showMbtiResults();
-}
-
-function showMbtiResults() {
-    let type = (mbtiScores.E>=mbtiScores.I?"E":"I")+(mbtiScores.S>=mbtiScores.N?"S":"N")+(mbtiScores.T>=mbtiScores.F?"T":"F")+(mbtiScores.J>=mbtiScores.P?"J":"P");
-    userData.mbti = type;
-    document.getElementById('mbti-type-value').textContent = type;
-    const displayEl = document.getElementById('mbti-display');
-    if (displayEl) displayEl.value = type;
-    document.getElementById('mbti-quiz').classList.add('hidden');
-    document.getElementById('mbti-results').classList.remove('hidden');
-    document.getElementById('mbti-type-desc').textContent = translations[currentLang][`mbti-insight-${type}`] || translations[currentLang]['mbti-default-desc'];
 }
 
 // Initialization
@@ -447,8 +370,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
     });
-    
-    // Additional event listeners for quizzes, metrics, etc. (Omitted for brevity, kept from original)
 });
 
 window.setLanguage = setLanguage;
