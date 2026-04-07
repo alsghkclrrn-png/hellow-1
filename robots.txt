@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hellow-1-93223112-6fea5.web.app/sitemap.xml
