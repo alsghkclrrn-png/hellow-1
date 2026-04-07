@@ -833,6 +833,176 @@ footer {
     color: var(--secondary-color);
 }
 
+/* Sasang Constitution Section Styles */
+.sasang-intro-card {
+    background: linear-gradient(135deg, var(--card-background) 0%, var(--primary-light) 100%);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--primary-color);
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-soft);
+}
+
+.sasang-intro-card h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+}
+
+.sasang-intro-card p {
+    font-size: 1.05em;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.sasang-diagnosis-guide {
+    margin-bottom: 50px;
+}
+
+.sasang-diagnosis-guide h3 {
+    text-align: center;
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.guide-subtitle {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+}
+
+.diag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.diag-card {
+    background: var(--card-background);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.diag-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+.diag-card h4 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+}
+
+.diag-card p {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.diag-feature {
+    font-weight: 700;
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+.sasang-deep-analysis {
+    margin-bottom: 40px;
+}
+
+.sasang-deep-analysis h3 {
+    text-align: center;
+    font-size: 1.4em;
+    margin-bottom: 30px;
+}
+
+.deep-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.deep-card {
+    background: var(--card-background);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.deep-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px var(--shadow-color);
+}
+
+.deep-card .card-image {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+}
+
+.deep-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.deep-card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.deep-card h4 {
+    padding: 20px 20px 10px 20px;
+    margin: 0;
+    font-size: 1.2em;
+    color: var(--primary-color);
+}
+
+.deep-card p {
+    padding: 0 20px;
+    margin: 8px 0;
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+.deep-card strong {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.diet-info {
+    padding: 15px 20px 20px 20px !important;
+    margin-top: auto !important;
+    background: rgba(56, 189, 248, 0.05);
+    font-weight: 700;
+    color: var(--primary-color) !important;
+}
+
+/* Specific Border Colors for Types */
+.deep-card.sun { border-color: #fbbf24; } /* Yellow-ish for Sun */
+.deep-card.earth { border-color: #10b981; } /* Green for Earth */
+.deep-card.fire { border-color: #ef4444; } /* Red for Fire */
+.deep-card.water { border-color: #3b82f6; } /* Blue for Water */
+
+.sasang-closing {
+    text-align: center;
+    font-style: italic;
+    color: var(--secondary-color);
+    margin-top: 40px;
+    font-size: 1.1em;
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
 /* Responsive Footer */
 @media (max-width: 768px) {
     .footer-container {

@@ -30,13 +30,26 @@ A professional holistic health platform that provides personalized workout plans
 - **Lucide Re-initialization:** Integrated `lucide.createIcons()` into the language switching flow to ensure all icons are correctly rendered after DOM updates.
 - **Document Title Localization:** Added dynamic document title updates based on the selected language.
 - **Expert Core Scan Integration:** Replaced/supplemented lengthy quizzes with a 5-question integrated diagnostic tool for faster, more accurate personalization.
-- **Advanced AI Persona:** Upgraded AI coaching tone to reflect the expertise of world-class sports scientists and Oriental medicine specialists.
+- **Expert AI Persona:** Upgraded AI coaching tone to reflect the expertise of world-class sports scientists and Oriental medicine specialists.
+- **Sasang Constitution Overhaul:** Fully implemented a deep-dive educational and diagnostic section for Sasang Constitution based on Lee Je-ma's medical philosophy.
+    - Added introduction to Sasang medicine principles.
+    - Implemented a 4-type self-diagnosis guide (A-D types).
+    - Created detailed insight cards for each type (Taeyangin, Taeeumin, Soyangin, Soeumin) covering strengths, warnings, and constitutional diet.
+    - Enhanced UI with dedicated infographics and medical insights.
 - **Dynamic Visual Prompts:** Included detailed prompts for image generation within the AI analysis cards.
 - **UI Progress Standardization:** Unified progress bar styles across all diagnostic sections for a polished look.
 - **Natural Korean Translations:** Removed English in parentheses from Korean text to provide a more immersive and natural experience for Korean users.
 - **Full Localization:** Ensured that all UI elements, including document titles, selection options, and dynamically generated fallback text (like "Full Body"), are correctly translated based on the selected language.
+- **Google Search Console Verification:** Added `google0178509708049ae8.html` to the project for site ownership verification and improved search indexing.
 - **Clean UI:** Removed hardcoded strings from `main.js` and `index.html`, consolidating all text into the translation framework.
 - **Bug Fixes:** Resolved issues where some text remained in the previous language after switching.
+- **SEO Optimization & Recovery:** 
+    - Restored full `index.html` content after an accidental truncation.
+    - Optimized meta tags (Title, Description, Keywords) for better search visibility on Google and Naver.
+    - Standardized canonical, Open Graph, and Twitter URLs to use the primary Firebase domain.
+    - Implemented `defer` loading for external scripts to improve page speed (Performance SEO).
+    - Synchronized `robots.txt` and `sitemap.xml` with the primary deployment domain.
+- **Firebase Deployment:** Successfully deployed the project to Firebase Hosting.
 
 ## Future Roadmap
 - [ ] Integration with real-time health tracking APIs (e.g., Google Fit, Apple Health).
