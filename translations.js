@@ -3,7 +3,6 @@ const translations = {
         'nav-logo': 'AI 운동 코치',
         'nav-coach': 'AI 코치',
         'nav-home': '홈',
-        'nav-core-diagnosis': '통합 진단',
         'nav-stretching': '스트레칭 추천',
         'nav-catalog': '운동 종류',
         'nav-home-workout': '홈트 추천',
@@ -31,11 +30,11 @@ const translations = {
         'placeholder-height': 'cm',
         'placeholder-weight': 'kg',
         'mbti-title': '성격 및 마인드셋 분석 (MBTI)',
-        'mbti-desc': '심리적 특성에 맞는 운동 루틴으로 운동의 즐거움을 극대화하세요.',
+        'mbti-desc': '10개의 전문적인 문항을 통해 당신의 운동 성향을 정밀 분석합니다.',
         'mbti-step': '단계 중',
         'mbti-step-suffix': '단계',
         'mbti-default-type': '당신의 MBTI 프로필',
-        'mbti-insight-label': '성격 인사이트',
+        'mbti-insight-label': '전문 AI 코치의 성격 인사이트',
         'retake-mbti': '퀴즈 다시 하기',
         'metrics-summary': 'BMI: {bmi} ({status}), BMR: {bmr} kcal/일',
         'workout-loading': 'AI 루틴 생성 중...',
@@ -44,12 +43,9 @@ const translations = {
         'workout-card-default-name': '운동',
         'workout-card-default-desc': '트레이너의 안내에 따라 동작을 수행하세요.',
         'workout-card-default-target': '전신',
-        'workout-card-target-sets': '목표 세트',
-        'workout-card-target-reps': '목표 횟수',
-        'workout-card-completed-status': '완료',
         'stretching-empty': '운동을 생성하면 부위에 맞는 스트레칭이 여기에 표시됩니다.',
         'stretching-title': '맞춤형 스트레칭 추천',
-        'stretching-desc': '생성된 운동의 주요 타겟 근육을 분석하여 부상을 방지하고 회복을 돕는 최적의 스트레칭을 제안합니다.',
+        'stretching-desc': '생성된 운동 부위를 분석하여 최적의 스트레칭을 제안합니다.',
         'generate-workout-btn': '상황 맞춤형 운동 생성하기',
         'workout-personalization-title': '세션 개인화 설정',
         'workout-personalization-desc': '당신의 현재 상태와 목표에 맞춰 AI가 최적의 운동 루틴을 구성합니다.',
@@ -74,30 +70,44 @@ const translations = {
         'refresh-diet': '다른 식단 추천',
         'sasang-title': '나의 한방 체질 (사상체질)',
         'sasang-desc': '한방 의학의 지혜를 빌려 당신의 타고난 체질을 분석하고 건강 관리법을 제안합니다.',
-        'core-quiz-title': '전문가용 핵심 통합 진단',
-        'core-quiz-desc': '10개의 심층 질문을 통해 당신의 심리적 성향과 생리적 체질을 정밀하게 분석합니다.',
-        'core-insight-label': '전문 AI 코치의 종합 분석 리포트',
-        'core-report-mbti-title': '심리적 운동 동기 (MBTI 분석)',
-        'core-report-sasang-title': '생리적 신체 특성 (사상체질 분석)',
-        'core-report-lifestyle-title': '최적의 라이프스타일 제언',
-        'core-insight-Taeyangin': '태양인은 기운이 위로 솟구치기 쉬우므로, 하체를 단련하고 마음을 차분하게 가라앉히는 운동이 좋습니다. 창의적이고 직관적인 운동 방식을 선호합니다.',
-        'core-insight-Taeeumin': '태음인은 체격이 좋고 흡수력이 뛰어나 노폐물이 쌓이기 쉬운 체질입니다. 따라서 땀을 흠뻑 흘리는 고강도 유산소 운동과 규칙적인 근력 운동이 필수적입니다.',
-        'core-insight-Soyangin': '소양인은 순발력이 좋고 상체가 발달했으나 하체가 약할 수 있습니다. 하체 근력을 강화하는 웨이트 트레이닝과 열을 식힐 수 있는 수영 등을 추천합니다.',
-        'core-insight-Soeumin': '소음인은 체력이 약해지기 쉽고 소화 기능이 예민할 수 있습니다. 무리한 운동보다는 꾸준한 저강도 근력 운동, 요가, 스트레칭으로 기력을 보존하는 것이 효과적입니다.',
-        'sasang-retake': '다시 진단하기',
         'magazine-title': 'Health & Wisdom Magazine',
         'magazine-desc': '전문가가 제안하는 데이터 기반의 건강 관리 전략과 깊이 있는 건강 지식입니다.',
         'footer-about-title': 'AI 운동 코치',
         'footer-about-desc': '개인 맞춤형 피트니스 솔루션. 전통 한방의 지혜와 현대 심리학을 결합하여 당신에게 가장 적합한 라이프스타일을 제안합니다.',
         'footer-links-title': '빠른 링크',
         'footer-legal-title': '법적 고지',
-        'footer-copyright': '&copy; 2026 AI Workout Coach. All rights reserved.'
+        'footer-copyright': '&copy; 2026 AI Workout Coach. All rights reserved.',
+        
+        // MBTI Professional Questions
+        'mbti-q1': '운동할 때 다른 사람들과 어울리는 것이 활력을 주나요?',
+        'mbti-q2': '운동 루틴을 바꿀 때 새로운 방식에 도전하는 것을 즐기시나요?',
+        'mbti-q3': '운동 성과를 평가할 때 주관적인 느낌보다 객관적인 수치를 중시하시나요?',
+        'mbti-q4': '운동 계획이 갑작스럽게 변경되어도 유연하게 대처하는 편이신가요?',
+        'mbti-q5': '혼자서 집중하며 운동하는 시간이 더 편안하게 느껴지시나요?',
+        'mbti-q6': '이미 검증된 전통적인 운동 방식을 따르는 것을 선호하시나요?',
+        'mbti-q7': '다른 사람의 격려나 칭찬이 운동 의욕에 큰 영향을 미치나요?',
+        'mbti-q8': '운동 전 미리 세부적인 계획과 시간을 정해두는 것을 좋아하시나요?',
+        'mbti-q9': '운동 중 새로운 영감을 얻거나 창의적인 생각을 자주 하시나요?',
+        'mbti-q10': '경쟁보다는 화합과 즐거운 분위기 속에서 운동하는 것을 선호하시나요?',
+        
+        // MBTI Options
+        'mbti-opt-yes': '그렇다',
+        'mbti-opt-no': '아니다',
+        
+        // MBTI Report Traits
+        'mbti-trait-E': '외향형(E): 그룹 운동과 소셜 피트니스에서 시너지를 얻습니다.',
+        'mbti-trait-I': '내향형(I): 개인의 내면과 호흡에 집중하는 개인 훈련이 효율적입니다.',
+        'mbti-trait-S': '감각형(S): 정확한 자세와 신체 감각, 체계적인 동작 반복을 중시합니다.',
+        'mbti-trait-N': '직관형(N): 운동의 원리를 이해하고 새로운 변화를 시도하는 것을 즐깁니다.',
+        'mbti-trait-T': '사고형(T): 분석적인 데이터 기록과 객관적인 성과 달성에 몰입합니다.',
+        'mbti-trait-F': '감정형(F): 정서적 만족과 코치와의 유대감, 즐거운 에너지를 추구합니다.',
+        'mbti-trait-J': '판단형(J): 체계적인 계획과 정해진 시간표를 지킬 때 최고의 효율이 납니다.',
+        'mbti-trait-P': '인식형(P): 유연한 일정과 다양한 옵션을 선택할 수 있는 환경을 선호합니다.'
     },
     en: {
         'nav-logo': 'AI Workout Coach',
         'nav-coach': 'AI Coach',
         'nav-home': 'Home',
-        'nav-core-diagnosis': 'Core Scan',
         'nav-stretching': 'Stretching',
         'nav-catalog': 'Exercises',
         'nav-home-workout': 'Home Workout',
@@ -125,11 +135,11 @@ const translations = {
         'placeholder-height': 'cm',
         'placeholder-weight': 'kg',
         'mbti-title': 'Personality & Mindset Analysis (MBTI)',
-        'mbti-desc': 'Find a workout routine that fits your psychological profile.',
+        'mbti-desc': 'Precise analysis of your workout style through 10 professional questions.',
         'mbti-step': 'Step',
         'mbti-step-suffix': 'of',
         'mbti-default-type': 'Your MBTI Profile',
-        'mbti-insight-label': 'Personality Insight',
+        'mbti-insight-label': 'Expert AI Coach Personality Insight',
         'retake-mbti': 'Retake Quiz',
         'metrics-summary': 'BMI: {bmi} ({status}), BMR: {bmr} kcal/day',
         'workout-loading': 'Generating AI Routine...',
@@ -138,12 +148,9 @@ const translations = {
         'workout-card-default-name': 'Exercise',
         'workout-card-default-desc': 'Follow the trainer\'s guide for this exercise.',
         'workout-card-default-target': 'Full Body',
-        'workout-card-target-sets': 'Target Sets',
-        'workout-card-target-reps': 'Target Reps',
-        'workout-card-completed-status': 'Completed',
         'stretching-empty': 'Generated stretches for your workout will appear here.',
         'stretching-title': 'Personalized Stretching',
-        'stretching-desc': 'Optimized stretches to prevent injury and aid recovery based on targeted muscles.',
+        'stretching-desc': 'Optimized stretches based on your analyzed workout areas.',
         'generate-workout-btn': 'Generate Personalized Workout',
         'workout-personalization-title': 'Session Personalization',
         'workout-personalization-desc': 'AI configures the optimal workout routine based on your current state and goals.',
@@ -168,24 +175,39 @@ const translations = {
         'refresh-diet': 'Other Diet Plans',
         'sasang-title': 'My Sasang Constitution',
         'sasang-desc': 'Analyze your innate constitution and get health management tips using traditional wisdom.',
-        'core-quiz-title': 'Professional Core Diagnosis',
-        'core-quiz-desc': 'A 10-question in-depth scan to analyze your psychological traits and physiological constitution.',
-        'core-insight-label': 'Expert AI Coach Comprehensive Report',
-        'core-report-mbti-title': 'Psychological Motivation (MBTI Analysis)',
-        'core-report-sasang-title': 'Physiological Body Traits (Sasang Analysis)',
-        'core-report-lifestyle-title': 'Optimal Lifestyle Recommendations',
-        'core-insight-Taeyangin': 'Taeyangin types should focus on lower body strength and calming exercises. They prefer creative and intuitive workout methods.',
-        'core-insight-Taeeumin': 'Taeeumin types have strong builds and high absorption, prone to toxin buildup. High-intensity cardio and regular weight training are essential.',
-        'core-insight-Soyangin': 'Soyangin types have good agility and strong upper bodies but may have weaker lower bodies. Leg strengthening and cooling exercises like swimming are recommended.',
-        'core-insight-Soeumin': 'Soeumin types may have lower stamina and sensitive digestion. Consistent low-intensity training, yoga, and stretching to preserve energy are most effective.',
-        'sasang-retake': 'Rediagnose',
         'magazine-title': 'Health & Wisdom Magazine',
         'magazine-desc': 'Expert-driven health management strategies and in-depth health knowledge.',
         'footer-about-title': 'AI Workout Coach',
         'footer-about-desc': 'Personalized fitness solutions combining traditional wisdom and modern psychology.',
         'footer-links-title': 'Quick Links',
         'footer-legal-title': 'Legal',
-        'footer-copyright': '&copy; 2026 AI Workout Coach. All rights reserved.'
+        'footer-copyright': '&copy; 2026 AI Workout Coach. All rights reserved.',
+        
+        // MBTI Professional Questions
+        'mbti-q1': 'Does socializing with others while exercising energize you?',
+        'mbti-q2': 'Do you enjoy trying new methods when changing your workout routine?',
+        'mbti-q3': 'Do you value objective figures over subjective feelings when evaluating performance?',
+        'mbti-q4': 'Can you flexibly handle sudden changes in your workout plan?',
+        'mbti-q5': 'Do you feel more comfortable focusing on your workout alone?',
+        'mbti-q6': 'Do you prefer following proven traditional workout methods?',
+        'mbti-q7': 'Does encouragement or praise from others significantly impact your motivation?',
+        'mbti-q8': 'Do you like setting detailed plans and times before your workout?',
+        'mbti-q9': 'Do you often get new inspirations or creative thoughts during exercise?',
+        'mbti-q10': 'Do you prefer exercising in a harmonious and fun atmosphere over competition?',
+        
+        // MBTI Options
+        'mbti-opt-yes': 'Yes',
+        'mbti-opt-no': 'No',
+        
+        // MBTI Report Traits
+        'mbti-trait-E': 'Extroverted(E): Synergy is gained from group workouts and social fitness.',
+        'mbti-trait-I': 'Introverted(I): Personal training focused on inner self and breathing is efficient.',
+        'mbti-trait-S': 'Sensing(S): Focuses on precise posture, physical sensations, and systematic repetitions.',
+        'mbti-trait-N': 'Intuitive(N): Enjoys understanding principles and trying new variations.',
+        'mbti-trait-T': 'Thinking(T): Immersed in analytical data logging and objective goal attainment.',
+        'mbti-trait-F': 'Feeling(F): Pursues emotional satisfaction, bonding with coaches, and fun energy.',
+        'mbti-trait-J': 'Judging(J): Peak efficiency is reached with systematic plans and fixed schedules.',
+        'mbti-trait-P': 'Perceiving(P): Prefers flexible schedules and environments with various options.'
     }
 };
 
@@ -227,30 +249,6 @@ const exerciseTranslations = {
         desc: {
             ko: '[방법] 바닥의 무게를 잡고 등을 곧게 편 상태에서 전신의 근육을 사용하여 들어 올립니다.',
             en: 'Grip the weight on the floor, keep your back straight, and lift using your entire body muscles.'
-        }
-    },
-    'bench press': {
-        ko: '벤치 프레스', en: 'Bench Press', primary: { ko: '가슴', en: 'Chest' },
-        image: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&q=80&w=400',
-        desc: {
-            ko: '벤치에 누워 바벨을 가슴 높이에서 들어 올립니다. 가슴 근육의 수축과 이완에 집중하세요.',
-            en: 'Lie on a bench and lift the barbell from chest height. Focus on chest contraction.'
-        }
-    },
-    'pull-up': {
-        ko: '풀업 (턱걸이)', en: 'Pull-up', primary: { ko: '등', en: 'Back' },
-        image: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&q=80&w=400',
-        desc: {
-            ko: '바를 잡고 턱이 바 위에 올 때까지 몸을 당겨 올립니다. 등의 넓이를 키우는 데 효과적입니다.',
-            en: 'Pull yourself up until your chin is over the bar. Great for building back width.'
-        }
-    },
-    'lunges': {
-        ko: '런지', en: 'Lunges', primary: { ko: '하체', en: 'Legs' },
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: {
-            ko: '한쪽 발을 앞으로 내디디며 무릎을 굽힙니다. 균형 감각과 하체 근력을 동시에 강화합니다.',
-            en: 'Step forward with one leg and bend your knees. Strengthens legs and improves balance.'
         }
     }
 };
