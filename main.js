@@ -153,20 +153,14 @@ function renderStretchingRecommendations() {
 
 // MBTI Quiz Implementation
 const mbtiQuestions = [
-    { id: 1, trait: 'E', key: 'mbti-q1' },
-    { id: 2, trait: 'N', key: 'mbti-q2' },
-    { id: 3, trait: 'T', key: 'mbti-q3' },
-    { id: 4, trait: 'P', key: 'mbti-q4' },
-    { id: 5, trait: 'I', key: 'mbti-q5' },
-    { id: 6, trait: 'S', key: 'mbti-q6' },
-    { id: 7, trait: 'F', key: 'mbti-q7' },
-    { id: 8, trait: 'J', key: 'mbti-q8' },
-    { id: 9, trait: 'N', key: 'mbti-q9' },
-    { id: 10, trait: 'F', key: 'mbti-q10' }
+    { id: 'EI', trait: 'E', key: 'mbti-q1-title', options: [{ labelKey: 'mbti-q1-e', trait: 'E' }, { labelKey: 'mbti-q1-i', trait: 'I' }] },
+    { id: 'SN', trait: 'S', key: 'mbti-q2-title', options: [{ labelKey: 'mbti-q2-s', trait: 'S' }, { labelKey: 'mbti-q2-n', trait: 'N' }] },
+    { id: 'TF', trait: 'T', key: 'mbti-q3-title', options: [{ labelKey: 'mbti-q3-t', trait: 'T' }, { labelKey: 'mbti-q3-f', trait: 'F' }] },
+    { id: 'JP', trait: 'J', key: 'mbti-q4-title', options: [{ labelKey: 'mbti-q4-j', trait: 'J' }, { labelKey: 'mbti-q4-p', trait: 'P' }] }
 ];
 
 let mbtiCurrentStep = 0;
-let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+let mbtiResult = { EI: '', SN: '', TF: '', JP: '' };
 
 function initMbtiQuiz() {
     const quizContainer = document.getElementById('mbti-quiz');
@@ -174,7 +168,7 @@ function initMbtiQuiz() {
     if (!quizContainer) return;
 
     mbtiCurrentStep = 0;
-    mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+    mbtiResult = { EI: '', SN: '', TF: '', JP: '' };
     quizContainer.classList.remove('hidden');
     resultsContainer.classList.add('hidden');
     renderMbtiQuestion();
@@ -192,26 +186,22 @@ function renderMbtiQuestion() {
     const currentQ = mbtiQuestions[mbtiCurrentStep];
     qText.textContent = activeTranslations[currentLang][currentQ.key] || currentQ.key;
 
-    optionsContainer.innerHTML = `
-        <button class="mbti-option-btn" onclick="handleMbtiAnswer(true)">${activeTranslations[currentLang]['mbti-opt-yes']}</button>
-        <button class="mbti-option-btn" onclick="handleMbtiAnswer(false)">${activeTranslations[currentLang]['mbti-opt-no']}</button>
-    `;
+    optionsContainer.innerHTML = '';
+    currentQ.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'mbti-option-btn';
+        btn.textContent = activeTranslations[currentLang][opt.labelKey];
+        btn.onclick = () => handleMbtiAnswer(currentQ.id, opt.trait);
+        optionsContainer.appendChild(btn);
+    });
 
     const progress = ((mbtiCurrentStep + 1) / mbtiQuestions.length) * 100;
     if (progressBar) progressBar.style.width = `${progress}%`;
     if (progressText) progressText.textContent = `${mbtiCurrentStep + 1} / ${mbtiQuestions.length}`;
 }
 
-window.handleMbtiAnswer = (isYes) => {
-    const currentQ = mbtiQuestions[mbtiCurrentStep];
-    if (isYes) {
-        mbtiScores[currentQ.trait]++;
-    } else {
-        // Map opposites
-        const opposites = { E: 'I', I: 'E', S: 'N', N: 'S', T: 'F', F: 'T', J: 'P', P: 'J' };
-        mbtiScores[opposites[currentQ.trait]]++;
-    }
-
+window.handleMbtiAnswer = (dimension, trait) => {
+    mbtiResult[dimension] = trait;
     mbtiCurrentStep++;
     if (mbtiCurrentStep < mbtiQuestions.length) {
         renderMbtiQuestion();
@@ -225,19 +215,28 @@ function showMbtiResults() {
     const resultsContainer = document.getElementById('mbti-results');
     const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
 
-    const type = [
-        mbtiScores.E >= mbtiScores.I ? 'E' : 'I',
-        mbtiScores.S >= mbtiScores.N ? 'S' : 'N',
-        mbtiScores.T >= mbtiScores.F ? 'T' : 'F',
-        mbtiScores.J >= mbtiScores.P ? 'J' : 'P'
-    ].join('');
-
+    const type = mbtiResult.EI + mbtiResult.SN + mbtiResult.TF + mbtiResult.JP;
     userData.mbti = type;
+    
     quizContainer.classList.add('hidden');
     resultsContainer.classList.remove('hidden');
 
     document.getElementById('mbti-type-value').textContent = type;
     
+    // Determine Group
+    let groupKey = '';
+    if (type.includes('NT')) groupKey = 'mbti-group-analyst';
+    else if (type.includes('NF')) groupKey = 'mbti-group-diplomat';
+    else if (type.includes('SJ')) groupKey = 'mbti-group-sentinel';
+    else if (type.includes('SP')) groupKey = 'mbti-group-explorer';
+
+    const typeDesc = document.getElementById('mbti-type-desc');
+    if (typeDesc) {
+        const groupTitle = activeTranslations[currentLang][groupKey] || '';
+        const typeInfo = activeTranslations[currentLang][`mbti-type-${type}`] || '';
+        typeDesc.innerHTML = `<strong style="color:var(--primary-color)">${groupTitle}</strong><br>${typeInfo}`;
+    }
+
     const insightText = document.getElementById('mbti-insight-text');
     if (insightText) {
         let report = '<ul class="mbti-report-list">';

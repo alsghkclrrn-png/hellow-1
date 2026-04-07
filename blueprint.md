@@ -31,6 +31,11 @@ A professional holistic health platform that provides personalized workout plans
 - **Document Title Localization:** Added dynamic document title updates based on the selected language.
 - **Expert Core Scan Integration:** Replaced/supplemented lengthy quizzes with a 5-question integrated diagnostic tool for faster, more accurate personalization.
 - **Expert AI Persona:** Upgraded AI coaching tone to reflect the expertise of world-class sports scientists and Oriental medicine specialists.
+- **MBTI Section Overhaul:** Fully implemented a professional personality and mindset analysis based on Carl Jung's psychological types and Myers-Briggs indicators.
+    - Added introduction to MBTI psychological preferences.
+    - Implemented a 4-question core situational diagnostic focusing on "natural behaviors under fatigue."
+    - Created detailed insight cards for all 16 MBTI types with specific descriptions and trait reports.
+    - Refined UI with 기질별 (Analyst, Diplomat, Sentinel, Explorer) visual hierarchy and theme colors.
 - **Sasang Constitution Overhaul:** Fully implemented a deep-dive educational and diagnostic section for Sasang Constitution based on Lee Je-ma's medical philosophy.
     - Added introduction to Sasang medicine principles.
     - Implemented a 4-type self-diagnosis guide (A-D types).

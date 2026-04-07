@@ -164,13 +164,20 @@
             <h2 data-i18n="mbti-title"><i data-lucide="brain"></i> 성격 및 마인드셋 분석 (MBTI)</h2>
             <p class="section-desc" data-i18n="mbti-desc">심리적 프로필에 맞는 운동 루틴을 찾아 지속 가능성과 즐거움을 극대화하세요.</p>
             
+            <div class="sasang-intro-card" style="border-color: #818cf8; background: linear-gradient(135deg, var(--card-background) 0%, rgba(129, 140, 248, 0.1) 100%);">
+                <h3 data-i18n="mbti-intro-title">1. MBTI(Myers-Briggs Type Indicator)란?</h3>
+                <p data-i18n="mbti-intro-content">칼 융의 심리 유형론을 바탕으로 고안된 성격 유형 검사입니다. 당신의 내면적 선호 경향을 파악하여 최적의 동기 부여 방식을 제안합니다.</p>
+            </div>
+
             <div id="mbti-quiz" class="quiz-container">
+                <h3 data-i18n="mbti-diag-title" style="text-align:center; margin-bottom:10px;">2. 전문가적 관점의 자가진단</h3>
+                <p data-i18n="mbti-diag-subtitle" style="text-align:center; color:var(--secondary-color); margin-bottom:25px;">가장 자연스러운 본인의 모습을 선택해 주세요.</p>
                 <div id="mbti-progress-container" class="quiz-progress-wrapper">
-                    <div id="mbti-progress-bar" class="quiz-progress-bar"></div>
+                    <div id="mbti-progress-bar" class="quiz-progress-bar" style="background: #818cf8;"></div>
                     <span id="mbti-progress-text"></span>
                 </div>
                 <div id="mbti-question-card" class="question-card">
-                    <h3 id="mbti-question-text"></h3>
+                    <h3 id="mbti-question-text" style="font-size: 1.2em; margin-bottom: 20px; color: #818cf8;"></h3>
                     <div class="mbti-options">
                         <!-- Injected via JS -->
                     </div>
@@ -179,10 +186,10 @@
 
             <div id="mbti-results" class="hidden">
                 <div class="mbti-badge-container">
-                    <article class="mbti-type-card">
+                    <article class="mbti-type-card" style="border-top: 4px solid #818cf8;">
                         <span class="mbti-label" data-i18n="mbti-default-type">당신의 MBTI 프로필</span>
-                        <h3 id="mbti-type-value">--</h3>
-                        <p id="mbti-type-desc" class="mbti-desc" data-i18n="mbti-default-desc">퀴즈를 통해 이상적인 운동 성향을 확인하세요.</p>
+                        <h3 id="mbti-type-value" style="color: #818cf8; font-size: 2.5em;">--</h3>
+                        <p id="mbti-type-desc" class="mbti-desc" style="line-height:1.6;"></p>
                     </article>
                     <article class="mbti-recommendation-card">
                         <span class="mbti-label" data-i18n="mbti-insight-label">성격 인사이트</span>
