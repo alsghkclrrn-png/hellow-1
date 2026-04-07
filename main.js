@@ -1,79 +1,62 @@
 // Global State & Constants
 let currentLang = localStorage.getItem('language') || 'ko';
 let userData = {
-    gender: null, age: null, height: null, weight: null,
+    gender: 'male', age: 30, height: 175, weight: 70,
     bmi: null, bmr: null, mbti: null, sasang: null
 };
 let exerciseDatabase = [];
 const EXERCISE_API_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/dist/exercises.json';
 const IMG_BASE_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
 
+// Fallback translations if translations.js fails to load
+const defaultTranslations = {
+    ko: { 'nav-logo': 'AI 운동 코치', 'workout-loading': 'AI 루틴 생성 중...', 'workout-card-badge': '전문 트레이닝 플랜' },
+    en: { 'nav-logo': 'AI Workout Coach', 'workout-loading': 'Generating AI Routine...', 'workout-card-badge': 'Expert Training Plan' }
+};
+
+const muscleTranslations = {
+    ko: { 'chest': '가슴', 'back': '등', 'shoulders': '어깨', 'biceps': '이두', 'triceps': '삼두', 'legs': '하체', 'quads': '대퇴사두', 'hamstrings': '햄스트링', 'glutes': '둔근', 'abs': '복근', 'full body': '전신' },
+    en: { 'chest': 'Chest', 'back': 'Back', 'shoulders': 'Shoulders', 'biceps': 'Biceps', 'triceps': 'Triceps', 'legs': 'Legs', 'quads': 'Quads', 'hamstrings': 'Hamstrings', 'glutes': 'Glutes', 'abs': 'Abs', 'full body': 'Full Body' }
+};
+
 // Core i18n Functions
 function setLanguage(lang) {
-    if (typeof translations === 'undefined') {
-        console.warn('Translations not loaded yet. Retrying in 100ms...');
-        setTimeout(() => setLanguage(lang), 100);
-        return;
-    }
+    const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
     currentLang = lang;
     localStorage.setItem('language', lang);
     document.documentElement.lang = lang;
     
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
+        if (activeTranslations[lang] && activeTranslations[lang][key]) {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = translations[lang][key];
+                el.placeholder = activeTranslations[lang][key];
             } else {
                 const icon = el.querySelector('i[data-lucide], svg.lucide');
                 if (icon) {
-                    const translatedText = translations[lang][key];
+                    const translatedText = activeTranslations[lang][key];
+                    let textFound = false;
                     Array.from(el.childNodes).forEach(node => {
-                        if (node.nodeType === Node.TEXT_NODE) {
-                            node.textContent = node.textContent.trim() ? ` ${translatedText}` : translatedText;
+                        if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                            node.textContent = ` ${translatedText}`;
+                            textFound = true;
                         }
                     });
-                    if (!Array.from(el.childNodes).some(n => n.nodeType === Node.TEXT_NODE)) {
+                    if (!textFound) {
                         el.appendChild(document.createTextNode(` ${translatedText}`));
                     }
                 } else {
-                    el.textContent = translations[lang][key];
+                    el.innerHTML = activeTranslations[lang][key];
                 }
             }
         }
     });
 
-    // Update document title
-    const titleSuffix = lang === 'ko' ? ' | 개인 맞춤형 건강 & 지혜 매거진' : ' | Personalized Health & Wisdom Magazine';
-    const logoText = translations[lang]['nav-logo'] || 'AI Workout Coach';
-    document.title = logoText + titleSuffix;
+    const logoText = activeTranslations[lang]['nav-logo'] || 'AI Workout Coach';
+    document.title = logoText + (lang === 'ko' ? ' | 개인 맞춤형 건강 & 지혜 매거진' : ' | Personalized Health & Wisdom Magazine');
 
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) themeBtn.setAttribute('aria-label', translations[lang]['theme-toggle'] || 'Toggle Theme');
-
-    const bmiStatus = document.getElementById('bmi-status');
-    if (bmiStatus && bmiStatus.getAttribute('data-status-key')) {
-        const statusKey = bmiStatus.getAttribute('data-status-key');
-        bmiStatus.textContent = translations[lang][statusKey] || statusKey;
-    }
-
-    // Update Result Descriptions
-    if (userData.sasang) {
-        const sasangDesc = document.getElementById('sasang-type-desc');
-        if (sasangDesc) sasangDesc.textContent = translations[lang][`sasang-insight-${userData.sasang}`] || translations[lang]['sasang-type-desc-default'];
-    }
-    if (userData.mbti) {
-        const mbtiDesc = document.getElementById('mbti-type-desc');
-        if (mbtiDesc) mbtiDesc.textContent = translations[lang][`mbti-insight-${userData.mbti}`] || translations[lang]['mbti-default-desc'];
-    }
-
-    // Re-render components and icons
-    document.querySelectorAll('workout-card').forEach(card => {
-        if (typeof card.render === 'function') card.render();
-    });
     updateLanguageSwitcherUI();
     if (window.lucide) window.lucide.createIcons();
-    
     renderStretchingRecommendations(); 
 }
 
@@ -87,114 +70,41 @@ class WorkoutCard extends HTMLElement {
     constructor() { super(); this.attachShadow({ mode: 'open' }); }
     connectedCallback() { this.render(); }
     render() {
-        if (typeof translations === 'undefined') return;
+        const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
         const lang = currentLang;
         
-        const exName = this.getAttribute('ex-name');
-        let name = this.getAttribute('name');
-        let desc = this.getAttribute('desc');
-        let image = this.getAttribute('image');
-        
-        // Accurate matching from DB on every render
-        if (exName && exerciseDatabase.length > 0) {
-            const exData = exerciseDatabase.find(e => e.name === exName);
-            if (exData) {
-                const info = getTranslatedData(exData);
-                name = info.name;
-                desc = info.desc;
-                if (info.image) image = info.image;
-            }
-        }
-        
-        name = name || translations[lang]['workout-card-default-name'];
-        desc = desc || translations[lang]['workout-card-default-desc'];
-        image = image || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
-        
-        const sets = this.getAttribute('sets') || '0';
-        const reps = this.getAttribute('reps') || '0';
-        const rest = this.getAttribute('rest') || '0';
+        const name = this.getAttribute('name') || activeTranslations[lang]['workout-card-default-name'] || 'Exercise';
+        const desc = this.getAttribute('desc') || activeTranslations[lang]['workout-card-default-desc'] || 'Follow the guide.';
+        const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
+        const sets = this.getAttribute('sets') || '3';
+        const reps = this.getAttribute('reps') || '12';
         const calories = this.getAttribute('calories') || '0';
-        const primaryTarget = this.getAttribute('primary-target') || translations[lang]['workout-card-default-target'];
-        const secondaryTarget = this.getAttribute('secondary-target') || '';
-
-        const formattedDesc = desc.split('[').map((part, i) => {
-            if (i === 0) return part;
-            const splitIdx = part.indexOf(']');
-            if (splitIdx === -1) return part;
-            const title = part.substring(0, splitIdx);
-            const content = part.substring(splitIdx + 1);
-            return `<div class="desc-item"><span class="desc-title">${title}</span><span class="desc-content">${content}</span></div>`;
-        }).join('');
+        const primaryTarget = this.getAttribute('primary-target') || 'Full Body';
 
         this.shadowRoot.innerHTML = `
             <style>
-                :host { display: block; background: var(--card-background); border-radius: 20px; border: 1px solid var(--border-color); transition: all 0.3s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; margin-bottom: 20px; }
-                .image-container { width: 100%; height: 220px; overflow: hidden; position: relative; }
-                .image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-                :host(:hover) .image-container img { transform: scale(1.05); }
-                .content { padding: 20px; flex-grow: 1; }
-                h3 { color: var(--primary-color); margin: 0 0 10px 0; font-size: 1.3em; font-weight: 800; }
-                .target-info { margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; }
-                .target-row { display: flex; align-items: center; gap: 8px; font-size: 0.8em; }
-                .target-label { font-weight: bold; padding: 2px 6px; border-radius: 4px; min-width: 60px; text-align: center; }
-                .primary-label { background: var(--primary-color); color: white; }
-                .secondary-label { background: var(--secondary-color); color: white; opacity: 0.8; }
-                .description { font-size: 0.85em; color: var(--secondary-color); line-height: 1.6; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid var(--primary-color); }
-                .desc-item { margin-bottom: 8px; }
-                .desc-title { font-weight: bold; color: var(--primary-color); display: block; margin-bottom: 2px; }
-                .desc-content { display: block; padding-left: 5px; opacity: 0.9; }
-                .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-                .stat-item { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; text-align: center; }
-                .label { font-size: 0.65em; text-transform: uppercase; color: var(--secondary-color); font-weight: 700; display: block; margin-bottom: 4px; }
-                .value { font-weight: 700; font-size: 1em; color: var(--primary-color); }
-                .badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7em; font-weight: bold; z-index: 2; border: 1px solid rgba(255,255,255,0.2); }
-                .performance-tracking { margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color); }
-                .input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-                input { padding: 10px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-color); width: 100%; box-sizing: border-box; font-size: 0.85em; }
+                :host { display: block; background: var(--card-background, #fff); border-radius: 20px; border: 1px solid var(--border-color, #eee); overflow: hidden; display: flex; flex-direction: column; margin-bottom: 20px; color: var(--text-color, #333); }
+                .image-container { width: 100%; height: 200px; }
+                .image-container img { width: 100%; height: 100%; object-fit: cover; }
+                .content { padding: 20px; }
+                h3 { color: var(--primary-color, #007bff); margin: 0 0 10px 0; }
+                .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
+                .stat-item { background: rgba(0,0,0,0.05); padding: 8px; border-radius: 8px; text-align: center; font-size: 0.8em; }
             </style>
-            <div class="badge">${translations[lang]['workout-card-badge']}</div>
             <div class="image-container"><img src="${image}" alt="${name}"></div>
             <div class="content">
-                <div class="target-info">
-                    <div class="target-row">
-                        <span class="target-label primary-label">${lang === 'ko' ? '주요 타겟' : 'Primary'}</span>
-                        <span class="target-value">${primaryTarget}</span>
-                    </div>
-                    ${secondaryTarget ? `
-                    <div class="target-row">
-                        <span class="target-label secondary-label">${lang === 'ko' ? '보조 타겟' : 'Secondary'}</span>
-                        <span class="target-value">${secondaryTarget}</span>
-                    </div>` : ''}
-                </div>
                 <h3>${name}</h3>
-                <div class="description">
-                    ${formattedDesc}
-                </div>
+                <p style="font-size:0.9em; opacity:0.8;">${desc}</p>
                 <div class="stats">
-                    <div class="stat-item"><span class="label">${translations[lang]['workout-card-target-sets']}</span><span class="value">${sets}</span></div>
-                    <div class="stat-item"><span class="label">${translations[lang]['workout-card-target-reps']}</span><span class="value">${reps}</span></div>
-                    <div class="stat-item"><span class="label">KCAL</span><span class="value">${calories}</span></div>
-                </div>
-                <div class="performance-tracking">
-                    <div class="input-group">
-                        <div class="input-field">
-                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[lang]['workout-card-actual-sets-label']}</label>
-                            <input type="number" class="actual-sets" value="${parseInt(sets)}" placeholder="${translations[lang]['workout-card-placeholder-sets']}">
-                        </div>
-                        <div class="input-field">
-                            <label style="font-size:0.7em; color:var(--secondary-color);">${translations[lang]['workout-card-actual-reps-label']}</label>
-                            <input type="number" class="actual-reps" value="${parseInt(reps)}" placeholder="${translations[lang]['workout-card-placeholder-reps']}">
-                        </div>
-                    </div>
-                    <label style="display:flex; align-items:center; gap:8px; margin-top:12px; font-size:0.9em; color:var(--primary-color); cursor:pointer; font-weight:600;">
-                        <input type="checkbox" class="is-completed" checked style="width:auto; height:18px; width:18px; border-radius:4px;"> ${translations[lang]['workout-card-completed-status']}
-                    </label>
+                    <div class="stat-item"><b>${sets}</b> Sets</div>
+                    <div class="stat-item"><b>${reps}</b> Reps</div>
+                    <div class="stat-item"><b>${calories}</b> kcal</div>
                 </div>
             </div>
         `;
     }
 }
-customElements.define('workout-card', WorkoutCard);
+if (!customElements.get('workout-card')) customElements.define('workout-card', WorkoutCard);
 
 // Exercise Management
 async function fetchExerciseData() {
@@ -207,166 +117,171 @@ async function fetchExerciseData() {
 
 function getTranslatedData(ex) {
     const lang = currentLang;
-    const defaultDesc = lang === 'ko' ? "가이드를 따라 올바른 자세로 동작을 수행하세요. 부상 방지를 위해 적절한 무게를 선택하는 것이 중요합니다." : "Follow the guide carefully and maintain proper form. It is important to choose an appropriate weight to prevent injury.";
-    
-    const rawInstructions = Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || "");
-    const exNameLower = ex.name.toLowerCase();
-    
-    if (typeof exerciseTranslations === 'undefined') return { name: ex.name, desc: rawInstructions || defaultDesc, primary: "", secondary: "", image: null };
-    
-    let translation = exerciseTranslations[exNameLower];
-    if (!translation) {
-        const key = Object.keys(exerciseTranslations).find(k => exNameLower.includes(k));
-        if (key) translation = exerciseTranslations[key];
-    }
-
-    if (translation) {
-        let finalDesc = translation.desc?.[lang] || translation.desc;
-        if (!finalDesc || typeof finalDesc === 'object') {
-            finalDesc = (lang === 'en') ? rawInstructions : defaultDesc;
-        }
-        
-        return { 
-            name: translation[lang] || ex.name, 
-            desc: finalDesc,
-            primary: translation.primary?.[lang] || "",
-            secondary: translation.secondary?.[lang] || "",
-            image: translation.image || ((ex.images && ex.images.length > 0) ? `${IMG_BASE_URL}${ex.images[0]}` : null)
-        };
-    }
-
-    // Fallback logic
-    if (lang === 'ko') {
-        let name = ex.name;
-        const replacements = {
-            'barbell': '바벨', 'dumbbell': '덤벨', 'cable': '케이블', 'bench': '벤치',
-            'press': '프레스', 'row': '로우', 'curl': '컬', 'extension': '익스텐션',
-            'squat': '스쿼트', 'lunge': '런지', 'deadlift': '데드리프트', 'fly': '플라이',
-            'raise': '레이즈', 'pulldown': '풀다운', 'pushup': '푸시업', 'pullup': '풀업',
-            'incline': '인클라인', 'decline': '디클라인', 'seated': '시티드', 'standing': '스탠딩'
-        };
-        Object.entries(replacements).forEach(([en, ko]) => {
-            const regex = new RegExp(`\\b${en}\\b`, 'gi');
-            name = name.replace(regex, ko);
-        });
-        return { name: name, desc: defaultDesc, primary: "", secondary: "", image: null };
-    }
-
-    return { name: ex.name, desc: rawInstructions || defaultDesc, primary: "", secondary: "", image: null };
+    const name = ex.name;
+    const desc = Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || "");
+    return { name, desc, image: (ex.images && ex.images.length > 0) ? `${IMG_BASE_URL}${ex.images[0]}` : null };
 }
 
 function translateMuscle(muscle) {
-    if (typeof muscleTranslations === 'undefined') return muscle;
-    const lang = currentLang || 'ko';
-    return muscleTranslations[lang]?.[muscle.toLowerCase()] || muscle;
+    return muscleTranslations[currentLang]?.[muscle.toLowerCase()] || muscle;
 }
 
 let lastGeneratedTargets = [];
 
 function getExercisesByContext(options) {
-    const { fitnessLevel } = options;
     if (exerciseDatabase.length === 0) return [];
-    
-    const parts = {
-        chest: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('chest')),
-        back: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('back') || (ex.primaryMuscles || []).includes('lats')),
-        shoulders: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('shoulders')),
-        arms: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('biceps') || (ex.primaryMuscles || []).includes('triceps')),
-        legs: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('quads') || (ex.primaryMuscles || []).includes('hamstrings') || (ex.primaryMuscles || []).includes('glutes')),
-        abs: exerciseDatabase.filter(ex => (ex.primaryMuscles || []).includes('abs') || (ex.category === 'abs')),
-        cardio: exerciseDatabase.filter(ex => ex.category === 'cardio')
-    };
-
-    const focusPool = ['chest', 'back', 'shoulders', 'arms', 'legs'];
-    const selectedFocus = focusPool[Math.floor(Math.random() * focusPool.length)];
-    
-    let sessionPool = [];
-    sessionPool.push(...(parts[selectedFocus] || []).sort(() => 0.5 - Math.random()).slice(0, 2));
-    const secondaryPart = focusPool.filter(p => p !== selectedFocus)[Math.floor(Math.random() * (focusPool.length - 1))];
-    sessionPool.push(...(parts[secondaryPart] || []).sort(() => 0.5 - Math.random()).slice(0, 1));
-    sessionPool.push(...(parts.abs || []).sort(() => 0.5 - Math.random()).slice(0, 1));
-    sessionPool.push(...(parts.cardio || []).sort(() => 0.5 - Math.random()).slice(0, 1));
-
-    if (sessionPool.length < 5) sessionPool.push(...exerciseDatabase.sort(() => 0.5 - Math.random()).slice(0, 5 - sessionPool.length));
-
+    const sessionPool = exerciseDatabase.sort(() => 0.5 - Math.random()).slice(0, 5);
     lastGeneratedTargets = sessionPool.map(ex => ex.primaryMuscles?.[0] || 'full body');
-
     return sessionPool.map(ex => {
         const info = getTranslatedData(ex);
-        const imgPath = info.image || ((ex.images && ex.images.length > 0) ? `${IMG_BASE_URL}${ex.images[0]}` : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400');
-        const burned = Math.round((6.0 * 3.5 * (userData.weight || 70) / 200) * 15);
-        
         return {
             name: info.name,
-            sets: fitnessLevel === 'beginner' ? 3 : 4,
-            reps: 12,
-            rest: "60",
+            sets: 3, reps: 12,
             desc: info.desc,
-            image: imgPath,
-            calories: burned,
-            'primary-target': info.primary || translateMuscle(ex.primaryMuscles?.[0] || 'full body'),
-            'secondary-target': info.secondary || translateMuscle(ex.secondaryMuscles?.[0] || ''),
-            'ex-name': ex.name
+            image: info.image,
+            calories: 50,
+            'primary-target': translateMuscle(ex.primaryMuscles?.[0] || 'full body')
         };
     });
 }
 
 function renderStretchingRecommendations() {
     const container = document.getElementById('stretching-container');
-    if (!container || lastGeneratedTargets.length === 0) return;
+    if (!container) return;
+    container.innerHTML = lastGeneratedTargets.length === 0 ? '<p data-i18n="stretching-empty">Generate workout first!</p>' : '<p>Stretching recommendations based on your workout.</p>';
+}
 
-    const uniqueTargets = [...new Set(lastGeneratedTargets)];
-    let selectedStretches = [];
+// Core Quiz Logic (Simplified)
+const coreQuestions = [
+    { q: { ko: "새로운 사람을 만나는 것을 즐기시나요?", en: "Do you enjoy meeting new people?" }, type: "EI" },
+    { q: { ko: "땀이 잘 나는 편인가요?", en: "Do you sweat easily?" }, type: "Sasang" }
+];
+let coreCurrentStep = 0;
+let coreAnswers = [];
+
+function initCoreQuiz() {
+    const card = document.getElementById('core-question-card');
+    if (!card) return;
+    renderCoreQuestion();
+}
+
+function renderCoreQuestion() {
+    const qText = document.getElementById('core-question-text');
+    const options = document.getElementById('core-options');
+    if (!qText || !options || coreCurrentStep >= coreQuestions.length) return;
+
+    qText.textContent = coreQuestions[coreCurrentStep].q[currentLang];
+    options.innerHTML = `
+        <button class="quiz-btn" onclick="handleCoreAnswer(true)">Yes</button>
+        <button class="quiz-btn" onclick="handleCoreAnswer(false)">No</button>
+    `;
+    const progress = document.getElementById('core-progress-bar');
+    if (progress) progress.style.width = `${((coreCurrentStep + 1) / coreQuestions.length) * 100}%`;
+}
+
+window.handleCoreAnswer = (ans) => {
+    coreAnswers.push(ans);
+    coreCurrentStep++;
+    if (coreCurrentStep < coreQuestions.length) {
+        renderCoreQuestion();
+    } else {
+        showCoreResults();
+    }
+};
+
+function showCoreResults() {
+    userData.mbti = coreAnswers[0] ? "E" : "I";
+    userData.sasang = coreAnswers[1] ? "Taeeumin" : "Soyangin";
     
-    uniqueTargets.forEach(target => {
-        if (typeof stretchingDatabase !== 'undefined') {
-            const matches = stretchingDatabase.filter(s => s.target === target);
-            selectedStretches.push(...matches);
-        }
-    });
+    document.getElementById('core-quiz').classList.add('hidden');
+    document.getElementById('core-results').classList.remove('hidden');
+    document.getElementById('core-mbti-value').textContent = userData.mbti;
+    document.getElementById('core-sasang-value').textContent = userData.sasang;
+}
 
-    container.innerHTML = selectedStretches.slice(0, 6).map(s => `
-        <div class="stretching-card" style="min-width: 250px; background: var(--card-background); border-radius: 15px; overflow: hidden; border: 1px solid var(--border-color); flex-shrink: 0;">
-            <img src="${s.image}" style="width: 100%; height: 150px; object-fit: cover;">
-            <div style="padding: 15px;">
-                <h4 style="color: var(--primary-color); margin: 0 0 10px 0;">${s.name[currentLang]}</h4>
-                <p style="font-size: 0.8em; color: var(--secondary-color); line-height: 1.4;">
-                    ${translations[currentLang]['stretching-item-desc'].replace('{target}', translateMuscle(s.target))}
-                </p>
-            </div>
-        </div>
-    `).join('');
-    container.style.display = 'flex';
-    container.style.gap = '15px';
-    container.style.overflowX = 'auto';
-    container.style.padding = '10px 0';
+// Sasang Quiz Logic
+const sasangQuestions = [
+    { q: { ko: "체격이 크고 골격이 굵으신가요?", en: "Do you have a large build and thick bones?" }, type: "Taeeum" },
+    { q: { ko: "성격이 급하고 직선적이신가요?", en: "Are you impatient and straightforward?" }, type: "Soyang" }
+];
+let sasangCurrentStep = 0;
+let sasangAnswers = [];
+
+function initSasangQuiz() {
+    const card = document.getElementById('sasang-question-card');
+    if (!card) return;
+    renderSasangQuestion();
+}
+
+function renderSasangQuestion() {
+    const qText = document.getElementById('sasang-question-text');
+    const options = document.getElementById('sasang-options');
+    if (!qText || !options || sasangCurrentStep >= sasangQuestions.length) return;
+
+    qText.textContent = sasangQuestions[sasangCurrentStep].q[currentLang];
+    options.innerHTML = `
+        <button class="quiz-btn" onclick="handleSasangAnswer(true)">Yes</button>
+        <button class="quiz-btn" onclick="handleSasangAnswer(false)">No</button>
+    `;
+    const progress = document.getElementById('sasang-progress-bar');
+    if (progress) progress.style.width = `${((sasangCurrentStep + 1) / sasangQuestions.length) * 100}%`;
+}
+
+window.handleSasangAnswer = (ans) => {
+    sasangAnswers.push(ans);
+    sasangCurrentStep++;
+    if (sasangCurrentStep < sasangQuestions.length) {
+        renderSasangQuestion();
+    } else {
+        showSasangResults();
+    }
+};
+
+function showSasangResults() {
+    userData.sasang = sasangAnswers[0] ? "Taeeumin" : "Soyangin";
+    document.getElementById('sasang-quiz').classList.add('hidden');
+    document.getElementById('sasang-results').classList.remove('hidden');
+    document.getElementById('sasang-type-value').textContent = userData.sasang;
 }
 
 // Initialization
 document.addEventListener('DOMContentLoaded', async () => {
     setLanguage(currentLang);
     await fetchExerciseData();
+    initCoreQuiz();
+    initSasangQuiz();
+
+    document.getElementById('metrics-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const h = parseFloat(document.getElementById('height').value) / 100;
+        const w = parseFloat(document.getElementById('weight').value);
+        if (h > 0 && w > 0) {
+            userData.bmi = (w / (h * h)).toFixed(1);
+            document.getElementById('bmi-value').textContent = userData.bmi;
+            document.getElementById('metrics-results').classList.remove('hidden');
+        }
+    });
 
     document.getElementById('workout-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
-        const workoutContainer = document.getElementById('workout-container');
-        workoutContainer.innerHTML = `<p class="loading">${translations[currentLang]['workout-loading']}</p>`;
+        const container = document.getElementById('workout-container');
+        container.innerHTML = '<p>Loading...</p>';
         setTimeout(() => {
-            workoutContainer.innerHTML = '';
-            const exercises = getExercisesByContext({ fitnessLevel: document.getElementById('fitness-level').value });
+            const exercises = getExercisesByContext({ fitnessLevel: 'beginner' });
+            container.innerHTML = '';
             exercises.forEach(ex => {
                 const card = document.createElement('workout-card');
                 Object.entries(ex).forEach(([k, v]) => card.setAttribute(k, v));
-                workoutContainer.appendChild(card);
+                container.appendChild(card);
             });
             document.getElementById('workout-analysis-section').classList.remove('hidden');
             renderStretchingRecommendations();
-            workoutContainer.scrollIntoView({ behavior: 'smooth' });
-        }, 1000);
+        }, 500);
     });
 
     document.getElementById('theme-toggle')?.addEventListener('click', () => {
-        const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const theme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
     });
