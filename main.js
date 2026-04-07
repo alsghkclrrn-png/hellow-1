@@ -151,36 +151,117 @@ function renderStretchingRecommendations() {
     container.innerHTML = lastGeneratedTargets.length === 0 ? '<p data-i18n="stretching-empty">Generate workout first!</p>' : '<p>Stretching recommendations based on your workout.</p>';
 }
 
-// Core Quiz Logic (Simplified)
+// Expert Core Quiz Logic (Integrated MBTI & Sasang)
 const coreQuestions = [
-    { q: { ko: "새로운 사람을 만나는 것을 즐기시나요?", en: "Do you enjoy meeting new people?" }, type: "EI" },
-    { q: { ko: "땀이 잘 나는 편인가요?", en: "Do you sweat easily?" }, type: "Sasang" }
+    { 
+        q: { ko: "새로운 사람들과 함께 운동하는 것을 즐기시나요?", en: "Do you enjoy working out with new people?" },
+        options: [
+            { text: { ko: "매우 그렇다", en: "Strongly Agree" }, scores: { mbti: { E: 2 }, sasang: { Soyangin: 1 } } },
+            { text: { ko: "그렇다", en: "Agree" }, scores: { mbti: { E: 1 }, sasang: { Soyangin: 0.5 } } },
+            { text: { ko: "보통이다", en: "Neutral" }, scores: { mbti: {}, sasang: {} } },
+            { text: { ko: "아니다", en: "Disagree" }, scores: { mbti: { I: 1 }, sasang: { Soeumin: 0.5 } } },
+            { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { mbti: { I: 2 }, sasang: { Soeumin: 1 } } }
+        ]
+    },
+    { 
+        q: { ko: "운동 계획을 세울 때 세부적인 루틴과 기록을 중시하시나요?", en: "Do you value detailed routines and tracking when planning workouts?" },
+        options: [
+            { text: { ko: "매우 그렇다", en: "Strongly Agree" }, scores: { mbti: { J: 2 }, sasang: { Soeumin: 1 } } },
+            { text: { ko: "그렇다", en: "Agree" }, scores: { mbti: { J: 1 }, sasang: { Soeumin: 0.5 } } },
+            { text: { ko: "보통이다", en: "Neutral" }, scores: { mbti: {}, sasang: {} } },
+            { text: { ko: "아니다", en: "Disagree" }, scores: { mbti: { P: 1 }, sasang: { Taeyangin: 0.5 } } },
+            { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { mbti: { P: 2 }, sasang: { Taeyangin: 1 } } }
+        ]
+    },
+    { 
+        q: { ko: "땀을 흘리고 난 후 몸이 가벼워지는 느낌을 좋아하시나요?", en: "Do you feel refreshed and light after sweating a lot?" },
+        options: [
+            { text: { ko: "매우 그렇다", en: "Strongly Agree" }, scores: { mbti: { S: 1 }, sasang: { Taeeumin: 2 } } },
+            { text: { ko: "그렇다", en: "Agree" }, scores: { mbti: { S: 0.5 }, sasang: { Taeeumin: 1 } } },
+            { text: { ko: "보통이다", en: "Neutral" }, scores: { mbti: {}, sasang: {} } },
+            { text: { ko: "아니다", en: "Disagree" }, scores: { mbti: { N: 0.5 }, sasang: { Soeumin: 0.5 } } },
+            { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { mbti: { N: 1 }, sasang: { Soeumin: 1 } } }
+        ]
+    },
+    { 
+        q: { ko: "새로운 운동 기구나 최신 트렌드에 민감하게 반응하시나요?", en: "Are you sensitive to new workout equipment or latest trends?" },
+        options: [
+            { text: { ko: "매우 그렇다", en: "Strongly Agree" }, scores: { mbti: { N: 2 }, sasang: { Soyangin: 1 } } },
+            { text: { ko: "그렇다", en: "Agree" }, scores: { mbti: { N: 1 }, sasang: { Soyangin: 0.5 } } },
+            { text: { ko: "보통이다", en: "Neutral" }, scores: { mbti: {}, sasang: {} } },
+            { text: { ko: "아니다", en: "Disagree" }, scores: { mbti: { S: 1 }, sasang: { Taeeumin: 0.5 } } },
+            { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { mbti: { S: 2 }, sasang: { Taeeumin: 1 } } }
+        ]
+    },
+    { 
+        q: { ko: "운동 중 발생하는 통증이나 피로를 논리적으로 분석하며 조절하시나요?", en: "Do you logically analyze and adjust pain or fatigue during workouts?" },
+        options: [
+            { text: { ko: "매우 그렇다", en: "Strongly Agree" }, scores: { mbti: { T: 2 }, sasang: { Taeyangin: 1 } } },
+            { text: { ko: "그렇다", en: "Agree" }, scores: { mbti: { T: 1 }, sasang: { Taeyangin: 0.5 } } },
+            { text: { ko: "보통이다", en: "Neutral" }, scores: { mbti: {}, sasang: {} } },
+            { text: { ko: "아니다", en: "Disagree" }, scores: { mbti: { F: 1 }, sasang: { Taeeumin: 0.5 } } },
+            { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { mbti: { F: 2 }, sasang: { Taeeumin: 1 } } }
+        ]
+    }
 ];
+
 let coreCurrentStep = 0;
-let coreAnswers = [];
+let coreScores = {
+    mbti: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 },
+    sasang: { Taeyangin: 0, Taeeumin: 0, Soyangin: 0, Soeumin: 0 }
+};
 
 function initCoreQuiz() {
     const card = document.getElementById('core-question-card');
     if (!card) return;
+    resetCoreQuiz();
     renderCoreQuestion();
+}
+
+function resetCoreQuiz() {
+    coreCurrentStep = 0;
+    coreScores = {
+        mbti: { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 },
+        sasang: { Taeyangin: 0, Taeeumin: 0, Soyangin: 0, Soeumin: 0 }
+    };
+    document.getElementById('core-quiz').classList.remove('hidden');
+    document.getElementById('core-results').classList.add('hidden');
 }
 
 function renderCoreQuestion() {
     const qText = document.getElementById('core-question-text');
-    const options = document.getElementById('core-options');
-    if (!qText || !options || coreCurrentStep >= coreQuestions.length) return;
-
-    qText.textContent = coreQuestions[coreCurrentStep].q[currentLang];
-    options.innerHTML = `
-        <button class="quiz-btn" onclick="handleCoreAnswer(true)">Yes</button>
-        <button class="quiz-btn" onclick="handleCoreAnswer(false)">No</button>
-    `;
+    const optionsContainer = document.getElementById('core-options');
     const progress = document.getElementById('core-progress-bar');
-    if (progress) progress.style.width = `${((coreCurrentStep + 1) / coreQuestions.length) * 100}%`;
+    const progressText = document.getElementById('core-progress-text');
+    
+    if (!qText || !optionsContainer || coreCurrentStep >= coreQuestions.length) return;
+
+    const currentQ = coreQuestions[coreCurrentStep];
+    qText.textContent = currentQ.q[currentLang];
+    
+    optionsContainer.innerHTML = currentQ.options.map((opt, idx) => `
+        <button class="mbti-option-btn" onclick="handleCoreAnswer(${idx})">
+            ${opt.text[currentLang]}
+        </button>
+    `).join('');
+
+    const progressValue = ((coreCurrentStep + 1) / coreQuestions.length) * 100;
+    if (progress) progress.style.width = `${progressValue}%`;
+    if (progressText) progressText.textContent = `${coreCurrentStep + 1} / ${coreQuestions.length}`;
 }
 
-window.handleCoreAnswer = (ans) => {
-    coreAnswers.push(ans);
+window.handleCoreAnswer = (optionIdx) => {
+    const selectedOpt = coreQuestions[coreCurrentStep].options[optionIdx];
+    
+    // Accumulate MBTI scores
+    for (const [type, score] of Object.entries(selectedOpt.scores.mbti)) {
+        coreScores.mbti[type] += score;
+    }
+    // Accumulate Sasang scores
+    for (const [type, score] of Object.entries(selectedOpt.scores.sasang)) {
+        coreScores.sasang[type] += score;
+    }
+
     coreCurrentStep++;
     if (coreCurrentStep < coreQuestions.length) {
         renderCoreQuestion();
@@ -190,16 +271,41 @@ window.handleCoreAnswer = (ans) => {
 };
 
 function showCoreResults() {
-    userData.mbti = coreAnswers[0] ? "E" : "I";
-    userData.sasang = coreAnswers[1] ? "Taeeumin" : "Soyangin";
+    // Calculate final MBTI
+    const m = coreScores.mbti;
+    const finalMBTI = [
+        m.E >= m.I ? "E" : "I",
+        m.S >= m.N ? "S" : "N",
+        m.T >= m.F ? "T" : "F",
+        m.J >= m.P ? "J" : "P"
+    ].join("");
+
+    // Calculate final Sasang
+    const s = coreScores.sasang;
+    const finalSasang = Object.keys(s).reduce((a, b) => s[a] >= s[b] ? a : b);
+
+    userData.mbti = finalMBTI;
+    userData.sasang = finalSasang;
     
     document.getElementById('core-quiz').classList.add('hidden');
     document.getElementById('core-results').classList.remove('hidden');
-    document.getElementById('core-mbti-value').textContent = userData.mbti;
-    document.getElementById('core-sasang-value').textContent = userData.sasang;
+    
+    document.getElementById('core-mbti-value').textContent = finalMBTI;
+    document.getElementById('core-sasang-value').textContent = finalSasang;
+    
+    const insightText = document.getElementById('core-insight-text');
+    if (insightText) {
+        const translationsKey = `core-insight-${finalSasang}`;
+        const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
+        insightText.textContent = activeTranslations[currentLang][translationsKey] || activeTranslations[currentLang]['sasang-desc'];
+    }
+
+    // Update displays in forms
+    const mbtiDisplay = document.getElementById('mbti-display');
+    if (mbtiDisplay) mbtiDisplay.value = `${finalMBTI} (${finalSasang})`;
 }
 
-// Sasang Quiz Logic
+// Sasang Quiz Logic (Optional separate section, but we've integrated it into Core)
 const sasangQuestions = [
     { q: { ko: "체격이 크고 골격이 굵으신가요?", en: "Do you have a large build and thick bones?" }, type: "Taeeum" },
     { q: { ko: "성격이 급하고 직선적이신가요?", en: "Are you impatient and straightforward?" }, type: "Soyang" }
@@ -253,12 +359,38 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     document.getElementById('metrics-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
-        const h = parseFloat(document.getElementById('height').value) / 100;
+        const gender = document.getElementById('gender').value;
+        const age = parseInt(document.getElementById('age').value);
+        const h = parseFloat(document.getElementById('height').value);
         const w = parseFloat(document.getElementById('weight').value);
-        if (h > 0 && w > 0) {
-            userData.bmi = (w / (h * h)).toFixed(1);
+        
+        if (h > 0 && w > 0 && age > 0) {
+            userData.gender = gender;
+            userData.age = age;
+            userData.height = h;
+            userData.weight = w;
+            
+            const hm = h / 100;
+            userData.bmi = (w / (hm * hm)).toFixed(1);
+            
+            // Mifflin-St Jeor Equation
+            if (gender === 'male') {
+                userData.bmr = Math.round(10 * w + 6.25 * h - 5 * age + 5);
+            } else {
+                userData.bmr = Math.round(10 * w + 6.25 * h - 5 * age - 161);
+            }
+
             document.getElementById('bmi-value').textContent = userData.bmi;
+            document.getElementById('bmr-value').textContent = userData.bmr;
             document.getElementById('metrics-results').classList.remove('hidden');
+            
+            const summary = document.getElementById('metrics-display');
+            if (summary) {
+                const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
+                const status = userData.bmi < 18.5 ? 'underweight' : (userData.bmi < 25 ? 'normal' : (userData.bmi < 30 ? 'overweight' : 'obese'));
+                const statusText = activeTranslations[currentLang][`bmi-${status}`] || status;
+                summary.value = `BMI: ${userData.bmi} (${statusText}), BMR: ${userData.bmr} kcal`;
+            }
         }
     });
 
@@ -267,7 +399,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const container = document.getElementById('workout-container');
         container.innerHTML = '<p>Loading...</p>';
         setTimeout(() => {
-            const exercises = getExercisesByContext({ fitnessLevel: 'beginner' });
+            const exercises = getExercisesByContext({ fitnessLevel: document.getElementById('fitness-level').value });
             container.innerHTML = '';
             exercises.forEach(ex => {
                 const card = document.createElement('workout-card');
@@ -284,6 +416,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         const theme = currentTheme === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
+    });
+
+    document.getElementById('retake-core')?.addEventListener('click', () => {
+        initCoreQuiz();
     });
 });
 
