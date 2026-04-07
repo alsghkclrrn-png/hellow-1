@@ -3,6 +3,7 @@
 :root {
     /* Dark Mode (Default) */
     --primary-color: #38bdf8;
+    --primary-light: rgba(56, 189, 248, 0.2);
     --secondary-color: #94a3b8;
     --background-color: #0f172a;
     --text-color: #f1f5f9;
@@ -14,10 +15,12 @@
     --input-bg: #0f172a;
     --transition-speed: 0.3s;
     --nav-height: 70px;
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="light"] {
     --primary-color: #0284c7;
+    --primary-light: rgba(2, 132, 199, 0.1);
     --secondary-color: #64748b;
     --background-color: #f1f5f9;
     --text-color: #0f172a;
@@ -27,6 +30,7 @@
     --glow-color: rgba(2, 132, 199, 0.2);
     --border-color: rgba(0, 0, 0, 0.1);
     --input-bg: #ffffff;
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 html {
@@ -1232,6 +1236,56 @@ footer {
     opacity: 0.7;
 }
 
+/* Expert Report Styling */
+.expert-report {
+    background: var(--card-background);
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+    box-shadow: var(--shadow-soft);
+    text-align: left;
+    border: 1px solid var(--primary-light);
+}
+
+.expert-report h4 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    font-size: 1.1em;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 5px;
+}
+
+.expert-report ul {
+    list-style: none;
+    padding: 0;
+}
+
+.expert-report li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+.expert-report li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.expert-report p {
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
 @media (max-width: 768px) {
     .magazine-grid {
         grid-template-columns: 1fr;
@@ -1241,4 +1295,3 @@ footer {
         padding: 40px 20px;
     }
 }
-

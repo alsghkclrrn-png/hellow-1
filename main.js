@@ -151,7 +151,7 @@ function renderStretchingRecommendations() {
     container.innerHTML = lastGeneratedTargets.length === 0 ? '<p data-i18n="stretching-empty">Generate workout first!</p>' : '<p>Stretching recommendations based on your workout.</p>';
 }
 
-// Expert Core Quiz Logic (Integrated MBTI & Sasang)
+// Expert Core Quiz Logic (Professional 10 Questions)
 const coreQuestions = [
     { 
         q: { ko: "새로운 사람들과 함께 운동하는 것을 즐기시나요?", en: "Do you enjoy working out with new people?" },
@@ -201,6 +201,56 @@ const coreQuestions = [
             { text: { ko: "보통이다", en: "Neutral" }, scores: { mbti: {}, sasang: {} } },
             { text: { ko: "아니다", en: "Disagree" }, scores: { mbti: { F: 1 }, sasang: { Taeeumin: 0.5 } } },
             { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { mbti: { F: 2 }, sasang: { Taeeumin: 1 } } }
+        ]
+    },
+    { 
+        q: { ko: "평소 추위보다 더위를 더 많이 타는 편이신가요?", en: "Do you generally feel hot more than cold?" },
+        options: [
+            { text: { ko: "매우 그렇다", en: "Strongly Agree" }, scores: { sasang: { Soyangin: 2, Taeyangin: 1 } } },
+            { text: { ko: "그렇다", en: "Agree" }, scores: { sasang: { Soyangin: 1 } } },
+            { text: { ko: "보통이다", en: "Neutral" }, scores: { sasang: {} } },
+            { text: { ko: "아니다", en: "Disagree" }, scores: { sasang: { Soeumin: 1 } } },
+            { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { sasang: { Soeumin: 2, Taeeumin: 1 } } }
+        ]
+    },
+    { 
+        q: { ko: "소화 기능이 좋고 식욕이 왕성한 편이신가요?", en: "Is your digestion strong and appetite large?" },
+        options: [
+            { text: { ko: "매우 그렇다", en: "Strongly Agree" }, scores: { sasang: { Taeeumin: 2, Soyangin: 1 } } },
+            { text: { ko: "그렇다", en: "Agree" }, scores: { sasang: { Taeeumin: 1 } } },
+            { text: { ko: "보통이다", en: "Neutral" }, scores: { sasang: {} } },
+            { text: { ko: "아니다", en: "Disagree" }, scores: { sasang: { Soeumin: 1 } } },
+            { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { sasang: { Soeumin: 2, Taeyangin: 1 } } }
+        ]
+    },
+    { 
+        q: { ko: "운동할 때 정해진 시간과 순서를 엄격히 지키는 것이 편하신가요?", en: "Do you prefer strictly following a set time and sequence when exercising?" },
+        options: [
+            { text: { ko: "매우 그렇다", en: "Strongly Agree" }, scores: { mbti: { J: 2 } } },
+            { text: { ko: "그렇다", en: "Agree" }, scores: { mbti: { J: 1 } } },
+            { text: { ko: "보통이다", en: "Neutral" }, scores: { mbti: {} } },
+            { text: { ko: "아니다", en: "Disagree" }, scores: { mbti: { P: 1 } } },
+            { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { mbti: { P: 2 } } }
+        ]
+    },
+    { 
+        q: { ko: "다른 사람의 응원이나 격려가 운동 의욕에 큰 영향을 주나요?", en: "Does encouragement from others significantly impact your motivation?" },
+        options: [
+            { text: { ko: "매우 그렇다", en: "Strongly Agree" }, scores: { mbti: { F: 2, E: 1 } } },
+            { text: { ko: "그렇다", en: "Agree" }, scores: { mbti: { F: 1 } } },
+            { text: { ko: "보통이다", en: "Neutral" }, scores: { mbti: {} } },
+            { text: { ko: "아니다", en: "Disagree" }, scores: { mbti: { T: 1 } } },
+            { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { mbti: { T: 2, I: 1 } } }
+        ]
+    },
+    { 
+        q: { ko: "자신의 신체 변화(근육통, 심박수 등)를 예민하게 감지하시나요?", en: "Are you sensitive to sensing your body changes like heart rate or muscle pain?" },
+        options: [
+            { text: { ko: "매우 그렇다", en: "Strongly Agree" }, scores: { mbti: { S: 2 }, sasang: { Soeumin: 1 } } },
+            { text: { ko: "그렇다", en: "Agree" }, scores: { mbti: { S: 1 } } },
+            { text: { ko: "보통이다", en: "Neutral" }, scores: { mbti: {} } },
+            { text: { ko: "아니다", en: "Disagree" }, scores: { mbti: { N: 1 } } },
+            { text: { ko: "전혀 아니다", en: "Strongly Disagree" }, scores: { mbti: { N: 2 }, sasang: { Taeyangin: 1 } } }
         ]
     }
 ];
@@ -254,12 +304,16 @@ window.handleCoreAnswer = (optionIdx) => {
     const selectedOpt = coreQuestions[coreCurrentStep].options[optionIdx];
     
     // Accumulate MBTI scores
-    for (const [type, score] of Object.entries(selectedOpt.scores.mbti)) {
-        coreScores.mbti[type] += score;
+    if (selectedOpt.scores.mbti) {
+        for (const [type, score] of Object.entries(selectedOpt.scores.mbti)) {
+            coreScores.mbti[type] += score;
+        }
     }
     // Accumulate Sasang scores
-    for (const [type, score] of Object.entries(selectedOpt.scores.sasang)) {
-        coreScores.sasang[type] += score;
+    if (selectedOpt.scores.sasang) {
+        for (const [type, score] of Object.entries(selectedOpt.scores.sasang)) {
+            coreScores.sasang[type] += score;
+        }
     }
 
     coreCurrentStep++;
@@ -270,8 +324,28 @@ window.handleCoreAnswer = (optionIdx) => {
     }
 };
 
+function getMBTIExpertReport(mbti) {
+    const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
+    const l = currentLang;
+    const traits = {
+        E: l === 'ko' ? "외향형: 그룹 운동과 활발한 소통에서 에너지를 얻습니다." : "Extroverted: Gains energy from group workouts and active communication.",
+        I: l === 'ko' ? "내향형: 개인적인 공간에서의 집중력 있는 수련이 효과적입니다." : "Introverted: Focused practice in personal space is more effective.",
+        S: l === 'ko' ? "감각형: 현재의 신체 감각과 정확한 동작 수행에 집중합니다." : "Sensing: Focuses on current physical sensations and precise movement.",
+        N: l === 'ko' ? "직관형: 새로운 운동 방식과 원리에 대한 이해를 즐깁니다." : "Intuitive: Enjoys understanding new workout methods and principles.",
+        T: l === 'ko' ? "사고형: 체계적인 분석과 객관적인 목표 달성을 중시합니다." : "Thinking: Values systematic analysis and objective goal attainment.",
+        F: l === 'ko' ? "감정형: 정서적 만족감과 공감적인 피드백을 선호합니다." : "Feeling: Prefers emotional satisfaction and empathetic feedback.",
+        J: l === 'ko' ? "판단형: 철저한 계획과 정해진 루틴을 따를 때 편안함을 느낍니다." : "Judging: Feels comfortable following thorough plans and set routines.",
+        P: l === 'ko' ? "인식형: 유연하고 상황에 따른 변화를 주며 운동하는 것을 선호합니다." : "Perceiving: Prefers flexible workouts with changes based on the situation."
+    };
+    
+    let report = "";
+    mbti.split("").forEach(char => {
+        report += `<li>${traits[char]}</li>`;
+    });
+    return `<ul>${report}</ul>`;
+}
+
 function showCoreResults() {
-    // Calculate final MBTI
     const m = coreScores.mbti;
     const finalMBTI = [
         m.E >= m.I ? "E" : "I",
@@ -280,7 +354,6 @@ function showCoreResults() {
         m.J >= m.P ? "J" : "P"
     ].join("");
 
-    // Calculate final Sasang
     const s = coreScores.sasang;
     const finalSasang = Object.keys(s).reduce((a, b) => s[a] >= s[b] ? a : b);
 
@@ -293,61 +366,36 @@ function showCoreResults() {
     document.getElementById('core-mbti-value').textContent = finalMBTI;
     document.getElementById('core-sasang-value').textContent = finalSasang;
     
-    const insightText = document.getElementById('core-insight-text');
-    if (insightText) {
-        const translationsKey = `core-insight-${finalSasang}`;
-        const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
-        insightText.textContent = activeTranslations[currentLang][translationsKey] || activeTranslations[currentLang]['sasang-desc'];
+    const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
+    const l = currentLang;
+
+    // Detailed Professional Report Generation
+    const insightContainer = document.getElementById('core-insight-text');
+    if (insightContainer) {
+        const mbtiReport = getMBTIExpertReport(finalMBTI);
+        const sasangInsight = activeTranslations[l][`core-insight-${finalSasang}`] || activeTranslations[l]['sasang-desc'];
+        
+        insightContainer.innerHTML = `
+            <div class="expert-report">
+                <section>
+                    <h4><i data-lucide="brain"></i> ${activeTranslations[l]['core-report-mbti-title']}</h4>
+                    ${mbtiReport}
+                </section>
+                <section style="margin-top:15px;">
+                    <h4><i data-lucide="activity"></i> ${activeTranslations[l]['core-report-sasang-title']}</h4>
+                    <p>${sasangInsight}</p>
+                </section>
+                <section style="margin-top:15px; border-top: 1px solid rgba(0,0,0,0.1); padding-top:10px;">
+                    <h4><i data-lucide="sparkles"></i> ${activeTranslations[l]['core-report-lifestyle-title']}</h4>
+                    <p>${l === 'ko' ? "분석된 결과를 바탕으로 당신에게 최적화된 운동 루틴과 식단을 생성할 준비가 되었습니다. 아래 섹션에서 신체 지표를 마저 입력해 주세요." : "Based on the analysis, we are ready to generate an optimized workout routine and diet for you. Please complete the body metrics in the section below."}</p>
+                </section>
+            </div>
+        `;
+        if (window.lucide) window.lucide.createIcons();
     }
 
-    // Update displays in forms
     const mbtiDisplay = document.getElementById('mbti-display');
     if (mbtiDisplay) mbtiDisplay.value = `${finalMBTI} (${finalSasang})`;
-}
-
-// Sasang Quiz Logic (Optional separate section, but we've integrated it into Core)
-const sasangQuestions = [
-    { q: { ko: "체격이 크고 골격이 굵으신가요?", en: "Do you have a large build and thick bones?" }, type: "Taeeum" },
-    { q: { ko: "성격이 급하고 직선적이신가요?", en: "Are you impatient and straightforward?" }, type: "Soyang" }
-];
-let sasangCurrentStep = 0;
-let sasangAnswers = [];
-
-function initSasangQuiz() {
-    const card = document.getElementById('sasang-question-card');
-    if (!card) return;
-    renderSasangQuestion();
-}
-
-function renderSasangQuestion() {
-    const qText = document.getElementById('sasang-question-text');
-    const options = document.getElementById('sasang-options');
-    if (!qText || !options || sasangCurrentStep >= sasangQuestions.length) return;
-
-    qText.textContent = sasangQuestions[sasangCurrentStep].q[currentLang];
-    options.innerHTML = `
-        <button class="quiz-btn" onclick="handleSasangAnswer(true)">Yes</button>
-        <button class="quiz-btn" onclick="handleSasangAnswer(false)">No</button>
-    `;
-    const progress = document.getElementById('sasang-progress-bar');
-    if (progress) progress.style.width = `${((sasangCurrentStep + 1) / sasangQuestions.length) * 100}%`;
-}
-
-window.handleSasangAnswer = (ans) => {
-    sasangAnswers.push(ans);
-    sasangCurrentStep++;
-    if (sasangCurrentStep < sasangQuestions.length) {
-        renderSasangQuestion();
-    } else {
-        showSasangResults();
-    }
-};
-
-function showSasangResults() {
-    userData.sasang = sasangAnswers[0] ? "Taeeumin" : "Soyangin";
-    document.getElementById('sasang-quiz').classList.add('hidden');
-    document.getElementById('sasang-results').classList.remove('hidden');
-    document.getElementById('sasang-type-value').textContent = userData.sasang;
 }
 
 // Initialization
@@ -355,7 +403,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     setLanguage(currentLang);
     await fetchExerciseData();
     initCoreQuiz();
-    initSasangQuiz();
 
     document.getElementById('metrics-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -369,21 +416,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             userData.age = age;
             userData.height = h;
             userData.weight = w;
-            
             const hm = h / 100;
             userData.bmi = (w / (hm * hm)).toFixed(1);
-            
-            // Mifflin-St Jeor Equation
             if (gender === 'male') {
                 userData.bmr = Math.round(10 * w + 6.25 * h - 5 * age + 5);
             } else {
                 userData.bmr = Math.round(10 * w + 6.25 * h - 5 * age - 161);
             }
-
             document.getElementById('bmi-value').textContent = userData.bmi;
             document.getElementById('bmr-value').textContent = userData.bmr;
             document.getElementById('metrics-results').classList.remove('hidden');
-            
             const summary = document.getElementById('metrics-display');
             if (summary) {
                 const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
