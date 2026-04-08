@@ -42,7 +42,7 @@
       "url": "https://hellow-1-93223112-6fea5.web.app",
       "description": "사용자의 MBTI와 사상체질을 분석하여 제공하는 AI 기반 맞춤형 헬스케어 서비스",
       "applicationCategory": "HealthApplication",
-      "genre": "Fitness",
+      genre": "Fitness",
       "browserRequirements": "requires HTML5 support",
       "operatingSystem": "All",
       "author": {
@@ -156,6 +156,11 @@
                         <span id="bmr-value" class="result-value">--</span>
                         <span class="result-unit" data-i18n="bmr-unit">kcal/일</span>
                     </article>
+                    <article class="result-card">
+                        <span class="result-label" data-i18n="daily-calories-label">하루 권장 섭취 칼로리</span>
+                        <span id="daily-calories-value" class="result-value">--</span>
+                        <span class="result-unit" data-i18n="bmr-unit">kcal/일</span>
+                    </article>
                 </div>
             </div>
         </section>
@@ -201,8 +206,9 @@
         </section>
 
         <form id="workout-form" class="feature-section">
-            <h2 data-i18n="workout-personalization-title"><i data-lucide="settings-2"></i> 세션 개인화 설정</h2>
+            <h2 data-i18n="workout-personalization-title"><i data-lucide="settings-2"></i> 현재 당신의 컨디션 상태 체크</h2>
             <p class="section-desc" data-i18n="workout-personalization-desc">당신의 현재 상태와 목표에 맞춰 AI가 최적의 운동 루틴을 구성합니다.</p>
+
             
             <div class="form-main-container">
                 <div class="form-info-banner">
@@ -303,9 +309,33 @@
             </div>
         </section>
 
+        <section id="diet-recommendations" class="feature-section">
+            <h2 data-i18n="diet-title"><i data-lucide="utensils"></i> 당신의 맞춤 식단 추천</h2>
+            <p class="section-desc" data-i18n="diet-desc">수행된 운동 루틴과 신체 지표를 분석하여 영양학적으로 최적화된 아침, 점심, 저녁 식단을 제안합니다.</p>
+            <div id="diet-container" class="diet-grid">
+                <p class="empty-msg" data-i18n="stretching-empty">운동을 생성해 주세요!</p>
+            </div>
+        </section>
+
         <section id="exercise-catalog" class="feature-section">
             <h2 data-i18n="exercise-catalog-title"><i data-lucide="layers"></i> 운동 종류 가이드</h2>
             <div id="catalog-grid" class="catalog-grid">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <section id="home-workout" class="feature-section">
+            <h2 data-i18n="nav-home-workout"><i data-lucide="home"></i> 홈트레이닝 추천</h2>
+            <p class="section-desc" data-i18n="home-workout-desc">집에서도 효과적으로 수행할 수 있는 맨몸 및 소도구 운동 가이드입니다.</p>
+            <div id="home-workout-container" class="catalog-grid">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <section id="supplement-recommendations" class="feature-section">
+            <h2 data-i18n="supplement-title"><i data-lucide="pill"></i> 영양제 추천</h2>
+            <p class="section-desc" data-i18n="supplement-desc">운동 목표와 체질에 맞는 효과적인 영양 성분 및 제품 추천입니다.</p>
+            <div id="supplement-container" class="catalog-grid">
                 <!-- Injected via JS -->
             </div>
         </section>
@@ -319,66 +349,31 @@
                 <p data-i18n="sasang-intro-content">사상의학은 19세기 말 이제마 선생이 창시한 독창적인 체질 의학입니다. 모든 사람을 네 가지 체질로 나누고 그에 맞는 섭생과 치료를 적용합니다.</p>
             </div>
 
-            <div class="sasang-diagnosis-guide">
-                <h3 data-i18n="sasang-diag-title">2. 스스로 알아보는 사상체질 자가진단법</h3>
-                <p class="guide-subtitle" data-i18n="sasang-diag-subtitle">가장 많이 해당하는 타입을 찾아보세요.</p>
-                <div class="diag-grid">
-                    <article class="diag-card">
-                        <h4 data-i18n="sasang-type-a-title">[A 타입] 태양인</h4>
-                        <p data-i18n="sasang-type-a-desc">상체가 발달하고 하체가 약한 체질.</p>
-                        <p class="diag-feature" data-i18n="sasang-type-a-feature">해물류와 채식이 적합합니다.</p>
-                    </article>
-                    <article class="diag-card">
-                        <h4 data-i18n="sasang-type-b-title">[B 타입] 태음인</h4>
-                        <p data-i18n="sasang-type-b-desc">골격이 굵고 허리가 튼튼한 체질.</p>
-                        <p class="diag-feature" data-i18n="sasang-type-b-feature">땀을 흘려야 건강이 유지됩니다.</p>
-                    </article>
-                    <article class="diag-card">
-                        <h4 data-i18n="sasang-type-c-title">[C 타입] 소양인</h4>
-                        <p data-i18n="sasang-type-c-desc">상체가 튼튼하고 하체가 빈약한 체질.</p>
-                        <p class="diag-feature" data-i18n="sasang-type-c-feature">열이 많아 서늘한 음식을 선호합니다.</p>
-                    </article>
-                    <article class="diag-card">
-                        <h4 data-i18n="sasang-type-d-title">[D 타입] 소음인</h4>
-                        <p data-i18n="sasang-type-d-desc">하체가 발달하고 마른 체질.</p>
-                        <p class="diag-feature" data-i18n="sasang-type-d-feature">몸을 따뜻하게 유지하는 것이 중요합니다.</p>
-                    </article>
+            <div id="sasang-quiz" class="quiz-container" style="margin-top:30px;">
+                <h3 data-i18n="sasang-diag-title" style="text-align:center; margin-bottom:10px;">2. 스스로 알아보는 사상체질 자가진단</h3>
+                <p data-i18n="sasang-diag-subtitle" style="text-align:center; color:var(--secondary-color); margin-bottom:25px;">가장 많이 해당하는 본인의 특징을 선택해 주세요.</p>
+                <div id="sasang-progress-container" class="quiz-progress-wrapper">
+                    <div id="sasang-progress-bar" class="quiz-progress-bar" style="background: #10b981;"></div>
+                    <span id="sasang-progress-text"></span>
+                </div>
+                <div id="sasang-question-card" class="question-card">
+                    <h3 id="sasang-question-text" style="font-size: 1.2em; margin-bottom: 20px; color: #10b981;"></h3>
+                    <div class="sasang-options">
+                        <!-- Injected via JS -->
+                    </div>
                 </div>
             </div>
 
-            <div class="sasang-deep-analysis">
-                <h3 data-i18n="sasang-deep-title">3. 체질별 심층 분석 및 섭생법</h3>
-                <div class="deep-grid">
-                    <article class="deep-card sun">
-                        <div class="card-image"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=400" alt="태양인"></div>
-                        <h4 data-i18n="sasang-sun-title">☀️ 태양인: 폐대간소</h4>
-                        <p><strong>강점:</strong> <span data-i18n="sasang-sun-pros">혁신가, 결단력</span></p>
-                        <p><strong>주의:</strong> <span data-i18n="sasang-sun-cons">분노 조절 주의</span></p>
-                        <p class="diet-info" data-i18n="sasang-sun-diet">추천: 해물, 메밀, 포도</p>
-                    </article>
-                    <article class="deep-card earth">
-                        <div class="card-image"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=400" alt="태음인"></div>
-                        <h4 data-i18n="sasang-earth-title">🌳 태음인: 간대폐소</h4>
-                        <p><strong>강점:</strong> <span data-i18n="sasang-earth-pros">끈기, 이해심</span></p>
-                        <p><strong>주의:</strong> <span data-i18n="sasang-earth-cons">과식 및 비만 주의</span></p>
-                        <p class="diet-info" data-i18n="sasang-earth-diet">추천: 소고기, 무, 율무</p>
-                    </article>
-                    <article class="deep-card fire">
-                        <div class="card-image"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=400" alt="소양인"></div>
-                        <h4 data-i18n="sasang-fire-title">🔥 소양인: 비대신소</h4>
-                        <p><strong>강점:</strong> <span data-i18n="sasang-fire-pros">민첩성, 희생정신</span></p>
-                        <p><strong>주의:</strong> <span data-i18n="sasang-fire-cons">조급함 주의</span></p>
-                        <p class="diet-info" data-i18n="sasang-fire-diet">추천: 돼지고기, 오이, 수박</p>
-                    </article>
-                    <article class="deep-card water">
-                        <div class="card-image"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400" alt="소음인"></div>
-                        <h4 data-i18n="sasang-water-title">❄️ 소음인: 신대비소</h4>
-                        <p><strong>강점:</strong> <span data-i18n="sasang-water-pros">논리적, 꼼꼼함</span></p>
-                        <p><strong>주의:</strong> <span data-i18n="sasang-water-cons">불안감 및 추위 주의</span></p>
-                        <p class="diet-info" data-i18n="sasang-water-diet">추천: 닭고기, 인삼, 생강</p>
-                    </article>
+            <div id="sasang-results" class="hidden" style="margin-top:30px;">
+                <div class="sasang-deep-analysis">
+                    <h3 data-i18n="sasang-deep-title">3. 나의 체질 심층 분석 및 섭생법</h3>
+                    <div id="sasang-result-container">
+                        <!-- Injected via JS -->
+                    </div>
                 </div>
+                <button id="retake-sasang" class="secondary-btn" data-i18n="retake-sasang" style="display:block; margin:20px auto;">진단 다시 하기</button>
             </div>
+
 
             <p class="sasang-closing" data-i18n="sasang-closing">나의 부족함을 알고 조화롭게 채우는 지혜를 얻으시길 바랍니다.</p>
         </section>
