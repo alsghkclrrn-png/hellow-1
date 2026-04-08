@@ -57,7 +57,11 @@ function setLanguage(lang) {
 
     updateLanguageSwitcherUI();
     if (window.lucide) window.lucide.createIcons();
-    renderStretchingRecommendations(); 
+    
+    // Refresh MBTI question if in progress
+    if (document.getElementById('mbti-quiz') && !document.getElementById('mbti-quiz').classList.contains('hidden')) {
+        renderMbtiQuestion();
+    }
 }
 
 function updateLanguageSwitcherUI() {
@@ -73,13 +77,12 @@ class WorkoutCard extends HTMLElement {
         const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
         const lang = currentLang;
         
-        const name = this.getAttribute('name') || activeTranslations[lang]['workout-card-default-name'] || 'Exercise';
-        const desc = this.getAttribute('desc') || activeTranslations[lang]['workout-card-default-desc'] || 'Follow the guide.';
+        const name = this.getAttribute('name') || (activeTranslations[lang] && activeTranslations[lang]['workout-card-default-name']) || 'Exercise';
+        const desc = this.getAttribute('desc') || (activeTranslations[lang] && activeTranslations[lang]['workout-card-default-desc']) || 'Follow the guide.';
         const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
         const sets = this.getAttribute('sets') || '3';
         const reps = this.getAttribute('reps') || '12';
         const calories = this.getAttribute('calories') || '0';
-        const primaryTarget = this.getAttribute('primary-target') || 'Full Body';
 
         this.shadowRoot.innerHTML = `
             <style>
@@ -116,7 +119,6 @@ async function fetchExerciseData() {
 }
 
 function getTranslatedData(ex) {
-    const lang = currentLang;
     const name = ex.name;
     const desc = Array.isArray(ex.instructions) ? ex.instructions.join(' ') : (ex.instructions || "");
     return { name, desc, image: (ex.images && ex.images.length > 0) ? `${IMG_BASE_URL}${ex.images[0]}` : null };
@@ -126,12 +128,9 @@ function translateMuscle(muscle) {
     return muscleTranslations[currentLang]?.[muscle.toLowerCase()] || muscle;
 }
 
-let lastGeneratedTargets = [];
-
 function getExercisesByContext(options) {
     if (exerciseDatabase.length === 0) return [];
     const sessionPool = exerciseDatabase.sort(() => 0.5 - Math.random()).slice(0, 5);
-    lastGeneratedTargets = sessionPool.map(ex => ex.primaryMuscles?.[0] || 'full body');
     return sessionPool.map(ex => {
         const info = getTranslatedData(ex);
         return {
@@ -143,12 +142,6 @@ function getExercisesByContext(options) {
             'primary-target': translateMuscle(ex.primaryMuscles?.[0] || 'full body')
         };
     });
-}
-
-function renderStretchingRecommendations() {
-    const container = document.getElementById('stretching-container');
-    if (!container) return;
-    container.innerHTML = lastGeneratedTargets.length === 0 ? '<p data-i18n="stretching-empty">Generate workout first!</p>' : '<p>Stretching recommendations based on your workout.</p>';
 }
 
 // MBTI Quiz Implementation
@@ -184,13 +177,14 @@ function renderMbtiQuestion() {
     if (!qText || !optionsContainer || mbtiCurrentStep >= mbtiQuestions.length) return;
 
     const currentQ = mbtiQuestions[mbtiCurrentStep];
-    qText.textContent = activeTranslations[currentLang][currentQ.key] || currentQ.key;
+    const langObj = activeTranslations[currentLang] || activeTranslations['ko'];
+    qText.textContent = langObj[currentQ.key] || currentQ.key;
 
     optionsContainer.innerHTML = '';
     currentQ.options.forEach(opt => {
         const btn = document.createElement('button');
         btn.className = 'mbti-option-btn';
-        btn.textContent = activeTranslations[currentLang][opt.labelKey];
+        btn.textContent = langObj[opt.labelKey] || opt.labelKey;
         btn.onclick = () => handleMbtiAnswer(currentQ.id, opt.trait);
         optionsContainer.appendChild(btn);
     });
@@ -214,6 +208,7 @@ function showMbtiResults() {
     const quizContainer = document.getElementById('mbti-quiz');
     const resultsContainer = document.getElementById('mbti-results');
     const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
+    const langObj = activeTranslations[currentLang] || activeTranslations['ko'];
 
     const type = mbtiResult.EI + mbtiResult.SN + mbtiResult.TF + mbtiResult.JP;
     userData.mbti = type;
@@ -232,8 +227,8 @@ function showMbtiResults() {
 
     const typeDesc = document.getElementById('mbti-type-desc');
     if (typeDesc) {
-        const groupTitle = activeTranslations[currentLang][groupKey] || '';
-        const typeInfo = activeTranslations[currentLang][`mbti-type-${type}`] || '';
+        const groupTitle = langObj[groupKey] || '';
+        const typeInfo = langObj[`mbti-type-${type}`] || '';
         typeDesc.innerHTML = `<strong style="color:var(--primary-color)">${groupTitle}</strong><br>${typeInfo}`;
     }
 
@@ -241,7 +236,7 @@ function showMbtiResults() {
     if (insightText) {
         let report = '<ul class="mbti-report-list">';
         type.split('').forEach(char => {
-            report += `<li>${activeTranslations[currentLang]['mbti-trait-' + char]}</li>`;
+            report += `<li>${langObj['mbti-trait-' + char] || char}</li>`;
         });
         report += '</ul>';
         insightText.innerHTML = report;
@@ -286,7 +281,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (summary) {
                 const activeTranslations = (typeof translations !== 'undefined') ? translations : defaultTranslations;
                 const status = userData.bmi < 18.5 ? 'underweight' : (userData.bmi < 25 ? 'normal' : (userData.bmi < 30 ? 'overweight' : 'obese'));
-                const statusText = activeTranslations[currentLang][`bmi-${status}`] || status;
+                const statusText = (activeTranslations[currentLang] && activeTranslations[currentLang][`bmi-${status}`]) || status;
                 summary.value = `BMI: ${userData.bmi} (${statusText}), BMR: ${userData.bmr} kcal`;
             }
         }
@@ -305,7 +300,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 container.appendChild(card);
             });
             document.getElementById('workout-analysis-section').classList.remove('hidden');
-            renderStretchingRecommendations();
         }, 500);
     });
 
