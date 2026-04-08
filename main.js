@@ -150,21 +150,37 @@ if (!customElements.get('workout-card')) customElements.define('workout-card', W
 
 // MBTI Quiz Implementation
 const mbtiQuestions = [
-    { id: 'EI', trait: 'E', key: 'mbti-q1-title', options: [{ labelKey: 'mbti-q1-e', trait: 'E' }, { labelKey: 'mbti-q1-i', trait: 'I' }] },
-    { id: 'SN', trait: 'S', key: 'mbti-q2-title', options: [{ labelKey: 'mbti-q2-s', trait: 'S' }, { labelKey: 'mbti-q2-n', trait: 'N' }] },
-    { id: 'TF', trait: 'T', key: 'mbti-q3-title', options: [{ labelKey: 'mbti-q3-t', trait: 'T' }, { labelKey: 'mbti-q3-f', trait: 'F' }] },
-    { id: 'JP', trait: 'J', key: 'mbti-q4-title', options: [{ labelKey: 'mbti-q4-j', trait: 'J' }, { labelKey: 'mbti-q4-p', trait: 'P' }] }
+    { id: 'EI', key: 'mbti-q1-title', options: [{ labelKey: 'mbti-q1-a', trait: 'E' }, { labelKey: 'mbti-q1-b', trait: 'I' }] },
+    { id: 'EI', key: 'mbti-q2-title', options: [{ labelKey: 'mbti-q2-a', trait: 'E' }, { labelKey: 'mbti-q2-b', trait: 'I' }] },
+    { id: 'EI', key: 'mbti-q3-title', options: [{ labelKey: 'mbti-q3-a', trait: 'E' }, { labelKey: 'mbti-q3-b', trait: 'I' }] },
+    { id: 'EI', key: 'mbti-q4-title', options: [{ labelKey: 'mbti-q4-a', trait: 'E' }, { labelKey: 'mbti-q4-b', trait: 'I' }] },
+    { id: 'EI', key: 'mbti-q5-title', options: [{ labelKey: 'mbti-q5-a', trait: 'E' }, { labelKey: 'mbti-q5-b', trait: 'I' }] },
+    { id: 'SN', key: 'mbti-q6-title', options: [{ labelKey: 'mbti-q6-a', trait: 'S' }, { labelKey: 'mbti-q6-b', trait: 'N' }] },
+    { id: 'SN', key: 'mbti-q7-title', options: [{ labelKey: 'mbti-q7-a', trait: 'S' }, { labelKey: 'mbti-q7-b', trait: 'N' }] },
+    { id: 'SN', key: 'mbti-q8-title', options: [{ labelKey: 'mbti-q8-a', trait: 'S' }, { labelKey: 'mbti-q8-b', trait: 'N' }] },
+    { id: 'SN', key: 'mbti-q9-title', options: [{ labelKey: 'mbti-q9-a', trait: 'S' }, { labelKey: 'mbti-q9-b', trait: 'N' }] },
+    { id: 'SN', key: 'mbti-q10-title', options: [{ labelKey: 'mbti-q10-a', trait: 'S' }, { labelKey: 'mbti-q10-b', trait: 'N' }] },
+    { id: 'TF', key: 'mbti-q11-title', options: [{ labelKey: 'mbti-q11-a', trait: 'T' }, { labelKey: 'mbti-q11-b', trait: 'F' }] },
+    { id: 'TF', key: 'mbti-q12-title', options: [{ labelKey: 'mbti-q12-a', trait: 'T' }, { labelKey: 'mbti-q12-b', trait: 'F' }] },
+    { id: 'TF', key: 'mbti-q13-title', options: [{ labelKey: 'mbti-q13-a', trait: 'T' }, { labelKey: 'mbti-q13-b', trait: 'F' }] },
+    { id: 'TF', key: 'mbti-q14-title', options: [{ labelKey: 'mbti-q14-a', trait: 'T' }, { labelKey: 'mbti-q14-b', trait: 'F' }] },
+    { id: 'TF', key: 'mbti-q15-title', options: [{ labelKey: 'mbti-q15-a', trait: 'T' }, { labelKey: 'mbti-q15-b', trait: 'F' }] },
+    { id: 'JP', key: 'mbti-q16-title', options: [{ labelKey: 'mbti-q16-a', trait: 'J' }, { labelKey: 'mbti-q16-b', trait: 'P' }] },
+    { id: 'JP', key: 'mbti-q17-title', options: [{ labelKey: 'mbti-q17-a', trait: 'J' }, { labelKey: 'mbti-q17-b', trait: 'P' }] },
+    { id: 'JP', key: 'mbti-q18-title', options: [{ labelKey: 'mbti-q18-a', trait: 'J' }, { labelKey: 'mbti-q18-b', trait: 'P' }] },
+    { id: 'JP', key: 'mbti-q19-title', options: [{ labelKey: 'mbti-q19-a', trait: 'J' }, { labelKey: 'mbti-q19-b', trait: 'P' }] },
+    { id: 'JP', key: 'mbti-q20-title', options: [{ labelKey: 'mbti-q20-a', trait: 'J' }, { labelKey: 'mbti-q20-b', trait: 'P' }] }
 ];
 
 let mbtiCurrentStep = 0;
-let mbtiResult = { EI: '', SN: '', TF: '', JP: '' };
+let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
 
 function initMbtiQuiz() {
     const quizContainer = document.getElementById('mbti-quiz');
     const resultsContainer = document.getElementById('mbti-results');
     if (!quizContainer) return;
     mbtiCurrentStep = 0;
-    mbtiResult = { EI: '', SN: '', TF: '', JP: '' };
+    mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
     quizContainer.classList.remove('hidden');
     resultsContainer.classList.add('hidden');
     renderMbtiQuestion();
@@ -185,7 +201,7 @@ function renderMbtiQuestion() {
         btn.className = 'mbti-option-btn';
         btn.textContent = t(opt.labelKey);
         btn.onclick = () => {
-            mbtiResult[currentQ.id] = opt.trait;
+            mbtiScores[opt.trait]++;
             mbtiCurrentStep++;
             if (mbtiCurrentStep < mbtiQuestions.length) renderMbtiQuestion();
             else showMbtiResults();
@@ -198,7 +214,12 @@ function renderMbtiQuestion() {
 }
 
 function showMbtiResults() {
-    const type = mbtiResult.EI + mbtiResult.SN + mbtiResult.TF + mbtiResult.JP;
+    const type = 
+        (mbtiScores.E >= mbtiScores.I ? 'E' : 'I') +
+        (mbtiScores.S >= mbtiScores.N ? 'S' : 'N') +
+        (mbtiScores.T >= mbtiScores.F ? 'T' : 'F') +
+        (mbtiScores.J >= mbtiScores.P ? 'J' : 'P');
+    
     userData.mbti = type;
     document.getElementById('mbti-quiz').classList.add('hidden');
     document.getElementById('mbti-results').classList.remove('hidden');
