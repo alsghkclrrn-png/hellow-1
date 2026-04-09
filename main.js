@@ -82,6 +82,7 @@ class WorkoutCard extends HTMLElement {
         const desc = this.getAttribute('desc') || t('workout-card-default-desc');
         const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
         const target = this.getAttribute('target') || t('workout-card-default-target');
+        const caution = this.getAttribute('caution') || t('workout-card-default-caution') || '';
         const recReps = this.getAttribute('reps') || '12';
         const recSets = this.getAttribute('sets') || '3';
         const recRest = this.getAttribute('rest') || '60s';
@@ -89,24 +90,33 @@ class WorkoutCard extends HTMLElement {
 
         this.shadowRoot.innerHTML = `
             <style>
-                :host { display: block; background: var(--card-background, #1e293b); border-radius: 20px; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); overflow: hidden; display: flex; flex-direction: column; color: var(--text-color, #f1f5f9); font-family: sans-serif; transition: transform 0.3s ease; }
-                :host(:hover) { transform: translateY(-5px); border-color: var(--primary-color, #38bdf8); }
-                .image-container { width: 100%; height: 200px; position: relative; }
-                .image-container img { width: 100%; height: 100%; object-fit: cover; }
-                .target-badge { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 0.75em; }
-                .content { padding: 20px; flex-grow: 1; }
-                h3 { color: var(--primary-color, #38bdf8); margin: 0 0 10px 0; font-size: 1.2em; }
-                .desc { font-size: 0.85em; opacity: 0.8; line-height: 1.5; margin-bottom: 15px; }
-                .rec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; }
-                .rec-item { font-size: 0.75em; display: flex; justify-content: space-between; }
-                .rec-label { color: var(--secondary-color, #94a3b8); }
-                .rec-value { font-weight: 700; color: var(--primary-color, #38bdf8); }
-                .performance-tracking { border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 15px; }
-                .perf-title { font-size: 0.8em; font-weight: 700; margin-bottom: 10px; display: block; }
-                .perf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-                .perf-input-group { display: flex; flex-direction: column; gap: 4px; }
-                .perf-input-group label { font-size: 0.7em; color: var(--secondary-color, #94a3b8); }
-                .perf-input-group input { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px 8px; color: #fff; font-size: 0.8em; }
+                :host { display: block; background: var(--card-background, #1e293b); border-radius: 24px; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); overflow: hidden; display: flex; flex-direction: column; color: var(--text-color, #f1f5f9); font-family: 'Roboto', sans-serif; transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+                :host(:hover) { transform: translateY(-8px); border-color: var(--primary-color, #38bdf8); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+                .image-container { width: 100%; height: 220px; position: relative; overflow: hidden; }
+                .image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+                :host(:hover) .image-container img { transform: scale(1.05); }
+                .target-badge { position: absolute; top: 15px; right: 15px; background: rgba(56, 189, 248, 0.9); color: #fff; padding: 6px 14px; border-radius: 30px; font-size: 0.75em; font-weight: 800; backdrop-filter: blur(4px); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+                .content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; gap: 15px; }
+                h3 { color: var(--primary-color, #38bdf8); margin: 0; font-size: 1.4em; font-weight: 800; letter-spacing: -0.02em; }
+                .desc-box { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 16px; border-left: 4px solid var(--primary-color); }
+                .desc { font-size: 0.9em; opacity: 0.9; line-height: 1.6; color: var(--text-color); margin: 0; }
+                .caution-box { background: rgba(239, 68, 68, 0.05); padding: 12px 15px; border-radius: 12px; border-left: 4px solid #ef4444; margin-top: 5px; }
+                .caution { font-size: 0.8em; color: #fca5a5; line-height: 1.5; margin: 0; }
+                .caution strong { color: #ef4444; margin-right: 5px; }
+                .rec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; background: rgba(56, 189, 248, 0.05); padding: 15px; border-radius: 18px; }
+                .rec-item { font-size: 0.8em; display: flex; flex-direction: column; gap: 4px; }
+                .rec-label { color: var(--secondary-color, #94a3b8); font-weight: 600; }
+                .rec-value { font-weight: 800; color: var(--primary-color, #38bdf8); font-size: 1.1em; }
+                .performance-tracking { border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 20px; margin-top: 10px; }
+                .perf-title { font-size: 0.9em; font-weight: 800; margin-bottom: 15px; color: var(--primary-color); display: flex; align-items: center; gap: 8px; }
+                .perf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; max-width: 400px; margin: 0 auto; }
+                .perf-input-group { display: flex; flex-direction: column; gap: 6px; }
+                .perf-input-group label { font-size: 0.75em; color: var(--secondary-color, #94a3b8); font-weight: 600; }
+                .perf-input-group input { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 12px; color: #fff; font-size: 0.9em; transition: all 0.2s; text-align: center; }
+                .perf-input-group input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px var(--primary-light); background: #1e293b; }
+                @media (max-width: 480px) {
+                    .perf-grid { grid-template-columns: 1fr; }
+                }
             </style>
             <div class="image-container">
                 <img src="${image}" alt="${name}">
@@ -114,7 +124,13 @@ class WorkoutCard extends HTMLElement {
             </div>
             <div class="content">
                 <h3>${name}</h3>
-                <p class="desc">${desc}</p>
+                <div class="desc-box">
+                    <p class="desc">${desc}</p>
+                </div>
+                ${caution ? `
+                <div class="caution-box">
+                    <p class="caution"><strong>주의점:</strong> ${caution}</p>
+                </div>` : ''}
                 <div class="rec-grid">
                     <div class="rec-item"><span class="rec-label">${t('workout-reps')}</span><span class="rec-value">${recReps}</span></div>
                     <div class="rec-item"><span class="rec-label">${t('workout-sets')}</span><span class="rec-value">${recSets}</span></div>
@@ -122,7 +138,7 @@ class WorkoutCard extends HTMLElement {
                     <div class="rec-item"><span class="rec-label">${t('workout-time')}</span><span class="rec-value">${recTime}</span></div>
                 </div>
                 <div class="performance-tracking">
-                    <span class="perf-title">${t('workout-actual-input')}</span>
+                    <span class="perf-title">💪 ${t('workout-actual-input')}</span>
                     <div class="perf-grid">
                         <div class="perf-input-group">
                             <label>${t('actual-reps')}</label>
@@ -329,6 +345,7 @@ function generateWorkout(goal, level) {
         card.setAttribute('desc', ex.desc[currentLang]);
         card.setAttribute('image', ex.image);
         card.setAttribute('target', ex.primary[currentLang]);
+        card.setAttribute('caution', ex.caution ? ex.caution[currentLang] : '');
         card.setAttribute('reps', level === 'beginner' ? '10' : (level === 'intermediate' ? '12' : '15'));
         card.setAttribute('sets', '3');
         card.setAttribute('rest', '60s');

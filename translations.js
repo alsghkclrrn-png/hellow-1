@@ -268,306 +268,108 @@ const exerciseTranslations = {
     'push-up': {
         ko: '푸시업 (팔굽혀펴기)', en: 'Push-up', primary: { ko: '가슴', en: 'Chest' }, isHome: true,
         image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '양손을 어깨너비로 벌리고 몸을 일직선으로 유지하며 가슴이 바닥에 닿기 전까지 내립니다.', en: 'Keep body in a straight line, lower chest until almost touching floor.' },
-        tip: { ko: '코어에 힘을 주어 엉덩이가 처지지 않게 하세요.', en: 'Keep your core tight, do not let hips sag.' },
-        caution: { ko: '손목 통증 시 무릎을 대고 진행하세요.', en: 'If wrist hurts, put your knees down.' }
+        desc: { ko: '1. 양손을 어깨너비보다 약간 넓게 바닥에 짚습니다. 2. 머리부터 발꿈치까지 몸을 일직선으로 만듭니다. 3. 가슴이 바닥에 닿기 직전까지 천천히 몸을 내립니다. 4. 가슴 근육의 힘을 사용하여 원래 자세로 밀어 올립니다.', en: '1. Place hands slightly wider than shoulders. 2. Keep body in a straight line from head to heels. 3. Lower body until chest almost touches floor. 4. Push back up using chest muscles.' },
+        tip: { ko: '코어에 힘을 주어 엉덩이가 처지거나 위로 솟지 않게 하세요.', en: 'Keep your core tight, do not let hips sag or peak.' },
+        caution: { ko: '손목 통증이 느껴진다면 무릎을 바닥에 대고 진행하거나 푸시업 바를 사용하세요. 어깨를 과하게 으쓱하지 마세요.', en: 'If wrist hurts, put your knees down or use push-up bars. Do not shrug your shoulders.' }
     },
     'bench-press': {
         ko: '벤치 프레스', en: 'Bench Press', primary: { ko: '가슴', en: 'Chest' }, isHome: false,
         image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '벤치에 누워 바벨을 가슴 높이에서 밀어 올립니다.', en: 'Lie on bench, press barbell up from chest level.' },
-        tip: { ko: '어깨를 고정하고 가슴 근육의 수축에 집중하세요.', en: 'Fix your shoulders and focus on chest contraction.' },
-        caution: { ko: '바벨을 떨어뜨리지 않도록 주의하세요.', en: 'Be careful not to drop the barbell.' }
+        desc: { ko: '1. 벤치에 등을 대고 누워 발을 바닥에 단단히 고정합니다. 2. 바를 어깨너비보다 넓게 잡습니다. 3. 바를 가슴 중앙부까지 천천히 내립니다. 4. 가슴의 힘으로 바를 수직 위로 밀어 올립니다.', en: '1. Lie on bench with feet flat on floor. 2. Grip bar wider than shoulders. 3. Lower bar to mid-chest slowly. 4. Press bar vertically using chest strength.' },
+        tip: { ko: '견갑골(날개뼈)을 뒤로 모아 고정하면 가슴 근육에 더 큰 자극을 줄 수 있습니다.', en: 'Retract shoulder blades to maximize chest engagement.' },
+        caution: { ko: '바를 내릴 때 가슴에서 튕기지 마세요. 무거운 무게를 다룰 때는 반드시 보조자와 함께 하세요.', en: 'Do not bounce the bar off your chest. Use a spotter for heavy weights.' }
     },
     'incline-dumbbell-press': {
         ko: '인클라인 덤벨 프레스', en: 'Incline Dumbbell Press', primary: { ko: '가슴', en: 'Chest' }, isHome: true,
         image: 'https://images.unsplash.com/photo-1581009146145-b5ef03a7403f?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '경사진 벤치에 앉아 덤벨을 위로 밀어 올립니다. 상부 가슴을 타겟으로 합니다.', en: 'Sit on incline bench, press dumbbells up. Targets upper chest.' },
-        tip: { ko: '덤벨이 서로 부딪히지 않게 수직으로 올리세요.', en: 'Press dumbbells vertically without clashing them.' },
-        caution: { ko: '덤벨 무게 조절에 유의하세요.', en: 'Control the dumbbell weight carefully.' }
+        desc: { ko: '1. 30~45도 경사진 벤치에 앉습니다. 2. 양손에 덤벨을 들고 쇄골 위쪽 방향으로 밀어 올립니다. 3. 가슴 상부가 늘어나는 것을 느끼며 천천히 내립니다.', en: '1. Sit on a 30-45 degree incline bench. 2. Press dumbbells up towards the upper chest area. 3. Lower slowly feeling the upper chest stretch.' },
+        tip: { ko: '덤벨이 서로 부딪히지 않게 평행을 유지하며 올리세요.', en: 'Keep dumbbells parallel and avoid clashing them at the top.' },
+        caution: { ko: '팔꿈치가 어깨 뒤로 너무 많이 넘어가지 않게 가동 범위를 조절하세요.', en: 'Control range of motion so elbows don\'t go too far back.' }
     },
     'chest-fly': {
         ko: '체스트 플라이', en: 'Chest Fly', primary: { ko: '가슴', en: 'Chest' }, isHome: true,
         image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '양팔을 옆으로 벌렸다가 가슴 앞으로 모으는 동작입니다.', en: 'Open arms to sides, then bring them together in front of chest.' },
-        tip: { ko: '팔꿈치를 살짝 굽혀 관절 부담을 줄이세요.', en: 'Slightly bend elbows to reduce joint strain.' },
-        caution: { ko: '가슴 근육이 과하게 늘어나지 않게 하세요.', en: 'Do not overstretch the chest muscles.' }
+        desc: { ko: '1. 벤치에 누워 덤벨을 가슴 위로 듭니다. 2. 큰 나무를 껴안는 듯한 느낌으로 팔을 옆으로 벌립니다. 3. 가슴 근육이 충분히 이완되면 다시 가슴 앞쪽으로 모읍니다.', en: '1. Lie on bench with dumbbells above chest. 2. Open arms to sides like hugging a large tree. 3. Bring dumbbells together in front of chest once muscles are stretched.' },
+        tip: { ko: '팔꿈치를 살짝 굽힌 상태를 유지하여 관절의 부담을 줄이세요.', en: 'Keep elbows slightly bent to reduce joint strain.' },
+        caution: { ko: '가슴 근육이 과하게 늘어나 부상을 입지 않도록 적절한 깊이까지만 내리세요.', en: 'Do not overstretch to avoid injury; lower only to a comfortable depth.' }
     },
     'dips': {
         ko: '딥스', en: 'Dips', primary: { ko: '가슴', en: 'Chest' }, isHome: true,
         image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '평행봉을 잡고 몸을 내렸다가 팔의 힘으로 다시 올라옵니다.', en: 'Grip parallel bars, lower body and push back up.' },
-        tip: { ko: '상체를 살짝 숙이면 가슴 하부에 더 큰 자극이 갑니다.', en: 'Lean forward slightly to target lower chest.' },
-        caution: { ko: '어깨 유연성이 부족하면 가동 범위를 조절하세요.', en: 'Adjust range of motion if shoulders are tight.' }
-    },
-    'dumbbell-fly': {
-        ko: '덤벨 플라이', en: 'Dumbbell Fly', primary: { ko: '가슴', en: 'Chest' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '벤치에 누워 팔을 벌렸다 모으며 가슴 근육을 확장하고 수축시킵니다.', en: 'Lie on bench, open and close arms to expand and contract chest muscles.' },
-        tip: { ko: '큰 나무를 껴안는 듯한 느낌으로 동작하세요.', en: 'Perform the movement as if hugging a large tree.' },
-        caution: { ko: '무게가 너무 무거우면 어깨에 무리가 갈 수 있습니다.', en: 'Excessive weight can strain your shoulders.' }
-    },
-    'cable-crossover': {
-        ko: '케이블 크로스오버', en: 'Cable Crossover', primary: { ko: '가슴', en: 'Chest' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '케이블 머신 중앙에서 양손으로 케이블을 가슴 앞쪽으로 당겨 모읍니다.', en: 'Pull cables together in front of your chest from the center of the machine.' },
-        tip: { ko: '가슴 안쪽의 수축을 끝까지 느껴보세요.', en: 'Feel the contraction in the inner chest.' },
-        caution: { ko: '상체가 너무 앞으로 쏠리지 않게 중심을 잡으세요.', en: 'Balance yourself so your upper body doesn\'t lean too far forward.' }
+        desc: { ko: '1. 평행봉을 잡고 몸을 띄웁니다. 2. 상체를 약간 앞으로 기울입니다. 3. 팔꿈치가 90도가 될 때까지 몸을 내립니다. 4. 가슴 하부의 힘으로 다시 올라옵니다.', en: '1. Grip parallel bars and lift body. 2. Lean torso forward slightly. 3. Lower body until elbows are at 90 degrees. 4. Push back up using lower chest strength.' },
+        tip: { ko: '시선을 정면보다 약간 아래에 두면 상체 기울기를 유지하기 쉽습니다.', en: 'Look slightly down to help maintain the forward lean.' },
+        caution: { ko: '어깨 관절에 통증이 있다면 가동 범위를 줄이거나 중단하세요.', en: 'If you feel shoulder pain, reduce range of motion or stop.' }
     },
 
     // 등 (Back)
     'pull-up': {
         ko: '풀업 (턱걸이)', en: 'Pull-up', primary: { ko: '등', en: 'Back' }, isHome: false,
         image: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '철봉을 잡고 등 근육을 사용하여 몸을 끌어올립니다.', en: 'Grip bar, pull body up using back muscles.' },
-        tip: { ko: '가슴을 펴고 견갑골을 모으는 느낌으로 당기세요.', en: 'Open chest and squeeze shoulder blades.' },
-        caution: { ko: '반동을 주지 않도록 노력하세요.', en: 'Try not to use momentum.' }
+        desc: { ko: '1. 철봉을 어깨너비보다 넓게 잡습니다. 2. 가슴을 하늘 쪽으로 들어 올리며 몸을 끌어올립니다. 3. 턱이 봉 위에 올라오면 잠시 멈췄다가 천천히 내려옵니다.', en: '1. Grip bar wider than shoulders. 2. Pull body up by lifting chest towards the bar. 3. Pause when chin is above bar, then lower slowly.' },
+        tip: { ko: '팔의 힘보다는 등의 날개뼈를 아래로 당기는 힘에 집중하세요.', en: 'Focus on pulling shoulder blades down rather than using arm strength.' },
+        caution: { ko: '몸을 흔드는 반동을 쓰지 마세요. 내려올 때 툭 떨어지지 않게 광배근으로 버티세요.', en: 'Avoid using momentum. Control the descent using your lats.' }
     },
     'lat-pulldown': {
         ko: '렛 풀다운', en: 'Lat Pulldown', primary: { ko: '등', en: 'Back' }, isHome: false,
         image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '앉아서 바를 가슴 쪽으로 당겨 등 근육을 수축시킵니다.', en: 'Sit and pull bar towards chest to contract back muscles.' },
-        tip: { ko: '팔보다는 등의 힘으로 당기는 것에 집중하세요.', en: 'Focus on pulling with back rather than arms.' },
-        caution: { ko: '허리가 과하게 꺾이지 않게 하세요.', en: 'Do not arch lower back excessively.' }
+        desc: { ko: '1. 머신에 앉아 무릎 고정대에 다리를 넣습니다. 2. 바를 넓게 잡고 가슴 윗부분까지 당깁니다. 3. 등이 수축되는 것을 느끼며 바를 천천히 위로 보냅니다.', en: '1. Sit at machine with knees under pads. 2. Grip bar wide and pull down to upper chest. 3. Feel the back contraction and return bar slowly.' },
+        tip: { ko: '바를 당길 때 상체를 아주 살짝 뒤로 젖히면 광배근 자극이 좋아집니다.', en: 'Leaning back very slightly can enhance lat engagement.' },
+        caution: { ko: '허리를 너무 심하게 꺾지 마세요. 팔꿈치가 뒤로 빠지지 않게 수직으로 당기세요.', en: 'Do not arch lower back excessively. Pull elbows vertically down.' }
     },
     'bent-over-row': {
         ko: '벤트 오버 로우', en: 'Bent Over Row', primary: { ko: '등', en: 'Back' }, isHome: true,
         image: 'https://images.unsplash.com/photo-1581009146145-b5ef03a7403f?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '상체를 숙인 상태에서 바벨이나 덤벨을 배꼽 쪽으로 당깁니다.', en: 'Lean forward and pull weight towards navel.' },
-        tip: { ko: '등을 평평하게 유지하여 허리를 보호하세요.', en: 'Keep back flat to protect spine.' },
-        caution: { ko: '시선은 정면보다 약간 아래를 보세요.', en: 'Look slightly down rather than straight ahead.' }
-    },
-    'seated-row': {
-        ko: '시티드 로우', en: 'Seated Row', primary: { ko: '등', en: 'Back' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '앉아서 케이블을 몸쪽으로 당겨 등의 중앙부를 강화합니다.', en: 'Sit and pull cable towards body to strengthen mid-back.' },
-        tip: { ko: '당길 때 가슴을 내밀어 수축을 극대화하세요.', en: 'Push chest out when pulling for max contraction.' },
-        caution: { ko: '어깨가 으쓱하지 않게 주의하세요.', en: 'Avoid shrugging shoulders.' }
-    },
-    'back-extension': {
-        ko: '백 익스텐션', en: 'Back Extension', primary: { ko: '등', en: 'Back' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '기구에 엎드려 상체를 들어 올려 척추기립근을 강화합니다.', en: 'Lie face down on equipment and lift upper body to strengthen erectors.' },
-        tip: { ko: '천천히 상체를 내리며 근육의 긴장을 유지하세요.', en: 'Lower body slowly to maintain tension.' },
-        caution: { ko: '허리를 너무 뒤로 젖히지 마세요.', en: 'Do not hyperextend the lower back.' }
-    },
-    't-bar-row': {
-        ko: '티바 로우', en: 'T-Bar Row', primary: { ko: '등', en: 'Back' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: 'T자 형태의 바를 가랑이 사이에 두고 당겨 등 근육의 두께를 키웁니다.', en: 'Pull a T-shaped bar between your legs to increase back thickness.' },
-        tip: { ko: '팔꿈치를 몸 뒤로 최대한 보낸다는 느낌으로 당기세요.', en: 'Pull as if driving your elbows as far behind your body as possible.' },
-        caution: { ko: '반동을 과하게 주면 허리에 무리가 올 수 있습니다.', en: 'Excessive momentum can strain your lower back.' }
-    },
-    'face-pull': {
-        ko: '페이스 풀', en: 'Face Pull', primary: { ko: '등', en: 'Back' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '케이블을 얼굴 쪽으로 당겨 등 상부와 후면 어깨를 강화합니다.', en: 'Pull cable towards your face to strengthen upper back and rear delts.' },
-        tip: { ko: '당길 때 양손을 바깥쪽으로 벌려주세요.', en: 'Pull your hands outward as you pull toward your face.' },
-        caution: { ko: '어깨 관절에 무리가 가지 않도록 적당한 무게로 진행하세요.', en: 'Use moderate weight to avoid shoulder joint strain.' }
-    },
-    'one-arm-dumbbell-row': {
-        ko: '원 암 덤벨 로우', en: 'One Arm Dumbbell Row', primary: { ko: '등', en: 'Back' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1581009146145-b5ef03a7403f?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '한 손으로 덤벨을 당겨 등 근육을 한쪽씩 집중적으로 단련합니다.', en: 'Pull a dumbbell with one hand to train back muscles one side at a time.' },
-        tip: { ko: '등의 이완과 수축 범위를 최대한 넓게 가져가세요.', en: 'Maximize the range of motion for back extension and contraction.' },
-        caution: { ko: '상체가 과하게 비틀리지 않도록 주의하세요.', en: 'Be careful not to twist your torso excessively.' }
+        desc: { ko: '1. 무릎을 살짝 굽히고 상체를 45도 정도 숙입니다. 2. 바벨이나 덤벨을 배꼽 방향으로 당깁니다. 3. 등의 중앙 근육을 쥐어짜는 느낌으로 수축시킨 후 천천히 내립니다.', en: '1. Bend knees slightly and lean torso forward at 45 degrees. 2. Pull weight towards your navel. 3. Squeeze mid-back muscles and lower slowly.' },
+        tip: { ko: '시선은 바닥에서 1~2m 앞을 보며 목의 정렬을 유지하세요.', en: 'Look 1-2m ahead on the floor to keep neck aligned.' },
+        caution: { ko: '허리가 굽지 않게 평평하게 유지하는 것이 가장 중요합니다.', en: 'Most important: keep your back flat, never rounded.' }
     },
 
     // 하체 (Legs)
     'squat': {
         ko: '스쿼트', en: 'Squat', primary: { ko: '하체', en: 'Legs' }, isHome: true,
         image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '발을 벌리고 앉았다 일어나는 하체 대표 운동입니다.', en: 'Stand with feet apart, sit down and stand back up.' },
-        tip: { ko: '무릎이 발끝보다 앞으로 나가지 않게 하세요.', en: 'Keep knees behind toes.' },
-        caution: { ko: '발꿈치가 들리지 않게 지면을 누르세요.', en: 'Keep heels on the ground.' }
+        desc: { ko: '1. 발을 어깨너비로 벌리고 발끝은 살짝 바깥을 향하게 합니다. 2. 의자에 앉듯이 엉덩이를 뒤로 빼며 천천히 내려갑니다. 3. 허벅지가 바닥과 평행이 될 때까지 내려갔다가 발바닥으로 지면을 밀며 올라옵니다.', en: '1. Stand with feet shoulder-width apart, toes pointed slightly out. 2. Lower hips back as if sitting in a chair. 3. Descend until thighs are parallel to floor, then push through heels to stand.' },
+        tip: { ko: '체중을 발뒤꿈치와 중앙에 실으세요. 무릎과 발끝의 방향을 일치시키세요.', en: 'Keep weight on heels/mid-foot. Ensure knees track in line with toes.' },
+        caution: { ko: '무릎이 발등보다 너무 앞으로 나가지 않게 주의하고, 허리가 안쪽으로 말리지 않게 하세요.', en: 'Don\'t let knees overshoot toes too far; keep lower back from rounding.' }
     },
     'lunge': {
         ko: '런지', en: 'Lunge', primary: { ko: '하체', en: 'Legs' }, isHome: true,
         image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '한쪽 발을 앞으로 내딛고 무릎을 굽혀 하체를 강화합니다.', en: 'Step forward and bend knees to strengthen legs.' },
-        tip: { ko: '상체를 바로 세워 균형을 잡으세요.', en: 'Keep torso upright for balance.' },
-        caution: { ko: '앞쪽 무릎이 과하게 구부러지지 않게 하세요.', en: 'Do not let front knee overshoot.' }
-    },
-    'leg-press': {
-        ko: '레그 프레스', en: 'Leg Press', primary: { ko: '하체', en: 'Legs' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '발판을 밀어 허벅지 근육을 단련합니다.', en: 'Push footplate to train thigh muscles.' },
-        tip: { ko: '발판을 밀 때 무릎을 완전히 펴지 마세요.', en: 'Do not lock knees at the top.' },
-        caution: { ko: '허리가 등받이에서 떨어지지 않게 하세요.', en: 'Keep lower back against the seat.' }
-    },
-    'leg-curl': {
-        ko: '레그 컬', en: 'Leg Curl', primary: { ko: '하체', en: 'Legs' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '엎드려서 다리를 굽혀 허벅지 뒤쪽 근육을 단련합니다.', en: 'Lie face down and bend legs to train hamstrings.' },
-        tip: { ko: '내릴 때도 천천히 자극을 느끼며 내리세요.', en: 'Lower weight slowly to feel tension.' },
-        caution: { ko: '골반이 들리지 않도록 주의하세요.', en: 'Do not let hips lift off the pad.' }
+        desc: { ko: '1. 똑바로 서서 한쪽 발을 앞으로 크게 내딛습니다. 2. 앞뒤 무릎이 모두 90도가 될 때까지 몸을 내립니다. 3. 앞발의 뒤꿈치를 밀어 원래 자세로 돌아옵니다.', en: '1. Stand straight and take a big step forward. 2. Lower body until both knees are at 90 degrees. 3. Push through front heel to return to start.' },
+        tip: { ko: '상체를 수직으로 세우면 허벅지 앞쪽, 약간 숙이면 엉덩이 자극이 강해집니다.', en: 'Keep torso upright for quads, or lean slightly for glutes.' },
+        caution: { ko: '앞쪽 무릎이 안쪽으로 모이지 않게 고정하세요.', en: 'Keep front knee from collapsing inward.' }
     },
     'deadlift': {
         ko: '데드리프트', en: 'Deadlift', primary: { ko: '하체', en: 'Legs' }, isHome: false,
         image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '바닥의 무게를 들어 올려 전신과 하체를 강화합니다.', en: 'Lift weight from floor to strengthen full body and legs.' },
-        tip: { ko: '바를 몸에 가깝게 유지하며 들어 올리세요.', en: 'Keep bar close to body during lift.' },
-        caution: { ko: '등을 절대로 굽히지 마세요.', en: 'Never round your back.' }
-    },
-    'leg-extension': {
-        ko: '레그 익스텐션', en: 'Leg Extension', primary: { ko: '하체', en: 'Legs' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '앉아서 다리를 펴 허벅지 앞쪽 근육(대퇴사두근)을 강화합니다.', en: 'Sit and extend legs to strengthen quadriceps.' },
-        tip: { ko: '다리를 펼 때 무릎 근육에 집중하여 끝까지 수축하세요.', en: 'Focus on knee muscles and contract fully when extending.' },
-        caution: { ko: '무릎에 무리가 가지 않도록 적절한 무게를 선택하세요.', en: 'Choose appropriate weight to avoid knee strain.' }
-    },
-    'bulgarian-split-squat': {
-        ko: '불가리안 스플릿 스쿼트', en: 'Bulgarian Split Squat', primary: { ko: '하체', en: 'Legs' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '한쪽 발을 벤치에 올리고 반대쪽 다리로 스쿼트를 진행합니다.', en: 'Place one foot on a bench and perform squats with the other leg.' },
-        tip: { ko: '상체를 약간 숙이면 엉덩이(둔근)에 더 큰 자극이 갑니다.', en: 'Lean forward slightly to target the glutes more.' },
-        caution: { ko: '중심을 잡기 어려우면 처음에는 맨몸으로 시작하세요.', en: 'Start with bodyweight if you find it hard to balance.' }
-    },
-    'calf-raise': {
-        ko: '카프 레이즈', en: 'Calf Raise', primary: { ko: '하체', en: 'Legs' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '발뒤꿈치를 들어 올려 종아리 근육을 단련합니다.', en: 'Lift your heels to train calf muscles.' },
-        tip: { ko: '최대한 높이 들어 올린 후 천천히 내리세요.', en: 'Lift as high as possible and lower slowly.' },
-        caution: { ko: '발목에 통증이 느껴지면 가동 범위를 줄이세요.', en: 'Reduce range of motion if you feel ankle pain.' }
-    },
-
-    // 팔 (Arms)
-    'bicep-curl': {
-        ko: '바벨 컬', en: 'Barbell Curl', primary: { ko: '팔', en: 'Arms' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1581009146145-b5ef03a7403f?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '바벨을 들어 올려 팔 앞쪽(이두근)을 강화합니다.', en: 'Lift barbell to strengthen biceps.' },
-        tip: { ko: '팔꿈치를 옆구리에 고정하고 반동을 줄이세요.', en: 'Fix elbows to your sides and minimize momentum.' },
-        caution: { ko: '손목이 꺾이지 않도록 주의하세요.', en: 'Be careful not to bend your wrists.' }
-    },
-    'tricep-pushdown': {
-        ko: '트라이셉 푸쉬다운', en: 'Tricep Pushdown', primary: { ko: '팔', en: 'Arms' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '케이블을 아래로 밀어내 팔 뒤쪽(삼두근)을 단련합니다.', en: 'Push cable down to train triceps.' },
-        tip: { ko: '팔꿈치를 고정하고 팔의 힘으로만 밀어내세요.', en: 'Fix elbows and push using only arm strength.' },
-        caution: { ko: '어깨가 위로 들리지 않도록 주의하세요.', en: 'Do not let your shoulders shrug up.' }
-    },
-    'hammer-curl': {
-        ko: '해머 컬', en: 'Hammer Curl', primary: { ko: '팔', en: 'Arms' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1581009146145-b5ef03a7403f?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '덤벨을 세운 상태로 들어 올려 팔의 바깥쪽과 전완근을 강화합니다.', en: 'Lift dumbbells with a neutral grip to strengthen outer biceps and forearms.' },
-        tip: { ko: '덤벨을 쥐는 힘을 일정하게 유지하세요.', en: 'Maintain a consistent grip on the dumbbells.' },
-        caution: { ko: '상체가 앞뒤로 흔들리지 않게 하세요.', en: 'Keep your torso from swinging back and forth.' }
+        desc: { ko: '1. 바벨 앞에 서서 정강이를 바에 가깝게 댑니다. 2. 허리를 펴고 엉덩이를 뒤로 빼며 바를 잡습니다. 3. 지면을 밀어내며 몸을 곧게 세웁니다. 4. 바를 몸에 붙인 상태로 천천히 내립니다.', en: '1. Stand with shins close to bar. 2. Keep back flat, hips back, and grip bar. 3. Push floor away to stand upright. 4. Lower bar slowly keeping it close to body.' },
+        tip: { ko: '바를 들어 올릴 때 숨을 참고 복압을 유지하는 것이 허리 보호에 필수적입니다.', en: 'Hold breath and maintain intra-abdominal pressure to protect spine.' },
+        caution: { ko: '등이 굽는 순간 즉시 중단하세요. 허리의 힘이 아닌 하체와 둔근의 힘을 사용하세요.', en: 'Stop immediately if back rounds. Use legs and glutes, not just lower back.' }
     },
 
     // 복근 (Abs)
     'crunch': {
         ko: '크런치', en: 'Crunch', primary: { ko: '복근', en: 'Abs' }, isHome: true,
         image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '상체를 살짝 들어 올려 복근을 수축시킵니다.', en: 'Lift upper body slightly to contract abs.' },
-        tip: { ko: '복부의 힘으로만 상체를 들어 올리세요.', en: 'Use only abdominal strength.' },
-        caution: { ko: '목을 과하게 당기지 마세요.', en: 'Do not pull your neck.' }
-    },
-    'leg-raise': {
-        ko: '레그 레이즈', en: 'Leg Raise', primary: { ko: '복근', en: 'Abs' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '누워서 다리를 들어 올려 하복부를 단련합니다.', en: 'Lie down and lift legs to train lower abs.' },
-        tip: { ko: '허리가 바닥에서 뜨지 않도록 주의하세요.', en: 'Keep lower back pressed against floor.' },
-        caution: { ko: '다리를 내릴 때 천천히 내리세요.', en: 'Lower legs slowly.' }
+        desc: { ko: '1. 바닥에 누워 무릎을 굽히고 발을 바닥에 댑니다. 2. 상체를 명치까지만 살짝 들어 올려 복근을 수축합니다. 3. 배의 긴장을 유지하며 천천히 내려옵니다.', en: '1. Lie on back with knees bent and feet flat. 2. Lift upper body slightly to contract abs. 3. Lower slowly while maintaining tension.' },
+        tip: { ko: '손으로 목을 당기지 말고, 가슴에 손을 얹거나 귀 옆에 살짝 대세요.', en: 'Don\'t pull your neck; cross arms over chest or touch ears lightly.' },
+        caution: { ko: '허리가 바닥에서 과하게 뜨지 않도록 주의하세요.', en: 'Ensure your lower back stays pressed or close to the floor.' }
     },
     'plank': {
         ko: '플랭크', en: 'Plank', primary: { ko: '복근', en: 'Abs' }, isHome: true,
         image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '몸을 일직선으로 유지하며 버티는 코어 운동입니다.', en: 'Hold body in a straight line to train core.' },
-        tip: { ko: '엉덩이가 위로 솟거나 아래로 처지지 않게 하세요.', en: 'Do not let hips sag or peak.' },
-        caution: { ko: '호흡을 참지 말고 일정하게 하세요.', en: 'Do not hold your breath.' }
-    },
-    'russian-twist': {
-        ko: '러시안 트위스트', en: 'Russian Twist', primary: { ko: '복근', en: 'Abs' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '상체를 비틀어 옆구리 근육을 강화합니다.', en: 'Twist torso to strengthen obliques.' },
-        tip: { ko: '발을 바닥에서 떼면 난이도가 높아집니다.', en: 'Lift feet off floor for more challenge.' },
-        caution: { ko: '허리에 무리가 가 있지 않는 선에서 비틀어 주세요.', en: 'Do not twist too far if it hurts lower back.' }
-    },
-    'mountain-climber': {
-        ko: '마운틴 클라이머', en: 'Mountain Climbers', primary: { ko: '복근', en: 'Abs' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1599058917232-d750c1859d7c?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '엎드린 자세에서 달리는 듯한 동작으로 복근과 유산소를 동시에 잡습니다.', en: 'Plank position, move legs as if running to train abs and cardio.' },
-        tip: { ko: '빠르게 진행할수록 유산소 효과가 큽니다.', en: 'Faster movement increases cardio benefit.' },
-        caution: { ko: '어깨가 손목보다 앞으로 나가지 않게 하세요.', en: 'Keep shoulders above wrists.' }
-    },
-    'v-up': {
-        ko: '브이업', en: 'V-up', primary: { ko: '복근', en: 'Abs' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '누운 상태에서 상체와 하체를 동시에 들어 올려 몸을 V자로 만듭니다.', en: 'Lift both upper and lower body simultaneously to form a V shape.' },
-        tip: { ko: '손 끝이 발가락에 닿는다는 느낌으로 올라오세요.', en: 'Reach your fingertips towards your toes.' },
-        caution: { ko: '허리에 무리가 갈 수 있으니 코어 힘을 잘 활용하세요.', en: 'Use core strength to avoid straining your lower back.' }
-    },
-    'bicycle-crunch': {
-        ko: '바이시클 크런치', en: 'Bicycle Crunch', primary: { ko: '복근', en: 'Abs' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '누워서 자전거를 타듯 다리를 움직이며 반대쪽 팔꿈치와 무릎을 맞닿게 합니다.', en: 'Move legs as if cycling and bring opposite elbow and knee together.' },
-        tip: { ko: '상체를 충분히 비틀어 옆구리 자극을 극대화하세요.', en: 'Twist your torso fully to maximize oblique engagement.' },
-        caution: { ko: '목을 과하게 잡아당기지 않도록 주의하세요.', en: 'Avoid pulling too hard on your neck.' }
-    },
-    'hanging-leg-raise': {
-        ko: '행잉 레그 레이즈', en: 'Hanging Leg Raise', primary: { ko: '복근', en: 'Abs' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '철봉에 매달려 다리를 들어 올리는 고난도 복근 운동입니다.', en: 'Lift your legs while hanging from a bar; advanced abdominal exercise.' },
-        tip: { ko: '몸의 반동을 최소화하고 복부의 힘으로 다리를 들어 올리세요.', en: 'Minimize body swing and lift legs using abdominal strength.' },
-        caution: { ko: '어깨와 악력이 부족하면 가동 범위를 조절하세요.', en: 'Adjust range of motion if shoulder or grip strength is lacking.' }
+        desc: { ko: '1. 바닥에 엎드려 전완(팔꿈치 아래)을 바닥에 댑니다. 2. 어깨와 팔꿈치가 수직이 되게 합니다. 3. 몸 전체를 일직선으로 만들고 복부와 엉덩이에 힘을 주어 버팁니다.', en: '1. Lie face down and rest on forearms. 2. Keep shoulders directly above elbows. 3. Form a straight line with body and hold using core and glute strength.' },
+        tip: { ko: '어깨 근육으로 바닥을 밀어낸다는 느낌을 유지하세요.', en: 'Think about pushing the floor away with your shoulder muscles.' },
+        caution: { ko: '엉덩이가 아래로 처지면 허리에 통증이 올 수 있으니 주의하세요.', en: 'Avoid letting hips sag to prevent lower back pain.' }
     },
 
     // 유산소 (Cardio)
     'burpee': {
         ko: '버피 테스트', en: 'Burpees', primary: { ko: '유산소', en: 'Cardio' }, isHome: true,
         image: 'https://images.unsplash.com/photo-1599058917232-d750c1859d7c?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '전신을 사용하는 고강도 유산소 운동입니다.', en: 'High intensity full body cardio exercise.' },
-        tip: { ko: '일정한 리듬을 유지하며 진행하세요.', en: 'Maintain a steady rhythm.' },
-        caution: { ko: '착지 시 무릎에 충격이 가지 않게 부드럽게 착지하세요.', en: 'Land softly to protect knees.' }
-    },
-    'jumping-jack': {
-        ko: '점핑 잭 (팔 벌려 뛰기)', en: 'Jumping Jacks', primary: { ko: '유산소', en: 'Cardio' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1599058917232-d750c1859d7c?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '가볍게 뛰면서 팔과 다리를 벌렸다 모읍니다.', en: 'Jump lightly while spreading and closing arms/legs.' },
-        tip: { ko: '가벼운 유산소 운동으로 워밍업에 좋습니다.', en: 'Good for warming up.' },
-        caution: { ko: '발바닥 전체보다 앞꿈치로 가볍게 뛰세요.', en: 'Land on the balls of your feet.' }
-    },
-    'running': {
-        ko: '러닝 (달리기)', en: 'Running', primary: { ko: '유산소', en: 'Cardio' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '심폐 지구력을 강화하는 대표적인 유산소 운동입니다.', en: 'Representative cardio exercise to improve endurance.' },
-        tip: { ko: '호흡을 깊고 일정하게 유지하세요.', en: 'Breathe deeply and steadily.' },
-        caution: { ko: '적절한 러닝화를 착용하여 관절을 보호하세요.', en: 'Wear proper shoes to protect joints.' }
-    },
-    'cycling': {
-        ko: '사이클링 (자전거)', en: 'Cycling', primary: { ko: '유산소', en: 'Cardio' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '자전거를 타며 하체와 심폐 기능을 강화합니다.', en: 'Ride bike to strengthen legs and cardio system.' },
-        tip: { ko: '안장 높이를 체형에 맞게 조절하세요.', en: 'Adjust seat height properly.' },
-        caution: { ko: '무릎에 통증이 느껴지면 부하를 줄이세요.', en: 'Reduce load if knees hurt.' }
-    },
-    'rowing': {
-        ko: '로잉 (노 젓기)', en: 'Rowing', primary: { ko: '유산소', en: 'Cardio' }, isHome: false,
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '노를 젓는 동작으로 전신 근육과 심폐를 단련합니다.', en: 'Rowing motion to train full body and cardio.' },
-        tip: { ko: '하체의 힘으로 먼저 밀고 팔로 당기세요.', en: 'Push with legs first, then pull with arms.' },
-        caution: { ko: '허리가 굽지 않게 곧게 펴세요.', en: 'Keep back straight.' }
-    },
-    'high-knees': {
-        ko: '하이 니 (제자리 높이 뛰기)', en: 'High Knees', primary: { ko: '유산소', en: 'Cardio' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1599058917232-d750c1859d7c?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '제자리에서 무릎을 가슴 높이까지 들어 올리며 빠르게 뜁니다.', en: 'Run in place while lifting knees to chest height.' },
-        tip: { ko: '팔을 같이 흔들어 리듬감을 유지하세요.', en: 'Swing your arms to maintain rhythm.' },
-        caution: { ko: '층간 소음에 유의하거나 매트 위에서 진행하세요.', en: 'Be mindful of noise or use a mat.' }
-    },
-    'skaters': {
-        ko: '스케이터 홉', en: 'Skaters', primary: { ko: '유산소', en: 'Cardio' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1599058917232-d750c1859d7c?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '스케이트를 타듯 옆으로 점프하며 반대쪽 다리를 뒤로 교차합니다.', en: 'Jump sideways like a skater and cross the opposite leg behind.' },
-        tip: { ko: '옆으로 최대한 멀리 뛰면 운동 강도가 높아집니다.', en: 'Jump further sideways for higher intensity.' },
-        caution: { ko: '착지 시 발목이 꺾이지 않도록 주의하세요.', en: 'Be careful not to twist your ankle when landing.' }
-    },
-    'jump-rope': {
-        ko: '줄넘기', en: 'Jump Rope', primary: { ko: '유산소', en: 'Cardio' }, isHome: true,
-        image: 'https://images.unsplash.com/photo-1599058917232-d750c1859d7c?auto=format&fit=crop&q=80&w=400',
-        desc: { ko: '줄을 넘으며 가볍게 점프하여 전신과 심폐 지구력을 강화합니다.', en: 'Jump lightly over a rope to strengthen full body and cardio endurance.' },
-        tip: { ko: '손목 스냅을 이용하여 줄을 돌리세요.', en: 'Use your wrist snap to swing the rope.' },
-        caution: { ko: '무릎 관절 보호를 위해 쿠션이 있는 신발을 착용하세요.', en: 'Wear cushioned shoes to protect your knees.' }
+        desc: { ko: '1. 똑바로 서서 시작합니다. 2. 손을 바닥에 짚고 다리를 뒤로 뻗어 푸시업 자세를 만듭니다. 3. 다시 다리를 가슴 쪽으로 당깁니다. 4. 머리 위로 손을 올리며 점프합니다.', en: '1. Start standing. 2. Drop hands to floor and kick feet back to plank. 3. Jump feet back to chest. 4. Jump up with hands overhead.' },
+        tip: { ko: '동작 사이에 끊김이 없이 부드럽게 연결하는 것이 중요합니다.', en: 'Keep movements fluid and continuous.' },
+        caution: { ko: '체력이 급격히 저하되면 점프를 생략하고 한 발씩 뒤로 뻗는 방식으로 조절하세요.', en: 'If exhausted, step back one foot at a time instead of jumping.' }
     }
 };
 
