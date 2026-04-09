@@ -4,6 +4,10 @@
   # Which nixpkgs channel to use.
   channel = "stable-23.11"; # or "unstable"
   # Use https://search.nixos.org/packages to find packages
+  packages = [
+    pkgs.python3
+    pkgs.nodejs_20
+  ];
 
   # Sets environment variables in the workspace
   env = {};
@@ -18,7 +22,7 @@
       enable = true;
       previews = {
         web = {
-          command = ["python3" "-m" "http.server" "$PORT" "--bind" "0.0.0.0"];
+          command = ["npx" "http-server" "-p" "$PORT" "--host" "0.0.0.0" "-c-1"];
           manager = "web";
         };
       };

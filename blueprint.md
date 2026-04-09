@@ -82,4 +82,5 @@ A professional holistic health platform that provides personalized workout plans
 ### Phase 4: Validation & Deployment
 - Comprehensive testing of all UI/UX flows.
 - Verify correctness of AI-generated content (stretches, diets).
-- Deploy to Firebase/Git.
+- Fix "starting preview" error by adding `python3` and `nodejs` to `.idx/dev.nix` and switching to `npx http-server`.
+- Deploy to Firebase Hosting.

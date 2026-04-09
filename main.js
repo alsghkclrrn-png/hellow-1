@@ -382,20 +382,47 @@ function generateStretching(exercises) {
 
 function generateDiet(goal) {
     const container = document.getElementById('diet-container');
+    if (!container) return;
     container.innerHTML = '';
     const daySeed = Math.floor(new Date() / (1000 * 60 * 60 * 24));
     const meals = ['breakfast', 'lunch', 'dinner'];
     const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
 
+    // Mapping goals to keywords for better selection
+    const goalKeywords = {
+        'weight-loss': ['샐러드', 'Salad', '야채', 'Veggies', '닭가슴살', 'Chicken', '저칼로리', 'low-cal'],
+        'muscle-gain': ['소고기', 'Beef', '연어', 'Salmon', '단백질', 'Protein', '스테이크', 'Steak', '오트밀', 'Oatmeal'],
+        'general-fitness': ['현미밥', 'Brown Rice', '두부', 'Tofu', '샌드위치', 'Sandwich', '건강', 'Healthy']
+    };
+
+    const keywords = goalKeywords[goal] || [];
+
     meals.forEach(time => {
-        const pool = dietDatabase.filter(d => d.time === time);
-        const meal = pool[daySeed % pool.length];
+        let pool = dietDatabase.filter(d => d.time === time);
+        
+        // Try to filter by keywords if possible
+        const goalSpecificPool = pool.filter(d => 
+            keywords.some(k => 
+                (d.name.ko && d.name.ko.includes(k)) || 
+                (d.name.en && d.name.en.toLowerCase().includes(k.toLowerCase())) ||
+                (d.ingredients.ko && d.ingredients.ko.includes(k)) ||
+                (d.ingredients.en && d.ingredients.en.toLowerCase().includes(k.toLowerCase()))
+            )
+        );
+
+        // Fallback to general pool if no specific match
+        const finalPool = goalSpecificPool.length > 0 ? goalSpecificPool : pool;
+        const meal = finalPool[daySeed % finalPool.length];
+        
         const card = document.createElement('div');
         card.className = 'diet-card';
         card.innerHTML = `
             <img src="${meal.image}" class="diet-image" alt="${meal.name[currentLang]}">
             <div class="diet-content">
-                <span class="diet-tag">${t('diet-' + time)}</span>
+                <div class="diet-header">
+                    <span class="diet-tag">${t('diet-' + time)}</span>
+                    <span class="diet-goal-tag">${t('goal-' + goal)}</span>
+                </div>
                 <h3>${meal.name[currentLang]}</h3>
                 <div class="diet-recipe">
                     <h4>${t('diet-ingredients')}</h4>
