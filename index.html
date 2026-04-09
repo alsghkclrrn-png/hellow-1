@@ -295,7 +295,13 @@
         </form>
 
         <section id="workout-plan" class="feature-section">
-            <h2 data-i18n="workout-plan-title"><i data-lucide="dumbbell"></i> 당신의 맞춤 운동 플랜</h2>
+            <div class="section-header-flex">
+                <h2 data-i18n="workout-plan-title"><i data-lucide="dumbbell"></i> 당신의 맞춤 운동 플랜</h2>
+                <button id="refresh-workout-btn" class="icon-text-btn" title="다른 운동 추천받기" data-i18n="refresh-workout-btn">
+                    <i data-lucide="refresh-cw"></i>
+                    <span data-i18n="refresh-btn-text">새로고침</span>
+                </button>
+            </div>
             <div id="workout-container"></div>
             
             <div id="workout-analysis-section" class="hidden">

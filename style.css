@@ -1296,3 +1296,51 @@ footer {
     color: #fca5a5;
 }
 
+
+/* Workout Plan Refresh Header */
+.section-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.icon-text-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    color: var(--primary-color);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.icon-text-btn:hover {
+    background: var(--primary-color);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+}
+
+.icon-text-btn i {
+    width: 18px;
+    height: 18px;
+}
+
+@media (max-width: 480px) {
+    .section-header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .icon-text-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
