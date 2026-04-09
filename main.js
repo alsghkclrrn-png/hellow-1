@@ -312,7 +312,7 @@ function showSasangResults() {
 }
 
 // Workout Generation Logic
-function generateWorkout(goal, level) {
+function generateWorkout(goal, level, freq = '3-4') {
     const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
     const allExercises = Object.entries(exerciseTranslations).map(([id, data]) => ({ id, ...data }));
     
@@ -339,6 +339,27 @@ function generateWorkout(goal, level) {
     const container = document.getElementById('workout-container');
     container.innerHTML = '';
     
+    // Intensity Logic based on Frequency and Level
+    let baseReps = 12;
+    let baseSets = 3;
+    let baseRest = 60;
+
+    if (level === 'beginner') { baseReps = 10; baseSets = 2; }
+    else if (level === 'advanced') { baseReps = 15; baseSets = 4; }
+
+    // Adjust based on frequency
+    if (freq === '1-2') {
+        baseSets = Math.max(2, baseSets);
+        baseRest = 90; // More rest for infrequent trainers
+    } else if (freq === '5-6') {
+        baseSets += 1;
+        baseRest = 45; // Higher intensity
+    } else if (freq === '7') {
+        baseSets += 1;
+        baseReps += 2;
+        baseRest = 30; // Maximum intensity
+    }
+
     session.forEach(ex => {
         const card = document.createElement('workout-card');
         card.setAttribute('name', ex[currentLang]);
@@ -346,10 +367,10 @@ function generateWorkout(goal, level) {
         card.setAttribute('image', ex.image);
         card.setAttribute('target', ex.primary[currentLang]);
         card.setAttribute('caution', ex.caution ? ex.caution[currentLang] : '');
-        card.setAttribute('reps', level === 'beginner' ? '10' : (level === 'intermediate' ? '12' : '15'));
-        card.setAttribute('sets', '3');
-        card.setAttribute('rest', '60s');
-        card.setAttribute('time', '15m');
+        card.setAttribute('reps', baseReps.toString());
+        card.setAttribute('sets', baseSets.toString());
+        card.setAttribute('rest', baseRest + 's');
+        card.setAttribute('time', (baseSets * 3).toString() + 'm');
         container.appendChild(card);
     });
 
@@ -535,9 +556,13 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const goal = document.getElementById('goal').value;
         const level = document.getElementById('fitness-level').value;
+        const freq = document.getElementById('weekly-frequency').value;
+        
         userData.goal = goal;
         userData.fitnessLevel = level;
-        generateWorkout(goal, level);
+        userData.weeklyFrequency = freq;
+        
+        generateWorkout(goal, level, freq);
         document.getElementById('workout-analysis-section').classList.remove('hidden');
         window.location.hash = 'workout-plan';
     });

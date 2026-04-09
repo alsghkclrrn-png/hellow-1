@@ -185,6 +185,11 @@ const translations = {
         'mbti-display-placeholder': '상단 퀴즈 진행',
         'metrics-display-label': '신체 분석 요약',
         'metrics-display-placeholder': '상단 신체 분석 진행',
+        'weekly-frequency-label': '주간 운동 횟수',
+        'freq-1-2': '주 1-2회 (유지/입문)',
+        'freq-3-4': '주 3-4회 (표준/향상)',
+        'freq-5-6': '주 5-6회 (고강도/전문)',
+        'freq-7': '매일 (선수용/습관)',
     },
     en: {
         'nav-logo': 'AI Workout Coach',
@@ -273,6 +278,11 @@ const translations = {
         'mbti-display-placeholder': 'Take Quiz First',
         'metrics-display-label': 'Body Summary',
         'metrics-display-placeholder': 'Analyze First',
+        'weekly-frequency-label': 'Weekly Frequency',
+        'freq-1-2': '1-2 times/week',
+        'freq-3-4': '3-4 times/week',
+        'freq-5-6': '5-6 times/week',
+        'freq-7': 'Everyday (7)',
     }
 };
 
