@@ -4,12 +4,13 @@ let userData = {
     gender: 'male', age: 30, height: 175, weight: 70,
     bmi: null, bmr: null, dailyCalories: null,
     mbti: null, sasang: null,
-    fitnessLevel: 'beginner', goal: 'general-fitness', weeklyFrequency: '3-4'
+    fitnessLevel: 'beginner', goal: 'general-fitness', weeklyFrequency: '3-4',
+    condition: 'excellent'
 };
 
 let workoutHistory = JSON.parse(localStorage.getItem('workoutHistory')) || [];
 let wgerExercises = [];
-let seenExerciseIds = new Set(); // To prevent repeats across refreshes
+let seenExerciseIds = new Set(); 
 
 const WGER_CATEGORY_MAP = {
     10: { ko: '복근', en: 'Abs' },
@@ -77,8 +78,8 @@ function setLanguage(lang) {
 
 async function fetchWgerExercises() {
     try {
-        console.log('Fetching diverse wger exercises (Limit 300)...');
-        const response = await fetch('https://wger.de/api/v2/exerciseinfo/?language=2&limit=300&status=2');
+        console.log('Fetching massive diverse wger exercises (Limit 500)...');
+        const response = await fetch('https://wger.de/api/v2/exerciseinfo/?language=2&limit=500&status=2');
         const data = await response.json();
         
         wgerExercises = data.results
@@ -95,7 +96,7 @@ async function fetchWgerExercises() {
             }));
             
         wgerExercises.sort((a, b) => (b.image ? 1 : 0) - (a.image ? 1 : 0));
-        console.log('Wger exercises pool loaded:', wgerExercises.length);
+        console.log('Wger massive pool loaded:', wgerExercises.length);
     } catch (error) {
         console.error('Failed to fetch wger exercises:', error);
     }
@@ -173,22 +174,22 @@ class WorkoutCard extends HTMLElement {
                 <span class="target-badge">${target}</span>
             </div>
             <div class="content">
-                <h3>${name}</h3>
+                <h3 class="exercise-name">${name}</h3>
                 <div class="desc-box">${formattedDesc}</div>
                 ${caution ? `<div class="caution-box">⚠️ <strong>주의 사항:</strong> ${caution}</div>` : ''}
                 <div class="rec-grid">
-                    <div class="rec-item"><span class="rec-label">${t('workout-reps')}</span><span class="rec-value">${recReps}</span></div>
-                    <div class="rec-item"><span class="rec-label">${t('workout-sets')}</span><span class="rec-value">${recSets}</span></div>
+                    <div class="rec-item"><span class="rec-label">${t('workout-reps')}</span><span class="rec-value rec-reps-val">${recReps}</span></div>
+                    <div class="rec-item"><span class="rec-label">${t('workout-sets')}</span><span class="rec-value rec-sets-val">${recSets}</span></div>
                     <div class="rec-item"><span class="rec-label">${t('workout-rest')}</span><span class="rec-value">${recRest}</span></div>
                     <div class="rec-item"><span class="rec-label">${t('workout-time')}</span><span class="rec-value">${recTime}</span></div>
                 </div>
                 <div class="performance-tracking">
                     <span class="perf-title">⚡ ${t('workout-actual-input')}</span>
                     <div class="perf-grid">
-                        <div class="perf-input-group"><label>${t('actual-reps')}</label><input type="number" placeholder="0"></div>
-                        <div class="perf-input-group"><label>${t('actual-sets')}</label><input type="number" placeholder="0"></div>
-                        <div class="perf-input-group"><label>${t('actual-rest')}</label><input type="text" placeholder="0s"></div>
-                        <div class="perf-input-group"><label>${t('actual-time')}</label><input type="text" placeholder="0m"></div>
+                        <div class="perf-input-group"><label>${t('actual-reps')}</label><input type="number" class="actual-reps" placeholder="0"></div>
+                        <div class="perf-input-group"><label>${t('actual-sets')}</label><input type="number" class="actual-sets" placeholder="0"></div>
+                        <div class="perf-input-group"><label>${t('actual-rest')}</label><input type="text" class="actual-rest" placeholder="0s"></div>
+                        <div class="perf-input-group"><label>${t('actual-time')}</label><input type="text" class="actual-time" placeholder="0m"></div>
                     </div>
                 </div>
             </div>
@@ -358,23 +359,34 @@ function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
     };
 
     const shuffled = shufflePool([...fullPool]);
+    
+    // Categorize pool
     const getPoolByCategory = (enCat) => shuffled.filter(ex => ex.primary.en === enCat && !seenExerciseIds.has(ex.id));
 
     let absPool = getPoolByCategory('Abs');
     let cardioPool = getPoolByCategory('Cardio');
+    
+    // Core selection (ensure variety by taking first available)
     if (absPool.length === 0) absPool = shuffled.filter(ex => ex.primary.en === 'Abs');
     if (cardioPool.length === 0) cardioPool = shuffled.filter(ex => ex.primary.en === 'Cardio');
 
     const sessionAbs = absPool[0];
     const sessionCardio = cardioPool[0];
+    
+    // Condition-based variety: If tired or recovery, recommend lighter/more stretching
+    let targetCount = 8; // User asked for more than 5
+    if (userData.condition === 'tired') targetCount = 6;
+    if (userData.condition === 'recovery') targetCount = 4;
+
     const remainingTargets = shuffled.filter(ex => 
-        ex.primary.en !== 'Abs' && ex.primary.en !== 'Cardio' && 
+        ex.primary.en !== 'Abs' && 
+        ex.primary.en !== 'Cardio' && 
         !seenExerciseIds.has(ex.id) &&
         ex.id !== (sessionAbs ? sessionAbs.id : null) &&
         ex.id !== (sessionCardio ? sessionCardio.id : null)
     );
 
-    const sessionTargets = remainingTargets.slice(0, 3);
+    const sessionTargets = remainingTargets.slice(0, targetCount - 2);
     const session = [sessionAbs, ...sessionTargets, sessionCardio].filter(Boolean);
     session.forEach(ex => seenExerciseIds.add(ex.id));
 
@@ -383,11 +395,18 @@ function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
     container.innerHTML = '';
     
     let baseReps = 12, baseSets = 3, baseRest = 60;
-    if (level === 'beginner') { baseReps = 10; baseSets = 2; }
-    else if (level === 'advanced') { baseReps = 15; baseSets = 4; }
-    if (freq === '1-2') { baseSets = Math.max(2, baseSets); baseRest = 90; }
-    else if (freq === '5-6') { baseSets += 1; baseRest = 45; }
-    else if (freq === '7') { baseSets += 1; baseReps += 2; baseRest = 30; }
+    
+    // Condition-based intensity
+    if (userData.condition === 'tired') { baseReps = 8; baseSets = 2; baseRest = 90; }
+    else if (userData.condition === 'recovery') { baseReps = 6; baseSets = 2; baseRest = 120; }
+    else {
+        if (level === 'beginner') { baseReps = 10; baseSets = 2; }
+        else if (level === 'advanced') { baseReps = 15; baseSets = 4; }
+    }
+
+    if (freq === '1-2') { baseSets = Math.max(2, baseSets); baseRest += 30; }
+    else if (freq === '5-6') { baseSets += 1; baseRest -= 15; }
+    else if (freq === '7') { baseSets += 1; baseReps += 2; baseRest -= 20; }
 
     session.forEach(ex => {
         const card = document.createElement('workout-card');
@@ -398,12 +417,76 @@ function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
         card.setAttribute('caution', (ex.caution && ex.caution[currentLang]) ? ex.caution[currentLang] : generateDetailedCaution(ex));
         card.setAttribute('reps', baseReps.toString());
         card.setAttribute('sets', baseSets.toString());
-        card.setAttribute('rest', baseRest + 's');
+        card.setAttribute('rest', Math.max(10, baseRest) + 's');
         card.setAttribute('time', (baseSets * 3).toString() + 'm');
         container.appendChild(card);
     });
+    
+    document.getElementById('workout-analysis-section').classList.remove('hidden');
     generateStretching(session);
     generateDiet(goal);
+}
+
+function analyzePerformance() {
+    const cards = document.querySelectorAll('workout-card');
+    let totalRecReps = 0, totalActualReps = 0;
+    let totalRecSets = 0, totalActualSets = 0;
+    let exerciseStats = [];
+
+    cards.forEach(card => {
+        const shadow = card.shadowRoot;
+        const name = shadow.querySelector('.exercise-name').textContent;
+        const recReps = parseInt(shadow.querySelector('.rec-reps-val').textContent);
+        const recSets = parseInt(shadow.querySelector('.rec-sets-val').textContent);
+        const actualReps = parseInt(shadow.querySelector('.actual-reps').value) || 0;
+        const actualSets = parseInt(shadow.querySelector('.actual-sets').value) || 0;
+
+        totalRecReps += recReps;
+        totalActualReps += actualReps;
+        totalRecSets += recSets;
+        totalActualSets += actualSets;
+
+        exerciseStats.push({ name, recReps, actualReps, recSets, actualSets });
+    });
+
+    const analysisContent = document.getElementById('analysis-content');
+    const analysisResults = document.getElementById('analysis-results');
+    
+    // Expert AI Coaching Logic (5+ sentences)
+    let feedback = "";
+    const performanceRatio = totalActualReps > 0 ? (totalActualReps / totalRecReps) : 0;
+    
+    // Evaluation
+    if (performanceRatio >= 1.0) {
+        feedback += `오늘 운동을 아주 성공적으로 완수하셨습니다! 권장 횟수를 모두 채우거나 그 이상을 달성하신 것은 현재 본인의 체력 수준이 설정된 단계보다 높거나 열정이 매우 뜨겁다는 증거입니다. `;
+    } else if (performanceRatio >= 0.7) {
+        feedback += `오늘 계획한 운동량의 대부분을 소화해내셨습니다. 완벽하지는 않더라도 끝까지 포기하지 않고 세션을 마무리한 점을 높게 평가하며, 이는 장기적인 근성장의 훌륭한 밑거름이 될 것입니다. `;
+    } else {
+        feedback += `오늘 운동은 조금 힘겨우셨던 것 같습니다. 하지만 컨디션이 저하된 날에 무리하게 운동량을 채우기보다 본인의 몸 상태에 귀를 기울이고 수행 가능한 만큼만 진행한 것은 부상 방지 측면에서 매우 현명한 선택입니다. `;
+    }
+
+    // MBTI / Sasang context
+    if (userData.sasang) {
+        const sasangMap = { sun: '기운이 밖으로 뻗치는 태양인', earth: '지구력이 좋은 태음인', fire: '열정이 넘치는 소양인', water: '세심한 관리가 필요한 소음인' };
+        feedback += `특히 ${sasangMap[userData.sasang]}으로서 본인의 체질적 특성을 고려할 때, 오늘의 수행 기록은 매우 의미 있는 데이터입니다. `;
+    }
+
+    // Cautions & Tips
+    if (performanceRatio > 1.2) {
+        feedback += `다만, 권장량보다 너무 많은 횟수를 수행할 경우 근육의 과도한 피로가 누적되어 오히려 다음 운동에 지장을 줄 수 있으니 '오버트레이닝'을 경계해야 합니다. `;
+    } else if (performanceRatio < 0.5 && totalActualReps > 0) {
+        feedback += `현재 수행 능력이 권장치에 크게 미달한다면, 운동 강도를 한 단계 낮추거나 세트 사이의 휴식 시간을 30초 정도 더 늘려보는 것을 추천드립니다. `;
+    } else {
+        feedback += `운동 중 자세가 흐트러지지 않았는지 다시 한번 점검해 보시고, 특히 마지막 세트에서 근육의 자극을 온전히 느끼는 것에 집중해 보시기 바랍니다. `;
+    }
+
+    // Closing
+    feedback += `내일은 오늘보다 더 나은 컨디션으로 운동하실 수 있도록 충분한 수분 섭취와 7시간 이상의 숙면을 취하시길 권장합니다. `;
+    feedback += `당신의 끊임없는 도전을 응원하며, AI 코치가 항상 곁에서 성장을 돕겠습니다.`;
+
+    analysisContent.innerHTML = `<p style="line-height:1.8; font-size:1.05em; color:var(--text-color);">${feedback}</p>`;
+    analysisResults.classList.remove('hidden');
+    analysisResults.scrollIntoView({ behavior: 'smooth' });
 }
 
 function generateStretching(exercises) {
@@ -547,10 +630,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     document.getElementById('workout-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
-        const goal = document.getElementById('goal').value, level = document.getElementById('fitness-level').value, freq = document.getElementById('weekly-frequency').value;
-        userData.goal = goal; userData.fitnessLevel = level; userData.weeklyFrequency = freq; refreshCounter = 0;
+        const goal = document.getElementById('goal').value, level = document.getElementById('fitness-level').value, freq = document.getElementById('weekly-frequency').value, status = document.getElementById('health-status').value;
+        userData.goal = goal; userData.fitnessLevel = level; userData.weeklyFrequency = freq; userData.condition = status; refreshCounter = 0;
         generateWorkout(goal, level, freq);
-        document.getElementById('workout-analysis-section').classList.remove('hidden');
         window.location.hash = 'workout-plan';
     });
     document.getElementById('refresh-workout-btn')?.addEventListener('click', () => {
@@ -559,6 +641,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const icon = document.querySelector('#refresh-workout-btn i');
         if (icon) { icon.style.transform = `rotate(${refreshCounter * 360}deg)`; icon.style.transition = 'transform 0.5s ease-in-out'; }
     });
+    document.getElementById('analyze-workout-btn')?.addEventListener('click', analyzePerformance);
     document.getElementById('theme-toggle')?.addEventListener('click', () => {
         const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', theme);

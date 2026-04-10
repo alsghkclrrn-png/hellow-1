@@ -18,45 +18,53 @@ A professional holistic health platform that provides personalized workout plans
 - **Rename:** Formerly "Session Personalization Settings".
 - **Inputs:**
   - Auto-populated: MBTI, Body Metrics Summary.
-  - Manual: Workout Proficiency (Beginner/Intermediate/Advanced), Workout Goal, Current Condition, Current Weather, Time of Day.
+  - Manual: Workout Proficiency (Beginner/Intermediate/Advanced), Workout Goal, Current Condition (Excellent/Tired/Recovery), Current Weather, Time of Day.
 - **Action:** "Generate Custom Workout" button.
 
 ### 4. Your Custom Workout Plan (당신의 맞춤 운동 플랜)
-- **Structure:** 5+ exercises per session.
-  - 1x Abdominal exercise (Mandatory).
-  - 1x Cardio exercise (Mandatory).
-  - 3x Targeted body part exercises.
-- **Variety:** Integrated with **wger API** with a pool of 300+ exercises. Implemented tracking logic to ensure NO repeats across 30+ refreshes within a single session.
+- **Structure:** 4-10 exercises per session based on **Current Condition**.
+  - 1x Abdominal exercise.
+  - 1x Cardio exercise.
+  - 2-8x Targeted body part exercises (Normal condition: 8 exercises total).
+- **Variety:** Integrated with **wger API** with a massive pool of 500+ exercises. Implemented tracking logic to ensure NO repeats across sessions.
 - **Exercise Details:** 
-  - **Dynamic Fetching:** Real-time data from wger.de (300+ exercises).
-  - **Detailed Instructions:** AI-formatted step-by-step numbered lists for beginners, parsed from raw API data.
-  - **Multimedia:** High-quality matching images from wger database, prioritized for display.
-  - **Categorization:** Professional mapping of wger categories to local health standards.
-  - **Safety First:** Context-aware cautionary notes generated based on muscle groups, equipment, and exercise category to prevent injury.
+  - **Dynamic Fetching:** Real-time data from wger.de (500+ exercises).
+  - **Detailed Instructions:** AI-formatted step-by-step numbered lists for beginners.
+  - **Multimedia:** High-quality matching images from wger database.
+  - **Safety First:** Context-aware cautionary notes generated based on muscle groups, equipment, and category.
 - **Tracking:** Input fields for Actual (Reps, Sets, Rest, Time).
 
-### 5. Customized Stretching (맞춤형 스트레칭 추천)
+### 5. AI Performance Analysis & Coaching (운동 세션 분석 및 피드백)
+- **Action:** "Analyze and Get Feedback" button.
+- **Logic:** Compares recommended vs. actual performance records (Reps, Sets).
+- **Outputs:** 
+  - Detailed expert coaching report (5+ sentences).
+  - Personalized evaluation based on performance ratio.
+  - Integration of **Sasang Constitution** and **MBTI** traits in the feedback.
+  - Specific advice on overtraining, intensity adjustment, and recovery.
+
+### 6. Customized Stretching (맞춤형 스트레칭 추천)
 - **Requirement:** 5+ stretching exercises.
 - **Details:** Name, matching Image, and detailed instructions for beginners.
 
-### 6. Exercise Types Catalog (운동의 종류)
+### 7. Exercise Types Catalog (운동의 종류)
 - **Categories:** Arms, Chest, Back, Legs, Abs, Cardio.
 - **Details:** Professional name, Image, Detailed instructions, Tips, and Cautions for beginners.
 
-### 7. Home Workout Recommendations (홈트 추천)
+### 8. Home Workout Recommendations (홈트 추천)
 - **Content:** Bodyweight exercises and small equipment (bands, dumbbells) exercises.
 - **Details:** Name, Image, Professional instructions, Tips, and Cautions.
 
-### 8. Personalized Diet Plan (식단 추천)
+### 9. Personalized Diet Plan (식단 추천)
 - **Structure:** 3 meals (Breakfast, Lunch, Dinner).
 - **Logic:** Based on the generated workout plan and nutritional needs.
 - **Variety:** 100-day variety.
 - **Details:** Food name, Image, Detailed recipe (Ingredients + Cooking instructions).
 
-### 9. Supplement Guide (영양제 추천)
+### 10. Supplement Guide (영양제 추천)
 - **Content:** List of beneficial nutrients for exercise and recommended health functional products.
 
-### 10. Sasang Constitution Analysis (나의 한방 체질)
+### 11. Sasang Constitution Analysis (나의 한방 체질)
 - **Quiz:** Self-diagnosis questionnaire.
 - **Results:** Determination of constitution (Taeyang, Taeum, Soyang, Soeum) with professional descriptions and images.
 
