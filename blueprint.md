@@ -26,12 +26,13 @@ A professional holistic health platform that provides personalized workout plans
   - 1x Abdominal exercise (Mandatory).
   - 1x Cardio exercise (Mandatory).
   - 3x Targeted body part exercises.
-- **Variety:** Integrated with **wger API** to provide a vast and diverse pool of exercises (60+ active exercises).
+- **Variety:** Integrated with **wger API** with a pool of 300+ exercises. Implemented tracking logic to ensure NO repeats across 30+ refreshes within a single session.
 - **Exercise Details:** 
-  - **Dynamic Fetching:** Real-time data from wger.de.
-  - **Detailed Instructions:** AI-formatted step-by-step numbered lists for beginners.
-  - **Multimedia:** Real exercise images from wger database.
+  - **Dynamic Fetching:** Real-time data from wger.de (300+ exercises).
+  - **Detailed Instructions:** AI-formatted step-by-step numbered lists for beginners, parsed from raw API data.
+  - **Multimedia:** High-quality matching images from wger database, prioritized for display.
   - **Categorization:** Professional mapping of wger categories to local health standards.
+  - **Safety First:** Context-aware cautionary notes generated based on muscle groups, equipment, and exercise category to prevent injury.
 - **Tracking:** Input fields for Actual (Reps, Sets, Rest, Time).
 
 ### 5. Customized Stretching (맞춤형 스트레칭 추천)
