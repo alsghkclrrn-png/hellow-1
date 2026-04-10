@@ -8,6 +8,18 @@ let userData = {
 };
 
 let workoutHistory = JSON.parse(localStorage.getItem('workoutHistory')) || [];
+let wgerExercises = [];
+
+const WGER_CATEGORY_MAP = {
+    10: { ko: '복근', en: 'Abs' },
+    8: { ko: '팔', en: 'Arms' },
+    12: { ko: '등', en: 'Back' },
+    14: { ko: '다리', en: 'Calves' },
+    15: { ko: '유산소', en: 'Cardio' },
+    11: { ko: '가슴', en: 'Chest' },
+    9: { ko: '다리', en: 'Legs' },
+    13: { ko: '어깨', en: 'Shoulders' }
+};
 
 // Fallback translations if translations.js fails to load
 const defaultTranslations = {
@@ -48,7 +60,7 @@ function setLanguage(lang) {
         }
     });
 
-    const logoText = activeTranslations[lang]['nav-logo'] || 'AI Workout Coach';
+    const logoText = activeTranslations[lang]['nav-logo'] || 'AI 운동 코치';
     document.title = logoText + (lang === 'ko' ? ' | 개인 맞춤형 피트니스 & 헬스케어' : ' | Personalized Fitness & Healthcare');
 
     updateLanguageSwitcherUI();
@@ -62,6 +74,27 @@ function setLanguage(lang) {
     renderCatalog();
     renderHomeWorkout();
     renderSupplements();
+}
+
+async function fetchWgerExercises() {
+    try {
+        console.log('Fetching wger exercises...');
+        const response = await fetch('https://wger.de/api/v2/exerciseinfo/?language=2&limit=60&status=2');
+        const data = await response.json();
+        wgerExercises = data.results.map(ex => ({
+            id: ex.id,
+            name: { en: ex.name, ko: ex.name }, 
+            desc: { en: ex.description.replace(/<[^>]*>?/gm, '').trim(), ko: ex.description.replace(/<[^>]*>?/gm, '').trim() },
+            category: ex.category.id,
+            image: (ex.images && ex.images.length > 0) ? ex.images[0].image : 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
+            muscles: ex.muscles.map(m => m.name),
+            equipment: ex.equipment.map(e => e.name),
+            primary: WGER_CATEGORY_MAP[ex.category.id] || { ko: '기타', en: 'Misc' }
+        }));
+        console.log('Wger exercises loaded:', wgerExercises.length);
+    } catch (error) {
+        console.error('Failed to fetch wger exercises:', error);
+    }
 }
 
 function updateLanguageSwitcherUI() {
@@ -88,33 +121,38 @@ class WorkoutCard extends HTMLElement {
         const recRest = this.getAttribute('rest') || '60s';
         const recTime = this.getAttribute('time') || '10m';
 
+        // Format description as a list for beginners
+        const descSteps = desc.split(/[.!?]+/).filter(s => s.trim().length > 5);
+        const formattedDesc = descSteps.length > 1 
+            ? `<ol style="margin: 0; padding-left: 20px; font-size: 0.9em; line-height: 1.6;">${descSteps.map(s => `<li>${s.trim()}.</li>`).join('')}</ol>`
+            : `<p style="margin: 0; font-size: 0.9em; line-height: 1.6;">${desc}</p>`;
+
         this.shadowRoot.innerHTML = `
             <style>
                 :host { display: block; background: var(--card-background, #1e293b); border-radius: 24px; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); overflow: hidden; display: flex; flex-direction: column; color: var(--text-color, #f1f5f9); font-family: 'Roboto', sans-serif; transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
                 :host(:hover) { transform: translateY(-8px); border-color: var(--primary-color, #38bdf8); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
-                .image-container { width: 100%; height: 180px; position: relative; overflow: hidden; }
+                .image-container { width: 100%; height: 200px; position: relative; overflow: hidden; }
                 .image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
                 :host(:hover) .image-container img { transform: scale(1.05); }
                 .target-badge { position: absolute; top: 12px; right: 12px; background: rgba(56, 189, 248, 0.9); color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.7em; font-weight: 800; backdrop-filter: blur(4px); }
                 .content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; gap: 12px; }
-                h3 { color: var(--primary-color, #38bdf8); margin: 0; font-size: 1.2em; font-weight: 800; letter-spacing: -0.02em; }
-                .desc-box { background: rgba(255,255,255,0.02); padding: 10px; border-radius: 12px; border-left: 3px solid var(--primary-color); }
-                .desc { font-size: 0.85em; opacity: 0.8; line-height: 1.5; color: var(--text-color); margin: 0; }
+                h3 { color: var(--primary-color, #38bdf8); margin: 0; font-size: 1.25em; font-weight: 800; letter-spacing: -0.02em; line-height: 1.3; }
+                .desc-box { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border-left: 4px solid var(--primary-color); }
                 
-                .rec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: rgba(56, 189, 248, 0.03); padding: 10px; border-radius: 12px; }
+                .rec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: rgba(56, 189, 248, 0.05); padding: 12px; border-radius: 12px; }
                 .rec-item { font-size: 0.7em; display: flex; flex-direction: column; align-items: center; text-align: center; }
                 .rec-label { color: var(--secondary-color, #94a3b8); font-weight: 600; margin-bottom: 2px; }
-                .rec-value { font-weight: 800; color: var(--primary-color, #38bdf8); }
+                .rec-value { font-weight: 800; color: var(--primary-color, #38bdf8); font-size: 1.1em; }
 
                 .performance-tracking { border-top: 1px solid var(--border-color, rgba(255,255,255,0.05)); padding-top: 15px; }
                 .perf-title { font-size: 0.8em; font-weight: 800; margin-bottom: 10px; color: var(--primary-color); display: flex; align-items: center; gap: 5px; }
                 
-                /* COMPACT GRID FOR INPUTS */
                 .perf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
                 .perf-input-group { display: flex; flex-direction: column; gap: 4px; }
                 .perf-input-group label { font-size: 0.65em; color: var(--secondary-color, #94a3b8); font-weight: 600; text-align: center; }
                 .perf-input-group input { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px 4px; color: #fff; font-size: 0.8em; width: 100%; box-sizing: border-box; text-align: center; }
                 .perf-input-group input:focus { outline: none; border-color: var(--primary-color); background: #1e293b; }
+                .caution-box { font-size: 0.75em; color: #fbbf24; background: rgba(251, 191, 36, 0.1); padding: 10px; border-radius: 8px; border-left: 4px solid #fbbf24; }
             </style>
             <div class="image-container">
                 <img src="${image}" alt="${name}">
@@ -123,8 +161,9 @@ class WorkoutCard extends HTMLElement {
             <div class="content">
                 <h3>${name}</h3>
                 <div class="desc-box">
-                    <p class="desc">${desc}</p>
+                    ${formattedDesc}
                 </div>
+                ${caution ? `<div class="caution-box">⚠️ <strong>주의:</strong> ${caution}</div>` : ''}
                 <div class="rec-grid">
                     <div class="rec-item"><span class="rec-label">${t('workout-reps')}</span><span class="rec-value">${recReps}</span></div>
                     <div class="rec-item"><span class="rec-label">${t('workout-sets')}</span><span class="rec-value">${recSets}</span></div>
@@ -308,7 +347,10 @@ function showSasangResults() {
 // Workout Generation Logic
 function generateWorkout(goal, level, freq = '3-4', seedOffset = 0) {
     const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
-    const allExercises = Object.entries(exerciseTranslations).map(([id, data]) => ({ id, ...data }));
+    
+    // Combine local exercises with Wger exercises
+    const localExercises = Object.entries(exerciseTranslations).map(([id, data]) => ({ id, ...data }));
+    const allExercises = [...localExercises, ...wgerExercises];
     
     const absPool = allExercises.filter(ex => ex.primary.en === 'Abs');
     const cardioPool = allExercises.filter(ex => ex.primary.en === 'Cardio');
@@ -317,10 +359,10 @@ function generateWorkout(goal, level, freq = '3-4', seedOffset = 0) {
     // Ensure 100-day variety using date seed + offset
     const daySeed = Math.floor(new Date() / (1000 * 60 * 60 * 24)) + seedOffset;
     const shuffle = (array, seed) => {
-        let m = array.length, t, i;
+        let m = array.length, tmp, i;
         while (m) {
             i = Math.floor(((seed * m) % 100) / 100 * m--);
-            t = array[m]; array[m] = array[i]; array[i] = t;
+            tmp = array[m]; array[m] = array[i]; array[i] = tmp;
         }
         return array;
     };
@@ -331,6 +373,7 @@ function generateWorkout(goal, level, freq = '3-4', seedOffset = 0) {
 
     const session = [sessionAbs, ...sessionTargets, sessionCardio];
     const container = document.getElementById('workout-container');
+    if (!container) return;
     container.innerHTML = '';
     
     // Intensity Logic based on Frequency and Level
@@ -355,12 +398,13 @@ function generateWorkout(goal, level, freq = '3-4', seedOffset = 0) {
     }
 
     session.forEach(ex => {
+        if (!ex) return;
         const card = document.createElement('workout-card');
-        card.setAttribute('name', ex[currentLang]);
-        card.setAttribute('desc', ex.desc[currentLang]);
+        card.setAttribute('name', ex.name ? (ex.name[currentLang] || ex.name.en) : ex[currentLang]);
+        card.setAttribute('desc', ex.desc[currentLang] || ex.desc.en || (typeof ex.desc === 'string' ? ex.desc : ''));
         card.setAttribute('image', ex.image);
-        card.setAttribute('target', ex.primary[currentLang]);
-        card.setAttribute('caution', ex.caution ? ex.caution[currentLang] : '');
+        card.setAttribute('target', ex.primary[currentLang] || ex.primary.en);
+        card.setAttribute('caution', ex.caution ? (ex.caution[currentLang] || ex.caution.en) : '');
         card.setAttribute('reps', baseReps.toString());
         card.setAttribute('sets', baseSets.toString());
         card.setAttribute('rest', baseRest + 's');
@@ -374,8 +418,9 @@ function generateWorkout(goal, level, freq = '3-4', seedOffset = 0) {
 
 function generateStretching(exercises) {
     const container = document.getElementById('stretching-container');
+    if (!container) return;
     container.innerHTML = '';
-    const targets = exercises.map(ex => ex.primary.en.toLowerCase());
+    const targets = exercises.map(ex => (ex.primary.en || '').toLowerCase());
     const matchedStretches = stretchingDatabase.filter(s => targets.includes(s.target.toLowerCase())).slice(0, 5);
     
     // If less than 5, fill with general
@@ -403,7 +448,6 @@ function generateDiet(goal) {
     const meals = ['breakfast', 'lunch', 'dinner'];
     const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
 
-    // Mapping goals to keywords for better selection
     const goalKeywords = {
         'weight-loss': ['샐러드', 'Salad', '야채', 'Veggies', '닭가슴살', 'Chicken', '저칼로리', 'low-cal'],
         'muscle-gain': ['소고기', 'Beef', '연어', 'Salmon', '단백질', 'Protein', '스테이크', 'Steak', '오트밀', 'Oatmeal'],
@@ -414,8 +458,6 @@ function generateDiet(goal) {
 
     meals.forEach(time => {
         let pool = dietDatabase.filter(d => d.time === time);
-        
-        // Try to filter by keywords if possible
         const goalSpecificPool = pool.filter(d => 
             keywords.some(k => 
                 (d.name.ko && d.name.ko.includes(k)) || 
@@ -425,7 +467,6 @@ function generateDiet(goal) {
             )
         );
 
-        // Fallback to general pool if no specific match
         const finalPool = goalSpecificPool.length > 0 ? goalSpecificPool : pool;
         const meal = finalPool[daySeed % finalPool.length];
         
@@ -455,18 +496,24 @@ function renderCatalog() {
     const container = document.getElementById('catalog-grid');
     if (!container) return;
     container.innerHTML = '';
-    const categories = ['Chest', 'Back', 'Legs', 'Arms', 'Abs', 'Cardio'];
-    const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
+    
+    const localExercises = Object.entries(exerciseTranslations).map(([id, data]) => ({ id, ...data }));
+    const allEx = [...localExercises, ...wgerExercises.slice(0, 20)];
 
-    Object.entries(exerciseTranslations).forEach(([id, ex]) => {
+    allEx.forEach(ex => {
+        if (!ex) return;
         const item = document.createElement('div');
         item.className = 'catalog-item';
+        const name = ex.name ? (ex.name[currentLang] || ex.name.en) : ex[currentLang];
+        const desc = ex.desc[currentLang] || ex.desc.en || (typeof ex.desc === 'string' ? ex.desc : '');
+        const target = ex.primary[currentLang] || ex.primary.en;
+        
         item.innerHTML = `
             <img src="${ex.image}" class="catalog-item-image">
             <div class="catalog-content-box">
-                <div class="catalog-header"><h3>${ex[currentLang]}</h3></div>
-                <span class="diet-tag">${ex.primary[currentLang]}</span>
-                <p class="rec-content">${ex.desc[currentLang]}</p>
+                <div class="catalog-header"><h3>${name}</h3></div>
+                <span class="diet-tag">${target}</span>
+                <p class="rec-content">${desc}</p>
                 <div class="catalog-tip"><strong>Tip:</strong> ${ex.tip ? ex.tip[currentLang] : '호흡을 일정하게 유지하세요.'}</div>
                 <div class="catalog-caution"><strong>주의:</strong> ${ex.caution ? ex.caution[currentLang] : '무리한 무게는 부상의 위험이 있습니다.'}</div>
             </div>
@@ -514,10 +561,14 @@ function renderSupplements() {
 let refreshCounter = 0;
 
 // Initialization
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     setLanguage(currentLang);
     initMbtiQuiz();
     initSasangQuiz();
+    
+    // Fetch Wger exercises early
+    await fetchWgerExercises();
+    renderCatalog(); // Re-render catalog with wger exercises
 
     document.getElementById('metrics-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
