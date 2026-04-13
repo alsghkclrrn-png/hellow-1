@@ -345,7 +345,9 @@ function showSasangResults() {
 }
 
 function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
+    // We don't clear seenExerciseIds on refresh to ensure diversity
     if (!isRefresh) seenExerciseIds.clear();
+    
     const localExercises = Object.entries(exerciseTranslations).map(([id, data]) => ({ id, ...data }));
     const fullPool = [...localExercises, ...wgerExercises];
     
@@ -358,36 +360,44 @@ function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
         return array;
     };
 
-    const shuffled = shufflePool([...fullPool]);
-    
-    // Categorize pool
-    const getPoolByCategory = (enCat) => shuffled.filter(ex => ex.primary.en === enCat && !seenExerciseIds.has(ex.id));
-
-    let absPool = getPoolByCategory('Abs');
-    let cardioPool = getPoolByCategory('Cardio');
-    
-    // Core selection (ensure variety by taking first available)
-    if (absPool.length === 0) absPool = shuffled.filter(ex => ex.primary.en === 'Abs');
-    if (cardioPool.length === 0) cardioPool = shuffled.filter(ex => ex.primary.en === 'Cardio');
-
-    const sessionAbs = absPool[0];
-    const sessionCardio = cardioPool[0];
-    
-    // Condition-based variety: If tired or recovery, recommend lighter/more stretching
-    let targetCount = 8; // User asked for more than 5
+    let targetCount = 8; 
     if (userData.condition === 'tired') targetCount = 6;
     if (userData.condition === 'recovery') targetCount = 4;
 
-    const remainingTargets = shuffled.filter(ex => 
-        ex.primary.en !== 'Abs' && 
-        ex.primary.en !== 'Cardio' && 
-        !seenExerciseIds.has(ex.id) &&
-        ex.id !== (sessionAbs ? sessionAbs.id : null) &&
-        ex.id !== (sessionCardio ? sessionCardio.id : null)
-    );
+    // Filter for truly unseen exercises
+    let shuffled = shufflePool([...fullPool]);
+    let unseenPool = shuffled.filter(ex => !seenExerciseIds.has(ex.id));
 
-    const sessionTargets = remainingTargets.slice(0, targetCount - 2);
-    const session = [sessionAbs, ...sessionTargets, sessionCardio].filter(Boolean);
+    // If unseen pool is too small, reset to allow repeats from the beginning
+    if (unseenPool.length < targetCount) {
+        console.log("Pool exhausted, resetting seen exercises.");
+        seenExerciseIds.clear();
+        unseenPool = shuffled;
+    }
+
+    const session = [];
+    
+    // 1. Try to get one Abs exercise
+    let absEx = unseenPool.find(ex => ex.primary.en === 'Abs');
+    if (absEx) {
+        session.push(absEx);
+        unseenPool = unseenPool.filter(ex => ex.id !== absEx.id);
+    }
+
+    // 2. Try to get one Cardio exercise
+    let cardioEx = unseenPool.find(ex => ex.primary.en === 'Cardio');
+    if (cardioEx) {
+        session.push(cardioEx);
+        unseenPool = unseenPool.filter(ex => ex.id !== cardioEx.id);
+    }
+
+    // 3. Fill the rest with any unseen exercises to ensure variety
+    while (session.length < targetCount && unseenPool.length > 0) {
+        const nextEx = unseenPool.shift();
+        session.push(nextEx);
+    }
+
+    // Track seen exercises
     session.forEach(ex => seenExerciseIds.add(ex.id));
 
     const container = document.getElementById('workout-container');
@@ -396,7 +406,6 @@ function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
     
     let baseReps = 12, baseSets = 3, baseRest = 60;
     
-    // Condition-based intensity
     if (userData.condition === 'tired') { baseReps = 8; baseSets = 2; baseRest = 90; }
     else if (userData.condition === 'recovery') { baseReps = 6; baseSets = 2; baseRest = 120; }
     else {
@@ -410,8 +419,11 @@ function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
 
     session.forEach(ex => {
         const card = document.createElement('workout-card');
-        card.setAttribute('name', ex.name ? (ex.name[currentLang] || ex.name.en) : ex[currentLang]);
-        card.setAttribute('desc', ex.desc[currentLang] || ex.desc.en || (typeof ex.desc === 'string' ? ex.desc : ''));
+        const name = ex.name ? (ex.name[currentLang] || ex.name.en) : (ex[currentLang] || ex.en);
+        const desc = ex.desc ? (ex.desc[currentLang] || ex.desc.en || (typeof ex.desc === 'string' ? ex.desc : '')) : '';
+        
+        card.setAttribute('name', name);
+        card.setAttribute('desc', desc);
         card.setAttribute('image', ex.image || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400');
         card.setAttribute('target', ex.primary[currentLang] || ex.primary.en);
         card.setAttribute('caution', (ex.caution && ex.caution[currentLang]) ? ex.caution[currentLang] : generateDetailedCaution(ex));

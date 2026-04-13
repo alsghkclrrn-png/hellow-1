@@ -23,10 +23,11 @@ A professional holistic health platform that provides personalized workout plans
 
 ### 4. Your Custom Workout Plan (당신의 맞춤 운동 플랜)
 - **Structure:** 4-10 exercises per session based on **Current Condition**.
-  - 1x Abdominal exercise.
-  - 1x Cardio exercise.
+  - 1x Abdominal exercise (if available in unseen pool).
+  - 1x Cardio exercise (if available in unseen pool).
   - 2-8x Targeted body part exercises (Normal condition: 8 exercises total).
-- **Variety:** Integrated with **wger API** with a massive pool of 500+ exercises. Implemented tracking logic to ensure NO repeats across sessions.
+- **Variety (30-Click Guarantee):** Integrated with **wger API** with a massive pool of 500+ exercises. Implemented advanced tracking logic to ensure NO repeats for at least 30 consecutive refreshes. 
+- **Selection Logic:** Prioritizes never-seen exercises across ALL categories. If a specific category (e.g., Abs) is exhausted, the system automatically falls back to any other unseen exercise to maintain absolute diversity instead of repeating immediately.
 - **Exercise Details:** 
   - **Dynamic Fetching:** Real-time data from wger.de (500+ exercises).
   - **Detailed Instructions:** AI-formatted step-by-step numbered lists for beginners.
