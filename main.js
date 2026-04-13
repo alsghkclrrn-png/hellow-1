@@ -39,16 +39,30 @@ function updateUserbackData() {
         window.Userback.user_data = {
             id: userData.mbti || "guest_" + Math.floor(Math.random() * 1000000),
             info: {
-                name: userData.sasang ? userData.sasang.toUpperCase() : "someone",
-                email: "user@example.com",
                 mbti: userData.mbti || "None",
                 sasang: userData.sasang || "None",
                 bmi: userData.bmi || "None",
                 fitnessLevel: userData.fitnessLevel,
                 goal: userData.goal,
                 language: currentLang
+            },
+            // Custom fields with Korean keys as requested
+            "정보": {
+                "이름": userData.sasang ? userData.sasang.toUpperCase() : "someone",
+                "이메일": "user@example.com",
+                "검사결과": `${userData.mbti || '미완료'} / ${userData.sasang || '미완료'}`
             }
         };
+    }
+}
+
+// Function to trigger Userback safely
+function openFeedback() {
+    if (window.Userback && typeof window.Userback.open === 'function') {
+        window.Userback.open();
+    } else {
+        console.warn("Userback SDK is still loading or not available.");
+        // Fallback or retry logic if needed
     }
 }
 
