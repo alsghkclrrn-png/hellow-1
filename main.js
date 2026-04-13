@@ -37,8 +37,10 @@ function setLanguage(lang) {
 function updateUserbackData() {
     if (window.Userback) {
         window.Userback.user_data = {
-            id: userData.mbti || "guest",
+            id: userData.mbti || "guest_" + Math.floor(Math.random() * 1000000),
             info: {
+                name: userData.sasang ? userData.sasang.toUpperCase() : "someone",
+                email: "user@example.com",
                 mbti: userData.mbti || "None",
                 sasang: userData.sasang || "None",
                 bmi: userData.bmi || "None",
