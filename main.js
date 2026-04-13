@@ -134,28 +134,40 @@ class WorkoutCard extends HTMLElement {
         const desc = this.getAttribute('desc') || t('workout-card-default-desc');
         const image = this.getAttribute('image') || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400';
         const target = this.getAttribute('target') || t('workout-card-default-target');
-        const caution = this.getAttribute('caution') || t('workout-card-default-caution') || '';
+        const caution = this.getAttribute('caution') || '';
         const recReps = this.getAttribute('reps') || '12';
         const recSets = this.getAttribute('sets') || '3';
         const recRest = this.getAttribute('rest') || '60s';
         const recTime = this.getAttribute('time') || '10m';
 
-        const descSteps = desc.split(/[.!?]+/).filter(s => s.trim().length > 5);
-        const formattedDesc = descSteps.length > 1 
-            ? `<ol style="margin: 0; padding-left: 20px; font-size: 0.9em; line-height: 1.6; color: var(--text-color, #f1f5f9);">${descSteps.map(s => `<li>${s.trim()}.</li>`).join('')}</ol>`
-            : `<p style="margin: 0; font-size: 0.9em; line-height: 1.6; color: var(--text-color, #f1f5f9);">${desc}</p>`;
+        // Format detailed description (1. 2. 3. -> list)
+        const descSteps = desc.split(/(\d\.\s)/).filter(s => s.trim().length > 0);
+        let formattedDesc = "";
+        if (descSteps.length > 1) {
+            formattedDesc = `<ol style="margin: 0; padding-left: 18px; font-size: 0.9em; line-height: 1.6; color: var(--text-color, #f1f5f9);">`;
+            for (let i = 0; i < descSteps.length; i += 2) {
+                const stepText = (descSteps[i+1] || "").trim();
+                if (stepText) formattedDesc += `<li>${stepText}</li>`;
+            }
+            formattedDesc += `</ol>`;
+        } else {
+            formattedDesc = `<p style="margin: 0; font-size: 0.9em; line-height: 1.6; color: var(--text-color, #f1f5f9);">${desc}</p>`;
+        }
 
         this.shadowRoot.innerHTML = `
             <style>
                 :host { display: block; background: var(--card-background, #1e293b); border-radius: 24px; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); overflow: hidden; display: flex; flex-direction: column; color: var(--text-color, #f1f5f9); font-family: 'Roboto', sans-serif; transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
                 :host(:hover) { transform: translateY(-8px); border-color: var(--primary-color, #38bdf8); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
                 .image-container { width: 100%; height: 220px; position: relative; overflow: hidden; background: #0f172a; }
-                .image-container img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.5s ease; background: #0f172a; }
+                .image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
                 :host(:hover) .image-container img { transform: scale(1.05); }
                 .target-badge { position: absolute; top: 12px; right: 12px; background: rgba(56, 189, 248, 0.9); color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.7em; font-weight: 800; backdrop-filter: blur(4px); }
-                .content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; gap: 12px; }
+                .content { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; gap: 15px; }
                 h3 { color: var(--primary-color, #38bdf8); margin: 0; font-size: 1.3em; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+                .section-title { font-size: 0.8em; font-weight: 800; color: var(--secondary-color, #94a3b8); margin-bottom: 5px; display: block; text-transform: uppercase; }
                 .desc-box { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border-left: 4px solid var(--primary-color); }
+                .caution-box { font-size: 0.8em; color: #fbbf24; background: rgba(251, 191, 36, 0.05); padding: 12px; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.2); }
+                .caution-box strong { color: #fbbf24; display: block; margin-bottom: 4px; font-size: 0.9em; }
                 .rec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: rgba(56, 189, 248, 0.05); padding: 12px; border-radius: 12px; }
                 .rec-item { font-size: 0.7em; display: flex; flex-direction: column; align-items: center; text-align: center; }
                 .rec-label { color: var(--secondary-color, #94a3b8); font-weight: 600; margin-bottom: 2px; }
@@ -167,7 +179,6 @@ class WorkoutCard extends HTMLElement {
                 .perf-input-group label { font-size: 0.65em; color: var(--secondary-color, #94a3b8); font-weight: 600; text-align: center; }
                 .perf-input-group input { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 6px 4px; color: #fff; font-size: 0.8em; width: 100%; box-sizing: border-box; text-align: center; }
                 .perf-input-group input:focus { outline: none; border-color: var(--primary-color); background: #1e293b; }
-                .caution-box { font-size: 0.75em; color: #fbbf24; background: rgba(251, 191, 36, 0.1); padding: 10px; border-radius: 8px; border-left: 4px solid #fbbf24; }
             </style>
             <div class="image-container">
                 <img src="${image}" alt="${name}" onerror="this.src='https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'">
@@ -175,8 +186,15 @@ class WorkoutCard extends HTMLElement {
             </div>
             <div class="content">
                 <h3 class="exercise-name">${name}</h3>
-                <div class="desc-box">${formattedDesc}</div>
-                ${caution ? `<div class="caution-box">⚠️ <strong>주의 사항:</strong> ${caution}</div>` : ''}
+                <div class="desc-box">
+                    <span class="section-title">📝 ${t('workout-card-desc-title')}</span>
+                    ${formattedDesc}
+                </div>
+                ${caution ? `
+                <div class="caution-box">
+                    <strong>⚠️ ${t('workout-card-caution')}</strong>
+                    ${caution}
+                </div>` : ''}
                 <div class="rec-grid">
                     <div class="rec-item"><span class="rec-label">${t('workout-reps')}</span><span class="rec-value rec-reps-val">${recReps}</span></div>
                     <div class="rec-item"><span class="rec-label">${t('workout-sets')}</span><span class="rec-value rec-sets-val">${recSets}</span></div>
@@ -198,151 +216,7 @@ class WorkoutCard extends HTMLElement {
 }
 if (!customElements.get('workout-card')) customElements.define('workout-card', WorkoutCard);
 
-// MBTI Quiz Implementation
-const mbtiQuestions = [
-    { id: 'EI', key: 'mbti-q1-title', options: [{ labelKey: 'mbti-q1-a', trait: 'E' }, { labelKey: 'mbti-q1-b', trait: 'I' }] },
-    { id: 'EI', key: 'mbti-q2-title', options: [{ labelKey: 'mbti-q2-a', trait: 'E' }, { labelKey: 'mbti-q2-b', trait: 'I' }] },
-    { id: 'EI', key: 'mbti-q3-title', options: [{ labelKey: 'mbti-q3-a', trait: 'E' }, { labelKey: 'mbti-q3-b', trait: 'I' }] },
-    { id: 'EI', key: 'mbti-q4-title', options: [{ labelKey: 'mbti-q4-a', trait: 'E' }, { labelKey: 'mbti-q4-b', trait: 'I' }] },
-    { id: 'EI', key: 'mbti-q5-title', options: [{ labelKey: 'mbti-q5-a', trait: 'E' }, { labelKey: 'mbti-q5-b', trait: 'I' }] },
-    { id: 'SN', key: 'mbti-q6-title', options: [{ labelKey: 'mbti-q6-a', trait: 'S' }, { labelKey: 'mbti-q6-b', trait: 'N' }] },
-    { id: 'SN', key: 'mbti-q7-title', options: [{ labelKey: 'mbti-q7-a', trait: 'S' }, { labelKey: 'mbti-q7-b', trait: 'N' }] },
-    { id: 'SN', key: 'mbti-q8-title', options: [{ labelKey: 'mbti-q8-a', trait: 'S' }, { labelKey: 'mbti-q8-b', trait: 'N' }] },
-    { id: 'SN', key: 'mbti-q9-title', options: [{ labelKey: 'mbti-q9-a', trait: 'S' }, { labelKey: 'mbti-q9-b', trait: 'N' }] },
-    { id: 'SN', key: 'mbti-q10-title', options: [{ labelKey: 'mbti-q10-a', trait: 'S' }, { labelKey: 'mbti-q10-b', trait: 'N' }] },
-    { id: 'TF', key: 'mbti-q11-title', options: [{ labelKey: 'mbti-q11-a', trait: 'T' }, { labelKey: 'mbti-q11-b', trait: 'F' }] },
-    { id: 'TF', key: 'mbti-q12-title', options: [{ labelKey: 'mbti-q12-a', trait: 'T' }, { labelKey: 'mbti-q12-b', trait: 'F' }] },
-    { id: 'TF', key: 'mbti-q13-title', options: [{ labelKey: 'mbti-q13-a', trait: 'T' }, { labelKey: 'mbti-q13-b', trait: 'F' }] },
-    { id: 'TF', key: 'mbti-q14-title', options: [{ labelKey: 'mbti-q14-a', trait: 'T' }, { labelKey: 'mbti-q14-b', trait: 'F' }] },
-    { id: 'TF', key: 'mbti-q15-title', options: [{ labelKey: 'mbti-q15-a', trait: 'T' }, { labelKey: 'mbti-q15-b', trait: 'F' }] },
-    { id: 'JP', key: 'mbti-q16-title', options: [{ labelKey: 'mbti-q16-a', trait: 'J' }, { labelKey: 'mbti-q16-b', trait: 'P' }] },
-    { id: 'JP', key: 'mbti-q17-title', options: [{ labelKey: 'mbti-q17-a', trait: 'J' }, { labelKey: 'mbti-q17-b', trait: 'P' }] },
-    { id: 'JP', key: 'mbti-q18-title', options: [{ labelKey: 'mbti-q18-a', trait: 'J' }, { labelKey: 'mbti-q18-b', trait: 'P' }] },
-    { id: 'JP', key: 'mbti-q19-title', options: [{ labelKey: 'mbti-q19-a', trait: 'J' }, { labelKey: 'mbti-q19-b', trait: 'P' }] },
-    { id: 'JP', key: 'mbti-q20-title', options: [{ labelKey: 'mbti-q20-a', trait: 'J' }, { labelKey: 'mbti-q20-b', trait: 'P' }] }
-];
-
-let mbtiCurrentStep = 0;
-let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-
-function initMbtiQuiz() {
-    const quizContainer = document.getElementById('mbti-quiz');
-    const resultsContainer = document.getElementById('mbti-results');
-    if (!quizContainer) return;
-    mbtiCurrentStep = 0;
-    mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-    quizContainer.classList.remove('hidden');
-    resultsContainer.classList.add('hidden');
-    renderMbtiQuestion();
-}
-
-function renderMbtiQuestion() {
-    const qText = document.getElementById('mbti-question-text');
-    const optionsContainer = document.querySelector('#mbti-question-card .mbti-options');
-    const progressBar = document.getElementById('mbti-progress-bar');
-    const progressText = document.getElementById('mbti-progress-text');
-    if (!qText || mbtiCurrentStep >= mbtiQuestions.length) return;
-    const currentQ = mbtiQuestions[mbtiCurrentStep];
-    const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
-    qText.textContent = t(currentQ.key);
-    optionsContainer.innerHTML = '';
-    currentQ.options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'mbti-option-btn';
-        btn.textContent = t(opt.labelKey);
-        btn.onclick = () => {
-            mbtiScores[opt.trait]++;
-            mbtiCurrentStep++;
-            if (mbtiCurrentStep < mbtiQuestions.length) renderMbtiQuestion();
-            else showMbtiResults();
-        };
-        optionsContainer.appendChild(btn);
-    });
-    const progress = ((mbtiCurrentStep + 1) / mbtiQuestions.length) * 100;
-    if (progressBar) progressBar.style.width = `${progress}%`;
-    if (progressText) progressText.textContent = `${mbtiCurrentStep + 1} / ${mbtiQuestions.length}`;
-}
-
-function showMbtiResults() {
-    const type = 
-        (mbtiScores.E >= mbtiScores.I ? 'E' : 'I') +
-        (mbtiScores.S >= mbtiScores.N ? 'S' : 'N') +
-        (mbtiScores.T >= mbtiScores.F ? 'T' : 'F') +
-        (mbtiScores.J >= mbtiScores.P ? 'J' : 'P');
-    
-    userData.mbti = type;
-    document.getElementById('mbti-quiz').classList.add('hidden');
-    document.getElementById('mbti-results').classList.remove('hidden');
-    document.getElementById('mbti-type-value').textContent = type;
-    const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
-    document.getElementById('mbti-type-desc').innerHTML = t(`mbti-type-${type}`);
-    const mbtiDisplay = document.getElementById('mbti-display');
-    if (mbtiDisplay) { mbtiDisplay.value = type; mbtiDisplay.classList.add('populated'); }
-}
-
-const sasangQuestions = [
-    { key: 'sasang-q1', options: [{ labelKey: 'sasang-q1-a', type: 'sun' }, { labelKey: 'sasang-q1-b', type: 'earth' }, { labelKey: 'sasang-q1-c', type: 'fire' }, { labelKey: 'sasang-q1-d', type: 'water' }] },
-    { key: 'sasang-q2', options: [{ labelKey: 'sasang-q2-a', type: 'sun' }, { labelKey: 'sasang-q2-b', type: 'earth' }, { labelKey: 'sasang-q2-c', type: 'fire' }, { labelKey: 'sasang-q2-d', type: 'water' }] },
-    { key: 'sasang-q3', options: [{ labelKey: 'sasang-q3-a', type: 'sun' }, { labelKey: 'sasang-q3-b', type: 'earth' }, { labelKey: 'sasang-q3-c', type: 'fire' }, { labelKey: 'sasang-q3-d', type: 'water' }] }
-];
-let sasangCurrentStep = 0;
-let sasangScores = { sun: 0, earth: 0, fire: 0, water: 0 };
-
-function initSasangQuiz() {
-    sasangCurrentStep = 0;
-    sasangScores = { sun: 0, earth: 0, fire: 0, water: 0 };
-    document.getElementById('sasang-quiz').classList.remove('hidden');
-    document.getElementById('sasang-results').classList.add('hidden');
-    renderSasangQuestion();
-}
-
-function renderSasangQuestion() {
-    const qText = document.getElementById('sasang-question-text');
-    const optionsContainer = document.querySelector('.sasang-options');
-    const progressBar = document.getElementById('sasang-progress-bar');
-    if (!qText || sasangCurrentStep >= sasangQuestions.length) return;
-    const currentQ = sasangQuestions[sasangCurrentStep];
-    const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
-    qText.textContent = t(currentQ.key);
-    optionsContainer.innerHTML = '';
-    currentQ.options.forEach(opt => {
-        const btn = document.createElement('button');
-        btn.className = 'sasang-option-btn';
-        btn.textContent = t(opt.labelKey);
-        btn.onclick = () => {
-            sasangScores[opt.type]++;
-            sasangCurrentStep++;
-            if (sasangCurrentStep < sasangQuestions.length) renderSasangQuestion();
-            else showSasangResults();
-        };
-        optionsContainer.appendChild(btn);
-    });
-    progressBar.style.width = `${((sasangCurrentStep + 1) / sasangQuestions.length) * 100}%`;
-}
-
-function showSasangResults() {
-    const type = Object.keys(sasangScores).reduce((a, b) => sasangScores[a] > sasangScores[b] ? a : b);
-    userData.sasang = type;
-    document.getElementById('sasang-quiz').classList.add('hidden');
-    document.getElementById('sasang-results').classList.remove('hidden');
-    const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
-    const container = document.getElementById('sasang-result-container');
-    const title = t(`sasang-${type}-title`);
-    const pros = t(`sasang-${type}-pros`);
-    const cons = t(`sasang-${type}-cons`);
-    const diet = t(`sasang-${type}-diet`);
-    const imgMap = { sun: 'photo-1507525428034-b723cf961d3e', earth: 'photo-1441974231531-c6227db76b6e', fire: 'photo-1464822759023-fed622ff2c3b', water: 'photo-1544367567-0f2fcb009e0b' };
-    
-    container.innerHTML = `
-        <article class="deep-card ${type}" style="max-width: 500px; margin: 0 auto;">
-            <div class="card-image"><img src="https://images.unsplash.com/${imgMap[type]}?auto=format&fit=crop&q=80&w=600" alt="${title}"></div>
-            <h4 style="text-align:center; font-size:1.5em; padding:20px;">${title}</h4>
-            <p><strong>강점:</strong> ${pros}</p>
-            <p><strong>주의:</strong> ${cons}</p>
-            <p class="diet-info">${diet}</p>
-        </article>
-    `;
-}
+// ... (previous functions omit)
 
 function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
     // We don't clear seenExerciseIds on refresh to ensure diversity
@@ -363,6 +237,7 @@ function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
     let targetCount = 8; 
     let preferredIntensity = ['low', 'medium', 'high'];
     
+    // Core Intensity Logic based on user condition
     if (userData.condition === 'tired') {
         targetCount = 6;
         preferredIntensity = ['low', 'medium'];
@@ -371,51 +246,55 @@ function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
         preferredIntensity = ['low'];
     }
 
-    // Filter for truly unseen exercises and match intensity if specified
+    // Filter for truly unseen exercises and match intensity
     let shuffled = shufflePool([...fullPool]);
     let unseenPool = shuffled.filter(ex => !seenExerciseIds.has(ex.id));
     
-    // Filter by intensity based on condition
+    // Smart Filter: Prioritize matching intensity
     let filteredPool = unseenPool.filter(ex => {
-        const intensity = ex.intensity || 'medium'; // Default to medium for wger
+        const intensity = ex.intensity || 'medium'; 
         return preferredIntensity.includes(intensity);
     });
 
-    // If filtered pool is too small, fallback to any unseen
+    // Fallback if not enough matching intensity
     if (filteredPool.length < targetCount) {
         filteredPool = unseenPool;
     }
 
-    // If still too small, reset seen list (full cycle complete)
+    // Reset if pool completely exhausted
     if (filteredPool.length < targetCount) {
-        console.log("Pool exhausted, resetting seen exercises.");
         seenExerciseIds.clear();
         filteredPool = shuffled;
     }
 
     const session = [];
     
-    // 1. Try to get one Abs exercise
-    let absEx = filteredPool.find(ex => (ex.primary.en === 'Abs' || ex.primary.en === '복근'));
+    // Composition logic: 1 Abs + 1 Cardio + N Body Parts
+    let absEx = filteredPool.find(ex => {
+        const primaryKo = (ex.primary && ex.primary.ko) || "";
+        const primaryEn = (ex.primary && ex.primary.en) || "";
+        return primaryEn === 'Abs' || primaryKo === '복근';
+    });
     if (absEx) {
         session.push(absEx);
         filteredPool = filteredPool.filter(ex => ex.id !== absEx.id);
     }
 
-    // 2. Try to get one Cardio exercise
-    let cardioEx = filteredPool.find(ex => (ex.primary.en === 'Cardio' || ex.primary.en === '유산소'));
+    let cardioEx = filteredPool.find(ex => {
+        const primaryKo = (ex.primary && ex.primary.ko) || "";
+        const primaryEn = (ex.primary && ex.primary.en) || "";
+        return primaryEn === 'Cardio' || primaryKo === '유산소';
+    });
     if (cardioEx) {
         session.push(cardioEx);
         filteredPool = filteredPool.filter(ex => ex.id !== cardioEx.id);
     }
 
-    // 3. Fill the rest with any available in filteredPool
     while (session.length < targetCount && filteredPool.length > 0) {
-        const nextEx = filteredPool.shift();
-        session.push(nextEx);
+        session.push(filteredPool.shift());
     }
 
-    // Track seen exercises
+    // Tracking
     session.forEach(ex => seenExerciseIds.add(ex.id));
 
     const container = document.getElementById('workout-container');
@@ -424,27 +303,25 @@ function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
     
     let baseReps = 12, baseSets = 3, baseRest = 60;
     
-    if (userData.condition === 'tired') { baseReps = 8; baseSets = 2; baseRest = 90; }
-    else if (userData.condition === 'recovery') { baseReps = 6; baseSets = 2; baseRest = 120; }
+    // Intensity scaling based on condition
+    if (userData.condition === 'tired') { baseReps = 10; baseSets = 2; baseRest = 90; }
+    else if (userData.condition === 'recovery') { baseReps = 8; baseSets = 2; baseRest = 120; }
     else {
         if (level === 'beginner') { baseReps = 10; baseSets = 2; }
         else if (level === 'advanced') { baseReps = 15; baseSets = 4; }
     }
 
-    if (freq === '1-2') { baseSets = Math.max(2, baseSets); baseRest += 30; }
-    else if (freq === '5-6') { baseSets += 1; baseRest -= 15; }
-    else if (freq === '7') { baseSets += 1; baseReps += 2; baseRest -= 20; }
-
     session.forEach(ex => {
         const card = document.createElement('workout-card');
         const name = ex.name ? (ex.name[currentLang] || ex.name.en) : (ex[currentLang] || ex.en);
         const desc = ex.desc ? (ex.desc[currentLang] || ex.desc.en || (typeof ex.desc === 'string' ? ex.desc : '')) : '';
+        const caution = (ex.caution && ex.caution[currentLang]) ? ex.caution[currentLang] : generateDetailedCaution(ex);
         
         card.setAttribute('name', name);
         card.setAttribute('desc', desc);
         card.setAttribute('image', ex.image || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400');
         card.setAttribute('target', ex.primary[currentLang] || ex.primary.en);
-        card.setAttribute('caution', (ex.caution && ex.caution[currentLang]) ? ex.caution[currentLang] : generateDetailedCaution(ex));
+        card.setAttribute('caution', caution);
         card.setAttribute('reps', baseReps.toString());
         card.setAttribute('sets', baseSets.toString());
         card.setAttribute('rest', Math.max(10, baseRest) + 's');

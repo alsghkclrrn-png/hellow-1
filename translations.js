@@ -53,73 +53,11 @@ const translations = {
         'mbti-type-ESTP': '<strong>사업가 (ESTP)</strong><br>당신은 넘치는 활력과 재치로 주변 사람들을 즐겁게 하며, 현재의 기회를 결코 놓치지 않는 역동적인 활동가입니다. 실생활에서 부딪히는 구체적인 문제들을 신속하고 실용적으로 해결하는 능력이 매우 뛰어납니다. 모험과 도전을 즐기는 대담한 성격으로, 위험을 기꺼이 감수하며 새로운 길을 개척해 나갑니다. 이론적인 공부보다는 직접 몸으로 부딪치며 경험을 통해 배우는 것을 훨씬 선호합니다. 관찰력이 매우 예리하여 주변 상황의 미묘한 변화를 즉각적으로 포착하고 대응합니다. 유머 감각이 뛰어나며 사교적인 자리에 핵심적인 인물로 활약하는 경우가 많습니다. 매사에 자신감이 넘치며 결단력이 있어 조직에서 행동 대장 역할을 수행합니다.<br><strong>장점:</strong> 뛰어난 위기 관리 능력과 적응력, 넘치는 에너지와 자신감, 실질적인 문제 해결력, 예리한 관찰력, 사교적인 성격, 설득력 있는 화법, 빠른 행동력.<br><strong>주의점:</strong> 순간의 자극과 즐거움만을 쫓다가 위험한 상황에 노출되거나 중요한 기회를 망칠 수 있습니다. 지나치게 충동적인 행동으로 인해 주변 사람들을 당혹게 하거나 갈등을 유발할 수 있습니다. 장기적인 계획을 세우거나 깊이 있는 이론적 설명을 듣는 것을 지루해하며 소홀히 하기 쉽습니다. 직설적인 화법이 타인에게 공격적으로 들릴 수 있음을 인지해야 합니다. 행동하기 전에 그 결과가 미칠 파장을 한 번 더 생각하는 신중함과 인내심을 기르는 것이 중요합니다. 감정적인 깊이를 더하고 타인의 내면을 이해하려는 노력이 대인관계를 풍성하게 만들어 줍니다.',
         'mbti-type-ESFP': '<strong>연예인 (ESFP)</strong><br>당신은 밝고 긍정적인 에너지로 주변을 환하게 밝히는 타고난 엔터테이너이자 분위기 메이커입니다. 사람들과 함께 어울려 즐거운 시간을 보내는 것을 진심으로 좋아하며, 감각적인 즐거움을 추구하는 활기찬 사람입니다. 현재의 순간을 즐기는 능력이 탁월하며, 주변의 아름다운 것들을 발견하고 타인과 공유하는 데서 큰 행복을 느낍니다. 타인에게 친절하고 수용적이며, 곤경에 처한 사람에게 실질적인 도움을 주는 데 매우 능숙합니다. 타고난 패션 감각이나 미적 감각을 지닌 경우가 많아 자신을 꾸미는 데 재능이 있습니다. 호기심이 많아 새로운 경험을 적극적으로 시도하며 삶을 축제처럼 살아갑니다. 유연한 태도로 예기치 못한 상황에 잘 대처합니다.<br><strong>장점:</strong> 밝고 긍정적인 에너지, 뛰어난 사교성과 친화력, 현재에 집중하는 능력, 실무적인 감각, 타인을 즐겁게 하는 재능, 높은 공감 능력, 적응력.<br><strong>주의점:</strong> 깊이 있는 성찰이나 미래를 위한 장기적인 계획을 세우는 것을 귀찮아하고 기피할 수 있습니다. 순간의 충동과 즐거움에 빠져 중요한 사회적 책임을 소홀히 할 위험이 있습니다. 타인의 시선이나 평가에 지나치게 미감하여 쉽게 상처받거나 인정 욕구에 휘둘릴 수 있습니다. 갈등 상황을 회피하려다 오히려 문제를 키우거나 오해를 쌓는 경우가 발생할 수 있습니다. 감정을 조절하고 체계적으로 일상을 관리하며 미래를 준비하는 성실함이 필요합니다. 혼자만의 시간을 통해 내면을 들여다보고 정신적 깊이를 더하는 연습이 균형 잡힌 삶을 위해 중요합니다.',
         'mbti-type-ENFP': '<strong>활동가 (ENFP)</strong><br>당신은 풍부한 상상력과 넘치는 열정으로 새로운 가능성과 의미를 찾아다니는 자유로운 탐험가입니다. 타인에 대한 관심이 매우 깊고 공감 능력이 뛰어나며, 사람들과 정서적으로 깊게 연결되는 것을 인생의 가치로 생각합니다. 창의적이고 독특한 아이디어가 끊임없이 솟아나며, 자신이 진정으로 가치를 느끼는 일에는 놀라운 집중력을 발휘합니다. 낙천적이고 활기찬 태도로 주변 사람들에게 긍정적인 영감과 희망을 전파합니다. 반복적인 일상보다는 변화무쌍한 환경에서 자신의 능력을 더 잘 발휘합니다. 인간관계에서 진실성을 중시하며 따뜻한 마음으로 타인을 포용합니다. 호기심이 많아 다방면에 걸쳐 관심사가 넓고 다재다능합니다.<br><strong>장점:</strong> 창의적이고 혁신적인 사고, 뛰어난 공감 능력과 사교성, 넘치는 에너지와 열정, 높은 적응력, 타인의 잠재력을 발견하는 능력, 설득력 있는 소통.<br><strong>주의점:</strong> 새로운 일에 쉽게 흥미를 느끼지만 마무리를 짓는 끈기가 부족하여 일을 벌여만 놓을 위험이 있습니다. 지나치게 감정적인 결정으로 인해 현실적인 문제나 손해를 입는 경우가 종종 발생합니다. 반복적인 일상 업무나 세부적인 행정 절차를 매우 힘들어하며 회피하려 합니다. 타인의 인정과 칭찬에 지나치게 목말라하며 비판에 감정적으로 크게 흔들릴 수 있습니다. 우선순위를 명확히 정해 한 가지 일을 끝까지 완수하는 책임감을 기르는 것이 무엇보다 중요합니다. 감정의 중심을 잡고 현실적인 제약 조건을 냉정하게 판단하는 훈련이 필요합니다.',
-        'mbti-type-ENTP': '<strong>변론가 (ENTP)</strong><br>당신은 끊임없이 새로운 아이디어를 제안하고 논리적인 토론을 통해 지적 자극을 즐기는 모험가입니다. 고정관념에 도전하며 비판적으로 사고하는 것을 선호하고, 복잡한 문제를 독창적인 방식으로 풀어내는 능력이 탁월합니다. 다방면에 걸쳐 지식이 매우 풍부하며, 재치 있는 언변과 유머로 상대방을 설득하거나 영감을 주는 데 능숙합니다. 지루한 일상보다는 끊임없이 변화하고 도전적인 환경에서 최고의 생동감을 느낍니다. 두뇌 회전이 매우 빠르며 상황 판단력이 날카로워 위기 상황을 기회로 바꾸기도 합니다. 자신의 지적 능력을 증명하는 것을 즐기며 항상 새로운 배움의 기회를 찾아다닙니다. 독립적인 정신이 강해 타인의 통제를 받기보다 자유롭게 사고하길 원합니다.<br><strong>장점:</strong> 독창적이고 창의적인 사고, 탁월한 분석력과 비판적 사고, 재치 있는 언변, 빠른 상황 판단력, 폭넓은 지식 탐구, 자신감 있는 태도, 개방적인 마인드.<br><strong>주의점:</strong> 타인의 감정을 고려하지 않는 날카로운 비판이나 논쟁적인 태도가 대인 관계에서 갈등을 유발할 수 있습니다. 아이디어는 풍부하지만 실제적인 실행력이 뒷받침되지 않아 용두사미로 끝날 위험이 큽니다. 쉽게 실증을 느끼고 사소한 세부 사항을 무시하여 실수를 저지르거나 마무리가 부족할 수 있습니다. 자신의 논리적 우월성에 취해 타인을 무시하거나 냉소적인 태도를 보일 수 있음을 경계해야 합니다. 타인의 입장을 배려하는 따뜻한 소통 방식과 체계적인 실행 습관을 기르는 것이 성공의 핵심입니다. 집중력을 분산시키지 않고 목표를 향해 꾸준히 나아가는 인내심이 필요합니다.',
+        'mbti-type-ENTP': '<strong>변론가 (ENTP)</strong><br>당신은 끊임없이 새로운 아이디어를 제안하고 논리적인 토론을 통해 지적 자극을 즐기는 모험가입니다. 고정관념에 도전하며 비판적으로 사고하는 것을 선호하고, 복잡한 문제를 독창적인 방식으로 풀어내는 능력이 탁월합니다. 다방면에 걸쳐 지식이 매우 풍부하며, 재치 있는 언변과 유머로 상대방을 설득하거나 영감을 주는 데 능숙합니다. 지루한 일상보다는 끊임없이 변화하고 도전적인 환경에서 최고의 생동감을 느낍니다. 두뇌 회전이 매우 빠르며 상황 판단력이 날카로워 위기 상황을 기회로 바꾸기도 합니다. 자신의 지적 능력을 증명하는 것을 즐기며 항상 새로운 배움의 기회를 찾아다닙니다. 독립적인 정신이 강해 타인의 통제를 받기보다 자유롭게 사고하길 원합니다.<br><strong>장점:</strong> 독창적이고 창의적인 사고, 탁월한 분석력과 비판적 사고, 재치 있는 언변, 빠른 상황 판단력, 폭넓은 지식 탐구, 자신감 있는 태도, 개방적인 마인드.<br><strong>주의점:</strong> 타인의 감정이나 복잡한 사회적 관계에 무관심해 보일 수 있어 의도치 않게 주변에 상처를 줄 수 있습니다. 지나치게 개인주의적인 태도가 협력이 필요한 상황에서 장애가 될 수 있습니다. 지루함을 쉽게 느끼고 자극적인 새로운 경험만을 쫓는 경향이 있어 끈기가 부족해 보일 수 있습니다. 장기적인 계획을 세우거나 추상적인 이론을 다루는 것을 따분하게 여길 수 있습니다. 타인의 입장을 배려하는 소통 노력과 끝까지 완수하려는 인내심을 기르는 것이 큰 도움이 됩니다. 감정을 표현하는 연습을 통해 주변 사람들과 더 깊은 유대감을 형성할 필요가 있습니다.',
         'mbti-type-ESTJ': '<strong>경영자 (ESTJ)</strong><br>당신은 질서와 규칙을 무엇보다 중시하며 목표 달성을 위해 조직을 효율적으로 이끄는 타고난 지도자입니다. 현실적이고 구체적인 사실을 바탕으로 냉철하게 판단하며, 한번 결정한 일은 강력한 추진력으로 끝까지 완수해냅니다. 매우 성실하고 정직하며, 사회적인 가이드라인과 전통을 지키는 것을 자신의 사명처럼 중요하게 생각합니다. 체계적이고 분명한 규칙 아래에서 명확한 결과를 만들어내는 데 독보적인 능력을 발휘합니다. 책임감이 강해 조직 내에서 신뢰받는 리더로 자리매김하며 효율성을 극대화합니다. 혼란스러운 상황을 정리하고 체계를 잡는 데 탁월한 재능이 있습니다. 실용적인 가치를 추구하며 낭비를 싫어하는 철저한 관리자입니다.<br><strong>장점:</strong> 강력한 추진력과 리더십, 철저한 업무 관리 능력, 강한 책임감과 성실함, 논리적이고 객관적인 판단, 결과 중심적 사고, 정직함, 조직화 능력.<br><strong>주의점:</strong> 자신의 원칙과 기준을 타인에게 강요하거나 독단적인 태도를 보여 갈등을 빚을 수 있습니다. 변화나 혁신적인 아이디어를 수용하는 데 다소 보수적이고 고집스러울 수 있습니다. 타인의 감정적인 면을 무시하고 업무의 효율성만을 따져 냉정하거나 무례하다는 평을 듣기도 합니다. 지나치게 일에 매몰되어 가족이나 친구 등 소중한 관계를 소홀히 할 위험이 있습니다. 유연한 사고방식을 갖고 타인의 감정에 공감하려는 노력을 통해 부드러운 카리스마를 갖추는 것이 필요합니다. 변화의 필요성을 인정하고 새로운 시도를 긍정적으로 받아들이는 개방적인 태도가 도움이 됩니다.',
         'mbti-type-ESFJ': '<strong>집정관 (ESFJ)</strong><br>당신은 따뜻하고 사교적인 성품으로 주변 사람들을 정성껏 돌보며 공동체의 조화를 이끄는 헌신적인 지원가입니다. 타인의 감정과 필요에 매우 민감하며, 실질적인 도움을 통해 사람들을 기쁘게 하는 일에서 가장 큰 보람을 느낍니다. 사회적인 관계와 질서를 중시하며, 정해진 규칙과 전통에 따라 협력하여 목표를 달성하는 환경을 선호합니다. 매우 성실하고 책임감이 강하며, 주변 사람들에게 정서적 안정감을 주는 든든하고 따뜻한 존재입니다. 세심한 관찰력을 바탕으로 주변의 대소사를 챙기며 조직의 화합을 도모합니다. 타인의 칭찬과 인정에 힘을 얻으며 공동체를 위해 자신의 에너지를 아낌없이 쏟습니다. 예의 바르고 친절한 태도로 어디서나 환영받는 사교의 달인입니다.<br><strong>장점:</strong> 탁월한 사교성과 친화력, 타인에 대한 세심한 배려와 지원, 강한 책임감, 조직의 조화를 이끄는 능력, 실무적인 성실함, 충실한 태도, 협동심.<br><strong>주의점:</strong> 타인의 시선과 인정에 지나치게 민감하여 본인의 욕구를 희생하고 스스로를 힘들게 할 수 있습니다. 본인이 옳다고 믿는 가치관이나 도덕 기준을 타인에게 강요하여 불편함을 줄 수 있습니다. 변화를 두려워하고 보수적인 태도를 고수하여 새로운 가능성을 차단할 위험이 있습니다. 갈등 상황에서 지나치게 당황하거나 감정적으로 흔들려 객관적인 판단을 내리지 못할 수 있습니다. 자신의 필요를 먼저 챙기는 자기 돌봄의 시간을 갖고 객관적인 시각을 유지하는 연습이 필요합니다. 모든 사람을 만족시킬 수 없음을 인정하고 비판을 건강하게 수용하는 훈련이 성장에 도움이 됩니다.',
         'mbti-type-ENFJ': '<strong>주인도자 (ENFJ)</strong><br>당신은 타인의 성장을 진심으로 돕고 공동의 이익을 위해 헌신하는 따뜻하고 카리스마 넘치는 리더입니다. 높은 공감 능력과 이상주의적인 성향으로 주변 사람들에게 긍정적인 영향을 미치며 행동하는 영감을 줍니다. 사람들의 잠재력을 발견하고 이를 끌어내는 데 탁월한 재능이 있으며, 진실하고 깊이 있는 인간관계를 구축하는 것을 소중히 여깁니다. 자신의 신념을 실현하기 위해 적극적으로 행동하며 공동체의 조화와 발전을 이끌어내는 데 앞장섭니다. 설득력 있는 화법과 온화한 성품으로 많은 사람들의 지지를 받습니다. 타인의 어려움을 자신의 일처럼 여기며 해결해주려 노력하는 자애로운 마음을 가졌습니다. 미래 지향적이고 긍정적인 에너지가 넘칩니다.<br><strong>장점:</strong> 뛰어난 공감 능력과 소통 능력, 사람을 이끄는 따뜻한 리더십, 헌신적인 태도, 통찰력 있는 이상주의, 높은 도덕성, 설득력, 조직의 사기를 북돋는 능력.<br><strong>주의점:</strong> 타인의 문제를 지나치게 자신의 책임으로 여겨 감정적으로 과부하가 걸리고 번아웃에 빠질 위험이 큽니다. 완벽주의 성향 때문에 스스로에게 과도한 짐을 지우며 쉽게 자책할 수 있습니다. 타인의 비판이나 거절에 매우 민감하게 반응하여 깊은 내적 상처를 입기도 합니다. 지나치게 이상적인 목표에만 매몰되어 현실적인 제약이나 실무적인 세부 사항을 놓칠 수 있습니다. 자신과 타인의 감정적 경계를 명확히 설정하고 현실적인 한계를 인정하는 지혜가 필요합니다. 본인의 에너지를 먼저 돌보는 시간을 갖고 모든 사람을 구하려 하기보다 본인의 평화를 먼저 찾는 태도가 중요합니다.',
         'mbti-type-ENTJ': '<strong>통솔자 (ENTJ)</strong><br>당신은 명확한 비전과 강력한 논리적 분석력을 바탕으로 목표를 향해 거침없이 나아가는 천성적인 리더입니다. 지적인 자극을 끊임없이 갈구하며, 효율성을 극대화하기 위해 복잡한 문제를 해결하고 체계적인 시스템을 구축하는 데 능숙합니다. 자신감이 넘치고 단호한 결단력을 갖추고 있어 조직을 정확한 목표 지점으로 이끄는 통솔력이 매우 뛰어납니다. 장기적인 미래를 설계하고 이를 달성하기 위한 구체적이고 치밀한 전략을 수립하는 데 열정적입니다. 비효율성과 나태함을 참지 못하며 항상 최고의 성과를 지향합니다. 본인의 능력을 신뢰하며 어려운 도전 과제일수록 강한 승부욕과 성취감을 느낍니다. 객관적인 사실에 근거하여 냉철하게 판단하고 추진합니다.<br><strong>장점:</strong> 강력한 리더십과 추진력, 전략적이고 논리적인 사고, 높은 자신감, 뛰어난 문제 해결 능력, 효율성 중시, 결단력, 거시적인 안목.<br><strong>주의점:</strong> 목표 달성에만 지나치게 집중한 나머지 타인의 감정을 무시하거나 강압적인 태도를 보여 독재자로 보일 수 있습니다. 지나치게 비판적이고 냉정해 보이는 언행이 주변 사람들에게 상처를 줄 수 있음을 주의해야 합니다. 본인의 능력을 과신하여 타인의 의견을 경시하거나 독단적으로 결정을 내릴 위험이 있습니다. 휴식과 감정적인 재충전의 가치를 과소평가하여 심신의 피로가 누적될 수 있습니다. 타인의 감정을 세심하게 배려하고 협력하는 자세를 가질 때 진정한 리더십이 완성됩니다. 가끔은 속도를 늦추고 주변 사람들과 보조를 맞추는 여유를 갖는 태도가 성공적인 인생을 위해 필요합니다.',
-
-        // MBTI Questions
-        'mbti-q1-title': '1. 대규모 사교 행사나 파티에서 당신은 주로 어떻게 행동하나요?',
-        'mbti-q1-a': '여러 사람과 활발히 대화하며 적극적으로 에너지를 얻는다 (E)',
-        'mbti-q1-b': '아는 사람 소수와 대화하거나 혼자 조용히 관찰하며 에너지를 비축한다 (I)',
-        'mbti-q2-title': '2. 새로운 사람을 만났을 때 당신의 일반적인 태도는 어떤가요?',
-        'mbti-q2-a': '먼저 다가가 말을 걸고 자연스럽게 대화를 주도하는 편이다 (E)',
-        'mbti-q2-b': '상대방이 먼저 다가오기를 기다리며 신중하게 지켜보는 편이다 (I)',
-        'mbti-q3-title': '3. 휴일이나 주말에 당신이 선호하는 완벽한 휴식 방식은?',
-        'mbti-q3-a': '외부 활동을 하거나 친구들을 만나 시끌벅적하게 보낸다 (E)',
-        'mbti-q3-b': '집에서 조용히 책을 읽거나 영화를 보며 혼자만의 시간을 갖는다 (I)',
-        'mbti-q4-title': '4. 대화를 나눌 때 당신이 더 편하게 느끼는 방식은 무엇인가요?',
-        'mbti-q4-a': '생각나는 대로 즉흥적으로 말을 내뱉으며 소통하는 것이 편하다 (E)',
-        'mbti-q4-b': '머릿속으로 생각을 충분히 정리한 후 조심스럽게 말을 꺼낸다 (I)',
-        'mbti-q5-title': '5. 업무나 공부를 할 때 어떤 환경에서 더 큰 효율을 느끼나요?',
-        'mbti-q5-a': '다른 사람들과 의견을 활발히 나누며 협업하는 환경 (E)',
-        'mbti-q5-b': '외부의 방해 없이 혼자 집중할 수 있는 독립된 환경 (I)',
-        'mbti-q6-title': '6. 정보를 받아들일 때 당신이 본능적으로 더 신뢰하는 것은?',
-        'mbti-q6-a': '현재 눈앞에 보이는 구체적인 사실과 실제적인 데이터 (S)',
-        'mbti-q6-b': '사실 이면의 숨겨진 의미나 미래의 가능성, 영감 (N)',
-        'mbti-q7-title': '7. 새로운 프로젝트나 운동을 시작할 때 당신의 접근 방식은?',
-        'mbti-q7-a': '이미 검증된 정석적인 방식과 매뉴얼을 철저히 따른다 (S)',
-        'mbti-q7-b': '나만의 독창적인 방식이나 새로운 실험적 아이디어를 시도한다 (N)',
-        'mbti-q8-title': '8. 누군가에게 길을 설명할 때 당신은 주로 어떻게 표현하나요?',
-        'mbti-q8-a': '눈에 보이는 구체적인 건물명이나 랜드마크를 기준으로 설명한다 (S)',
-        'mbti-q8-b': '전체적인 방향성이나 추상적인 이미지를 중심으로 설명한다 (N)',
-        'mbti-q9-title': '9. 영화나 책을 감상할 때 당신이 더 흥미를 느끼는 부분은?',
-        'mbti-q9-a': '현실감 있고 생생한 묘사나 구체적인 사건의 전개 과정 (S)',
-        'mbti-q9-b': '상상력을 자극하는 은유적 표현이나 상징적인 메시지 (N)',
-        'mbti-q10-title': '10. 당신의 일상적인 관심사는 주로 어디에 머물러 있나요?',
-        'mbti-q10-a': '현재 시점에서 일어나고 있는 실제적이고 실용적인 문제들 (S)',
-        'mbti-q10-b': '미래에 대한 비전, 이론적인 개념, 혹은 실현되지 않은 가능성 (N)',
-        'mbti-q11-title': '11. 중요한 결정을 내려야 할 때 당신의 가장 우선적인 기준은?',
-        'mbti-q11-a': '객관적인 논리와 인과관계, 공정한 원리원칙 (T)',
-        'mbti-q11-b': '주변 사람들의 감정과 관계의 조화, 개인적인 가치관 (F)',
-        'mbti-q12-title': '12. 친구가 고민을 털어놓을 때 당신의 본능적인 첫 반응은?',
-        'mbti-q12-a': '상황을 냉철하게 분석하고 실질적인 해결책을 고민한다 (T)',
-        'mbti-q12-b': '친구의 감정에 깊이 공감해주고 따뜻한 위로를 건넨다 (F)',
-        'mbti-q13-title': '13. 타인과 의견 충돌이나 갈등이 생겼을 때 당신은 어떤 편인가요?',
-        'mbti-q13-a': '감정보다는 사실 관계를 명확히 짚고 논리적으로 시비를 가린다 (T)',
-        'mbti-q13-b': '상대방의 감정 상태를 먼저 배려하며 원만하게 타협하려 한다 (F)',
-        'mbti-q14-title': '14. 당신이 인생에서 더 가치 있게 여기는 덕목은 무엇인가요?',
-        'mbti-q14-a': '냉철한 진실과 정확성, 효율성에 기반한 능력 (T)',
-        'mbti-q14-b': '따뜻한 선의와 포용력, 인간적인 유대와 화합 (F)',
-        'mbti-q15-title': '15. 업무 성과를 평가할 때 당신이 더 공정하다고 믿는 기준은?',
-        'mbti-q15-a': '수치화된 결과물과 객관적으로 증명된 실적 (T)',
-        'mbti-q15-b': '과정에서의 헌신적인 노력과 팀워크에 기여한 정도 (F)',
-        'mbti-q16-title': '16. 여행 계획을 세울 때 당신의 전형적인 스타일은?',
-        'mbti-q16-a': '시간대별로 세부 일정을 꼼꼼히 짜고 최대한 계획대로 움직인다 (J)',
-        'mbti-q16-b': '큰 목적지만 정해두고 현지 상황과 기분에 따라 즉흥적으로 행동한다 (P)',
-        'mbti-q17-title': '17. 마감 기한이 있는 업무를 처리할 때 당신의 모습은?',
-        'mbti-q17-a': '미리 계획을 세워 단계별로 차근차근 여유 있게 마무리한다 (J)',
-        'mbti-q17-b': '마지막 순간까지 미루다가 막판에 엄청난 집중력을 발휘해 끝낸다 (P)',
-        'mbti-q18-title': '18. 당신의 작업 공간이나 주변 환경을 정리하는 방식은?',
-        'mbti-q18-a': '항상 정해진 위치에 물건이 놓여 있어야 마음이 편안하다 (J)',
-        'mbti-q18-b': '다소 어수선하더라도 자유롭고 유연하게 사용하는 것이 편하다 (P)',
-        'mbti-q19-title': '19. 예기치 못한 상황으로 계획이 변경되었을 때 당신의 반응은?',
-        'mbti-q19-a': '당혹감을 느끼며 계획이 틀어지는 것에 상당한 스트레스를 받는다 (J)',
-        'mbti-q19-b': '상황에 맞춰 유연하게 받아들이며 변화를 오히려 흥미롭게 여긴다 (P)',
-        'mbti-q20-title': '20. 본인의 삶의 태도에 더 가깝다고 생각하는 문장은?',
-        'mbti-q20-a': '통제 가능하고 예측 가능한 안정적인 삶을 지향한다 (J)',
-        'mbti-q20-b': '모든 가능성을 열어두고 변화에 대응하는 유동적인 삶을 지향한다 (P)',
 
         // Sasang
         'sasang-title': '나의 한방 체질 (사상체질)',
@@ -192,6 +130,8 @@ const translations = {
         'freq-7': '매일 (선수용/습관)',
         'refresh-workout-btn': '다른 운동 추천',
         'refresh-btn-text': '다른 운동 보기',
+        'workout-card-desc-title': '운동 방법',
+        'workout-card-caution': '주의 사항',
     },
     en: {
         'nav-logo': 'AI Workout Coach',
@@ -287,30 +227,180 @@ const translations = {
         'freq-7': 'Everyday (7)',
         'refresh-workout-btn': 'Refresh Workout',
         'refresh-btn-text': 'Shuffle',
+        'workout-card-desc-title': 'Instructions',
+        'workout-card-caution': 'Cautions',
     }
 };
 
 const exerciseTranslations = {
-    'push-up': { ko: '푸쉬업', en: 'Push-up', image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400', primary: { ko: '가슴', en: 'Chest' }, desc: { ko: '상체 근력을 키우는 가장 기본적인 운동입니다.', en: 'The most basic exercise for upper body strength.' }, isHome: true, intensity: 'medium' },
-    'squat': { ko: '스쿼트', en: 'Squat', image: 'https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?auto=format&fit=crop&q=80&w=400', primary: { ko: '다리', en: 'Legs' }, desc: { ko: '하체 근육을 전반적으로 강화합니다.', en: 'Strengthens lower body muscles overall.' }, isHome: true, intensity: 'medium' },
-    'plank': { ko: '플랭크', en: 'Plank', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400', primary: { ko: '복근', en: 'Abs' }, desc: { ko: '코어 근육의 안정성을 높여줍니다.', en: 'Increases core stability.' }, isHome: true, intensity: 'low' },
-    'burpee': { ko: '버피 테스트', en: 'Burpees', image: 'https://images.unsplash.com/photo-1599058917233-97f394156059?auto=format&fit=crop&q=80&w=400', primary: { ko: '유산소', en: 'Cardio' }, desc: { ko: '전신 체지방 연소에 탁월합니다.', en: 'Excellent for burning full-body fat.' }, isHome: true, intensity: 'high' },
-    'lunges': { ko: '런지', en: 'Lunges', image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400', primary: { ko: '다리', en: 'Legs' }, desc: { ko: '허벅지와 엉덩이 근육을 탄력 있게 만듭니다.', en: 'Tones thighs and glutes.' }, isHome: true, intensity: 'medium' },
-    'mountain-climber': { ko: '마운틴 클라이머', en: 'Mountain Climbers', image: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?auto=format&fit=crop&q=80&w=400', primary: { ko: '복근', en: 'Abs' }, desc: { ko: '코어와 유산소 능력을 동시에 키웁니다.', en: 'Builds core and cardio simultaneously.' }, isHome: true, intensity: 'high' },
-    'jumping-jacks': { ko: '팔벌려뛰기', en: 'Jumping Jacks', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400', primary: { ko: '유산소', en: 'Cardio' }, desc: { ko: '전신 열을 올리는 최고의 웜업 운동입니다.', en: 'Best full-body warmup exercise.' }, isHome: true, intensity: 'medium' },
-    'crunch': { ko: '크런치', en: 'Crunch', image: 'https://images.unsplash.com/photo-1519034442812-38600c3098f9?auto=format&fit=crop&q=80&w=400', primary: { ko: '복근', en: 'Abs' }, desc: { ko: '상복부를 집중적으로 강화합니다.', en: 'Focuses on upper abs.' }, isHome: true, intensity: 'low' },
-    'bench-dip': { ko: '벤치 딥스', en: 'Bench Dips', image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=400', primary: { ko: '팔', en: 'Arms' }, desc: { ko: '삼두근을 강화하여 팔 뒷부분을 탄력 있게 합니다.', en: 'Strengthens triceps for toned arms.' }, isHome: true, intensity: 'medium' },
-    'bridge': { ko: '브릿지', en: 'Glute Bridge', image: 'https://images.unsplash.com/photo-1594911772125-07fc7a2d8d9f?auto=format&fit=crop&q=80&w=400', primary: { ko: '다리', en: 'Legs' }, desc: { ko: '엉덩이 근육과 기립근을 강화합니다.', en: 'Strengthens glutes and lower back.' }, isHome: true, intensity: 'low' },
-    'wall-sit': { ko: '월 싯', en: 'Wall Sit', image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=400', primary: { ko: '다리', en: 'Legs' }, desc: { ko: '하체의 근지구력을 극한으로 끌어올립니다.', en: 'Maximal lower body endurance.' }, isHome: true, intensity: 'medium' },
-    'diamond-push-up': { ko: '다이아몬드 푸쉬업', en: 'Diamond Push-up', image: 'https://images.unsplash.com/photo-1598971639058-fab3c3109a00?auto=format&fit=crop&q=80&w=400', primary: { ko: '팔', en: 'Arms' }, desc: { ko: '삼두근과 가슴 안쪽을 강하게 자극합니다.', en: 'Targets triceps and inner chest.' }, isHome: true, intensity: 'high' },
-    'superman': { ko: '슈퍼맨', en: 'Superman', image: 'https://images.unsplash.com/photo-1518611012118-2969c63d002e?auto=format&fit=crop&q=80&w=400', primary: { ko: '등', en: 'Back' }, desc: { ko: '척추기립근과 등 근육을 강화하여 자세를 교정합니다.', en: 'Strengthens lower back and posture.' }, isHome: true, intensity: 'low' },
-    'bird-dog': { ko: '버드독', en: 'Bird Dog', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400', primary: { ko: '복근', en: 'Abs' }, desc: { ko: '코어의 안정성과 균형 감각을 높여줍니다.', en: 'Improves core stability and balance.' }, isHome: true, intensity: 'low' },
-    'side-plank': { ko: '사이드 플랭크', en: 'Side Plank', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400', primary: { ko: '복근', en: 'Abs' }, desc: { ko: '옆구리 근육(외복사근)을 강화합니다.', en: 'Strengthens obliques.' }, isHome: true, intensity: 'medium' },
-    'cat-cow': { ko: '고양이 자세', en: 'Cat-Cow', image: 'https://images.unsplash.com/photo-1518611012118-2969c63d002e?auto=format&fit=crop&q=80&w=400', primary: { ko: '등', en: 'Back' }, desc: { ko: '척추의 유연성을 높이고 긴장을 풀어줍니다.', en: 'Increases spinal flexibility.' }, isHome: true, intensity: 'low' },
-    'cobra-stretch': { ko: '코브라 스트레칭', en: 'Cobra Stretch', image: 'https://images.unsplash.com/photo-1552196564-977484dfb66e?auto=format&fit=crop&q=80&w=400', primary: { ko: '복근', en: 'Abs' }, desc: { ko: '복직근을 이완하고 척추 건강을 돕습니다.', en: 'Stretches abs and helps spine.' }, isHome: true, intensity: 'low' },
-    'high-knees': { ko: '제자리 높이 뛰기', en: 'High Knees', image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400', primary: { ko: '유산소', en: 'Cardio' }, desc: { ko: '심박수를 빠르게 올리고 하체를 단련합니다.', en: 'Raises heart rate and tones legs.' }, isHome: true, intensity: 'high' },
-    'bicycle-crunch': { ko: '바이시클 크런치', en: 'Bicycle Crunches', image: 'https://images.unsplash.com/photo-1519034442812-38600c3098f9?auto=format&fit=crop&q=80&w=400', primary: { ko: '복근', en: 'Abs' }, desc: { ko: '코어 전체와 복사근을 동시에 발달시킵니다.', en: 'Develops entire core and obliques.' }, isHome: true, intensity: 'medium' },
-    'arm-circles': { ko: '팔 돌리기', en: 'Arm Circles', image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=400', primary: { ko: '어깨', en: 'Shoulders' }, desc: { ko: '어깨 관절의 가동성을 높이고 주변 근육을 풉니다.', en: 'Improves shoulder mobility.' }, isHome: true, intensity: 'low' }
+    'push-up': { 
+        ko: '푸쉬업', en: 'Push-up', 
+        image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '가슴', en: 'Chest' }, 
+        desc: { 
+            ko: '1. 바닥에 엎드려 어깨너비보다 약간 넓게 손을 짚습니다. 2. 몸을 머리부터 발꿈치까지 일직선으로 유지합니다. 3. 가슴이 바닥에 닿을 정도로 천천히 몸을 내립니다. 4. 가슴 근육의 힘을 이용하여 다시 밀어 올립니다.', 
+            en: '1. Lie face down and place hands slightly wider than shoulders. 2. Keep body in a straight line. 3. Lower chest towards the floor. 4. Push back up using chest power.' 
+        }, 
+        caution: {
+            ko: '엉덩이가 밑으로 처지거나 위로 솟지 않도록 주의하고, 팔꿈치가 어깨 위로 너무 올라가지 않게 합니다.',
+            en: 'Keep core tight, don\'t let hips sag or flare elbows too high.'
+        },
+        isHome: true, intensity: 'medium' 
+    },
+    'squat': { 
+        ko: '스쿼트', en: 'Squat', 
+        image: 'https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '다리', en: 'Legs' }, 
+        desc: { 
+            ko: '1. 양발을 어깨너비로 벌리고 섭니다. 2. 무릎이 발끝을 넘지 않도록 주의하며 엉덩이를 뒤로 빼며 앉습니다. 3. 허벅지가 바닥과 수평이 될 때까지 내려갑니다. 4. 발뒤꿈치에 힘을 주어 다시 일어섭니다.', 
+            en: '1. Stand with feet shoulder-width apart. 2. Lower hips back like sitting in a chair. 3. Keep thighs parallel to the floor. 4. Drive through heels to stand up.' 
+        }, 
+        caution: {
+            ko: '허리가 굽지 않도록 척추의 중립을 유지하고, 무릎이 안쪽으로 모이지 않게 밖을 향하게 합니다.',
+            en: 'Keep spine neutral, don\'t let knees cave inward.'
+        },
+        isHome: true, intensity: 'medium' 
+    },
+    'plank': { 
+        ko: '플랭크', en: 'Plank', 
+        image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '복근', en: 'Abs' }, 
+        desc: { 
+            ko: '1. 바닥에 팔꿈치를 대고 엎드립니다. 2. 복부에 강한 힘을 주어 몸을 일직선으로 만듭니다. 3. 엉덩이가 처지지 않게 유지하며 정해진 시간 동안 버팁니다. 4. 호흡을 멈추지 말고 일정하게 유지합니다.', 
+            en: '1. Support body on forearms and toes. 2. Keep core extremely tight. 3. Maintain a straight line from head to heels. 4. Breathe steadily while holding.' 
+        }, 
+        caution: {
+            ko: '허리에 통증이 느껴진다면 엉덩이를 약간 높이거나 무릎을 바닥에 대고 수행하세요.',
+            en: 'If you feel back pain, lift hips slightly or place knees on floor.'
+        },
+        isHome: true, intensity: 'low' 
+    },
+    'burpee': { 
+        ko: '버피 테스트', en: 'Burpees', 
+        image: 'https://images.unsplash.com/photo-1599058917233-97f394156059?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '유산소', en: 'Cardio' }, 
+        desc: { 
+            ko: '1. 바로 선 자세에서 시작합니다. 2. 손을 바닥에 짚고 발을 뒤로 뻗어 푸쉬업 자세를 만듭니다. 3. 다시 발을 손 근처로 당겨옵니다. 4. 하늘을 향해 높이 점프하며 박수를 칩니다.', 
+            en: '1. Stand straight. 2. Place hands on floor and kick feet back. 3. Jump feet back to hands. 4. Jump high and clap hands overhead.' 
+        }, 
+        caution: {
+            ko: '착지 시 무릎에 무리가 가지 않도록 가볍게 뛰어오르고, 허리가 과하게 꺾이지 않도록 합니다.',
+            en: 'Land softly to protect knees, avoid excessive arching of the back.'
+        },
+        isHome: true, intensity: 'high' 
+    },
+    'lunges': { 
+        ko: '런지', en: 'Lunges', 
+        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '다리', en: 'Legs' }, 
+        desc: { 
+            ko: '1. 똑바로 서서 한쪽 발을 앞으로 크게 내딛습니다. 2. 양쪽 무릎이 90도가 될 때까지 몸을 내립니다. 3. 뒷무릎이 바닥에 살짝 닿을 정도로 내려갑니다. 4. 앞발의 힘으로 다시 제자리로 돌아옵니다.', 
+            en: '1. Step forward with one foot. 2. Lower body until both knees are bent at 90 degrees. 3. Keep front knee above ankle. 4. Push back to starting position.' 
+        }, 
+        caution: {
+            ko: '앞으로 나간 무릎이 발끝을 지나치게 튀어나오지 않도록 수직 상태를 유지하세요.',
+            en: 'Ensure front knee does not pass beyond toes.'
+        },
+        isHome: true, intensity: 'medium' 
+    },
+    'mountain-climber': { 
+        ko: '마운틴 클라이머', en: 'Mountain Climbers', 
+        image: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '복근', en: 'Abs' }, 
+        desc: { 
+            ko: '1. 푸쉬업 자세를 취합니다. 2. 한쪽 무릎을 가슴 쪽으로 빠르게 당겨옵니다. 3. 다리를 교차하며 제자리 뛰기를 하듯 반복합니다. 4. 상체는 고정하고 하체만 역동적으로 움직입니다.', 
+            en: '1. Start in push-up position. 2. Drive one knee towards chest. 3. Quickly switch legs in a running motion. 4. Keep upper body stable.' 
+        }, 
+        caution: {
+            ko: '엉덩이가 하늘로 높이 솟지 않도록 몸의 수평을 최대한 유지하며 복부의 긴장을 늦추지 마세요.',
+            en: 'Keep hips low and maintain core engagement throughout.'
+        },
+        isHome: true, intensity: 'high' 
+    },
+    'jumping-jacks': { 
+        ko: '팔벌려뛰기', en: 'Jumping Jacks', 
+        image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '유산소', en: 'Cardio' }, 
+        desc: { 
+            ko: '1. 차렷 자세로 섭니다. 2. 다리를 벌리며 점프하는 동시에 양손을 머리 위로 올립니다. 3. 다시 점프하며 차렷 자세로 돌아옵니다. 4. 가벼운 리듬감을 유지하며 반복합니다.', 
+            en: '1. Stand with arms at sides. 2. Jump and spread legs while raising arms overhead. 3. Jump back to starting position. 4. Repeat with steady rhythm.' 
+        }, 
+        caution: {
+            ko: '발바닥 전체보다 앞꿈치로 가볍게 착지하여 무릎에 가해지는 충격을 최소화하세요.',
+            en: 'Land softly on the balls of your feet to minimize impact.'
+        },
+        isHome: true, intensity: 'medium' 
+    },
+    'crunch': { 
+        ko: '크런치', en: 'Crunch', 
+        image: 'https://images.unsplash.com/photo-1519034442812-38600c3098f9?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '복근', en: 'Abs' }, 
+        desc: { 
+            ko: '1. 바닥에 누워 무릎을 굽히고 발을 바닥에 댑니다. 2. 양손을 머리 뒤에 가볍게 얹거나 가슴 위에 X자로 둡니다. 3. 복근의 힘으로 어깨만 살짝 바닥에서 떼어 상체를 들어 올립니다. 4. 천천히 저항을 느끼며 내려갑니다.', 
+            en: '1. Lie on back with knees bent. 2. Place hands behind head or on chest. 3. Lift shoulders off floor using abs. 4. Lower back down slowly.' 
+        }, 
+        caution: {
+            ko: '목을 손으로 당겨 올리지 않도록 주의하고, 오직 복부 근육의 수축에만 집중하세요.',
+            en: 'Don\'t pull on your neck; focus purely on abdominal contraction.'
+        },
+        isHome: true, intensity: 'low' 
+    },
+    'bridge': { 
+        ko: '브릿지', en: 'Glute Bridge', 
+        image: 'https://images.unsplash.com/photo-1594911772125-07fc7a2d8d9f?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '다리', en: 'Legs' }, 
+        desc: { 
+            ko: '1. 등을 대고 누워 무릎을 굽히고 발을 골반 너비로 벌립니다. 2. 발뒤꿈치로 바닥을 누르며 골반을 위로 들어 올립니다. 3. 엉덩이 근육을 강하게 수축시킨 상태에서 잠시 멈춥니다. 4. 천천히 골반을 내립니다.', 
+            en: '1. Lie on back with knees bent. 2. Lift hips towards ceiling by pressing through heels. 3. Squeeze glutes at the top. 4. Lower back down slowly.' 
+        }, 
+        caution: {
+            ko: '골반을 너무 높이 들어 허리가 꺾이지 않도록 하고, 엉덩이와 허벅지 뒤쪽 자극에 집중하세요.',
+            en: 'Avoid over-arching the back; focus on glute and hamstring activation.'
+        },
+        isHome: true, intensity: 'low' 
+    },
+    'bird-dog': { 
+        ko: '버드독', en: 'Bird Dog', 
+        image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '복근', en: 'Abs' }, 
+        desc: { 
+            ko: '1. 기어가는 자세(네발기기 자세)를 취합니다. 2. 오른쪽 팔과 왼쪽 다리를 동시에 앞뒤로 일직선이 되게 뻗습니다. 3. 몸이 흔들리지 않게 코어 힘으로 3초간 버팁니다. 4. 반대쪽도 동일하게 반복합니다.', 
+            en: '1. Start on all fours. 2. Extend opposite arm and leg simultaneously. 3. Hold for 3 seconds while keeping body stable. 4. Switch sides and repeat.' 
+        }, 
+        caution: {
+            ko: '팔과 다리를 들어 올릴 때 골반이 한쪽으로 기울어지지 않게 수평을 유지하는 것이 핵심입니다.',
+            en: 'Keep hips square to the floor; do not tilt your pelvis.'
+        },
+        isHome: true, intensity: 'low' 
+    },
+    'superman': { 
+        ko: '슈퍼맨', en: 'Superman', 
+        image: 'https://images.unsplash.com/photo-1518611012118-2969c63d002e?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '등', en: 'Back' }, 
+        desc: { 
+            ko: '1. 바닥에 얼굴을 대고 엎드려 팔을 앞으로 뻗습니다. 2. 숨을 내쉬며 양팔과 양다리를 동시에 바닥에서 들어 올립니다. 3. 등과 허리 근육의 긴장을 느끼며 잠시 유지합니다. 4. 천천히 제자리로 돌아옵니다.', 
+            en: '1. Lie face down with arms extended forward. 2. Raise arms and legs off the floor simultaneously. 3. Hold and feel the back muscles working. 4. Lower down with control.' 
+        }, 
+        caution: {
+            ko: '목을 과하게 뒤로 젖히지 말고 시선은 바닥을 향하게 하여 경추에 무리가 가지 않게 하세요.',
+            en: 'Keep gaze down to protect your neck; avoid hyperextension.'
+        },
+        isHome: true, intensity: 'low' 
+    },
+    'bicycle-crunch': { 
+        ko: '바이시클 크런치', en: 'Bicycle Crunches', 
+        image: 'https://images.unsplash.com/photo-1519034442812-38600c3098f9?auto=format&fit=crop&q=80&w=400', 
+        primary: { ko: '복근', en: 'Abs' }, 
+        desc: { 
+            ko: '1. 바닥에 누워 양손을 머리 뒤에 댑니다. 2. 두 다리를 공중에 띄우고 무릎을 굽힙니다. 3. 오른쪽 팔꿈치와 왼쪽 무릎이 닿도록 상체를 비틉니다. 4. 자전거 페달을 밟듯 반대쪽도 교차하며 반복합니다.', 
+            en: '1. Lie on back with hands behind head. 2. Lift legs and bend knees. 3. Touch opposite elbow to knee by twisting upper body. 4. Switch sides in a cycling motion.' 
+        }, 
+        caution: {
+            ko: '속도보다 정확한 동작 비틀기에 집중하고, 허리가 바닥에서 뜨지 않도록 누르는 힘을 유지하세요.',
+            en: 'Focus on the twist rather than speed; keep lower back pressed to floor.'
+        },
+        isHome: true, intensity: 'medium' 
+    }
 };
 
 const stretchingDatabase = [
