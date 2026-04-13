@@ -488,6 +488,11 @@
             s.src = 'https://static.userback.io/widget/v1.js';
             (d.head || d.body).appendChild(s);
         })(document);
+
+        // Optional: Hide the default widget button to use our custom icon only
+        Userback.on_load = function() {
+            if (typeof Userback.hide === 'function') Userback.hide();
+        };
     </script>
 
     <script src="translations.js" defer></script>

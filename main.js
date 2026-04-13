@@ -56,16 +56,16 @@ function updateUserbackData() {
 
 // Function to trigger Userback safely
 function openFeedback() {
-    if (window.Userback) {
-        if (typeof window.Userback.open === 'function') {
-            window.Userback.open();
-        } else if (typeof window.Userback.show === 'function') {
-            window.Userback.show();
-        } else {
-            alert("피드백 위젯을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.");
-        }
+    // Userback officially recommends using .open() 
+    // We check if the object exists and the function is available
+    if (window.Userback && typeof window.Userback.open === 'function') {
+        window.Userback.open();
+    } else if (window.Userback && typeof window.Userback.show === 'function') {
+        // Fallback to .show() if .open() is not available
+        window.Userback.show();
     } else {
-        alert("피드백 서비스를 사용할 수 없습니다.");
+        console.error("Userback SDK is not initialized yet.");
+        alert("피드백 위젯을 불러오는 중입니다. 1~2초 후 다시 클릭해 주세요.");
     }
 }
 
