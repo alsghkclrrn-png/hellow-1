@@ -36,21 +36,17 @@ function setLanguage(lang) {
 // Userback Data Integration
 function updateUserbackData() {
     if (window.Userback) {
+        // Prepare dynamic user data based on their analysis results
         window.Userback.user_data = {
             id: userData.mbti || "guest_" + Math.floor(Math.random() * 1000000),
-            info: {
-                mbti: userData.mbti || "None",
-                sasang: userData.sasang || "None",
-                bmi: userData.bmi || "None",
-                fitnessLevel: userData.fitnessLevel,
-                goal: userData.goal,
-                language: currentLang
-            },
-            // Custom fields with Korean keys as requested
             "정보": {
                 "이름": userData.sasang ? userData.sasang.toUpperCase() : "someone",
                 "이메일": "user@example.com",
-                "검사결과": `${userData.mbti || '미완료'} / ${userData.sasang || '미완료'}`
+                "MBTI": userData.mbti || "None",
+                "사상체질": userData.sasang || "None",
+                "BMI": userData.bmi || "None",
+                "운동목표": userData.goal,
+                "숙련도": userData.fitnessLevel
             }
         };
     }
