@@ -30,6 +30,24 @@ function setLanguage(lang) {
     renderCatalog();
     renderHomeWorkout();
     renderSupplements();
+    updateUserbackData();
+}
+
+// Userback Data Integration
+function updateUserbackData() {
+    if (window.Userback) {
+        window.Userback.user_data = {
+            id: userData.mbti || "guest",
+            info: {
+                mbti: userData.mbti || "None",
+                sasang: userData.sasang || "None",
+                bmi: userData.bmi || "None",
+                fitnessLevel: userData.fitnessLevel,
+                goal: userData.goal,
+                language: currentLang
+            }
+        };
+    }
 }
 
 // Workout Card Component
@@ -126,6 +144,7 @@ function showMbtiResults() {
     document.getElementById('mbti-type-desc').innerHTML = translations[currentLang][`mbti-type-${type}`];
     const display = document.getElementById('mbti-display');
     if (display) { display.value = type; display.classList.add('populated'); }
+    updateUserbackData();
 }
 
 // Sasang Logic
@@ -175,6 +194,7 @@ function showSasangResults() {
             <p>${t(`sasang-${type}-diet`)}</p>
         </div>
     `;
+    updateUserbackData();
 }
 
 // Generation Logic
@@ -305,6 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('daily-calories-value').textContent = Math.round(userData.bmr * 1.5);
         document.getElementById('metrics-results').classList.remove('hidden');
         document.getElementById('metrics-display').value = `BMI: ${userData.bmi}, BMR: ${userData.bmr}`;
+        updateUserbackData();
     };
 
     document.getElementById('workout-form').onsubmit = (e) => {
