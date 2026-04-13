@@ -201,6 +201,16 @@
                         <div id="mbti-insight-text">--</div>
                     </article>
                 </div>
+                <!-- SNS Share Buttons for MBTI -->
+                <div class="share-container">
+                    <span class="share-label" data-i18n="share-results">결과 자랑하기:</span>
+                    <div class="share-buttons">
+                        <button class="share-btn kakao" onclick="shareContent('mbti', 'kakao')" title="카카오톡 공유"><i data-lucide="message-circle"></i></button>
+                        <button class="share-btn facebook" onclick="shareContent('mbti', 'facebook')" title="페이스북 공유"><i data-lucide="facebook"></i></button>
+                        <button class="share-btn twitter" onclick="shareContent('mbti', 'twitter')" title="X(트위터) 공유"><i data-lucide="twitter"></i></button>
+                        <button class="share-btn link" onclick="copyToClipboard()" title="링크 복사"><i data-lucide="link"></i></button>
+                    </div>
+                </div>
                 <button id="retake-mbti" class="secondary-btn" data-i18n="retake-mbti">퀴즈 다시 하기</button>
             </div>
         </section>
@@ -313,6 +323,16 @@
                         <h3 data-i18n="ai-evaluation-title">AI 코치의 평가</h3>
                     </div>
                     <div id="analysis-content"></div>
+                    <!-- SNS Share Buttons for Analysis -->
+                    <div class="share-container" style="margin-top: 20px; border-top: 1px solid rgba(56, 189, 248, 0.2); padding-top: 15px;">
+                        <span class="share-label" data-i18n="share-results" style="color: var(--primary-color);">운동 성과 공유하기:</span>
+                        <div class="share-buttons">
+                            <button class="share-btn kakao" onclick="shareContent('workout', 'kakao')" title="카카오톡 공유"><i data-lucide="message-circle"></i></button>
+                            <button class="share-btn facebook" onclick="shareContent('workout', 'facebook')" title="페이스북 공유"><i data-lucide="facebook"></i></button>
+                            <button class="share-btn twitter" onclick="shareContent('workout', 'twitter')" title="X(트위터) 공유"><i data-lucide="twitter"></i></button>
+                            <button class="share-btn link" onclick="copyToClipboard()" title="링크 복사"><i data-lucide="link"></i></button>
+                        </div>
+                    </div>
                 </div>
                 <button id="analyze-workout-btn" class="secondary-btn" data-i18n="analyze-workout-btn">분석 및 피드백 받기</button>
             </div>
@@ -388,6 +408,16 @@
                         <!-- Injected via JS -->
                     </div>
                 </div>
+                <!-- SNS Share Buttons for Sasang -->
+                <div class="share-container" style="max-width: 500px; margin: 20px auto;">
+                    <span class="share-label" data-i18n="share-results">체질 공유하기:</span>
+                    <div class="share-buttons">
+                        <button class="share-btn kakao" onclick="shareContent('sasang', 'kakao')" title="카카오톡 공유"><i data-lucide="message-circle"></i></button>
+                        <button class="share-btn facebook" onclick="shareContent('sasang', 'facebook')" title="페이스북 공유"><i data-lucide="facebook"></i></button>
+                        <button class="share-btn twitter" onclick="shareContent('sasang', 'twitter')" title="X(트위터) 공유"><i data-lucide="twitter"></i></button>
+                        <button class="share-btn link" onclick="copyToClipboard()" title="링크 복사"><i data-lucide="link"></i></button>
+                    </div>
+                </div>
                 <button id="retake-sasang" class="secondary-btn" data-i18n="retake-sasang" style="display:block; margin:20px auto;">진단 다시 하기</button>
             </div>
 
@@ -439,7 +469,12 @@
         </div>
     </footer>
 
+    <div id="toast-container" class="toast-container"></div>
+    <button id="floating-share-btn" class="floating-share-btn" onclick="shareContent('general', 'webshare')" title="사이트 공유하기">
+        <i data-lucide="share-2"></i>
+    </button>
+
     <script src="translations.js" defer></script>
     <script src="main.js" defer></script>
-</body>
-</html>
+    </body>
+    </html>

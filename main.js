@@ -324,3 +324,58 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('lang-toggle').textContent = currentLang.toUpperCase();
     };
 });
+
+// Viral Sharing Functions
+function shareContent(type, platform) {
+    const url = window.location.href;
+    let text = "";
+    const t = (key) => (translations[currentLang] && translations[currentLang][key]) || key;
+
+    if (type === 'mbti' && userData.mbti) {
+        text = `${t('share-mbti-prefix')} [${userData.mbti}]! ${t('share-suffix')}`;
+    } else if (type === 'sasang' && userData.sasang) {
+        const sasangTitle = t(`sasang-${userData.sasang}-title`).split(' ')[1];
+        text = `${t('share-sasang-prefix')} [${sasangTitle}]! ${t('share-suffix')}`;
+    } else if (type === 'workout') {
+        text = t('share-workout-text');
+    } else {
+        text = t('header-subtitle');
+    }
+
+    if (platform === 'webshare' && navigator.share) {
+        navigator.share({
+            title: 'AI 운동 코치',
+            text: text,
+            url: url
+        }).catch(console.error);
+    } else if (platform === 'facebook') {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+    } else if (platform === 'twitter') {
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+    } else if (platform === 'kakao') {
+        // Simple Kakao link sharer (requires App Key for SDK, using sharer URL)
+        window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(url)}`, '_blank');
+    } else {
+        copyToClipboard();
+    }
+}
+
+function copyToClipboard() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+        showToast(translations[currentLang]['toast-copy-success']);
+    });
+}
+
+function showToast(message) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `<i data-lucide="check-circle"></i> <span>${message}</span>`;
+    container.appendChild(toast);
+    if (window.lucide) lucide.createIcons();
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}

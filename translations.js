@@ -194,6 +194,12 @@ const translations = {
         'refresh-btn-text': '다른 운동 보기',
         'workout-card-desc-title': '운동 방법',
         'workout-card-caution': '주의 사항',
+        'share-results': '공유하기',
+        'share-mbti-prefix': '나의 MBTI 운동 프로필은',
+        'share-sasang-prefix': '나의 사상체질은',
+        'share-suffix': '당신의 유형도 지금 확인해보세요!',
+        'share-workout-text': 'AI 운동 코치가 추천해준 오늘의 루틴을 완료했습니다! 💪 #AI운동코치 #오운완',
+        'toast-copy-success': '링크가 클립보드에 복사되었습니다!',
     },
     en: {
         'nav-logo': 'AI Workout Coach',
@@ -215,6 +221,12 @@ const translations = {
         'refresh-workout-btn': 'Refresh Workout',
         'workout-card-desc-title': 'Instructions',
         'workout-card-caution': 'Cautions',
+        'share-results': 'Share',
+        'share-mbti-prefix': 'My MBTI Workout Profile is',
+        'share-sasang-prefix': 'My Sasang Body Type is',
+        'share-suffix': 'Find yours now at AI Workout Coach!',
+        'share-workout-text': 'Just finished my AI-powered workout routine! 💪 #AIWorkoutCoach #Fitness',
+        'toast-copy-success': 'Link copied to clipboard!',
     }
 };
 
