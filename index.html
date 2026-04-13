@@ -470,9 +470,14 @@
     </footer>
 
     <div id="toast-container" class="toast-container"></div>
-    <button id="floating-share-btn" class="floating-share-btn" onclick="shareContent('general', 'webshare')" title="사이트 공유하기">
-        <i data-lucide="share-2"></i>
-    </button>
+    <div class="floating-controls">
+        <button id="floating-feedback-btn" class="floating-btn feedback" onclick="Userback.open()" title="피드백 남기기">
+            <i data-lucide="message-square-plus"></i>
+        </button>
+        <button id="floating-share-btn" class="floating-btn share" onclick="shareContent('general', 'webshare')" title="사이트 공유하기">
+            <i data-lucide="share-2"></i>
+        </button>
+    </div>
 
     <!-- Userback Feedback Widget -->
     <script>
