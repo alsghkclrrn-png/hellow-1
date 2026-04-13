@@ -36,7 +36,6 @@ function setLanguage(lang) {
 // Userback Data Integration
 function updateUserbackData() {
     if (window.Userback) {
-        // Prepare dynamic user data based on their analysis results
         window.Userback.user_data = {
             id: userData.mbti || "guest_" + Math.floor(Math.random() * 1000000),
             "정보": {
@@ -49,16 +48,24 @@ function updateUserbackData() {
                 "숙련도": userData.fitnessLevel
             }
         };
+        if (typeof window.Userback.setData === 'function') {
+            window.Userback.setData(window.Userback.user_data);
+        }
     }
 }
 
 // Function to trigger Userback safely
 function openFeedback() {
-    if (window.Userback && typeof window.Userback.open === 'function') {
-        window.Userback.open();
+    if (window.Userback) {
+        if (typeof window.Userback.open === 'function') {
+            window.Userback.open();
+        } else if (typeof window.Userback.show === 'function') {
+            window.Userback.show();
+        } else {
+            alert("피드백 위젯을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.");
+        }
     } else {
-        console.warn("Userback SDK is still loading or not available.");
-        // Fallback or retry logic if needed
+        alert("피드백 서비스를 사용할 수 없습니다.");
     }
 }
 
@@ -115,7 +122,6 @@ customElements.define('workout-card', WorkoutCard);
 // MBTI Logic
 let mbtiStep = 0;
 let mbtiScores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
-const mbtiKeys = ['EI', 'EI', 'EI', 'EI', 'EI', 'SN', 'SN', 'SN', 'SN', 'SN', 'TF', 'TF', 'TF', 'TF', 'TF', 'JP', 'JP', 'JP', 'JP', 'JP'];
 
 function initMbtiQuiz() {
     mbtiStep = 0;
@@ -330,14 +336,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const h = parseFloat(document.getElementById('height').value) / 100;
         const w = parseFloat(document.getElementById('weight').value);
         const age = parseInt(document.getElementById('age').value);
-        userData.bmi = (w / (h * h)).toFixed(1);
-        userData.bmr = Math.round(10 * w + 6.25 * (h * 100) - 5 * age + 5);
-        document.getElementById('bmi-value').textContent = userData.bmi;
-        document.getElementById('bmr-value').textContent = userData.bmr;
-        document.getElementById('daily-calories-value').textContent = Math.round(userData.bmr * 1.5);
-        document.getElementById('metrics-results').classList.remove('hidden');
-        document.getElementById('metrics-display').value = `BMI: ${userData.bmi}, BMR: ${userData.bmr}`;
-        updateUserbackData();
+        if(h > 0 && w > 0 && age > 0) {
+            userData.bmi = (w / (h * h)).toFixed(1);
+            userData.bmr = Math.round(10 * w + 6.25 * (h * 100) - 5 * age + 5);
+            document.getElementById('bmi-value').textContent = userData.bmi;
+            document.getElementById('bmr-value').textContent = userData.bmr;
+            document.getElementById('daily-calories-value').textContent = Math.round(userData.bmr * 1.5);
+            document.getElementById('metrics-results').classList.remove('hidden');
+            document.getElementById('metrics-display').value = `BMI: ${userData.bmi}, BMR: ${userData.bmr}`;
+            updateUserbackData();
+        }
     };
 
     document.getElementById('workout-form').onsubmit = (e) => {
@@ -386,7 +394,6 @@ function shareContent(type, platform) {
     } else if (platform === 'twitter') {
         window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
     } else if (platform === 'kakao') {
-        // Simple Kakao link sharer (requires App Key for SDK, using sharer URL)
         window.open(`https://sharer.kakao.com/talk/friends/picker/link?url=${encodeURIComponent(url)}`, '_blank');
     } else {
         copyToClipboard();
