@@ -361,39 +361,57 @@ function generateWorkout(goal, level, freq = '3-4', isRefresh = false) {
     };
 
     let targetCount = 8; 
-    if (userData.condition === 'tired') targetCount = 6;
-    if (userData.condition === 'recovery') targetCount = 4;
+    let preferredIntensity = ['low', 'medium', 'high'];
+    
+    if (userData.condition === 'tired') {
+        targetCount = 6;
+        preferredIntensity = ['low', 'medium'];
+    } else if (userData.condition === 'recovery') {
+        targetCount = 4;
+        preferredIntensity = ['low'];
+    }
 
-    // Filter for truly unseen exercises
+    // Filter for truly unseen exercises and match intensity if specified
     let shuffled = shufflePool([...fullPool]);
     let unseenPool = shuffled.filter(ex => !seenExerciseIds.has(ex.id));
+    
+    // Filter by intensity based on condition
+    let filteredPool = unseenPool.filter(ex => {
+        const intensity = ex.intensity || 'medium'; // Default to medium for wger
+        return preferredIntensity.includes(intensity);
+    });
 
-    // If unseen pool is too small, reset to allow repeats from the beginning
-    if (unseenPool.length < targetCount) {
+    // If filtered pool is too small, fallback to any unseen
+    if (filteredPool.length < targetCount) {
+        filteredPool = unseenPool;
+    }
+
+    // If still too small, reset seen list (full cycle complete)
+    if (filteredPool.length < targetCount) {
         console.log("Pool exhausted, resetting seen exercises.");
         seenExerciseIds.clear();
-        unseenPool = shuffled;
+        filteredPool = shuffled;
     }
 
     const session = [];
     
     // 1. Try to get one Abs exercise
-    let absEx = unseenPool.find(ex => ex.primary.en === 'Abs');
+    let absEx = filteredPool.find(ex => (ex.primary.en === 'Abs' || ex.primary.en === '복근'));
     if (absEx) {
         session.push(absEx);
-        unseenPool = unseenPool.filter(ex => ex.id !== absEx.id);
+        filteredPool = filteredPool.filter(ex => ex.id !== absEx.id);
     }
 
     // 2. Try to get one Cardio exercise
-    let cardioEx = unseenPool.find(ex => ex.primary.en === 'Cardio');
+    let cardioEx = filteredPool.find(ex => (ex.primary.en === 'Cardio' || ex.primary.en === '유산소'));
     if (cardioEx) {
         session.push(cardioEx);
-        unseenPool = unseenPool.filter(ex => ex.id !== cardioEx.id);
+        filteredPool = filteredPool.filter(ex => ex.id !== cardioEx.id);
     }
 
-    // 3. Fill the rest with any unseen exercises to ensure variety
-    while (session.length < targetCount && unseenPool.length > 0) {
-        const nextEx = unseenPool.shift();
+    // 3. Fill the rest with any available in filteredPool
+    while (session.length < targetCount && filteredPool.length > 0) {
+        const nextEx = filteredPool.shift();
         session.push(nextEx);
     }
 
