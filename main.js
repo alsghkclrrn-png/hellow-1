@@ -32,6 +32,20 @@ function setLanguage(lang) {
     renderSupplements();
 }
 
+// Userback Widget Trigger
+function openFeedback() {
+    if (window.Userback) {
+        // v1.js에서 가장 확실한 호출 방식 시도
+        if (typeof window.Userback.show === 'function') {
+            window.Userback.show();
+        } else if (typeof window.Userback.open === 'function') {
+            window.Userback.open();
+        }
+    } else {
+        alert("피드백 위젯을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.");
+    }
+}
+
 // Workout Card Component
 class WorkoutCard extends HTMLElement {
     constructor() { super(); this.attachShadow({ mode: 'open' }); }
