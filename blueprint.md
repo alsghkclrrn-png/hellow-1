@@ -69,6 +69,10 @@ A professional holistic health platform that provides personalized workout plans
 - **Quiz:** Self-diagnosis questionnaire.
 - **Results:** taeyang, taeum, soyang, soeum with professional descriptions and images.
 
+### 12. User Feedback Service (Userback)
+- **Integration:** Implementation of the Userback widget to collect real-time user feedback.
+- **Access Token:** `A-pIeGjAZDDfhtqPYd9sm6pcKyj`
+
 ## Project Structure
 - `index.html`: Main application shell.
 - `main.js`: Core application logic and state management.
@@ -91,6 +95,9 @@ A professional holistic health platform that provides personalized workout plans
 - Expand `translations.js` with 20+ exercises featuring step-by-step guides and injury warnings.
 - Map precise Unsplash images to exercise names.
 
-### Phase 4: Validation & Deployment
+### Phase 4: Third-Party Integrations
+- Integrate Userback feedback widget for user insights.
+
+### Phase 5: Validation & Deployment
 - Comprehensive testing of UI/UX flows.
 - Deploy to Firebase Hosting.

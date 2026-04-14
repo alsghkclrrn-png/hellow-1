@@ -30,49 +30,14 @@ function setLanguage(lang) {
     renderCatalog();
     renderHomeWorkout();
     renderSupplements();
-    updateUserbackData();
 }
 
-// Userback Data Integration
-function updateUserbackData() {
-    if (window.Userback) {
-        window.Userback.user_data = {
-            id: userData.mbti || "guest_" + Math.floor(Math.random() * 1000000),
-            "정보": {
-                "이름": userData.sasang ? userData.sasang.toUpperCase() : "someone",
-                "이메일": "user@example.com",
-                "MBTI": userData.mbti || "None",
-                "사상체질": userData.sasang || "None",
-                "BMI": userData.bmi || "None",
-                "운동목표": userData.goal,
-                "숙련도": userData.fitnessLevel
-            }
-        };
-        if (typeof window.Userback.setData === 'function') {
-            window.Userback.setData(window.Userback.user_data);
-        }
-    }
-}
-
-// Function to trigger Userback safely
+// Userback Widget Trigger
 function openFeedback() {
     if (window.Userback) {
-        // We try both common Userback methods to ensure it opens
-        if (typeof window.Userback.show === 'function') {
-            window.Userback.show();
-        }
-        if (typeof window.Userback.open === 'function') {
-            window.Userback.open();
-        }
-        
-        // If it's still not showing (rare cases), log error
-        if (typeof window.Userback.show !== 'function' && typeof window.Userback.open !== 'function') {
-            console.error("Userback methods not found");
-            alert("피드백 위젯을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.");
-        }
+        window.Userback.show();
     } else {
-        console.error("Userback object not found");
-        alert("피드백 서비스를 사용할 수 없습니다.");
+        alert("피드백 위젯을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.");
     }
 }
 
@@ -169,7 +134,6 @@ function showMbtiResults() {
     document.getElementById('mbti-type-desc').innerHTML = translations[currentLang][`mbti-type-${type}`];
     const display = document.getElementById('mbti-display');
     if (display) { display.value = type; display.classList.add('populated'); }
-    updateUserbackData();
 }
 
 // Sasang Logic
@@ -219,7 +183,6 @@ function showSasangResults() {
             <p>${t(`sasang-${type}-diet`)}</p>
         </div>
     `;
-    updateUserbackData();
 }
 
 // Generation Logic
@@ -351,7 +314,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('daily-calories-value').textContent = Math.round(userData.bmr * 1.5);
             document.getElementById('metrics-results').classList.remove('hidden');
             document.getElementById('metrics-display').value = `BMI: ${userData.bmi}, BMR: ${userData.bmr}`;
-            updateUserbackData();
         }
     };
 
