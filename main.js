@@ -34,16 +34,16 @@ function setLanguage(lang) {
 
 // Userback Widget Trigger
 function openFeedback() {
-    if (window.Userback) {
-        if (typeof window.Userback.show === 'function') {
-            window.Userback.show();
-        } else if (typeof window.Userback.open === 'function') {
-            window.Userback.open();
+    if (typeof Userback !== 'undefined') {
+        if (typeof Userback.open === 'function') {
+            Userback.open();
+        } else if (typeof Userback.show === 'function') {
+            Userback.show();
         } else {
-            alert("피드백 위젯이 로딩 중입니다. 잠시만 기다려 주세요.");
+            alert("피드백 위젯을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.");
         }
     } else {
-        alert("피드백 서비스를 불러올 수 없습니다. 광고 차단기(AdBlock)가 켜져 있는지 확인해 주세요.");
+        alert("피드백 서비스를 사용할 수 없습니다. 인터넷 연결이나 광고 차단기(AdBlock)를 확인해 주세요.");
     }
 }
 
