@@ -114,20 +114,27 @@ body {
 }
 
 .nav-btn-share {
-    background: linear-gradient(135deg, rgba(56, 189, 248, 0.1) 0%, rgba(129, 140, 248, 0.1) 100%);
-    border: 1px solid var(--border-color);
-    color: var(--primary-color);
-    width: 40px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #818cf8 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0 16px;
     height: 40px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px var(--glow-color);
+}
+
+.nav-btn-label {
+    font-size: 0.85em;
+    font-weight: 700;
 }
 
 .nav-btn-share::before {
