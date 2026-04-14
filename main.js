@@ -32,21 +32,6 @@ function setLanguage(lang) {
     renderSupplements();
 }
 
-// Userback Widget Trigger
-function openFeedback() {
-    if (typeof Userback !== 'undefined') {
-        if (typeof Userback.open === 'function') {
-            Userback.open();
-        } else if (typeof Userback.show === 'function') {
-            Userback.show();
-        } else {
-            alert("피드백 위젯을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.");
-        }
-    } else {
-        alert("피드백 서비스를 사용할 수 없습니다. 인터넷 연결이나 광고 차단기(AdBlock)를 확인해 주세요.");
-    }
-}
-
 // Workout Card Component
 class WorkoutCard extends HTMLElement {
     constructor() { super(); this.attachShadow({ mode: 'open' }); }
