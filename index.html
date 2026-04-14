@@ -82,7 +82,10 @@
     <!-- Userback Feedback Widget -->
     <script>
         window.Userback = window.Userback || {};
-        Userback.access_token = " A-pIeGjAZDDfhtqPYd9sm6pcKyj ";
+        Userback.access_token = "A-pIeGjAZDDfhtqPYd9sm6pcKyj"; // 공백 제거 후 적용
+        Userback.widget_settings = {
+            launcher_status: 'disabled' // 기본 런처 버튼만 숨기고 기능은 활성화
+        };
         (function(d) {
             var s = d.createElement('script'); s.async = true;
             s.src = 'https://static.userback.io/widget/v1.js';
