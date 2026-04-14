@@ -1531,10 +1531,7 @@ footer {
     100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0), 0 10px 30px rgba(0, 0, 0, 0.4); }
 }
 
-/* Userback default launcher hiding */
-.userback-button-container {
-    display: none !important;
-}
+/* Userback default launcher hiding is now handled via JS widget_settings */
 
 @media (max-width: 768px) {
     .floating-controls {
