@@ -34,10 +34,22 @@ function setLanguage(lang) {
 
 // Userback Widget Trigger
 function openFeedback() {
+    console.log("Attempting to open Userback feedback widget...");
     if (window.Userback) {
-        window.Userback.show();
+        // v1.js can have either .open() or .show() depending on initialization state
+        if (typeof window.Userback.open === 'function') {
+            window.Userback.open();
+            console.log("Userback opened via .open()");
+        } else if (typeof window.Userback.show === 'function') {
+            window.Userback.show();
+            console.log("Userback opened via .show()");
+        } else {
+            console.warn("Userback object found, but no open/show method exists yet.", window.Userback);
+            alert("피드백 위젯을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.");
+        }
     } else {
-        alert("피드백 위젯을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.");
+        console.error("Userback is not defined on window object.");
+        alert("피드백 서비스를 사용할 수 없습니다. 인터넷 연결이나 광고 차단기를 확인해 주세요.");
     }
 }
 
