@@ -73,47 +73,80 @@ class WorkoutCard extends HTMLElement {
     render() {
         const lang = currentLang;
         const t = (key) => (translations[lang] && translations[lang][key]) || key;
+        const isKo = lang === 'ko';
 
-        const name    = this.getAttribute('name');
-        const desc    = this.getAttribute('desc');
-        const image   = this.getAttribute('image');
-        const target  = this.getAttribute('target');
-        const caution = this.getAttribute('caution');
-        const tip     = this.getAttribute('tip') || '';
-        const reps    = this.getAttribute('reps');
-        const sets    = this.getAttribute('sets');
-        const rest    = this.getAttribute('rest');
+        const name     = this.getAttribute('name');
+        const desc     = this.getAttribute('desc');
+        const image    = this.getAttribute('image');
+        const target   = this.getAttribute('target');
+        const caution  = this.getAttribute('caution');
+        const tip      = this.getAttribute('tip') || '';
+        const recReps  = this.getAttribute('rec-reps') || '-';
+        const recSets  = this.getAttribute('rec-sets') || '-';
+        const recRest  = this.getAttribute('rec-rest') || '-';
+        const recTime  = this.getAttribute('rec-time') || '-';
+        const cardId   = this.getAttribute('card-id') || '';
 
         this.shadowRoot.innerHTML = `
             <style>
                 :host { display: block; background: #1e293b; border-radius: 20px; overflow: hidden; color: #f1f5f9; font-family: sans-serif; border: 1px solid rgba(255,255,255,0.1); }
                 .img-box { width: 100%; height: 200px; background: #0f172a; position: relative; }
                 .img-box img { width: 100%; height: 100%; object-fit: cover; }
-                .badge { position: absolute; top: 10px; right: 10px; background: #38bdf8; padding: 4px 8px; border-radius: 10px; font-size: 0.7em; font-weight: 700; }
+                .badge { position: absolute; top: 10px; right: 10px; background: #38bdf8; color: #0f172a; padding: 4px 10px; border-radius: 10px; font-size: 0.72em; font-weight: 700; }
                 .beginner-badge { position: absolute; top: 10px; left: 10px; background: rgba(16,185,129,0.9); color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.68em; font-weight: 700; }
                 .content { padding: 16px; }
                 h3 { margin: 0 0 10px 0; color: #38bdf8; font-size: 1.1em; }
                 .desc { font-size: 0.85em; line-height: 1.7; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px; margin-bottom: 10px; white-space: pre-line; }
                 .caution { font-size: 0.8em; color: #fbbf24; padding: 10px; border-radius: 10px; background: rgba(251,191,36,0.1); border-left: 4px solid #fbbf24; margin-bottom: 10px; }
-                .tip { font-size: 0.78em; color: #10b981; padding: 8px 10px; background: rgba(16,185,129,0.08); border-radius: 8px; margin-bottom: 10px; border-left: 3px solid #10b981; }
-                .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; text-align: center; font-size: 0.8em; }
-                .item { background: rgba(56,189,248,0.1); padding: 6px; border-radius: 8px; }
-                .label { display: block; color: #94a3b8; font-size: 0.8em; margin-bottom: 2px; }
+                .tip { font-size: 0.78em; color: #10b981; padding: 8px 10px; background: rgba(16,185,129,0.08); border-radius: 8px; margin-bottom: 12px; border-left: 3px solid #10b981; }
+                .section-title { font-size: 0.78em; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin: 12px 0 6px 0; }
+                .rec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
+                .rec-item { background: rgba(56,189,248,0.12); padding: 8px 4px; border-radius: 8px; text-align: center; }
+                .rec-label { display: block; color: #94a3b8; font-size: 0.72em; margin-bottom: 3px; }
+                .rec-val { font-size: 0.88em; font-weight: 700; color: #38bdf8; }
+                .actual-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+                .actual-item { display: flex; flex-direction: column; gap: 4px; }
+                .actual-label { font-size: 0.72em; color: #94a3b8; }
+                .actual-input { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 7px 10px; color: #f1f5f9; font-size: 0.9em; width: 100%; box-sizing: border-box; outline: none; }
+                .actual-input:focus { border-color: #38bdf8; background: rgba(56,189,248,0.08); }
             </style>
             <div class="img-box">
                 <img src="${image}" alt="${name}" loading="lazy">
                 <span class="badge">${target}</span>
-                <span class="beginner-badge">✓ 초보자 가능</span>
+                <span class="beginner-badge">✓ ${isKo ? '초보자 가능' : 'Beginner OK'}</span>
             </div>
             <div class="content">
                 <h3>${name}</h3>
-                <div class="desc"><strong>${t('workout-card-desc-title')}:</strong><br>${desc}</div>
-                <div class="caution"><strong>⚠️ ${t('workout-card-caution')}:</strong><br>${caution}</div>
+                <div class="desc"><strong>${isKo ? '운동 방법' : 'How To'}:</strong><br>${desc}</div>
+                <div class="caution"><strong>⚠️ ${isKo ? '주의사항' : 'Caution'}:</strong><br>${caution}</div>
                 ${tip ? `<div class="tip">💡 ${tip}</div>` : ''}
-                <div class="grid">
-                    <div class="item"><span class="label">${t('actual-reps')}</span>${reps}</div>
-                    <div class="item"><span class="label">${t('actual-sets')}</span>${sets}</div>
-                    <div class="item"><span class="label">${t('actual-rest')}</span>${rest}</div>
+
+                <div class="section-title">📋 ${isKo ? '추천 운동량' : 'Recommended'}</div>
+                <div class="rec-grid">
+                    <div class="rec-item"><span class="rec-label">${isKo ? '횟수' : 'Reps'}</span><span class="rec-val">${recReps}</span></div>
+                    <div class="rec-item"><span class="rec-label">${isKo ? '세트' : 'Sets'}</span><span class="rec-val">${recSets}</span></div>
+                    <div class="rec-item"><span class="rec-label">${isKo ? '휴식' : 'Rest'}</span><span class="rec-val">${recRest}</span></div>
+                    <div class="rec-item"><span class="rec-label">${isKo ? '총시간' : 'Time'}</span><span class="rec-val">${recTime}</span></div>
+                </div>
+
+                <div class="section-title">✍️ ${isKo ? '실제 기록 입력' : 'Actual Record'}</div>
+                <div class="actual-grid">
+                    <div class="actual-item">
+                        <label class="actual-label">${isKo ? '실행 횟수' : 'Actual Reps'}</label>
+                        <input class="actual-input" type="text" placeholder="${isKo ? '예: 12회' : 'e.g. 12'}" id="actual-reps-${cardId}">
+                    </div>
+                    <div class="actual-item">
+                        <label class="actual-label">${isKo ? '실행 세트' : 'Actual Sets'}</label>
+                        <input class="actual-input" type="text" placeholder="${isKo ? '예: 3세트' : 'e.g. 3'}" id="actual-sets-${cardId}">
+                    </div>
+                    <div class="actual-item">
+                        <label class="actual-label">${isKo ? '실행 휴식시간' : 'Actual Rest'}</label>
+                        <input class="actual-input" type="text" placeholder="${isKo ? '예: 60초' : 'e.g. 60s'}" id="actual-rest-${cardId}">
+                    </div>
+                    <div class="actual-item">
+                        <label class="actual-label">${isKo ? '실행 시간' : 'Actual Time'}</label>
+                        <input class="actual-input" type="text" placeholder="${isKo ? '예: 5분' : 'e.g. 5min'}" id="actual-time-${cardId}">
+                    </div>
                 </div>
             </div>
         `;
@@ -225,43 +258,104 @@ function showSasangResults() {
 }
 
 // =====================================================
-// 운동 생성
+// 운동 생성 (Workout Generation)
 // =====================================================
+
+// localStorage에서 운동 히스토리 로드 (최근 100회 세션)
+function loadWorkoutHistory() {
+    try {
+        return JSON.parse(localStorage.getItem('workoutHistory') || '[]');
+    } catch { return []; }
+}
+
+// 운동 히스토리 저장
+function saveWorkoutHistory(sessionIds) {
+    const history = loadWorkoutHistory();
+    history.push({ date: new Date().toISOString(), ids: sessionIds });
+    // 최근 100회만 보관
+    if (history.length > 100) history.splice(0, history.length - 100);
+    localStorage.setItem('workoutHistory', JSON.stringify(history));
+}
+
+// 최근 히스토리에서 운동 ID별 최근 사용 횟수 계산 (적을수록 우선)
+function getRecentUsageCounts() {
+    const history = loadWorkoutHistory();
+    const counts = {};
+    // 최근 30회 세션만 분석
+    const recent = history.slice(-30);
+    recent.forEach(session => {
+        (session.ids || []).forEach(id => {
+            counts[id] = (counts[id] || 0) + 1;
+        });
+    });
+    return counts;
+}
+
+// 카테고리별 풀에서 최소 사용 운동 선택
+function pickFromPool(pool, count, usageCounts, allowedIntensity) {
+    const filtered = pool.filter(ex => allowedIntensity.includes(ex.intensity));
+    // 사용 횟수 오름차순 정렬 + 동일 횟수면 랜덤
+    filtered.sort((a, b) => {
+        const ua = usageCounts[a.id] || 0;
+        const ub = usageCounts[b.id] || 0;
+        return ua !== ub ? ua - ub : Math.random() - 0.5;
+    });
+    return filtered.slice(0, count);
+}
+
 function generateWorkout(goal, level, freq, isRefresh = false) {
     if (!isRefresh) seenExerciseIds.clear();
     const container = document.getElementById('workout-container');
     container.innerHTML = '';
 
-    const pool = Object.entries(exerciseTranslations).map(([id, data]) => ({ id, ...data }));
-    let targetCount = 8;
+    const condition = userData.condition || 'excellent';
     let allowedIntensity = ['low', 'medium', 'high'];
+    if (condition === 'tired')    allowedIntensity = ['low', 'medium'];
+    if (condition === 'recovery') allowedIntensity = ['low'];
 
-    if (userData.condition === 'tired') { targetCount = 6; allowedIntensity = ['low', 'medium']; }
-    else if (userData.condition === 'recovery') { targetCount = 4; allowedIntensity = ['low']; }
+    // 카테고리별 분리
+    const allExercises = Object.entries(exerciseTranslations).map(([id, data]) => ({ id, ...data }));
+    const absPool      = allExercises.filter(ex => ex.category === 'abs');
+    const cardioPool   = allExercises.filter(ex => ex.category === 'cardio');
+    const targetedPool = allExercises.filter(ex => ex.category === 'targeted');
 
-    let filtered = pool.filter(ex => allowedIntensity.includes(ex.intensity) && !seenExerciseIds.has(ex.id));
-    if (filtered.length < targetCount) {
-        seenExerciseIds.clear();
-        filtered = pool.filter(ex => allowedIntensity.includes(ex.intensity));
+    const usageCounts = getRecentUsageCounts();
+
+    // 1 abs + 1 cardio + 3 targeted = 5 exercises
+    const absPicked      = pickFromPool(absPool,      1, usageCounts, allowedIntensity);
+    const cardioPicked   = pickFromPool(cardioPool,   1, usageCounts, allowedIntensity);
+    const targetedPicked = pickFromPool(targetedPool, 3, usageCounts, allowedIntensity);
+
+    // fallback: if not enough exercises in a pool, fill from any available
+    const session = [...absPicked, ...cardioPicked, ...targetedPicked];
+    if (session.length < 5) {
+        const remaining = allExercises
+            .filter(ex => !session.some(s => s.id === ex.id) && allowedIntensity.includes(ex.intensity))
+            .sort(() => Math.random() - 0.5);
+        session.push(...remaining.slice(0, 5 - session.length));
     }
 
-    filtered.sort(() => Math.random() - 0.5);
-    const session = filtered.slice(0, targetCount);
-
-    session.forEach(ex => {
+    // 운동 카드 렌더링
+    session.forEach((ex, idx) => {
         seenExerciseIds.add(ex.id);
         const card = document.createElement('workout-card');
-        card.setAttribute('name',   ex[currentLang] || ex.ko);
-        card.setAttribute('desc',   ex.desc[currentLang]);
-        card.setAttribute('image',  ex.image);
-        card.setAttribute('target', ex.primary[currentLang]);
-        card.setAttribute('caution', ex.caution[currentLang]);
-        card.setAttribute('tip',    ex.tip ? ex.tip[currentLang] : '');
-        card.setAttribute('reps',   userData.condition === 'recovery' ? '8' : '12');
-        card.setAttribute('sets',   userData.condition === 'excellent' ? '4' : '3');
-        card.setAttribute('rest',   userData.condition === 'tired' ? '90s' : '60s');
+        const cond = condition;
+        card.setAttribute('name',     ex[currentLang] || ex.ko);
+        card.setAttribute('desc',     ex.desc ? ex.desc[currentLang] : '');
+        card.setAttribute('image',    ex.image || '');
+        card.setAttribute('target',   ex.primary ? ex.primary[currentLang] : '');
+        card.setAttribute('caution',  ex.caution ? ex.caution[currentLang] : '');
+        card.setAttribute('tip',      ex.tip ? ex.tip[currentLang] : '');
+        card.setAttribute('rec-reps', ex.recReps ? ex.recReps[cond] : '-');
+        card.setAttribute('rec-sets', ex.recSets ? ex.recSets[cond] : '-');
+        card.setAttribute('rec-rest', ex.recRest ? ex.recRest[cond] : '-');
+        card.setAttribute('rec-time', ex.recTime ? ex.recTime[cond] : '-');
+        card.setAttribute('card-id',  `${ex.id}-${idx}`);
         container.appendChild(card);
     });
+
+    // 히스토리 저장 (100일 비반복 보장)
+    saveWorkoutHistory(session.map(ex => ex.id));
 
     generateStretching(session);
     generateDiet(goal);
