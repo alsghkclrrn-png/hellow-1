@@ -381,6 +381,15 @@
 
         <section id="exercise-catalog" class="feature-section">
             <h2 data-i18n="exercise-catalog-title"><i data-lucide="layers"></i> 운동 종류 가이드</h2>
+            <div class="catalog-filter-bar">
+                <button class="catalog-filter-btn active" onclick="switchCatalogFilter('all')" data-cat="all">🏋️ 전체</button>
+                <button class="catalog-filter-btn" onclick="switchCatalogFilter('arms')" data-cat="arms">💪 팔</button>
+                <button class="catalog-filter-btn" onclick="switchCatalogFilter('chest')" data-cat="chest">🫁 가슴</button>
+                <button class="catalog-filter-btn" onclick="switchCatalogFilter('back')" data-cat="back">🔙 등</button>
+                <button class="catalog-filter-btn" onclick="switchCatalogFilter('legs')" data-cat="legs">🦵 하체</button>
+                <button class="catalog-filter-btn" onclick="switchCatalogFilter('abs')" data-cat="abs">⭕ 복근</button>
+                <button class="catalog-filter-btn" onclick="switchCatalogFilter('cardio')" data-cat="cardio">🏃 유산소</button>
+            </div>
             <div id="catalog-grid" class="catalog-grid">
                 <!-- Injected via JS -->
             </div>

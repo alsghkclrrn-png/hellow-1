@@ -1312,3 +1312,635 @@ const supplementDatabase = [
         icon: '✨'
     }
 ];
+
+/* =====================================================
+   운동의 종류 카탈로그 데이터베이스 (전세계 운동 백과사전)
+   category: 'arms' | 'chest' | 'back' | 'legs' | 'abs' | 'cardio'
+   intensity: 'low' | 'medium' | 'high'
+   ===================================================== */
+const catalogDatabase = [
+
+    /* ── 💪 팔 (Arms) ── */
+    {
+        id: 'bicep-curl',
+        category: 'arms',
+        ko: '바이셉 컬', en: 'Bicep Curl',
+        image: 'https://images.unsplash.com/photo-1581009137042-c552e485697a?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '이두근', en: 'Biceps' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 덤벨을 양손에 들고 몸 옆에 팔을 늘어뜨립니다.\n2. 손바닥이 앞을 향하도록 합니다.\n3. 팔꿈치를 몸통에 고정한 채 덤벨을 어깨 높이까지 들어 올립니다.\n4. 이두근이 최대로 수축되는 위치에서 1초 정지합니다.\n5. 천천히 제어하며 시작 자세로 내립니다.',
+            en: '1. Hold dumbbells at your sides with palms facing forward.\n2. Keep elbows pinned close to your torso.\n3. Curl the weights up to shoulder height.\n4. Pause for 1 second at peak contraction.\n5. Slowly lower back to starting position.'
+        },
+        caution: {
+            ko: '팔꿈치가 앞뒤로 흔들리지 않도록 고정하세요. 반동을 사용하면 이두근 자극이 감소합니다.',
+            en: 'Keep elbows stationary throughout. Using body momentum reduces bicep activation.'
+        },
+        tip: { ko: '초보자 팁: 덤벨 대신 500ml 물병으로 시작해도 됩니다. 천천히 내리는 동작(3초)이 근성장에 중요합니다.', en: 'Beginner tip: Water bottles work as starter weights. The slow lowering (3 sec) is key for muscle growth.' }
+    },
+    {
+        id: 'hammer-curl',
+        category: 'arms',
+        ko: '해머 컬', en: 'Hammer Curl',
+        image: 'https://images.unsplash.com/photo-1581009137042-c552e485697a?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '이두근·전완근', en: 'Biceps & Forearms' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 덤벨을 세로로(엄지손가락이 위) 잡고 양 옆에 내립니다.\n2. 팔꿈치를 몸통에 붙여 고정합니다.\n3. 손목의 방향을 유지한 채 덤벨을 어깨 높이까지 올립니다.\n4. 정점에서 1초 수축 후 천천히 내립니다.\n5. 양쪽 동시 또는 번갈아 수행합니다.',
+            en: '1. Hold dumbbells vertically (thumbs up) at your sides.\n2. Keep elbows pinned to torso.\n3. Curl without rotating the wrists.\n4. Pause 1 second at top then lower slowly.\n5. Perform simultaneously or alternating.'
+        },
+        caution: {
+            ko: '손목을 비틀지 마세요. 바이셉 컬과 달리 손바닥이 내측을 향해야 전완근이 함께 자극됩니다.',
+            en: 'Do not rotate wrists. The neutral grip (palms facing in) is what activates the forearms.'
+        },
+        tip: { ko: '초보자 팁: 바이셉 컬보다 손목 부담이 적어 부상 위험이 낮습니다. 처음 팔 운동으로 좋습니다.', en: 'Beginner tip: Less wrist stress than regular curls, making it a great first arm exercise.' }
+    },
+    {
+        id: 'overhead-tricep-ext',
+        category: 'arms',
+        ko: '오버헤드 트라이셉 익스텐션', en: 'Overhead Tricep Extension',
+        image: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '삼두근', en: 'Triceps' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 덤벨 하나를 양손으로 잡고 머리 위로 들어 올립니다.\n2. 팔꿈치를 귀 옆에 고정하고 팔꿈치를 90도로 굽힙니다.\n3. 삼두근의 힘으로 팔꿈치를 펴며 위로 밀어 올립니다.\n4. 팔이 완전히 펴지면 삼두근 수축을 느낍니다.\n5. 천천히 굽히며 시작 자세로 돌아옵니다.',
+            en: '1. Hold one dumbbell with both hands overhead.\n2. Keep elbows close to ears, bend to 90 degrees.\n3. Extend elbows pushing the weight upward.\n4. Feel tricep contraction at full extension.\n5. Slowly lower back to start.'
+        },
+        caution: {
+            ko: '팔꿈치가 바깥으로 벌어지지 않도록 귀 옆에 고정하세요. 허리가 과도하게 젖혀지지 않도록 복부에 힘을 줍니다.',
+            en: 'Keep elbows pointing upward, not flaring out. Engage core to prevent lower back arch.'
+        },
+        tip: { ko: '초보자 팁: 가벼운 무게로 팔꿈치 위치를 먼저 익히세요. 양쪽 팔꿈치가 대칭이어야 합니다.', en: 'Beginner tip: Master elbow position with light weight. Both elbows must stay symmetrical.' }
+    },
+    {
+        id: 'tricep-dip-cat',
+        category: 'arms',
+        ko: '트라이셉 딥스', en: 'Tricep Dips',
+        image: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '삼두근', en: 'Triceps' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 의자나 벤치 가장자리에 손을 짚고 다리를 앞으로 뻗습니다.\n2. 엉덩이를 의자 앞으로 띄웁니다.\n3. 팔꿈치를 뒤쪽으로 굽히며 몸을 90도까지 내립니다.\n4. 삼두근의 힘으로 팔을 펴며 시작 자세로 돌아옵니다.\n5. 어깨는 항상 아래로 내린 상태를 유지합니다.',
+            en: '1. Place hands on edge of chair with legs extended forward.\n2. Slide hips off the edge.\n3. Bend elbows backward lowering body to 90 degrees.\n4. Press back up using triceps.\n5. Keep shoulders down throughout.'
+        },
+        caution: {
+            ko: '어깨가 귀 방향으로 올라가지 않게 하세요. 팔꿈치는 뒤로 향해야 하며 옆으로 벌어지면 어깨 부상 위험이 있습니다.',
+            en: 'Shoulders should not rise toward ears. Elbows must point backward — flaring them out risks shoulder injury.'
+        },
+        tip: { ko: '초보자 팁: 무릎을 굽혀 발을 몸 가까이 당기면 무게가 줄어 난이도가 낮아집니다.', en: 'Beginner tip: Bend knees to bring feet closer and reduce the load.' }
+    },
+    {
+        id: 'pull-up',
+        category: 'arms',
+        ko: '풀업 (친업)', en: 'Pull-up / Chin-up',
+        image: 'https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '광배근·이두근', en: 'Lats & Biceps' },
+        intensity: 'high',
+        desc: {
+            ko: '1. 철봉을 어깨너비보다 약간 넓게(풀업) 또는 좁게(친업) 잡습니다.\n2. 팔을 완전히 펴고 매달린 상태에서 시작합니다.\n3. 견갑골을 아래로 당기며 가슴이 바(bar)에 닿을 때까지 올라갑니다.\n4. 정점에서 1초 유지 후 천천히 내려옵니다.\n5. 팔을 완전히 펴는 동작으로 돌아옵니다.',
+            en: '1. Grip the bar slightly wider (pull-up) or shoulder-width (chin-up).\n2. Start with arms fully extended hanging.\n3. Depress scapulae and pull until chest touches the bar.\n4. Hold at top for 1 second then lower slowly.\n5. Return to full arm extension.'
+        },
+        caution: {
+            ko: '몸을 흔들어 반동을 이용하지 마세요. 어깨 부상을 예방하기 위해 내려올 때 천천히 제어해야 합니다.',
+            en: 'Do not swing or use momentum. Control the descent slowly to prevent shoulder injury.'
+        },
+        tip: { ko: '초보자 팁: 밴드를 발에 걸어 보조받으며 시작하세요. 또는 네거티브 풀업(내려오는 동작만)부터 연습합니다.', en: 'Beginner tip: Use a resistance band for assistance, or practice only the lowering phase (negatives).' }
+    },
+    {
+        id: 'concentration-curl',
+        category: 'arms',
+        ko: '컨센트레이션 컬', en: 'Concentration Curl',
+        image: 'https://images.unsplash.com/photo-1581009137042-c552e485697a?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '이두근 (피크)', en: 'Bicep Peak' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 의자에 앉아 무릎을 벌리고 한쪽 팔꿈치를 허벅지 안쪽에 고정합니다.\n2. 덤벨을 바닥 쪽으로 늘어뜨립니다.\n3. 팔꿈치를 고정한 채 덤벨을 어깨 방향으로 올립니다.\n4. 최대로 수축된 상태에서 2초 유지합니다.\n5. 천천히 내리며 반복합니다.',
+            en: '1. Sit on a bench, spread knees, and brace one elbow against inner thigh.\n2. Let the dumbbell hang toward the floor.\n3. Curl up with elbow fixed against thigh.\n4. Hold peak contraction for 2 seconds.\n5. Lower slowly and repeat.'
+        },
+        caution: {
+            ko: '팔꿈치를 허벅지에서 떼지 마세요. 허벅지는 고정점 역할만 하며 무릎을 눌러서는 안 됩니다.',
+            en: 'Do not lift elbow off the thigh. The thigh acts only as a pivot, not to push the weight.'
+        },
+        tip: { ko: '초보자 팁: 이두근 "피크"를 만드는 데 특화된 운동입니다. 무게보다 자세와 수축에 집중하세요.', en: 'Beginner tip: This is specifically for bicep peak. Focus on the squeeze, not the weight.' }
+    },
+
+    /* ── 🫁 가슴 (Chest) ── */
+    {
+        id: 'push-up-cat',
+        category: 'chest',
+        ko: '푸쉬업', en: 'Push-up',
+        image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '가슴·삼두근', en: 'Chest & Triceps' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 손을 어깨너비보다 약간 넓게 짚고 엎드립니다.\n2. 발끝으로 지지하며 머리부터 발까지 일직선을 만듭니다.\n3. 팔꿈치를 45도 방향으로 굽히며 가슴을 바닥에 가깝게 내립니다.\n4. 가슴과 삼두근의 힘으로 밀어 올려 시작 자세로 돌아옵니다.\n5. 복부에 힘을 주어 허리가 처지지 않도록 유지합니다.',
+            en: '1. Place hands slightly wider than shoulder-width, face down.\n2. Support on toes forming a straight line from head to heel.\n3. Bend elbows at 45 degrees lowering chest toward floor.\n4. Push through chest and triceps to return.\n5. Engage core to prevent lower back sag.'
+        },
+        caution: {
+            ko: '허리가 아래로 처지거나 엉덩이가 너무 높이 솟으면 코어 자극이 감소합니다. 몸 전체가 일직선이어야 합니다.',
+            en: 'Sagging hips or raised glutes reduce core engagement. Maintain a straight body line throughout.'
+        },
+        tip: { ko: '초보자 팁: 무릎을 바닥에 대는 "무릎 푸쉬업"으로 시작하여 근력을 키운 뒤 일반 푸쉬업으로 전환하세요.', en: 'Beginner tip: Start with knee push-ups to build strength before progressing to full push-ups.' }
+    },
+    {
+        id: 'incline-push-up',
+        category: 'chest',
+        ko: '인클라인 푸쉬업', en: 'Incline Push-up',
+        image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '하부 가슴·삼두근', en: 'Lower Chest & Triceps' },
+        intensity: 'low',
+        desc: {
+            ko: '1. 테이블, 벤치 또는 벽에 손을 어깨너비로 짚습니다.\n2. 발을 뒤로 뻗어 몸이 대각선 일직선이 되도록 합니다.\n3. 팔꿈치를 굽히며 가슴을 지지대에 가깝게 내립니다.\n4. 가슴 근육으로 밀어 올려 팔을 펵니다.\n5. 지지대가 높을수록 난이도가 낮아집니다.',
+            en: '1. Place hands on a table, bench or wall at shoulder width.\n2. Extend feet back forming a diagonal straight line.\n3. Bend elbows lowering chest toward the surface.\n4. Push through chest to extend arms.\n5. Higher surface = easier variation.'
+        },
+        caution: {
+            ko: '손의 위치가 너무 좁으면 삼두근 위주가 됩니다. 가슴 자극을 위해 어깨너비 이상으로 손을 벌리세요.',
+            en: 'Hands too close targets mainly triceps. Use shoulder-width or wider for chest activation.'
+        },
+        tip: { ko: '초보자 팁: 가장 쉬운 푸쉬업 변형입니다. 벽 → 테이블 → 무릎 → 일반 순서로 단계적으로 올라가세요.', en: 'Beginner tip: Easiest push-up variation. Progress: wall → table → knees → full.' }
+    },
+    {
+        id: 'decline-push-up',
+        category: 'chest',
+        ko: '디클라인 푸쉬업', en: 'Decline Push-up',
+        image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '상부 가슴·어깨', en: 'Upper Chest & Shoulders' },
+        intensity: 'high',
+        desc: {
+            ko: '1. 발을 의자나 박스 위에 올리고 손을 바닥에 짚습니다.\n2. 몸이 내리막 경사 일직선이 되도록 합니다.\n3. 팔꿈치를 굽히며 코를 바닥에 가깝게 내립니다.\n4. 가슴과 어깨 힘으로 밀어 올립니다.\n5. 발이 높을수록 상부 가슴·어깨 자극이 강해집니다.',
+            en: '1. Elevate feet on a chair or box, place hands on floor.\n2. Body forms a downward incline in a straight line.\n3. Lower nose toward the floor bending elbows.\n4. Push up through chest and shoulders.\n5. Higher elevation increases upper chest and shoulder activation.'
+        },
+        caution: {
+            ko: '머리가 충분히 피로 가지 않도록 혈압에 주의하세요. 어깨 부상이 있는 경우에는 피하세요.',
+            en: 'Be cautious of head-down position if you have blood pressure concerns. Avoid with shoulder injuries.'
+        },
+        tip: { ko: '초보자 팁: 낮은 의자(15~30cm)부터 시작하세요. 높이가 낮을수록 일반 푸쉬업에 가깝습니다.', en: 'Beginner tip: Start with a low elevation (15-30cm). Lower height = closer to a standard push-up.' }
+    },
+    {
+        id: 'diamond-push-up',
+        category: 'chest',
+        ko: '다이아몬드 푸쉬업', en: 'Diamond Push-up',
+        image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '삼두근·가슴 중앙', en: 'Triceps & Inner Chest' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 엎드려 양손을 모아 엄지와 검지로 다이아몬드(마름모) 형태를 만듭니다.\n2. 손을 가슴 아래에 위치시키고 몸을 일직선으로 만듭니다.\n3. 팔꿈치를 몸 옆으로 굽히며 가슴을 손 쪽으로 내립니다.\n4. 삼두근 힘으로 밀어 올립니다.\n5. 손 모양이 다이아몬드를 유지해야 합니다.',
+            en: '1. Face down, form a diamond shape with thumbs and forefingers.\n2. Position hands below chest, body in a straight line.\n3. Bend elbows tucking them alongside body, lower chest.\n4. Press up using triceps.\n5. Maintain the diamond hand shape throughout.'
+        },
+        caution: {
+            ko: '손목에 부담이 집중될 수 있습니다. 통증이 있으면 즉시 멈추세요. 팔꿈치가 옆으로 벌어지면 삼두근 자극이 감소합니다.',
+            en: 'Can stress the wrists. Stop immediately if you feel pain. Flaring elbows reduces tricep activation.'
+        },
+        tip: { ko: '초보자 팁: 일반 푸쉬업보다 어렵습니다. 먼저 일반 푸쉬업 15회를 완수한 후 시도하세요.', en: 'Beginner tip: Harder than regular push-ups. Master 15 regular push-ups before attempting this.' }
+    },
+    {
+        id: 'wide-push-up-cat',
+        category: 'chest',
+        ko: '와이드 푸쉬업', en: 'Wide Push-up',
+        image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '가슴 외측', en: 'Outer Chest' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 손을 어깨너비의 1.5~2배로 넓게 벌려 바닥에 짚습니다.\n2. 몸을 일직선으로 유지합니다.\n3. 팔꿈치를 옆으로 벌리며 가슴을 바닥에 가깝게 내립니다.\n4. 가슴 외측 근육의 힘으로 밀어 올립니다.\n5. 손이 넓을수록 가슴 자극이 증가하고 팔 자극이 감소합니다.',
+            en: '1. Place hands 1.5-2x shoulder-width apart.\n2. Keep body in a straight line.\n3. Flare elbows out as you lower chest toward floor.\n4. Push up through outer chest.\n5. Wider hands = more chest, less triceps activation.'
+        },
+        caution: {
+            ko: '손을 너무 넓게 벌리면 어깨 관절에 부담이 증가합니다. 어깨 통증이 있으면 폭을 줄이세요.',
+            en: 'Hands too wide increases shoulder joint stress. Reduce width if you feel shoulder pain.'
+        },
+        tip: { ko: '초보자 팁: 일반 푸쉬업보다 범위가 작아 쉽게 느껴질 수 있지만 가슴 근육에 집중하는 것이 핵심입니다.', en: 'Beginner tip: Feels easier due to shorter range, but focus on the chest squeeze to make it effective.' }
+    },
+    {
+        id: 'dumbbell-chest-fly',
+        category: 'chest',
+        ko: '덤벨 체스트 플라이', en: 'Dumbbell Chest Fly',
+        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '가슴 전체', en: 'Full Chest' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 등을 대고 누워 덤벨을 각 손에 들고 가슴 위로 뻗습니다.\n2. 팔꿈치를 약간 굽힌 채 유지합니다.\n3. 팔을 양옆으로 호를 그리며 천천히 내립니다. (바닥 수평까지)\n4. 가슴이 충분히 펴지는 느낌을 유지합니다.\n5. 가슴 근육의 힘으로 팔을 다시 모아 시작 자세로 돌아옵니다.',
+            en: '1. Lie on back, hold dumbbells above chest with arms extended.\n2. Keep a slight bend in elbows throughout.\n3. Slowly lower arms out in an arc to chest level.\n4. Feel a full chest stretch at the bottom.\n5. Bring arms back together using chest muscles.'
+        },
+        caution: {
+            ko: '팔꿈치를 완전히 펴면 관절에 무리가 갑니다. 항상 약간 굽힌 상태를 유지하세요. 무게가 무거우면 어깨 부상 위험이 높습니다.',
+            en: 'Fully locking elbows stresses joints. Always keep a slight bend. Heavy weight greatly increases shoulder injury risk.'
+        },
+        tip: { ko: '초보자 팁: 매우 가벼운 무게(1~2kg)로 시작하세요. 가슴이 충분히 늘어나는 스트레칭 느낌이 핵심입니다.', en: 'Beginner tip: Start very light (1-2kg). The key sensation is a deep chest stretch at the bottom.' }
+    },
+
+    /* ── 🔙 등 (Back) ── */
+    {
+        id: 'pull-up-back',
+        category: 'back',
+        ko: '풀업', en: 'Pull-up',
+        image: 'https://images.unsplash.com/photo-1598971457999-ca4ef48a9a71?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '광배근', en: 'Latissimus Dorsi' },
+        intensity: 'high',
+        desc: {
+            ko: '1. 철봉을 어깨너비보다 넓게 오버그립(손등 위)으로 잡습니다.\n2. 팔을 완전히 펴고 매달립니다.\n3. 견갑골을 아래로 당기며 팔꿈치를 옆구리 방향으로 끌어내립니다.\n4. 가슴이 바에 닿을 때까지 올라갑니다.\n5. 천천히 제어하며 팔을 완전히 펴는 자세로 내려옵니다.',
+            en: '1. Grip bar wider than shoulder-width with overhand grip.\n2. Start with arms fully extended hanging.\n3. Depress scapulae and pull elbows down toward sides.\n4. Rise until chest touches bar.\n5. Lower slowly returning to full arm extension.'
+        },
+        caution: {
+            ko: '내려올 때 반동을 쓰지 말고 천천히 내려오세요. 어깨 주변 관절에 무리가 없도록 웜업 후 수행하세요.',
+            en: 'Lower yourself slowly without swinging. Always warm up shoulders before pull-ups.'
+        },
+        tip: { ko: '초보자 팁: 네거티브 풀업(점프로 올라가 천천히 내려오기)이나 밴드 보조부터 시작하세요.', en: 'Beginner tip: Start with jump-to-bar negatives (jump up, slowly lower) or band-assisted pull-ups.' }
+    },
+    {
+        id: 'bent-over-row',
+        category: 'back',
+        ko: '벤트오버 로우', en: 'Bent Over Row',
+        image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '등 전체·이두근', en: 'Full Back & Biceps' },
+        intensity: 'high',
+        desc: {
+            ko: '1. 발을 어깨너비로 벌리고 덤벨(또는 바벨)을 양손에 잡습니다.\n2. 허리를 곧게 펴고 상체를 45~90도 앞으로 숙입니다.\n3. 팔꿈치를 몸 옆으로 당기며 덤벨을 배꼽 쪽으로 당깁니다.\n4. 등 근육이 최대로 수축되는 지점에서 1초 유지합니다.\n5. 천천히 내리며 반복합니다.',
+            en: '1. Stand shoulder-width, hold dumbbells or barbell.\n2. Hinge forward 45-90 degrees keeping spine flat.\n3. Drive elbows back and up pulling weight toward navel.\n4. Hold peak back contraction for 1 second.\n5. Lower slowly and repeat.'
+        },
+        caution: {
+            ko: '허리를 절대 둥글게 굽히지 마세요. 등이 평평하게 유지되어야 허리 부상을 예방합니다. 무릎을 살짝 굽혀 다리로 지지하세요.',
+            en: 'Never round the lower back. A flat spine prevents back injury. Keep a slight knee bend for stability.'
+        },
+        tip: { ko: '초보자 팁: 처음에는 45도만 숙여 수행하세요. 등을 평평하게 유지하는 것이 무게보다 중요합니다.', en: 'Beginner tip: Start at 45 degree lean only. Keeping the back flat is more important than the weight used.' }
+    },
+    {
+        id: 'superman-cat',
+        category: 'back',
+        ko: '슈퍼맨', en: 'Superman',
+        image: 'https://images.unsplash.com/photo-1518611012118-2969c63d002e?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '척추기립근·둔근', en: 'Erector Spinae & Glutes' },
+        intensity: 'low',
+        desc: {
+            ko: '1. 바닥에 엎드려 팔을 앞으로 뻗고 다리를 붙입니다.\n2. 등 근육과 둔근에 힘을 주며 팔과 다리를 동시에 들어 올립니다.\n3. 몸이 슈퍼맨 날기 자세처럼 됩니다.\n4. 2~3초 유지하며 등 근육의 수축을 느낍니다.\n5. 천천히 내리며 반복합니다.',
+            en: '1. Lie face down, arms extended forward, legs together.\n2. Engage back and glutes lifting arms and legs simultaneously.\n3. Body forms a Superman flying position.\n4. Hold 2-3 seconds feeling back muscles contract.\n5. Lower slowly and repeat.'
+        },
+        caution: {
+            ko: '목을 과도하게 뒤로 젖히지 마세요. 시선은 바닥을 향하고 경추는 척추와 일직선이어야 합니다.',
+            en: 'Do not hyperextend the neck. Keep gaze toward floor and cervical spine aligned with the rest of spine.'
+        },
+        tip: { ko: '초보자 팁: 허리 통증이 있거나 등이 약한 분에게 이상적인 강화 운동입니다. 팔다리를 교차로 드는 것부터 시작하세요.', en: 'Beginner tip: Ideal for those with weak backs or back pain. Start by lifting opposite arm and leg alternately.' }
+    },
+    {
+        id: 'lat-pulldown',
+        category: 'back',
+        ko: '랫 풀다운', en: 'Lat Pulldown',
+        image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '광배근', en: 'Latissimus Dorsi' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 케이블 머신의 바를 어깨너비보다 넓게 잡고 앉습니다.\n2. 가슴을 펴고 약간 뒤로 기울어진 자세를 취합니다.\n3. 팔꿈치를 아래로 당기며 바를 쇄골 앞쪽까지 내립니다.\n4. 광배근이 수축되는 것을 느낍니다.\n5. 천천히 팔을 펴며 시작 자세로 돌아옵니다.',
+            en: '1. Grip lat bar wider than shoulder-width and sit down.\n2. Chest up with slight backward lean.\n3. Pull elbows down bringing bar to upper chest/collarbone.\n4. Feel lats contracting throughout.\n5. Slowly return to full arm extension.'
+        },
+        caution: {
+            ko: '목 뒤로 당기는 변형은 경추에 매우 위험합니다. 항상 가슴 앞쪽으로 당기세요. 과도한 뒤로 기울기도 허리 부상의 원인입니다.',
+            en: 'Never pull behind the neck — extremely dangerous for the cervical spine. Always pull to the front. Excessive lean also risks back injury.'
+        },
+        tip: { ko: '초보자 팁: 기계가 없다면 밴드로 대체 가능합니다. 밴드를 문 위에 고정하고 당기는 동작으로 광배근을 자극하세요.', en: 'Beginner tip: Can substitute with resistance bands anchored above head — great lat activation with no machine.' }
+    },
+    {
+        id: 'seated-cable-row',
+        category: 'back',
+        ko: '시티드 케이블 로우', en: 'Seated Cable Row',
+        image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '중부 등·광배근', en: 'Mid Back & Lats' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 로우 케이블 머신에 앉아 발을 패드에 올리고 무릎을 약간 굽힙니다.\n2. 핸들을 잡고 등을 곧게 세웁니다.\n3. 팔꿈치를 뒤로 당기며 핸들을 배꼽 쪽으로 당깁니다.\n4. 견갑골을 모으는 느낌으로 등을 수축합니다.\n5. 팔을 천천히 펴며 등이 늘어나는 느낌을 유지합니다.',
+            en: '1. Sit at low cable machine, feet on footplate, knees slightly bent.\n2. Hold handle with straight back.\n3. Pull elbows back bringing handle to navel.\n4. Squeeze shoulder blades together at peak.\n5. Slowly extend arms feeling the back stretch.'
+        },
+        caution: {
+            ko: '당길 때 몸을 뒤로 과도하게 젖히지 마세요. 당기는 힘은 팔이 아닌 등 근육에서 나와야 합니다.',
+            en: 'Avoid leaning excessively back when pulling. The pulling force must come from the back, not the arms.'
+        },
+        tip: { ko: '초보자 팁: 기계가 없다면 밴드를 기둥에 묶거나 문에 고정하여 동일한 동작을 수행할 수 있습니다.', en: 'Beginner tip: No machine? Tie a resistance band to a post or door and perform the same rowing motion.' }
+    },
+    {
+        id: 'face-pull',
+        category: 'back',
+        ko: '페이스 풀', en: 'Face Pull',
+        image: 'https://images.unsplash.com/photo-1581009137042-c552e485697a?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '후면 삼각근·상부 등', en: 'Rear Delts & Upper Back' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 케이블을 눈 높이 또는 머리 위로 설정하고 로프 핸들을 잡습니다.\n2. 한 발 뒤로 물러나 팔을 앞으로 뻗은 자세를 만듭니다.\n3. 팔꿈치를 어깨 높이로 유지하며 로프를 얼굴 방향으로 당깁니다.\n4. 로프 끝이 귀 옆에 올 때까지 당기고 어깨를 외회전합니다.\n5. 천천히 시작 자세로 돌아옵니다.',
+            en: '1. Set cable at eye or above-head height, grab rope handle.\n2. Step back with arms extended.\n3. Keep elbows at shoulder height pulling rope toward face.\n4. Pull until rope ends are beside ears, externally rotating shoulders.\n5. Slowly return to start.'
+        },
+        caution: {
+            ko: '팔꿈치가 어깨보다 아래로 내려가면 자극이 삼두근으로 이동합니다. 어깨 높이를 유지하는 것이 핵심입니다.',
+            en: 'If elbows drop below shoulder level, the activation shifts to triceps. Maintaining shoulder height is key.'
+        },
+        tip: { ko: '초보자 팁: 밴드를 문 위에 고정하면 기계 없이도 수행 가능합니다. 어깨 건강에 탁월한 예방 운동입니다.', en: 'Beginner tip: A resistance band fixed to a door works well. Excellent for shoulder health and injury prevention.' }
+    },
+
+    /* ── 🦵 하체 (Legs) ── */
+    {
+        id: 'squat-cat',
+        category: 'legs',
+        ko: '스쿼트', en: 'Squat',
+        image: 'https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '대퇴사두근·둔근', en: 'Quads & Glutes' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 발을 어깨너비로 벌리고 발끝을 약간 바깥으로 향합니다.\n2. 가슴을 펴고 허리를 곧게 세웁니다.\n3. 무릎이 발끝 방향으로 향하도록 엉덩이를 뒤로 밀며 내려앉습니다.\n4. 허벅지가 바닥과 평행해질 때까지 내려갑니다.\n5. 발뒤꿈치로 지면을 밀며 힘차게 일어납니다.',
+            en: '1. Stand shoulder-width apart, toes slightly outward.\n2. Chest up, spine neutral.\n3. Push hips back and down, knees tracking over toes.\n4. Descend until thighs are parallel to the floor.\n5. Drive through heels to stand up powerfully.'
+        },
+        caution: {
+            ko: '무릎이 발 안쪽으로 모이는 "니 인 (knee in)" 현상은 무릎 부상의 주요 원인입니다. 항상 발끝 방향으로 무릎을 유지하세요.',
+            en: 'Knee valgus (knees caving in) is a leading cause of knee injury. Always keep knees tracking over toes.'
+        },
+        tip: { ko: '초보자 팁: 의자에 앉았다 일어나는 동작으로 먼저 감각을 익히세요. 발뒤꿈치 아래에 책을 깔면 균형 잡기가 쉬워집니다.', en: 'Beginner tip: Practice sitting down to a chair and standing. A small heel elevation helps with balance initially.' }
+    },
+    {
+        id: 'lunges-cat',
+        category: 'legs',
+        ko: '런지', en: 'Lunges',
+        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '대퇴사두근·둔근', en: 'Quads & Glutes' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 등을 곧게 세우고 서서 양손을 허리에 올립니다.\n2. 한쪽 발을 앞으로 크게 내딛습니다.\n3. 뒤쪽 무릎이 거의 바닥에 닿을 때까지 몸을 내립니다.\n4. 앞발의 발뒤꿈치로 밀며 시작 자세로 돌아옵니다.\n5. 번갈아 반복합니다.',
+            en: '1. Stand tall with hands on hips.\n2. Step one foot forward in a large stride.\n3. Lower until back knee is just above the floor.\n4. Drive through the front heel to return.\n5. Alternate legs.'
+        },
+        caution: {
+            ko: '앞쪽 무릎이 발끝보다 앞으로 나가면 무릎 통증 원인이 됩니다. 상체가 앞으로 기울지 않도록 코어에 힘을 주세요.',
+            en: 'Front knee passing over toes causes knee pain. Keep torso upright by engaging your core.'
+        },
+        tip: { ko: '초보자 팁: 균형이 어려우면 벽이나 의자를 잡고 연습하세요. 보폭은 처음에 작게 시작하고 점차 넓힙니다.', en: 'Beginner tip: Hold a wall or chair for balance. Start with a shorter stride and lengthen as you improve.' }
+    },
+    {
+        id: 'deadlift-cat',
+        category: 'legs',
+        ko: '데드리프트', en: 'Deadlift',
+        image: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '햄스트링·둔근·등', en: 'Hamstrings, Glutes & Back' },
+        intensity: 'high',
+        desc: {
+            ko: '1. 발을 어깨너비로 벌리고 바벨(또는 덤벨)을 발 앞에 놓습니다.\n2. 엉덩이를 뒤로 빼며 등을 평평하게 유지하고 무게를 잡습니다.\n3. 다리와 등을 동시에 펴며 무게를 들어 올립니다.\n4. 엉덩이를 앞으로 밀며 완전히 서는 자세를 만듭니다.\n5. 엉덩이를 뒤로 빼며 천천히 내려놓습니다.',
+            en: '1. Stand shoulder-width with barbell/dumbbells in front of feet.\n2. Push hips back, keep spine flat, grip the weight.\n3. Extend hips and spine simultaneously to lift.\n4. Drive hips forward to full standing position.\n5. Push hips back to slowly lower the weight.'
+        },
+        caution: {
+            ko: '허리를 둥글게 굽히는 것은 가장 위험합니다. 등이 평평하지 않으면 절대 무게를 올리지 마세요. 척추 부상 위험이 높습니다.',
+            en: 'Rounding the lower back is the most dangerous mistake. Never increase weight unless you can maintain a perfectly flat back.'
+        },
+        tip: { ko: '초보자 팁: 가벼운 덤벨 또는 빈 바로 힙 힌지 동작을 완벽히 익힌 후 무게를 추가하세요. 자세가 무게보다 항상 우선입니다.', en: 'Beginner tip: Master the hip hinge with light weight or no weight before adding load. Form always beats weight.' }
+    },
+    {
+        id: 'calf-raise',
+        category: 'legs',
+        ko: '카프 레이즈', en: 'Calf Raise',
+        image: 'https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '종아리 (비복근·가자미근)', en: 'Calves (Gastrocnemius & Soleus)' },
+        intensity: 'low',
+        desc: {
+            ko: '1. 계단 끝이나 바닥에 발 앞꿈치를 올리고 섭니다.\n2. 벽이나 난간을 가볍게 잡아 균형을 유지합니다.\n3. 발뒤꿈치를 최대한 높이 들어 올립니다.\n4. 정점에서 2초 유지하며 종아리 근육의 수축을 느낍니다.\n5. 천천히 발뒤꿈치를 내려 시작 자세로 돌아옵니다.',
+            en: '1. Stand with balls of feet on a step edge or flat floor.\n2. Lightly hold a wall for balance.\n3. Rise as high as possible on the balls of your feet.\n4. Hold at peak for 2 seconds feeling the calf squeeze.\n5. Slowly lower heels back to start.'
+        },
+        caution: {
+            ko: '발목을 갑자기 내리지 마세요. 아킬레스건에 과부하가 걸릴 수 있습니다. 계단에서 수행 시 추락에 주의하세요.',
+            en: 'Avoid dropping heels abruptly — this strains the Achilles tendon. Be careful of slipping when using a step edge.'
+        },
+        tip: { ko: '초보자 팁: 종아리는 내성이 강해 고반복(15~30회)이 효과적입니다. 한 다리씩 수행하면 강도가 높아집니다.', en: 'Beginner tip: Calves respond well to high reps (15-30). Single-leg calf raises dramatically increase intensity.' }
+    },
+    {
+        id: 'leg-press',
+        category: 'legs',
+        ko: '레그 프레스', en: 'Leg Press',
+        image: 'https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '대퇴사두근·둔근·햄스트링', en: 'Quads, Glutes & Hamstrings' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 레그 프레스 머신에 등과 엉덩이를 밀착하여 앉습니다.\n2. 발을 어깨너비로 플랫폼 중앙에 올립니다.\n3. 안전 잠금장치를 풀고 무릎을 90도까지 굽혀 발판을 내립니다.\n4. 발뒤꿈치로 플랫폼을 밀며 무릎이 완전히 펴지기 직전까지 밀어 올립니다.\n5. 천천히 내리며 반복합니다.',
+            en: '1. Sit in leg press machine with back and hips flat against pad.\n2. Place feet shoulder-width on platform center.\n3. Release safety and lower platform bending knees to 90 degrees.\n4. Press through heels to nearly full extension (not locked).\n5. Lower slowly and repeat.'
+        },
+        caution: {
+            ko: '무릎을 완전히 잠그면 관절에 과부하가 걸립니다. 항상 약간 굽힌 상태를 유지하세요. 허리가 시트에서 떨어지면 무게가 너무 무거운 것입니다.',
+            en: 'Never fully lock knees — it overloads joints. Always maintain a slight bend. Lower back lifting off seat means too much weight.'
+        },
+        tip: { ko: '초보자 팁: 스쿼트가 어려운 분들에게 안전하고 효과적인 대안입니다. 발 위치를 높이면 햄스트링, 낮추면 대퇴사두근 자극이 커집니다.', en: 'Beginner tip: A safe squat alternative for beginners. High foot placement targets hamstrings, lower targets quads.' }
+    },
+    {
+        id: 'hip-thrust-cat',
+        category: 'legs',
+        ko: '힙 스러스트', en: 'Hip Thrust',
+        image: 'https://images.unsplash.com/photo-1594911772125-07fc7a2d8d9f?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '둔근 (대둔근)', en: 'Glutes (Gluteus Maximus)' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 벤치나 소파에 어깨를 기대고 무릎을 세워 앉습니다.\n2. 바벨이나 덤벨을 골반 위에 올립니다. (맨몸도 효과적)\n3. 둔근에 힘을 주며 골반을 위로 힘차게 밀어 올립니다.\n4. 어깨-골반-무릎이 일직선이 되면 2초 유지합니다.\n5. 천천히 내려 골반이 바닥에 닿기 직전 다시 밀어 올립니다.',
+            en: '1. Lean upper back on bench or sofa, knees bent, feet flat.\n2. Place barbell or dumbbell across hips (bodyweight also effective).\n3. Squeeze glutes and drive hips explosively upward.\n4. Hold peak position 2 seconds when hips are fully extended.\n5. Lower slowly and thrust again before hips touch floor.'
+        },
+        caution: {
+            ko: '허리를 과도하게 젖히면 척추 부상의 원인이 됩니다. 정점에서 코어를 수축하여 허리가 아닌 둔근의 힘으로 올리는 느낌이 나야 합니다.',
+            en: 'Excessive lower back arch causes injury. At peak, engage your core so the thrust comes from glutes, not the lower back.'
+        },
+        tip: { ko: '초보자 팁: 둔근 단독 자극에 최고인 운동입니다. 맨몸으로 시작해도 충분히 효과적입니다. 정점에서 엉덩이를 꽉 쥐는 것이 핵심입니다.', en: 'Beginner tip: Best exercise for isolated glute activation. Bodyweight alone is very effective. Squeezing glutes hard at peak is the key.' }
+    },
+
+    /* ── ⭕ 복근 (Abs) ── */
+    {
+        id: 'plank-cat',
+        category: 'abs',
+        ko: '플랭크', en: 'Plank',
+        image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '코어 전체', en: 'Full Core' },
+        intensity: 'low',
+        desc: {
+            ko: '1. 팔꿈치를 어깨 바로 아래에 두고 엎드립니다.\n2. 발끝으로 지지하며 머리부터 발까지 일직선을 만듭니다.\n3. 복부와 둔근에 힘을 꽉 주어 자세를 유지합니다.\n4. 정상적으로 호흡하며 목표 시간을 버팁니다.\n5. 엉덩이가 올라가거나 내려가면 즉시 멈춥니다.',
+            en: '1. Place forearms on floor, elbows under shoulders.\n2. Support on toes forming a straight line head to heel.\n3. Squeeze abs and glutes hard to hold position.\n4. Breathe normally and hold for target time.\n5. Stop immediately if hips rise or dip.'
+        },
+        caution: {
+            ko: '엉덩이가 하늘로 솟거나 배가 아래로 처지면 운동 효과가 떨어지고 허리 부상 위험이 있습니다. 잠깐이라도 올바른 자세가 긴 시간의 나쁜 자세보다 낫습니다.',
+            en: 'Raised hips or sagging belly reduce effectiveness and risk back injury. Short time with perfect form is better than long time with poor form.'
+        },
+        tip: { ko: '초보자 팁: 20초부터 시작해 매주 5초씩 늘려나가세요. 1분을 완벽한 자세로 버틸 수 있으면 사이드 플랭크로 도전하세요.', en: 'Beginner tip: Start with 20 seconds and add 5 seconds weekly. Once you hold 1 minute perfectly, progress to side planks.' }
+    },
+    {
+        id: 'crunch-cat',
+        category: 'abs',
+        ko: '크런치', en: 'Crunch',
+        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '복직근 (상부)', en: 'Upper Abs' },
+        intensity: 'low',
+        desc: {
+            ko: '1. 등을 대고 누워 무릎을 세우고 발을 바닥에 댑니다.\n2. 손을 귀 옆에 살짝 대거나 가슴 위에 교차합니다.\n3. 복근의 힘으로만 어깨를 바닥에서 살짝 들어 올립니다.\n4. 목은 중립 자세를 유지하며 시선은 천장을 향합니다.\n5. 천천히 내리며 반복합니다.',
+            en: '1. Lie on back, knees bent, feet flat.\n2. Hands lightly beside ears or crossed on chest.\n3. Use abs only to lift shoulder blades slightly off floor.\n4. Keep neck neutral, gaze toward ceiling.\n5. Lower slowly and repeat.'
+        },
+        caution: {
+            ko: '목을 앞으로 당기거나 팔을 뒤통수에 받치고 밀어 올리지 마세요. 복근이 아닌 목 근육을 사용하게 되어 목 통증 원인이 됩니다.',
+            en: 'Never pull the neck forward or use hands to push the head. This uses neck muscles instead of abs and causes neck pain.'
+        },
+        tip: { ko: '초보자 팁: 완전히 눕지 않아도 됩니다. 어깨만 살짝 들리는 작은 움직임이 완전한 윗몸 일으키기보다 복근에 더 효과적입니다.', en: 'Beginner tip: Full sit-up is unnecessary. A small shoulder lift is actually more effective for abs than full sit-ups.' }
+    },
+    {
+        id: 'leg-raise-cat',
+        category: 'abs',
+        ko: '레그레이즈', en: 'Leg Raise',
+        image: 'https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '하복부', en: 'Lower Abs' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 등을 대고 누워 손을 엉덩이 아래에 받쳐 허리를 지지합니다.\n2. 다리를 붙인 채 천천히 90도까지 들어 올립니다.\n3. 잠깐 멈추고 허리가 바닥에서 뜨지 않게 유지합니다.\n4. 천천히 내리되 바닥에 닿기 직전에 다시 들어 올립니다.\n5. 이 구간을 유지하며 반복합니다.',
+            en: '1. Lie on back, hands under hips for lower back support.\n2. Legs together, raise slowly to 90 degrees.\n3. Pause briefly, keeping lower back pressed to floor.\n4. Lower slowly, stop just before floor and raise again.\n5. Maintain this range and repeat.'
+        },
+        caution: {
+            ko: '허리가 바닥에서 뜨면 복근이 아닌 허리 근육을 사용하는 것입니다. 이는 허리 통증의 원인이 됩니다. 무릎을 굽혀 수행하면 난이도가 낮아집니다.',
+            en: 'If lower back lifts, you are using back muscles instead of abs, causing back pain. Bending knees reduces difficulty.'
+        },
+        tip: { ko: '초보자 팁: 무릎을 90도로 굽힌 채 들어 올리는 "니 레이즈"로 시작하세요. 하복부 발달에 가장 효과적인 운동 중 하나입니다.', en: 'Beginner tip: Start with knees bent at 90 degrees ("knee raise"). One of the most effective exercises for lower abs.' }
+    },
+    {
+        id: 'bicycle-crunch',
+        category: 'abs',
+        ko: '바이시클 크런치', en: 'Bicycle Crunch',
+        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '복근·복사근', en: 'Abs & Obliques' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 등을 대고 누워 손을 귀 옆에 대고 무릎을 들어 올립니다.\n2. 오른쪽 무릎을 가슴 쪽으로 당기며 왼쪽 팔꿈치를 오른 무릎 방향으로 틉니다.\n3. 동시에 왼쪽 다리는 앞으로 뻗습니다.\n4. 자전거를 타듯 반대편으로 바꿉니다.\n5. 리드미컬하게 번갈아 반복합니다.',
+            en: '1. Lie on back, hands beside ears, knees up.\n2. Bring right knee toward chest while rotating left elbow toward it.\n3. Simultaneously extend left leg forward.\n4. Switch sides as if pedaling a bicycle.\n5. Alternate rhythmically.'
+        },
+        caution: {
+            ko: '목을 과도하게 앞으로 당기지 마세요. 비틀기는 어깨가 주도해야 하며, 팔꿈치를 무릎에 닿게 하려다 목을 다칠 수 있습니다.',
+            en: 'Do not yank the neck forward. The rotation should come from the shoulder. Forcing elbow to knee causes neck strain.'
+        },
+        tip: { ko: '초보자 팁: 빠르게 하기보다 천천히 비틀며 복사근이 수축되는 느낌에 집중하세요. 속도보다 자극이 중요합니다.', en: 'Beginner tip: Slow and deliberate rotation beats speed. Focus on feeling the oblique squeeze, not how fast you go.' }
+    },
+    {
+        id: 'russian-twist',
+        category: 'abs',
+        ko: '러시안 트위스트', en: 'Russian Twist',
+        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '복사근', en: 'Obliques' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 바닥에 앉아 무릎을 세우고 상체를 45도 뒤로 기울입니다.\n2. 발을 바닥에서 들거나 (고급) 바닥에 놓고 (초보) 시작합니다.\n3. 양손을 모아 (또는 무게 들고) 몸통을 오른쪽으로 비틀어 손이 바닥에 닿을 듯이 내립니다.\n4. 반대편으로 비틀며 반복합니다.\n5. 시선은 손 방향을 따라갑니다.',
+            en: '1. Sit on floor, knees bent, lean torso back 45 degrees.\n2. Feet lifted (advanced) or on floor (beginner).\n3. Hands clasped (or holding weight), rotate torso right bringing hands toward the floor.\n4. Twist to opposite side.\n5. Eyes follow the hands.'
+        },
+        caution: {
+            ko: '허리를 굽히지 말고 상체를 곧게 세운 채 비틀어야 합니다. 비틀기는 흉추(가슴 등뼈) 중심이어야 하며 허리만 비틀면 요통 원인이 됩니다.',
+            en: 'Keep torso upright, do not collapse the spine. Rotation should come from the thoracic spine, not just the lower back.'
+        },
+        tip: { ko: '초보자 팁: 발을 바닥에 놓고 시작하세요. 무게 없이 손만 모아도 충분한 자극을 느낄 수 있습니다.', en: 'Beginner tip: Keep feet on the floor to start. Clasped hands without added weight provides plenty of stimulation.' }
+    },
+    {
+        id: 'v-up',
+        category: 'abs',
+        ko: 'V업', en: 'V-Up',
+        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '전체 복근', en: 'Full Abs' },
+        intensity: 'high',
+        desc: {
+            ko: '1. 등을 대고 누워 팔을 머리 위로 쭉 뻗고 다리를 붙입니다.\n2. 동시에 팔과 다리를 위로 들어 올립니다.\n3. 손이 발에 닿도록 복근을 수축하며 V자를 만듭니다.\n4. 정점에서 1초 유지 후 천천히 내립니다.\n5. 바닥에 닿기 직전 다시 들어 올립니다.',
+            en: '1. Lie flat, arms extended overhead, legs together.\n2. Simultaneously lift arms and legs upward.\n3. Crunch into a V-shape with hands reaching toward feet.\n4. Hold peak for 1 second then lower slowly.\n5. Stop just before floor and lift again.'
+        },
+        caution: {
+            ko: '허리 통증이 있거나 코어 근력이 약하면 수행하지 마세요. 내려올 때 허리를 드리블처럼 쳐서는 안 됩니다. 코어를 항상 수축 상태로 유지합니다.',
+            en: 'Avoid if you have back pain or weak core. Never let the lower back slam to the floor on descent. Keep core engaged throughout.'
+        },
+        tip: { ko: '초보자 팁: 한 번에 양쪽을 하기 어려우면 상체만 또는 하체만 올리는 것을 번갈아 연습하다가 합쳐나가세요.', en: 'Beginner tip: If full V-ups are too hard, alternate lifting only upper body then only lower body, then combine.' }
+    },
+
+    /* ── 🏃 유산소 (Cardio) ── */
+    {
+        id: 'running',
+        category: 'cardio',
+        ko: '달리기', en: 'Running',
+        image: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '전신 유산소', en: 'Full Body Cardio' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 편안한 속도로 조깅부터 시작합니다. (말할 수 있는 속도)\n2. 발 앞꿈치부터 중간 부분으로 착지하여 무릎 충격을 줄입니다.\n3. 팔을 90도로 굽히고 앞뒤로 자연스럽게 흔들며 리듬을 유지합니다.\n4. 시선은 전방 10~15m를 향합니다.\n5. 처음에는 5~10분씩 시작해 점차 시간을 늘려갑니다.',
+            en: '1. Begin with a comfortable jogging pace (conversational pace).\n2. Land on mid-foot to reduce knee impact.\n3. Swing arms at 90 degrees naturally for rhythm.\n4. Look 10-15m ahead.\n5. Start with 5-10 minutes and gradually increase duration.'
+        },
+        caution: {
+            ko: '발뒤꿈치 충격 착지(힐 스트라이크)는 무릎과 관절에 부담을 줍니다. 무리하게 빠른 속도로 달리면 부상 위험이 높습니다. 런닝화를 착용하세요.',
+            en: 'Heel striking puts stress on knees and joints. Pushing pace too hard too soon increases injury risk. Always wear proper running shoes.'
+        },
+        tip: { ko: '초보자 팁: 달리기-걷기 인터벌(1분 달리기, 2분 걷기)로 시작하세요. 30분 연속 달리기를 목표로 천천히 나아갑니다.', en: 'Beginner tip: Use run-walk intervals (1 min run, 2 min walk). Gradually build to 30 minutes of continuous running.' }
+    },
+    {
+        id: 'cycling',
+        category: 'cardio',
+        ko: '자전거 타기', en: 'Cycling',
+        image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '하체·유산소', en: 'Legs & Cardio' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 안장 높이를 페달이 가장 아래에 있을 때 무릎이 약간 굽히는 높이로 맞춥니다.\n2. 손을 핸들에 살짝 올리고 상체를 긴장 없이 유지합니다.\n3. 분당 60~90 RPM의 케이던스로 페달을 밟습니다.\n4. 일정한 속도와 저항을 유지하며 30분 이상 수행합니다.\n5. 실내 자전거는 동일한 효과를 날씨에 관계없이 제공합니다.',
+            en: '1. Set saddle height so knee has a slight bend at lowest pedal point.\n2. Rest hands lightly on handlebars, keep upper body relaxed.\n3. Pedal at 60-90 RPM cadence.\n4. Maintain consistent pace and resistance for 30+ minutes.\n5. Stationary bikes provide the same effect regardless of weather.'
+        },
+        caution: {
+            ko: '안장이 너무 낮으면 무릎 부상 원인이 됩니다. 안전을 위해 항상 헬멧을 착용하세요. 장시간 라이딩 후 안장 통증은 패드 자전거복으로 완화할 수 있습니다.',
+            en: 'A saddle too low causes knee injury. Always wear a helmet for safety. Saddle soreness from long rides is reduced with padded cycling shorts.'
+        },
+        tip: { ko: '초보자 팁: 무릎 관절에 달리기보다 부담이 적어 관절 통증이 있는 분에게 이상적입니다. 실내 자전거로 시작하면 날씨 걱정 없이 운동할 수 있습니다.', en: 'Beginner tip: Much easier on knees than running, ideal for those with joint issues. Indoor cycling is a great all-weather start.' }
+    },
+    {
+        id: 'swimming',
+        category: 'cardio',
+        ko: '수영', en: 'Swimming',
+        image: 'https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '전신·유산소', en: 'Full Body Cardio' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 자유형(크롤): 물 위에 엎드려 팔을 교차로 앞으로 뻗으며 나아갑니다.\n2. 다리는 무릎을 약간 굽혀 상하로 차며 추진력을 만듭니다.\n3. 3~4번 저을 때마다 옆으로 고개를 돌려 호흡합니다.\n4. 체력에 맞게 25m ~ 수 km를 목표로 수행합니다.\n5. 워밍업과 쿨다운 스트로크를 포함하세요.',
+            en: '1. Freestyle: face down, alternating arm strokes pulling forward.\n2. Kick from hips with slight knee bend for propulsion.\n3. Rotate head to side to breathe every 3-4 strokes.\n4. Set a distance goal from 25m to several km based on fitness.\n5. Include warm-up and cool-down laps.'
+        },
+        caution: {
+            ko: '수영 능력이 부족한 경우 반드시 얕은 레인에서 수행하거나 안전요원이 있는 수영장을 이용하세요. 이어플러그와 수경을 착용하면 부상을 예방할 수 있습니다.',
+            en: 'Beginners must swim in shallow lanes or pools with a lifeguard. Ear plugs and goggles prevent discomfort and minor injuries.'
+        },
+        tip: { ko: '초보자 팁: 가장 부상 위험이 낮은 유산소 운동 중 하나입니다. 관절에 전혀 충격이 없어 재활 환자에게도 권장됩니다. 킥보드로 다리 동작부터 익히세요.', en: 'Beginner tip: One of the lowest injury-risk cardio exercises. Zero joint impact makes it ideal for rehab. Learn the kick with a kickboard first.' }
+    },
+    {
+        id: 'burpee-cat',
+        category: 'cardio',
+        ko: '버피 테스트', en: 'Burpees',
+        image: 'https://images.unsplash.com/photo-1599058917233-97f394156059?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '전신 유산소·근력', en: 'Full Body Cardio & Strength' },
+        intensity: 'high',
+        desc: {
+            ko: '1. 차렷 자세에서 시작합니다.\n2. 무릎을 굽혀 손을 바닥에 짚습니다.\n3. 발을 뒤로 뻗어 푸쉬업 자세를 만듭니다.\n4. 발을 당겨와 일어서며 위로 점프합니다.\n5. 착지 즉시 다음 반복을 시작합니다. (1개 = 1~5단계 완료)',
+            en: '1. Start standing upright.\n2. Squat down placing hands on floor.\n3. Jump or step feet back to push-up position.\n4. Bring feet forward, stand and jump overhead.\n5. Land and immediately begin next repetition. (1 rep = steps 1-5)'
+        },
+        caution: {
+            ko: '착지 시 무릎을 부드럽게 굽혀 충격을 흡수하세요. 허리 통증이 있거나 고혈압인 경우 의사와 상담 후 수행하세요. 초보자는 점프 없이 수행합니다.',
+            en: 'Land softly with bent knees to absorb impact. Consult a doctor if you have back pain or high blood pressure. Beginners skip the jump.'
+        },
+        tip: { ko: '초보자 팁: 점프 없이 천천히 각 단계를 수행하는 "노 점프 버피"로 시작하세요. 강도가 높아 짧게(5~8회) 시작해도 충분한 운동량입니다.', en: 'Beginner tip: Start with "no-jump burpees" walking through each step. Even 5-8 reps is a significant workout at first.' }
+    },
+    {
+        id: 'rowing-machine',
+        category: 'cardio',
+        ko: '로잉 머신', en: 'Rowing Machine',
+        image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '전신·유산소', en: 'Full Body Cardio' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 발을 스트랩에 고정하고 무릎을 가슴 쪽으로 당겨 앉습니다. (캐치 자세)\n2. 다리로 밀며 몸통을 약간 뒤로 기울이며 핸들을 배꼽 쪽으로 당깁니다. (드라이브)\n3. 팔을 앞으로 펴며 상체를 앞으로 기울입니다. (피니시)\n4. 무릎을 굽히며 시작 자세로 돌아옵니다. (리커버리)\n5. 리듬감 있게 반복합니다.',
+            en: '1. Strap feet in, knees pulled to chest — Catch position.\n2. Push with legs, lean torso slightly back, pull handle to navel — Drive.\n3. Extend arms and lean torso forward — Finish.\n4. Bend knees returning to start — Recovery.\n5. Repeat rhythmically.'
+        },
+        caution: {
+            ko: '팔로만 당기면 등과 어깨 부상 위험이 있습니다. 다리 밀기 → 몸통 기울이기 → 팔 당기기의 순서를 지키는 것이 핵심입니다.',
+            en: 'Pulling with only arms risks shoulder and back injury. The correct sequence — legs push → torso lean → arm pull — is essential.'
+        },
+        tip: { ko: '초보자 팁: 전신 근육의 86%를 사용하는 최고 효율 유산소 운동입니다. 처음에는 낮은 저항으로 순서를 익히는 데 집중하세요.', en: 'Beginner tip: Uses 86% of body muscles — one of the most efficient cardio tools. Start low resistance and focus only on the sequence.' }
+    },
+    {
+        id: 'jump-rope-cat',
+        category: 'cardio',
+        ko: '줄넘기', en: 'Jump Rope',
+        image: 'https://images.unsplash.com/photo-1434682881908-b43d0467b798?auto=format&fit=crop&q=80&w=400',
+        primary: { ko: '전신 유산소·민첩성', en: 'Cardio & Agility' },
+        intensity: 'medium',
+        desc: {
+            ko: '1. 줄의 길이를 맞춥니다. (줄 가운데를 밟았을 때 핸들이 겨드랑이에 오는 길이)\n2. 팔꿈치를 몸 가까이 붙이고 손목을 회전시켜 줄을 돌립니다.\n3. 발 앞꿈치로 가볍게 뛰어오릅니다. (2~5cm 높이)\n4. 무릎을 완전히 펴지 않고 약간 굽힌 채 유지합니다.\n5. 리드미컬하게 반복하며 점진적으로 속도를 높입니다.',
+            en: '1. Size the rope correctly (when standing on center, handles reach armpits).\n2. Keep elbows close to body and rotate wrists to swing rope.\n3. Jump lightly on the balls of your feet only 2-5cm high.\n4. Keep a slight knee bend throughout.\n5. Find a rhythm and gradually increase speed.'
+        },
+        caution: {
+            ko: '딱딱한 바닥(콘크리트)보다 쿠션이 있는 바닥에서 수행하세요. 발뒤꿈치로 착지하면 무릎과 발목에 무리가 가고 소음도 심합니다.',
+            en: 'Jump on cushioned surface, not hard concrete. Heel landing damages knees and ankles and makes excessive noise.'
+        },
+        tip: { ko: '초보자 팁: 줄 없이 제자리에서 가볍게 뛰는 동작으로 리듬감을 먼저 익히세요. 10분 줄넘기는 30분 조깅에 맞먹는 칼로리 소모 효과가 있습니다.', en: 'Beginner tip: Practice the rhythm by hopping in place without a rope first. 10 minutes of jump rope burns as many calories as 30 minutes of jogging.' }
+    }
+];

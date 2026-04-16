@@ -435,28 +435,53 @@ function generateDiet(goal) {
 }
 
 // =====================================================
-// 운동 카탈로그
+// 운동 카탈로그 (카테고리 필터 포함)
 // =====================================================
+let currentCatalogFilter = 'all';
+
+function switchCatalogFilter(cat) {
+    currentCatalogFilter = cat;
+    document.querySelectorAll('.catalog-filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.cat === cat);
+    });
+    renderCatalog();
+}
+
 function renderCatalog() {
     const container = document.getElementById('catalog-grid');
     if (!container) return;
     container.innerHTML = '';
-    Object.entries(exerciseTranslations).forEach(([id, ex]) => {
+
+    const filtered = currentCatalogFilter === 'all'
+        ? catalogDatabase
+        : catalogDatabase.filter(ex => ex.category === currentCatalogFilter);
+
+    const intensityLabelKo = { low: '낮음', medium: '보통', high: '높음' };
+    const intensityLabelEn = { low: 'Low', medium: 'Medium', high: 'High' };
+    const intensityColor   = { low: '#10b981', medium: '#f59e0b', high: '#ef4444' };
+    const isKo = currentLang === 'ko';
+
+    filtered.forEach(ex => {
         const div = document.createElement('div');
         div.className = 'catalog-item';
+        const iLabel = isKo ? intensityLabelKo[ex.intensity] : intensityLabelEn[ex.intensity];
+        const iColor = intensityColor[ex.intensity];
         div.innerHTML = `
-            <img src="${ex.image}" class="catalog-item-image" alt="${ex[currentLang] || ex.ko}" loading="lazy">
+            <div style="position:relative;">
+                <img src="${ex.image}" class="catalog-item-image" alt="${ex[currentLang] || ex.ko}" loading="lazy">
+                <span class="catalog-intensity-badge" style="background:${iColor};">
+                    ${isKo ? '강도' : 'Level'}: ${iLabel}
+                </span>
+            </div>
             <div class="catalog-content-box">
                 <div class="catalog-header">
                     <h4>${ex[currentLang] || ex.ko}</h4>
-                    <span class="beginner-badge">초보자 OK</span>
+                    <span class="beginner-badge">${isKo ? '초보자 OK' : 'Beginner OK'}</span>
                 </div>
-                <span class="diet-tag">${ex.primary[currentLang]}</span>
+                <span class="diet-tag">🎯 ${ex.primary[currentLang]}</span>
                 <div class="exercise-steps">${ex.desc[currentLang]}</div>
-                <div style="font-size:0.78em;color:#fbbf24;padding:8px;background:rgba(251,191,36,0.08);border-radius:8px;border-left:3px solid #fbbf24;">
-                    ⚠️ ${ex.caution[currentLang]}
-                </div>
-                ${ex.tip ? `<div style="font-size:0.78em;color:#10b981;padding:8px;background:rgba(16,185,129,0.08);border-radius:8px;border-left:3px solid #10b981;">💡 ${ex.tip[currentLang]}</div>` : ''}
+                <div class="catalog-caution">⚠️ <strong>${isKo ? '주의사항' : 'Caution'}:</strong> ${ex.caution[currentLang]}</div>
+                <div class="catalog-tip">💡 ${ex.tip[currentLang]}</div>
             </div>
         `;
         container.appendChild(div);

@@ -1355,6 +1355,54 @@ footer {
 }
 
 
+/* ── 운동 카탈로그 카테고리 필터 바 ── */
+.catalog-filter-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.catalog-filter-btn {
+    padding: 9px 20px;
+    border-radius: 30px;
+    border: 1.5px solid var(--border-color);
+    background: transparent;
+    color: var(--text-color);
+    font-size: 0.88em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.catalog-filter-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: rgba(56, 189, 248, 0.08);
+}
+
+.catalog-filter-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.35);
+}
+
+/* ── 운동 강도 배지 ── */
+.catalog-intensity-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 0.72em;
+    font-weight: 700;
+    padding: 4px 11px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
 /* Workout Plan Refresh Header */
 .section-header-flex {
     display: flex;
