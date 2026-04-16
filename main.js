@@ -889,6 +889,7 @@ function updateDiaryProgress() {
 // 이벤트 리스너
 // =====================================================
 document.addEventListener('DOMContentLoaded', () => {
+    initRouter();
     setLanguage(currentLang);
     initMbtiQuiz();
     initSasangQuiz();
@@ -1053,4 +1054,50 @@ function showLegal(type) {
     alert(type === 'privacy'
         ? '이 서비스는 개인정보를 서버에 저장하지 않습니다. 모든 데이터는 브라우저 localStorage에만 저장됩니다.'
         : '본 서비스는 의료 행위가 아닌 참고용 정보를 제공합니다. 건강 관련 결정은 전문가와 상담하시기 바랍니다.');
+}
+
+// =====================================================
+// 멀티 페이지 라우터
+// =====================================================
+const PAGE_IDS = ['home', 'diary', 'catalog', 'home-workout', 'diet', 'supplement', 'sasang'];
+
+function navigateTo(pageId) {
+    // 모든 페이지 숨기기
+    PAGE_IDS.forEach(id => {
+        const el = document.getElementById('pg-' + id);
+        if (el) el.classList.add('hidden');
+    });
+
+    // 대상 페이지 표시
+    const target = document.getElementById('pg-' + pageId);
+    if (target) target.classList.remove('hidden');
+
+    // URL 해시 업데이트
+    history.pushState(null, '', '#' + pageId);
+    window.scrollTo(0, 0);
+
+    // 내비 활성 상태 업데이트
+    document.querySelectorAll('.nav-links a').forEach(a => {
+        a.classList.remove('active');
+    });
+
+    // 페이지별 렌더링
+    if (pageId === 'catalog') renderCatalog();
+    if (pageId === 'home-workout') renderHomeWorkout();
+    if (pageId === 'supplement') renderSupplements();
+    // diet content is generated after workout — no standalone render needed
+
+    // lucide 아이콘 재생성
+    if (window.lucide) lucide.createIcons();
+}
+
+function initRouter() {
+    const hash = window.location.hash.replace('#', '');
+    const validPage = PAGE_IDS.includes(hash) ? hash : 'home';
+    navigateTo(validPage);
+
+    window.addEventListener('popstate', () => {
+        const h = window.location.hash.replace('#', '');
+        navigateTo(PAGE_IDS.includes(h) ? h : 'home');
+    });
 }

@@ -104,13 +104,13 @@
         <div class="nav-container">
             <a href="#home" class="nav-logo" data-i18n="nav-coach" aria-label="Home"><i data-lucide="dumbbell"></i> AI 코치</a>
             <ul class="nav-links">
-                <li><a href="#home" data-i18n="nav-home">홈</a></li>
-                <li><a href="#health-diary" data-i18n="nav-diary">건강 다이어리</a></li>
-                <li><a href="#exercise-catalog" data-i18n="nav-catalog">운동 종류</a></li>
-                <li><a href="#home-workout" data-i18n="nav-home-workout">홈트 추천</a></li>
-                <li><a href="#diet-recommendations" data-i18n="nav-diet">식단 추천</a></li>
-                <li><a href="#supplement-recommendations" data-i18n="nav-supplement">영양제</a></li>
-                <li><a href="#sasang-analysis" data-i18n="nav-sasang">사상체질</a></li>
+                <li><a href="#home" onclick="navigateTo('home'); return false;" data-i18n="nav-home">홈</a></li>
+                <li><a href="#" onclick="navigateTo('diary'); return false;" data-i18n="nav-diary">건강 다이어리</a></li>
+                <li><a href="#" onclick="navigateTo('catalog'); return false;" data-i18n="nav-catalog">운동 종류</a></li>
+                <li><a href="#" onclick="navigateTo('home-workout'); return false;" data-i18n="nav-home-workout">홈트 추천</a></li>
+                <li><a href="#" onclick="navigateTo('diet'); return false;" data-i18n="nav-diet">식단 추천</a></li>
+                <li><a href="#" onclick="navigateTo('supplement'); return false;" data-i18n="nav-supplement">영양제</a></li>
+                <li><a href="#" onclick="navigateTo('sasang'); return false;" data-i18n="nav-sasang">사상체질</a></li>
             </ul>
             <div class="nav-controls">
                 <button id="nav-share-btn" class="nav-btn-share" onclick="shareContent('general', 'webshare')" title="사이트 공유하기">
@@ -127,22 +127,22 @@
         </div>
     </nav>
 
-    <header id="home">
-        <div class="logo">
-            <i data-lucide="heart-pulse" aria-hidden="true"></i>
-            <h1 data-i18n="nav-logo">AI 건강 코치</h1>
-        </div>
-        <p data-i18n="header-subtitle">내 정보를 입력하고 AI가 분석한 맞춤형 운동·식단·영양제 플랜을 받아보세요</p>
-        <div class="header-feature-badges">
-            <span class="feature-badge">🏃 운동 추천</span>
-            <span class="feature-badge">🍽️ 식단 추천</span>
-            <span class="feature-badge">💊 영양제 추천</span>
-            <span class="feature-badge">📔 건강 다이어리</span>
-            <span class="feature-badge">🌿 사상체질 분석</span>
-        </div>
-    </header>
-
     <main>
+        <div id="pg-home" class="app-page">
+        <header id="home">
+            <div class="logo">
+                <i data-lucide="heart-pulse" aria-hidden="true"></i>
+                <h1 data-i18n="nav-logo">AI 건강 코치</h1>
+            </div>
+            <p data-i18n="header-subtitle">내 정보를 입력하고 AI가 분석한 맞춤형 운동·식단·영양제 플랜을 받아보세요</p>
+            <div class="header-feature-badges">
+                <span class="feature-badge">🏃 운동 추천</span>
+                <span class="feature-badge">🍽️ 식단 추천</span>
+                <span class="feature-badge">💊 영양제 추천</span>
+                <span class="feature-badge">📔 건강 다이어리</span>
+                <span class="feature-badge">🌿 사상체질 분석</span>
+            </div>
+        </header>
         <section id="body-metrics" class="feature-section">
             <h2 data-i18n="metrics-title"><i data-lucide="activity"></i> 신체 지표 분석</h2>
             <form id="metrics-form">
@@ -371,6 +371,27 @@
             </div>
         </section>
 
+            <div class="home-menu-section">
+                <h3 class="home-menu-title" data-i18n="home-menu-title">더 많은 기능 탐색하기</h3>
+                <div class="home-menu-grid">
+                    <button class="home-menu-card" onclick="navigateTo('diary')">📔 건강 다이어리</button>
+                    <button class="home-menu-card" onclick="navigateTo('catalog')">🏋️ 운동 종류</button>
+                    <button class="home-menu-card" onclick="navigateTo('home-workout')">🏠 홈트 추천</button>
+                    <button class="home-menu-card" onclick="navigateTo('diet')">🍽️ 식단 추천</button>
+                    <button class="home-menu-card" onclick="navigateTo('supplement')">💊 영양제</button>
+                    <button class="home-menu-card" onclick="navigateTo('sasang')">🌿 사상체질</button>
+                </div>
+            </div>
+        </div><!-- /pg-home -->
+
+        <div id="pg-diet" class="app-page hidden">
+            <div class="page-bar">
+                <button class="back-home-btn" onclick="navigateTo('home')">
+                    <i data-lucide="arrow-left"></i>
+                    <span data-i18n="back-home">홈으로 돌아가기</span>
+                </button>
+                <h2 class="page-bar-title" data-i18n="diet-title">식단 추천</h2>
+            </div>
         <section id="diet-recommendations" class="feature-section">
             <h2 data-i18n="diet-title"><i data-lucide="utensils"></i> 당신의 맞춤 식단 추천</h2>
             <p class="section-desc" data-i18n="diet-desc">수행된 운동 루틴과 신체 지표를 분석하여 영양학적으로 최적화된 아침, 점심, 저녁 식단을 제안합니다.</p>
@@ -378,7 +399,16 @@
                 <p class="empty-msg" data-i18n="stretching-empty">운동을 생성해 주세요!</p>
             </div>
         </section>
+        </div><!-- /pg-diet -->
 
+        <div id="pg-catalog" class="app-page hidden">
+            <div class="page-bar">
+                <button class="back-home-btn" onclick="navigateTo('home')">
+                    <i data-lucide="arrow-left"></i>
+                    <span data-i18n="back-home">홈으로 돌아가기</span>
+                </button>
+                <h2 class="page-bar-title" data-i18n="exercise-catalog-title">운동 종류 가이드</h2>
+            </div>
         <section id="exercise-catalog" class="feature-section">
             <h2 data-i18n="exercise-catalog-title"><i data-lucide="layers"></i> 운동 종류 가이드</h2>
             <div class="catalog-filter-bar">
@@ -394,7 +424,16 @@
                 <!-- Injected via JS -->
             </div>
         </section>
+        </div><!-- /pg-catalog -->
 
+        <div id="pg-home-workout" class="app-page hidden">
+            <div class="page-bar">
+                <button class="back-home-btn" onclick="navigateTo('home')">
+                    <i data-lucide="arrow-left"></i>
+                    <span data-i18n="back-home">홈으로 돌아가기</span>
+                </button>
+                <h2 class="page-bar-title" data-i18n="nav-home-workout">홈트 추천</h2>
+            </div>
         <section id="home-workout" class="feature-section">
             <h2 data-i18n="nav-home-workout"><i data-lucide="home"></i> 홈트레이닝 추천</h2>
             <p class="section-desc" data-i18n="home-workout-desc">집에서도 효과적으로 수행할 수 있는 맨몸 및 소도구 운동 가이드입니다.</p>
@@ -402,7 +441,16 @@
                 <!-- Injected via JS -->
             </div>
         </section>
+        </div><!-- /pg-home-workout -->
 
+        <div id="pg-supplement" class="app-page hidden">
+            <div class="page-bar">
+                <button class="back-home-btn" onclick="navigateTo('home')">
+                    <i data-lucide="arrow-left"></i>
+                    <span data-i18n="back-home">홈으로 돌아가기</span>
+                </button>
+                <h2 class="page-bar-title" data-i18n="supplement-title">영양제 추천</h2>
+            </div>
         <section id="supplement-recommendations" class="feature-section">
             <h2 data-i18n="supplement-title"><i data-lucide="pill"></i> 영양제 추천</h2>
             <p class="section-desc" data-i18n="supplement-desc">운동 목표와 체질에 맞는 효과적인 영양 성분 및 제품 추천입니다.</p>
@@ -410,8 +458,17 @@
                 <!-- Injected via JS -->
             </div>
         </section>
+        </div><!-- /pg-supplement -->
 
         <!-- 건강 다이어리 섹션 -->
+        <div id="pg-diary" class="app-page hidden">
+            <div class="page-bar">
+                <button class="back-home-btn" onclick="navigateTo('home')">
+                    <i data-lucide="arrow-left"></i>
+                    <span data-i18n="back-home">홈으로 돌아가기</span>
+                </button>
+                <h2 class="page-bar-title" data-i18n="diary-title">건강 다이어리</h2>
+            </div>
         <section id="health-diary" class="feature-section">
             <h2><i data-lucide="notebook-pen"></i> <span data-i18n="diary-title">오늘의 건강 다이어리</span></h2>
             <p class="section-desc" data-i18n="diary-subtitle">오늘 하루의 건강 습관을 기록하고 달성률을 확인하세요.</p>
@@ -570,6 +627,16 @@
             </div>
         </section>
 
+        </div><!-- /pg-diary -->
+
+        <div id="pg-sasang" class="app-page hidden">
+            <div class="page-bar">
+                <button class="back-home-btn" onclick="navigateTo('home')">
+                    <i data-lucide="arrow-left"></i>
+                    <span data-i18n="back-home">홈으로 돌아가기</span>
+                </button>
+                <h2 class="page-bar-title" data-i18n="sasang-title">사상체질</h2>
+            </div>
         <section id="sasang-analysis" class="feature-section">
             <h2 data-i18n="sasang-title"><i data-lucide="leaf"></i> 나의 한방 체질 (사상체질)</h2>
             <p class="section-desc" data-i18n="sasang-desc">한방 의학의 지혜로 타고난 체질을 분석하고 관리법을 제안합니다.</p>
@@ -633,6 +700,7 @@
                 </article>
             </div>
         </section>
+        </div><!-- /pg-sasang -->
     </main>
 
     <footer>
@@ -644,13 +712,13 @@
             <nav class="footer-section">
                 <h4 data-i18n="footer-links-title">빠른 링크</h4>
                 <ul>
-                    <li><a href="#home">홈</a></li>
-                    <li><a href="#health-diary">건강 다이어리</a></li>
-                    <li><a href="#exercise-catalog">운동 종류</a></li>
-                    <li><a href="#diet-recommendations">식단 추천</a></li>
-                    <li><a href="#supplement-recommendations">영양제 추천</a></li>
-                    <li><a href="#sasang-analysis">사상체질 진단</a></li>
-                    <li><a href="#mbti-analysis">MBTI 분석</a></li>
+                    <li><a href="#home" onclick="navigateTo('home'); return false;">홈</a></li>
+                    <li><a href="#" onclick="navigateTo('diary'); return false;">건강 다이어리</a></li>
+                    <li><a href="#" onclick="navigateTo('catalog'); return false;">운동 종류</a></li>
+                    <li><a href="#" onclick="navigateTo('diet'); return false;">식단 추천</a></li>
+                    <li><a href="#" onclick="navigateTo('supplement'); return false;">영양제 추천</a></li>
+                    <li><a href="#" onclick="navigateTo('sasang'); return false;">사상체질 진단</a></li>
+                    <li><a href="#home" onclick="navigateTo('home'); return false;">MBTI 분석</a></li>
                 </ul>
             </nav>
             <section class="footer-section">
