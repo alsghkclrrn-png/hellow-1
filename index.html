@@ -6,8 +6,8 @@
     <meta name="google-site-verification" content="google0178509708049ae8" />
     
     <!-- 기본 SEO 메타 태그 최적화 -->
-    <title data-i18n="nav-logo">AI 운동 코치 | 사상체질 & MBTI 기반 개인 맞춤형 헬스 라이프</title>
-    <meta name="description" content="AI 운동 코치가 당신의 MBTI와 사상체질을 분석하여 개인 맞춤형 운동 루틴, 식단, 스트레칭을 제안합니다. 한방 의학과 심리학이 결합된 전문적인 건강 인사이트를 경험하세요.">
+    <title data-i18n="nav-logo">AI 건강 코치 | 운동·식단·영양제·건강 다이어리 통합 플랫폼</title>
+    <meta name="description" content="AI 건강 코치가 당신의 정보를 분석하여 맞춤형 운동, 식단, 영양제를 추천하고 운동·식사·영양제·건강 체크까지 한 번에 관리합니다. 초보자도 쉽게 따라할 수 있는 운동 가이드 포함.">
     <meta name="keywords" content="AI 운동 코치, 사상체질, MBTI 운동, 맞춤형 식단, 건강 매거진, 홈트레이닝, 다이어트, 근성장, 스트레칭, 기초대사량 계산기, 한방 건강 분석">
     <meta name="author" content="AI Workout Coach">
     <link rel="canonical" href="https://hellow-1-93223112-6fea5.web.app">
@@ -105,12 +105,12 @@
             <a href="#home" class="nav-logo" data-i18n="nav-coach" aria-label="Home"><i data-lucide="dumbbell"></i> AI 코치</a>
             <ul class="nav-links">
                 <li><a href="#home" data-i18n="nav-home">홈</a></li>
-                <li><a href="#stretching-recommendations" data-i18n="nav-stretching">스트레칭 추천</a></li>
-                <li><a href="#exercise-catalog" data-i18n="nav-catalog">운동의 종류</a></li>
+                <li><a href="#health-diary" data-i18n="nav-diary">건강 다이어리</a></li>
+                <li><a href="#exercise-catalog" data-i18n="nav-catalog">운동 종류</a></li>
                 <li><a href="#home-workout" data-i18n="nav-home-workout">홈트 추천</a></li>
                 <li><a href="#diet-recommendations" data-i18n="nav-diet">식단 추천</a></li>
-                <li><a href="#sasang-analysis" data-i18n="nav-sasang">나의 한방 체질</a></li>
-                <li><a href="#supplement-recommendations" data-i18n="nav-supplement">영양제 추천</a></li>
+                <li><a href="#supplement-recommendations" data-i18n="nav-supplement">영양제</a></li>
+                <li><a href="#sasang-analysis" data-i18n="nav-sasang">사상체질</a></li>
             </ul>
             <div class="nav-controls">
                 <button id="nav-share-btn" class="nav-btn-share" onclick="shareContent('general', 'webshare')" title="사이트 공유하기">
@@ -129,10 +129,17 @@
 
     <header id="home">
         <div class="logo">
-            <i data-lucide="dumbbell" aria-hidden="true"></i>
-            <h1 data-i18n="nav-logo">AI 운동 코치</h1>
+            <i data-lucide="heart-pulse" aria-hidden="true"></i>
+            <h1 data-i18n="nav-logo">AI 건강 코치</h1>
         </div>
-        <p data-i18n="header-subtitle">AI가 제안하는 사상체질 & MBTI 기반 맞춤형 운동 플랜.</p>
+        <p data-i18n="header-subtitle">내 정보를 입력하고 AI가 분석한 맞춤형 운동·식단·영양제 플랜을 받아보세요</p>
+        <div class="header-feature-badges">
+            <span class="feature-badge">🏃 운동 추천</span>
+            <span class="feature-badge">🍽️ 식단 추천</span>
+            <span class="feature-badge">💊 영양제 추천</span>
+            <span class="feature-badge">📔 건강 다이어리</span>
+            <span class="feature-badge">🌿 사상체질 분석</span>
+        </div>
     </header>
 
     <main>
@@ -395,6 +402,165 @@
             </div>
         </section>
 
+        <!-- 건강 다이어리 섹션 -->
+        <section id="health-diary" class="feature-section">
+            <h2><i data-lucide="notebook-pen"></i> <span data-i18n="diary-title">오늘의 건강 다이어리</span></h2>
+            <p class="section-desc" data-i18n="diary-subtitle">오늘 하루의 건강 습관을 기록하고 달성률을 확인하세요.</p>
+
+            <!-- 날짜 및 스트릭 -->
+            <div class="diary-header">
+                <div class="diary-date-box">
+                    <i data-lucide="calendar-days"></i>
+                    <span id="diary-today-date"></span>
+                </div>
+                <div class="streak-badge">
+                    <i data-lucide="flame"></i>
+                    <span data-i18n="diary-streak">🔥 연속 달성일</span>
+                    <strong id="streak-count">0</strong>일
+                </div>
+            </div>
+
+            <!-- 탭 버튼 -->
+            <div class="diary-tabs">
+                <button class="diary-tab-btn active" onclick="switchDiaryTab('exercise')" data-i18n="diary-tab-exercise">🏃 운동 체크</button>
+                <button class="diary-tab-btn" onclick="switchDiaryTab('meal')" data-i18n="diary-tab-meal">🍽️ 식사 체크</button>
+                <button class="diary-tab-btn" onclick="switchDiaryTab('supplement')" data-i18n="diary-tab-supplement">💊 영양제 체크</button>
+                <button class="diary-tab-btn" onclick="switchDiaryTab('health')" data-i18n="diary-tab-health">❤️ 건강 체크</button>
+            </div>
+
+            <!-- 탭 패널: 운동 체크 -->
+            <div id="tab-exercise" class="diary-panel">
+                <p class="diary-hint" data-i18n="diary-exercise-hint">오늘 수행한 운동에 체크하세요</p>
+                <div class="diary-progress-bar-wrap">
+                    <div id="exercise-progress-bar" class="diary-progress-fill" style="width:0%"></div>
+                    <span id="exercise-progress-text" class="diary-progress-text">0%</span>
+                </div>
+                <div id="exercise-checklist" class="check-list"></div>
+            </div>
+
+            <!-- 탭 패널: 식사 체크 -->
+            <div id="tab-meal" class="diary-panel hidden">
+                <p class="diary-hint" data-i18n="diary-meal-hint">아침·점심·저녁 식사를 기록하세요</p>
+                <div class="meal-tracker-grid">
+                    <div class="meal-tracker-card" id="meal-card-breakfast">
+                        <div class="meal-card-header">
+                            <span data-i18n="diary-meal-breakfast">🌅 아침 식사</span>
+                            <button class="meal-done-btn" onclick="toggleMealDone('breakfast')" id="meal-btn-breakfast">완료</button>
+                        </div>
+                        <input type="text" class="meal-notes-input" id="meal-notes-breakfast" placeholder="오늘 먹은 음식을 기록해보세요" data-i18n="diary-meal-notes-placeholder" oninput="updateMealNote('breakfast', this.value)">
+                        <input type="number" class="meal-cal-input" id="meal-cal-breakfast" placeholder="칼로리 (kcal)" data-i18n="diary-meal-calories-placeholder" oninput="updateMealCalories('breakfast', this.value)">
+                    </div>
+                    <div class="meal-tracker-card" id="meal-card-lunch">
+                        <div class="meal-card-header">
+                            <span data-i18n="diary-meal-lunch">☀️ 점심 식사</span>
+                            <button class="meal-done-btn" onclick="toggleMealDone('lunch')" id="meal-btn-lunch">완료</button>
+                        </div>
+                        <input type="text" class="meal-notes-input" id="meal-notes-lunch" placeholder="오늘 먹은 음식을 기록해보세요" data-i18n="diary-meal-notes-placeholder" oninput="updateMealNote('lunch', this.value)">
+                        <input type="number" class="meal-cal-input" id="meal-cal-lunch" placeholder="칼로리 (kcal)" data-i18n="diary-meal-calories-placeholder" oninput="updateMealCalories('lunch', this.value)">
+                    </div>
+                    <div class="meal-tracker-card" id="meal-card-dinner">
+                        <div class="meal-card-header">
+                            <span data-i18n="diary-meal-dinner">🌙 저녁 식사</span>
+                            <button class="meal-done-btn" onclick="toggleMealDone('dinner')" id="meal-btn-dinner">완료</button>
+                        </div>
+                        <input type="text" class="meal-notes-input" id="meal-notes-dinner" placeholder="오늘 먹은 음식을 기록해보세요" data-i18n="diary-meal-notes-placeholder" oninput="updateMealNote('dinner', this.value)">
+                        <input type="number" class="meal-cal-input" id="meal-cal-dinner" placeholder="칼로리 (kcal)" data-i18n="diary-meal-calories-placeholder" oninput="updateMealCalories('dinner', this.value)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 탭 패널: 영양제 체크 -->
+            <div id="tab-supplement" class="diary-panel hidden">
+                <p class="diary-hint" data-i18n="diary-supplement-hint">복용한 영양제에 체크하고 시간을 기록하세요</p>
+                <div class="diary-progress-bar-wrap">
+                    <div id="supplement-progress-bar" class="diary-progress-fill" style="width:0%; background: linear-gradient(90deg, #818cf8, #a78bfa);"></div>
+                    <span id="supplement-progress-text" class="diary-progress-text">0%</span>
+                </div>
+                <div id="supplement-checklist" class="check-list"></div>
+            </div>
+
+            <!-- 탭 패널: 건강 체크 -->
+            <div id="tab-health" class="diary-panel hidden">
+                <p class="diary-hint" data-i18n="diary-health-hint">오늘의 건강 지표를 입력하세요</p>
+                <div class="health-metrics-grid">
+                    <!-- 물 섭취 -->
+                    <div class="health-metric-card">
+                        <div class="metric-icon">💧</div>
+                        <div class="metric-label" data-i18n="diary-water-label">물 섭취량 (잔)</div>
+                        <p class="metric-hint" data-i18n="diary-water-hint">물 한 잔씩 클릭</p>
+                        <div class="water-glasses" id="water-glasses"></div>
+                        <div class="metric-value" id="water-count">0 / 8잔</div>
+                    </div>
+                    <!-- 수면 -->
+                    <div class="health-metric-card">
+                        <div class="metric-icon">😴</div>
+                        <div class="metric-label" data-i18n="diary-sleep-label">수면 시간 (시간)</div>
+                        <input type="number" class="metric-input" id="sleep-input" min="0" max="24" step="0.5" placeholder="0" oninput="updateHealthField('sleep', this.value)">
+                        <div class="metric-unit">시간</div>
+                    </div>
+                    <!-- 기분 -->
+                    <div class="health-metric-card">
+                        <div class="metric-icon">😊</div>
+                        <div class="metric-label" data-i18n="diary-mood-label">오늘의 기분</div>
+                        <div class="mood-selector" id="mood-selector">
+                            <span class="mood-btn" onclick="selectMood('1')" title="매우 피곤함">😴</span>
+                            <span class="mood-btn" onclick="selectMood('2')" title="조금 피곤함">😟</span>
+                            <span class="mood-btn" onclick="selectMood('3')" title="보통">😐</span>
+                            <span class="mood-btn" onclick="selectMood('4')" title="좋음">😊</span>
+                            <span class="mood-btn" onclick="selectMood('5')" title="최고!">😄</span>
+                        </div>
+                    </div>
+                    <!-- 몸무게 -->
+                    <div class="health-metric-card">
+                        <div class="metric-icon">⚖️</div>
+                        <div class="metric-label" data-i18n="diary-weight-label">오늘 몸무게 (kg)</div>
+                        <input type="number" class="metric-input" id="weight-input" min="0" max="300" step="0.1" placeholder="0.0" oninput="updateHealthField('weight', this.value)">
+                        <div class="metric-unit">kg</div>
+                    </div>
+                    <!-- 걸음수 -->
+                    <div class="health-metric-card">
+                        <div class="metric-icon">👟</div>
+                        <div class="metric-label" data-i18n="diary-steps-label">걸음수 (보)</div>
+                        <input type="number" class="metric-input" id="steps-input" min="0" step="100" placeholder="0" oninput="updateHealthField('steps', this.value)">
+                        <div class="metric-unit">보</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 저장 버튼 -->
+            <button class="diary-save-btn" onclick="saveDiary()">
+                <i data-lucide="save"></i>
+                <span data-i18n="diary-save-btn">오늘 기록 저장하기</span>
+            </button>
+
+            <!-- 달성 요약 -->
+            <div class="diary-summary" id="diary-summary">
+                <h3 data-i18n="diary-summary-title">오늘의 달성 요약</h3>
+                <div class="diary-summary-grid">
+                    <div class="summary-card">
+                        <div class="summary-icon">🏃</div>
+                        <div class="pct" id="summary-exercise-pct">0%</div>
+                        <div class="summary-label" data-i18n="diary-exercise-progress">운동</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">🍽️</div>
+                        <div class="pct" id="summary-meal-pct">0%</div>
+                        <div class="summary-label" data-i18n="diary-meal-progress">식사</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">💊</div>
+                        <div class="pct" id="summary-supplement-pct">0%</div>
+                        <div class="summary-label" data-i18n="diary-supplement-progress">영양제</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">❤️</div>
+                        <div class="pct" id="summary-health-pct">0%</div>
+                        <div class="summary-label" data-i18n="diary-health-progress">건강</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="sasang-analysis" class="feature-section">
             <h2 data-i18n="sasang-title"><i data-lucide="leaf"></i> 나의 한방 체질 (사상체질)</h2>
             <p class="section-desc" data-i18n="sasang-desc">한방 의학의 지혜로 타고난 체질을 분석하고 관리법을 제안합니다.</p>
@@ -470,6 +636,10 @@
                 <h4 data-i18n="footer-links-title">빠른 링크</h4>
                 <ul>
                     <li><a href="#home">홈</a></li>
+                    <li><a href="#health-diary">건강 다이어리</a></li>
+                    <li><a href="#exercise-catalog">운동 종류</a></li>
+                    <li><a href="#diet-recommendations">식단 추천</a></li>
+                    <li><a href="#supplement-recommendations">영양제 추천</a></li>
                     <li><a href="#sasang-analysis">사상체질 진단</a></li>
                     <li><a href="#mbti-analysis">MBTI 분석</a></li>
                 </ul>
