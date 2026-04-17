@@ -199,10 +199,78 @@ function showMbtiResults() {
         (mbtiScores.T >= mbtiScores.F ? 'T' : 'F') +
         (mbtiScores.J >= mbtiScores.P ? 'J' : 'P');
     userData.mbti = type;
+
+    const dims = [
+        { pos: 'E', neg: 'I', pv: mbtiScores.E, nv: mbtiScores.I },
+        { pos: 'S', neg: 'N', pv: mbtiScores.S, nv: mbtiScores.N },
+        { pos: 'T', neg: 'F', pv: mbtiScores.T, nv: mbtiScores.F },
+        { pos: 'J', neg: 'P', pv: mbtiScores.J, nv: mbtiScores.P },
+    ];
+
     document.getElementById('mbti-quiz').classList.add('hidden');
     document.getElementById('mbti-results').classList.remove('hidden');
     document.getElementById('mbti-type-value').textContent = type;
-    document.getElementById('mbti-type-desc').innerHTML = translations[currentLang][`mbti-type-${type}`] || '';
+
+    const td = translations[currentLang][`mbti-type-${type}`];
+    if (!td || typeof td !== 'object') {
+        document.getElementById('mbti-type-desc').innerHTML = translations[currentLang][`mbti-type-${type}`] || '';
+        const display = document.getElementById('mbti-display');
+        if (display) { display.value = type; display.classList.add('populated'); }
+        return;
+    }
+
+    document.getElementById('mbti-type-desc').innerHTML =
+        `<strong>${td.emoji} ${td.name}</strong><br><br>${td.summary}`;
+
+    // 차원별 분포 바
+    const barsHTML = dims.map(d => {
+        const pp = Math.round((d.pv / 5) * 100);
+        const np = 100 - pp;
+        const posActive = type.includes(d.pos);
+        return `<div class="mbti-dim-row">
+          <div class="mbti-dim-labels">
+            <span class="mbti-dim-letter ${posActive ? 'active' : ''}">${d.pos}</span>
+            <span class="mbti-dim-letter ${!posActive ? 'active' : ''}">${d.neg}</span>
+          </div>
+          <div class="mbti-dim-track">
+            <div class="mbti-dim-bar pos-bar" style="width:${pp}%"></div>
+            <div class="mbti-dim-bar neg-bar" style="width:${np}%"></div>
+          </div>
+          <div class="mbti-dim-percents"><span>${pp}%</span><span>${np}%</span></div>
+        </div>`;
+    }).join('');
+    document.getElementById('mbti-dimension-bars').innerHTML =
+        `<h4 class="mbti-section-title">차원별 성향 분포</h4>${barsHTML}`;
+
+    // 인지기능 인사이트
+    const cf = td.cogFunctions;
+    document.getElementById('mbti-insight-text').innerHTML = `
+        <div class="mbti-cog-grid">
+          <div class="mbti-cog-item dominant"><span class="cog-badge">주기능</span><p>${cf.dominant}</p></div>
+          <div class="mbti-cog-item auxiliary"><span class="cog-badge">부기능</span><p>${cf.auxiliary}</p></div>
+          <div class="mbti-cog-item tertiary"><span class="cog-badge">3차기능</span><p>${cf.tertiary}</p></div>
+          <div class="mbti-cog-item inferior"><span class="cog-badge">열등기능</span><p>${cf.inferior}</p></div>
+        </div>`;
+
+    // 상세 분석 카드
+    document.getElementById('mbti-detail-cards').innerHTML = `
+        <div class="mbti-detail-card strengths-card">
+          <h4 class="mbti-card-heading"><span class="mbti-icon">💪</span> 주요 강점</h4>
+          <ul class="mbti-report-list">${td.strengths.map(s => `<li>${s}</li>`).join('')}</ul>
+        </div>
+        <div class="mbti-detail-card challenges-card">
+          <h4 class="mbti-card-heading"><span class="mbti-icon">⚡</span> 주의 사항</h4>
+          <ul class="mbti-report-list challenges">${td.challenges.map(c => `<li>${c}</li>`).join('')}</ul>
+        </div>
+        <div class="mbti-detail-card motivation-card">
+          <h4 class="mbti-card-heading"><span class="mbti-icon">🎯</span> 동기 부여 방식</h4>
+          <p class="mbti-body-text">${td.motivation}</p>
+        </div>
+        <div class="mbti-detail-card fitness-card">
+          <h4 class="mbti-card-heading"><span class="mbti-icon">🏋️</span> 피트니스 접근법</h4>
+          <p class="mbti-body-text">${td.fitness}</p>
+        </div>`;
+
     const display = document.getElementById('mbti-display');
     if (display) { display.value = type; display.classList.add('populated'); }
 }
