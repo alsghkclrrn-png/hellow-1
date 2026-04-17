@@ -2748,6 +2748,37 @@ footer {
     margin-right: 4px;
 }
 
+/* 식단 목표 탭 */
+.diet-goal-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.diet-goal-btn {
+    padding: 10px 22px;
+    border-radius: 30px;
+    border: 2px solid var(--border-color);
+    background: var(--card-background);
+    color: var(--secondary-color);
+    font-size: 0.9em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.diet-goal-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.diet-goal-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+}
+
 /* diet-grid에서 카드 1열 레이아웃 */
 #diet-container {
     display: flex;

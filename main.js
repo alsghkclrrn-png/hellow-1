@@ -464,6 +464,12 @@ function generateStretching(exercises) {
     });
 }
 
+function switchDietGoal(goal, btn) {
+    document.querySelectorAll('.diet-goal-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    generateDiet(goal);
+}
+
 function generateDiet(goal) {
     const container = document.getElementById('diet-container');
     container.innerHTML = '';
@@ -1212,7 +1218,11 @@ function navigateTo(pageId) {
     if (pageId === 'catalog') renderCatalog();
     if (pageId === 'home-workout') renderHomeWorkout();
     if (pageId === 'supplement') renderSupplements();
-    // diet content is generated after workout — no standalone render needed
+    if (pageId === 'diet') {
+        const activeBtn = document.querySelector('.diet-goal-btn.active');
+        const goal = (activeBtn && activeBtn.dataset.goal) || userData.goal || 'weight-loss';
+        generateDiet(goal);
+    }
 
     // lucide 아이콘 재생성
     if (window.lucide) lucide.createIcons();
