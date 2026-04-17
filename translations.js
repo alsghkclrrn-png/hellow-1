@@ -1343,7 +1343,7 @@ const dietDatabase = [
     {
         time: 'breakfast', goal: 'muscle-gain',
         name: { ko: '오트밀 + 달걀 프라이 3개', en: 'Oatmeal + 3 Fried Eggs' },
-        image: 'https://images.pexels.com/photos/4220141/pexels-photo-4220141.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/2059151/pexels-photo-2059151.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 580, protein: 38, carbs: 62, fat: 20, fiber: 8, sodium: 310,
         ingredients: {
             ko: '• 롤드 오트 (오트밀) 80g\n• 달걀 3개\n• 우유 200ml (또는 두유)\n• 바나나 1개\n• 꿀 1작은술\n• 계피 가루 약간 (선택)\n• 조리용 오일 1작은술\n• 소금 1/4 작은술',
@@ -1358,7 +1358,7 @@ const dietDatabase = [
     {
         time: 'lunch', goal: 'muscle-gain',
         name: { ko: '소고기 브로콜리 볶음 + 흰밥', en: 'Beef & Broccoli Stir-fry + White Rice' },
-        image: 'https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/24738519/pexels-photo-24738519.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 650, protein: 45, carbs: 70, fat: 18, fiber: 6, sodium: 620,
         ingredients: {
             ko: '• 소고기 (불고기용 또는 등심) 200g\n• 브로콜리 150g (약 1/2 송이)\n• 마늘 3쪽\n• 간장 2큰술\n• 굴소스 1큰술\n• 참기름 1작은술\n• 설탕 1작은술\n• 식용유 1큰술\n• 흰밥 200g (공기 1그릇)',
@@ -1419,7 +1419,7 @@ const dietDatabase = [
     {
         time: 'dinner', goal: 'general-fitness',
         name: { ko: '고등어구이 + 나물반찬', en: 'Grilled Mackerel + Namul Sides' },
-        image: 'https://images.pexels.com/photos/8352799/pexels-photo-8352799.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/11653557/pexels-photo-11653557.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 490, protein: 36, carbs: 42, fat: 18, fiber: 8, sodium: 480,
         ingredients: {
             ko: '• 고등어 1마리 (또는 토막 2조각)\n• 소금 1/2 작은술\n• 청주 또는 맛술 1큰술\n• 시금치 150g\n• 콩나물 100g\n• 참기름 1작은술\n• 다진 마늘 1/2 작은술\n• 간장 1작은술\n• 깨소금 약간\n• 현미밥 150g',
@@ -1436,7 +1436,7 @@ const dietDatabase = [
     {
         time: 'breakfast', goal: 'weight-loss',
         name: { ko: '달걀 야채 오믈렛', en: 'Veggie Egg Omelette' },
-        image: 'https://images.pexels.com/photos/1482803/pexels-photo-1482803.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/6294359/pexels-photo-6294359.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 280, protein: 20, carbs: 8, fat: 18, fiber: 3, sodium: 280,
         ingredients: {
             ko: '• 달걀 3개\n• 시금치 40g\n• 양파 1/4개\n• 파프리카 1/4개\n• 방울토마토 5개\n• 올리브오일 1작은술\n• 소금 1/4 작은술\n• 후추 약간\n• 파마산 치즈 1큰술 (선택)',
@@ -1451,7 +1451,7 @@ const dietDatabase = [
     {
         time: 'breakfast', goal: 'weight-loss',
         name: { ko: '귀리죽 + 블루베리', en: 'Oat Porridge + Blueberries' },
-        image: 'https://images.pexels.com/photos/3771120/pexels-photo-3771120.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/12955496/pexels-photo-12955496.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 300, protein: 10, carbs: 52, fat: 6, fiber: 8, sodium: 120,
         ingredients: {
             ko: '• 오트밀 (귀리) 50g\n• 물 또는 우유 300ml\n• 블루베리 80g (냉동 가능)\n• 꿀 1작은술\n• 시나몬 파우더 약간\n• 아몬드 슬라이스 1큰술\n• 소금 한 꼬집',
@@ -1466,7 +1466,7 @@ const dietDatabase = [
     {
         time: 'lunch', goal: 'weight-loss',
         name: { ko: '닭가슴살 쌈밥', en: 'Chicken Ssambap (Lettuce Wraps)' },
-        image: 'https://images.pexels.com/photos/7353380/pexels-photo-7353380.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/5774152/pexels-photo-5774152.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 390, protein: 35, carbs: 38, fat: 8, fiber: 5, sodium: 420,
         ingredients: {
             ko: '• 닭가슴살 150g\n• 상추 10장\n• 깻잎 5장\n• 잡곡밥 또는 현미밥 100g\n• 된장 1큰술\n• 다진 마늘 1/2 작은술\n• 참기름 1/2 작은술\n• 참깨 약간\n• 청양고추 1개 (선택)',
@@ -1481,7 +1481,7 @@ const dietDatabase = [
     {
         time: 'lunch', goal: 'weight-loss',
         name: { ko: '미역국 + 잡곡밥', en: 'Seaweed Soup + Multigrain Rice' },
-        image: 'https://images.pexels.com/photos/9609834/pexels-photo-9609834.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/1893563/pexels-photo-1893563.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 360, protein: 18, carbs: 55, fat: 6, fiber: 9, sodium: 520,
         ingredients: {
             ko: '• 마른 미역 15g (불리면 약 100g)\n• 소고기 우둔살 80g (또는 참치 캔 1개)\n• 다진 마늘 1 작은술\n• 국간장 1.5큰술\n• 참기름 1작은술\n• 물 700ml\n• 잡곡밥 100g',
@@ -1496,7 +1496,7 @@ const dietDatabase = [
     {
         time: 'dinner', goal: 'weight-loss',
         name: { ko: '새우 야채볶음 + 두부', en: 'Shrimp & Veggie Stir-fry + Tofu' },
-        image: 'https://images.pexels.com/photos/2871757/pexels-photo-2871757.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/8697543/pexels-photo-8697543.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 350, protein: 32, carbs: 16, fat: 14, fiber: 6, sodium: 460,
         ingredients: {
             ko: '• 새우 150g (껍질 제거)\n• 두부 100g (부침용)\n• 브로콜리 100g\n• 당근 1/4개\n• 양파 1/4개\n• 마늘 2쪽\n• 굴소스 1큰술\n• 간장 1/2큰술\n• 올리브오일 1큰술\n• 후추 약간',
@@ -1511,7 +1511,7 @@ const dietDatabase = [
     {
         time: 'dinner', goal: 'weight-loss',
         name: { ko: '닭가슴살 된장찌개', en: 'Chicken Breast Doenjang Jjigae' },
-        image: 'https://images.pexels.com/photos/6249500/pexels-photo-6249500.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/13774731/pexels-photo-13774731.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 330, protein: 34, carbs: 18, fat: 10, fiber: 6, sodium: 560,
         ingredients: {
             ko: '• 닭가슴살 150g\n• 두부 100g\n• 애호박 1/3개\n• 양파 1/4개\n• 표고버섯 2개\n• 된장 2큰술\n• 다진 마늘 1작은술\n• 물 500ml\n• 대파 1/4대\n• 청양고추 1개 (선택)',
@@ -1528,7 +1528,7 @@ const dietDatabase = [
     {
         time: 'breakfast', goal: 'muscle-gain',
         name: { ko: '바나나 단백질 스무디 + 통밀빵', en: 'Banana Protein Smoothie + Whole Wheat Toast' },
-        image: 'https://images.pexels.com/photos/3621164/pexels-photo-3621164.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/775032/pexels-photo-775032.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 580, protein: 38, carbs: 72, fat: 10, fiber: 7, sodium: 280,
         ingredients: {
             ko: '• 바나나 1개 (냉동 가능)\n• 그릭요거트 150g\n• 우유 200ml\n• 단백질 파우더 1스쿱 (선택)\n• 꿀 1작은술\n• 통밀빵 2장\n• 땅콩버터 1큰술\n• 얼음 4~5개 (선택)',
@@ -1558,7 +1558,7 @@ const dietDatabase = [
     {
         time: 'lunch', goal: 'muscle-gain',
         name: { ko: '참치 야채 비빔밥', en: 'Tuna & Veggie Bibimbap' },
-        image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/5773960/pexels-photo-5773960.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 580, protein: 38, carbs: 70, fat: 14, fiber: 7, sodium: 540,
         ingredients: {
             ko: '• 참치 캔 150g (기름 제거)\n• 밥 180g\n• 시금치 70g\n• 콩나물 70g\n• 당근 1/4개\n• 달걀 1개 (반숙용)\n• 고추장 1큰술\n• 참기름 1작은술\n• 간장 1/2큰술\n• 다진 마늘 1/2 작은술\n• 깨소금 약간',
@@ -1573,7 +1573,7 @@ const dietDatabase = [
     {
         time: 'lunch', goal: 'muscle-gain',
         name: { ko: '돼지고기 김치찌개 + 밥', en: 'Pork Kimchi Jjigae + Rice' },
-        image: 'https://images.pexels.com/photos/5908239/pexels-photo-5908239.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/13774731/pexels-photo-13774731.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 620, protein: 42, carbs: 65, fat: 18, fiber: 5, sodium: 700,
         ingredients: {
             ko: '• 돼지고기 삼겹살 또는 앞다리살 150g\n• 잘 익은 김치 200g\n• 두부 100g\n• 대파 1/2대\n• 양파 1/4개\n• 고추장 1작은술\n• 고춧가루 1작은술\n• 설탕 1/2 작은술\n• 참기름 1작은술\n• 물 300ml\n• 밥 150g',
@@ -1588,7 +1588,7 @@ const dietDatabase = [
     {
         time: 'dinner', goal: 'muscle-gain',
         name: { ko: '삼겹살 쌈 + 된장', en: 'Grilled Pork Belly Ssam' },
-        image: 'https://images.pexels.com/photos/6249499/pexels-photo-6249499.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/692363/pexels-photo-692363.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 640, protein: 35, carbs: 30, fat: 38, fiber: 6, sodium: 480,
         ingredients: {
             ko: '• 삼겹살 200g\n• 상추 10장\n• 깻잎 5장\n• 된장 1큰술\n• 다진 마늘 1/2 작은술\n• 청양고추 1개\n• 참기름 1/2 작은술\n• 마늘 3쪽 (통마늘 구이용)\n• 잡곡밥 150g',
@@ -1650,7 +1650,7 @@ const dietDatabase = [
     {
         time: 'lunch', goal: 'general-fitness',
         name: { ko: '두부 김치볶음 + 잡곡밥', en: 'Tofu Kimchi Stir-fry + Multigrain Rice' },
-        image: 'https://images.pexels.com/photos/5908226/pexels-photo-5908226.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/8954371/pexels-photo-8954371.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 460, protein: 22, carbs: 58, fat: 14, fiber: 6, sodium: 580,
         ingredients: {
             ko: '• 두부 200g (부침용 또는 찌개용)\n• 잘 익은 김치 150g\n• 대파 1/3대\n• 돼지고기 다짐육 80g (생략 가능)\n• 고추장 1/2 작은술\n• 참기름 1작은술\n• 식용유 1큰술\n• 설탕 1/2 작은술\n• 잡곡밥 150g',
@@ -1665,7 +1665,7 @@ const dietDatabase = [
     {
         time: 'lunch', goal: 'general-fitness',
         name: { ko: '비빔국수', en: 'Bibim Noodles (Spicy Mixed Noodles)' },
-        image: 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/6454809/pexels-photo-6454809.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 430, protein: 16, carbs: 72, fat: 10, fiber: 5, sodium: 620,
         ingredients: {
             ko: '• 소면 또는 중면 100g\n• 오이 1/2개\n• 당근 1/4개\n• 달걀 1개 (반숙)\n• 고추장 1.5큰술\n• 고춧가루 1/2 작은술\n• 간장 1작은술\n• 식초 1큰술\n• 설탕 1작은술\n• 참기름 1작은술\n• 참깨 약간\n• 마늘 1/2 작은술 (다진 것)',
@@ -1680,7 +1680,7 @@ const dietDatabase = [
     {
         time: 'dinner', goal: 'general-fitness',
         name: { ko: '된장 삼겹살 쌈', en: 'Doenjang Pork Belly Ssam' },
-        image: 'https://images.pexels.com/photos/5908244/pexels-photo-5908244.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/692363/pexels-photo-692363.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 520, protein: 28, carbs: 28, fat: 32, fiber: 7, sodium: 490,
         ingredients: {
             ko: '• 삼겹살 150g\n• 상추 8장\n• 깻잎 4장\n• 된장 1.5큰술\n• 고추장 1/2 작은술\n• 참기름 1작은술\n• 다진 마늘 1/2 작은술\n• 청양고추 1개\n• 파 약간\n• 잡곡밥 120g',
@@ -1695,7 +1695,7 @@ const dietDatabase = [
     {
         time: 'dinner', goal: 'general-fitness',
         name: { ko: '참치 미역국 + 현미밥', en: 'Tuna Seaweed Soup + Brown Rice' },
-        image: 'https://images.pexels.com/photos/8969237/pexels-photo-8969237.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/1893563/pexels-photo-1893563.jpeg?auto=compress&cs=tinysrgb&w=400',
         calories: 410, protein: 28, carbs: 52, fat: 9, fiber: 8, sodium: 500,
         ingredients: {
             ko: '• 마른 미역 10g\n• 참치 캔 130g (기름 제거)\n• 다진 마늘 1작은술\n• 국간장 1큰술\n• 참기름 1작은술\n• 물 700ml\n• 소금 약간\n• 현미밥 150g',
