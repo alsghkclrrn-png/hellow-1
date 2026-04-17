@@ -2748,11 +2748,20 @@ footer {
     margin-right: 4px;
 }
 
+/* 식단 헤더 행 (탭 + 셔플 버튼) */
+.diet-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
 /* 식단 목표 탭 */
 .diet-goal-tabs {
     display: flex;
     gap: 10px;
-    margin-bottom: 24px;
     flex-wrap: wrap;
 }
 
@@ -2776,6 +2785,24 @@ footer {
 .diet-goal-btn.active {
     background: var(--primary-color);
     border-color: var(--primary-color);
+    color: #fff;
+}
+
+.diet-shuffle-btn {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 2px solid var(--primary-color);
+    background: transparent;
+    color: var(--primary-color);
+    font-size: 0.88em;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.diet-shuffle-btn:hover {
+    background: var(--primary-color);
     color: #fff;
 }
 

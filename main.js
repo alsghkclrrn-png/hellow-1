@@ -470,6 +470,12 @@ function switchDietGoal(goal, btn) {
     generateDiet(goal);
 }
 
+function shuffleDiet() {
+    const activeBtn = document.querySelector('.diet-goal-btn.active');
+    const goal = (activeBtn && activeBtn.dataset.goal) || 'weight-loss';
+    generateDiet(goal);
+}
+
 function generateDiet(goal) {
     const container = document.getElementById('diet-container');
     container.innerHTML = '';
@@ -502,7 +508,8 @@ function generateDiet(goal) {
     };
 
     order.forEach(time => {
-        const meal = meals.find(m => m.time === time);
+        const options = meals.filter(m => m.time === time);
+        const meal = options[Math.floor(Math.random() * options.length)];
         if (!meal) return;
         const div = document.createElement('div');
         div.className = 'diet-card';

@@ -1430,6 +1430,282 @@ const dietDatabase = [
             en: '① Prep the mackerel\nRinse mackerel under cold water and pat completely dry with paper towels. Score 2–3 diagonal cuts on each side (this helps salt penetrate and reduces fishy odor). Brush with rice wine and let sit 5 minutes, then sprinkle salt evenly.\n\n② Grill the mackerel\nHeat a lightly oiled pan over medium-high heat. Place mackerel skin-side down and cook undisturbed for 5 minutes until the skin is golden and crispy. Carefully flip and cook 3–4 more minutes. (A loose lid placed on top helps cook the inside faster)\n\n③ Make spinach namul\nBoil water and blanch spinach for 30–60 seconds until bright green. Transfer immediately to cold water, then squeeze out all the water with your hands. Season with 1/2 tsp sesame oil + 1/4 tsp minced garlic + pinch of salt and mix well.\n\n④ Make bean sprout namul\nPlace bean sprouts in a pot with 3 tbsp water. Cover tightly and steam on medium heat for 5 minutes. (Do NOT open the lid — it causes a beany smell!) Once cooled, season with 1 tsp soy sauce + 1/2 tsp sesame oil + 1/4 tsp garlic.\n\n⑤ Plate and serve\nServe brown rice in a bowl alongside the grilled mackerel and the two namul sides arranged neatly. Sprinkle sesame seeds over the namul. Eating rice, namul, and fish together provides a perfectly balanced Korean meal.'
         },
         vitamins: { ko: '비타민 D · 비타민 B12 · 오메가-3 · 칼슘 · 비타민 K · 철분', en: 'Vitamin D · Vitamin B12 · Omega-3 · Calcium · Vitamin K · Iron' }
+    },
+
+    // ── 체중감량 추가 메뉴 ──────────────────────────────────────
+    {
+        time: 'breakfast', goal: 'weight-loss',
+        name: { ko: '달걀 야채 오믈렛', en: 'Veggie Egg Omelette' },
+        image: 'https://images.pexels.com/photos/1482803/pexels-photo-1482803.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 280, protein: 20, carbs: 8, fat: 18, fiber: 3, sodium: 280,
+        ingredients: {
+            ko: '• 달걀 3개\n• 시금치 40g\n• 양파 1/4개\n• 파프리카 1/4개\n• 방울토마토 5개\n• 올리브오일 1작은술\n• 소금 1/4 작은술\n• 후추 약간\n• 파마산 치즈 1큰술 (선택)',
+            en: '• 3 Eggs\n• 40g Spinach\n• 1/4 Onion\n• 1/4 Bell pepper\n• 5 Cherry tomatoes\n• 1 tsp Olive oil\n• 1/4 tsp Salt\n• Pepper to taste\n• 1 tbsp Parmesan cheese (optional)'
+        },
+        recipe: {
+            ko: '⏱ 준비 5분 | 조리 8분 | 🔪 프라이팬(지름 20cm), 볼, 포크, 주걱\n\n① 채소 썰기\n양파는 0.3cm 얇게 채 썰고, 파프리카는 가늘게 채 썰고, 방울토마토는 반으로 자릅니다. 시금치는 뿌리 부분만 잘라내고 그대로 사용합니다.\n💡 채소는 최대한 얇게 썰어야 달걀이 익는 시간 안에 함께 익습니다.\n\n② 달걀물 만들기\n볼에 달걀 3개를 깨고 소금 1/4 작은술 + 후추를 넣은 뒤 포크로 흰자와 노른자가 완전히 섞일 때까지 30초간 빠르게 젓습니다.\n💡 거품이 많이 생기면 오믈렛이 더 부드럽습니다. 30초 이상 힘차게 저으세요.\n\n③ 채소 볶기\n팬에 올리브오일을 두르고 중간 불로 달굽니다. 양파와 파프리카를 먼저 2분간 볶아 살짝 투명해지면 시금치와 방울토마토를 넣고 1분 더 볶습니다. 볶은 채소는 팬 한쪽으로 밀어둡니다.\n\n④ 달걀물 붓기\n채소가 있는 팬에 달걀물을 골고루 붓습니다. 중약불로 줄이고 가장자리가 굳기 시작하면 주걱으로 가장자리를 살살 안쪽으로 밀어줍니다.\n⚠️ 이 단계에서 절대 세게 젓지 마세요. 스크램블이 아닌 오믈렛을 만드는 중입니다!\n\n⑤ 반으로 접기\n달걀 표면이 80% 굳었을 때 (가운데가 아직 살짝 촉촉) 치즈를 뿌리고 주걱으로 반달 모양으로 접습니다. 10초 더 익혀 완성!\n✅ 완성 확인: 겉은 노릇하고 속은 촉촉한 상태가 완벽한 오믈렛입니다.',
+            en: '⏱ Prep 5 min | Cook 8 min | 🔪 20cm frying pan, bowl, fork, spatula\n\n① Chop the vegetables\nThinly slice onion and bell pepper into strips. Halve cherry tomatoes. Trim spinach roots and use as-is.\n💡 Cut vegetables thin so they cook through in the same time as the eggs.\n\n② Make the egg mixture\nCrack 3 eggs into a bowl. Add 1/4 tsp salt and pepper. Beat vigorously with a fork for 30 seconds until whites and yolks are fully combined.\n💡 More bubbles = fluffier omelette. Beat hard!\n\n③ Sauté the vegetables\nHeat olive oil in the pan over medium heat. Cook onion and bell pepper for 2 minutes until slightly soft. Add spinach and tomatoes, cook 1 more minute. Push vegetables to one side.\n\n④ Pour in the egg mixture\nPour beaten eggs evenly over the pan. Reduce to medium-low. When edges start to set, gently push the edges inward with a spatula.\n⚠️ Do NOT stir — you are making an omelette, not scrambled eggs!\n\n⑤ Fold in half\nWhen the surface is 80% set (center still slightly glossy), sprinkle cheese and fold in half with the spatula. Cook 10 more seconds.\n✅ Perfect omelette: golden outside, just slightly moist inside.'
+        },
+        vitamins: { ko: '비타민 A · 비타민 D · 비타민 B12 · 콜린 · 루테인 · 철분', en: 'Vitamin A · Vitamin D · Vitamin B12 · Choline · Lutein · Iron' }
+    },
+    {
+        time: 'breakfast', goal: 'weight-loss',
+        name: { ko: '귀리죽 + 블루베리', en: 'Oat Porridge + Blueberries' },
+        image: 'https://images.pexels.com/photos/3771120/pexels-photo-3771120.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 300, protein: 10, carbs: 52, fat: 6, fiber: 8, sodium: 120,
+        ingredients: {
+            ko: '• 오트밀 (귀리) 50g\n• 물 또는 우유 300ml\n• 블루베리 80g (냉동 가능)\n• 꿀 1작은술\n• 시나몬 파우더 약간\n• 아몬드 슬라이스 1큰술\n• 소금 한 꼬집',
+            en: '• 50g Rolled oats\n• 300ml Water or milk\n• 80g Blueberries (frozen ok)\n• 1 tsp Honey\n• Cinnamon powder to taste\n• 1 tbsp Sliced almonds\n• Pinch of salt'
+        },
+        recipe: {
+            ko: '⏱ 준비 2분 | 조리 10분 | 🔪 냄비, 숟가락\n\n① 귀리 계량하기\n냄비에 오트밀 50g을 넣습니다. 귀리 종류에 따라 조리 시간이 다릅니다 — 일반 롤드 오트는 5~7분, 퀵 오트는 3분이면 됩니다.\n💡 마트에서 "오트밀" 또는 "귀리 플레이크"를 구입하세요. 퀵 오트가 초보자에게 더 쉽습니다.\n\n② 물 붓고 끓이기\n귀리 위에 물(또는 우유) 300ml와 소금 한 꼬집을 넣고 중강불로 올립니다. 끓기 시작하면 중간 불로 줄이고 나무 숟가락으로 바닥이 눌어붙지 않도록 계속 저으며 끓입니다.\n⚠️ 냄비를 비워두면 바닥에 눌어붙습니다! 자리를 지키면서 1~2분마다 저어주세요.\n\n③ 농도 맞추기\n귀리가 물을 충분히 흡수해 걸쭉해지면 불을 끕니다. 너무 되면 물 1~2큰술 추가, 너무 묽으면 중약불로 1~2분 더 끓입니다.\n💡 그릇에 담으면 더 걸쭉해집니다. 냄비에서 살짝 묽은 것 같아도 OK!\n\n④ 토핑 올리기\n그릇에 귀리죽을 담고 블루베리를 듬뿍 올립니다. 꿀을 가늘게 줄줄이 뿌리고 시나몬 파우더를 살짝 뿌린 뒤 아몬드 슬라이스를 올려 완성합니다.\n\n⑤ 먹는 방법\n블루베리와 귀리죽을 함께 떠먹으면 달콤하고 새콤한 맛이 납니다. 꿀의 양으로 단맛을 조절하세요.\n✅ 완성 확인: 귀리가 부드럽게 퍼지고 큰 덩어리가 없으면 완성입니다.',
+            en: '⏱ Prep 2 min | Cook 10 min | 🔪 Small pot, spoon\n\n① Measure the oats\nAdd 50g rolled oats to the pot. Cooking time varies by type — rolled oats take 5–7 min, quick oats take ~3 min.\n💡 "Quick oats" are easier for beginners and cook faster.\n\n② Add liquid and heat\nPour 300ml water or milk over the oats with a pinch of salt. Heat over medium-high. Once it starts to boil, reduce to medium and stir continuously to prevent sticking.\n⚠️ Oats stick to the bottom fast — never leave the pot unattended!\n\n③ Adjust the consistency\nOnce oats absorb the liquid and thicken, remove from heat. Too thick? Add 1–2 tbsp water. Too thin? Simmer 1–2 more minutes.\n💡 Porridge thickens as it sits in the bowl — slightly runny in the pot is perfect.\n\n④ Add toppings\nPour into a bowl. Top generously with blueberries, drizzle honey in a thin stream, dust with cinnamon, and scatter almond slices.\n\n⑤ Enjoy\nScoop blueberries and porridge together for a sweet-tart contrast. Adjust sweetness with more or less honey.\n✅ Done when: oats are soft with no hard pieces remaining.'
+        },
+        vitamins: { ko: '비타민 B1 · 비타민 C · 망간 · 베타글루칸 · 안토시아닌 · 마그네슘', en: 'Vitamin B1 · Vitamin C · Manganese · Beta-glucan · Anthocyanins · Magnesium' }
+    },
+    {
+        time: 'lunch', goal: 'weight-loss',
+        name: { ko: '닭가슴살 쌈밥', en: 'Chicken Ssambap (Lettuce Wraps)' },
+        image: 'https://images.pexels.com/photos/7353380/pexels-photo-7353380.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 390, protein: 35, carbs: 38, fat: 8, fiber: 5, sodium: 420,
+        ingredients: {
+            ko: '• 닭가슴살 150g\n• 상추 10장\n• 깻잎 5장\n• 잡곡밥 또는 현미밥 100g\n• 된장 1큰술\n• 다진 마늘 1/2 작은술\n• 참기름 1/2 작은술\n• 참깨 약간\n• 청양고추 1개 (선택)',
+            en: '• 150g Chicken breast\n• 10 Lettuce leaves\n• 5 Perilla leaves\n• 100g Multigrain or brown rice\n• 1 tbsp Doenjang paste\n• 1/2 tsp Minced garlic\n• 1/2 tsp Sesame oil\n• Sesame seeds\n• 1 chili pepper (optional)'
+        },
+        recipe: {
+            ko: '⏱ 준비 5분 | 조리 20분 | 🔪 냄비, 칼, 도마, 포크\n\n① 닭가슴살 삶기\n냄비에 물 500ml를 넣고 끓입니다. 닭가슴살을 통째로 넣고 중간 불로 15분 삶습니다. 취향에 따라 소금 1/2 작은술 + 통후추 5알을 같이 넣으면 잡내가 없어집니다.\n\n② 닭가슴살 찢기\n삶은 닭가슴살을 건져내 5분간 식힙니다. 포크 2개로 결대로 잡아당겨 한 입 크기 정도로 찢습니다. 참기름 1/2 작은술 + 참깨를 뿌려 살살 버무립니다.\n💡 닭가슴살에 참기름을 버무리면 퍽퍽함이 줄어들고 고소해집니다.\n\n③ 쌈장 만들기\n작은 그릇에 된장 1큰술 + 다진 마늘 1/2 작은술 + 참기름 1/2 작은술을 넣고 잘 섞습니다. 매운맛을 원하면 청양고추를 잘게 썰어 함께 섞습니다.\n\n④ 채소 씻기\n상추와 깻잎을 찬물에 30초간 씻어 채반에 올려 물기를 뺍니다.\n⚠️ 쌈 채소는 물기가 있으면 미끄러워 싸기 힘듭니다. 키친타월로 가볍게 눌러 물기를 제거하세요.\n\n⑤ 쌈 싸먹기\n상추 위에 깻잎을 올리고, 밥 1숟가락 + 닭가슴살 몇 조각 + 쌈장 조금을 올려 양 옆을 접어 입에 넣습니다.\n✅ 쌈은 한 입에 먹을 수 있는 크기로 만드는 것이 포인트! 너무 크게 싸면 흘립니다.',
+            en: '⏱ Prep 5 min | Cook 20 min | 🔪 Pot, knife, cutting board, 2 forks\n\n① Boil the chicken\nBring 500ml water to a boil. Add whole chicken breast and boil on medium heat for 15 minutes. Adding 1/2 tsp salt + 5 peppercorns removes any gamey smell.\n\n② Shred the chicken\nRemove chicken and rest 5 minutes. Use 2 forks to pull apart into bite-size strips along the grain. Toss with 1/2 tsp sesame oil + sesame seeds.\n💡 Sesame oil reduces the dry texture of chicken breast and adds nuttiness.\n\n③ Make ssam jang (wrap sauce)\nIn a small bowl, mix 1 tbsp doenjang + 1/2 tsp minced garlic + 1/2 tsp sesame oil. Add finely chopped chili for heat.\n\n④ Wash the leaves\nRinse lettuce and perilla leaves under cold water for 30 seconds. Drain on a rack.\n⚠️ Wet leaves are slippery and hard to wrap. Pat dry with paper towels.\n\n⑤ Wrap and eat\nPlace a perilla leaf on top of a lettuce leaf. Add 1 spoonful of rice, a few chicken pieces, and a small dab of ssam jang. Fold the sides in and eat in one bite.\n✅ Key: make each wrap small enough to fit in one mouthful — too big and it falls apart!'
+        },
+        vitamins: { ko: '비타민 B6 · 비타민 K · 단백질 · 엽산 · 칼륨 · 나이아신', en: 'Vitamin B6 · Vitamin K · Protein · Folate · Potassium · Niacin' }
+    },
+    {
+        time: 'lunch', goal: 'weight-loss',
+        name: { ko: '미역국 + 잡곡밥', en: 'Seaweed Soup + Multigrain Rice' },
+        image: 'https://images.pexels.com/photos/9609834/pexels-photo-9609834.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 360, protein: 18, carbs: 55, fat: 6, fiber: 9, sodium: 520,
+        ingredients: {
+            ko: '• 마른 미역 15g (불리면 약 100g)\n• 소고기 우둔살 80g (또는 참치 캔 1개)\n• 다진 마늘 1 작은술\n• 국간장 1.5큰술\n• 참기름 1작은술\n• 물 700ml\n• 잡곡밥 100g',
+            en: '• 15g Dried seaweed (expands to ~100g)\n• 80g Beef (or 1 can of tuna)\n• 1 tsp Minced garlic\n• 1.5 tbsp Soup soy sauce\n• 1 tsp Sesame oil\n• 700ml Water\n• 100g Cooked multigrain rice'
+        },
+        recipe: {
+            ko: '⏱ 준비 15분 (미역 불리기 포함) | 조리 15분 | 🔪 냄비, 칼, 도마\n\n① 미역 불리기 (먼저 시작!)\n마른 미역을 큰 그릇에 담고 찬물을 넉넉히 부어 15분간 불립니다. 미역이 5~7배로 불어납니다. 불린 미역을 건져내 물기를 꼭 짜고 한 입 크기(4~5cm)로 잘라줍니다.\n💡 미역을 너무 오래 불리면 물렁해집니다. 15분이면 충분해요.\n\n② 소고기 준비 (참치 대신 사용 시 생략)\n소고기를 3cm 크기로 썰고 키친타월로 핏물을 가볍게 닦습니다.\n\n③ 미역 볶기\n냄비에 참기름 1작은술을 두르고 중간 불로 달굽니다. 물기 제거한 미역을 넣고 1분간 볶습니다. 소고기를 넣고 2분 더 볶아 고기 겉면이 갈색이 되면 다진 마늘을 넣고 30초 볶습니다.\n⚠️ 참기름에 미역을 볶는 것이 미역국 감칠맛의 핵심! 이 단계를 건너뛰지 마세요.\n\n④ 물 붓고 끓이기\n물 700ml를 붓고 센 불로 끓입니다. 끓어오르면 중간 불로 줄이고 국간장 1.5큰술을 넣어 10분간 끓입니다. 간을 보고 싱거우면 국간장 추가, 짜면 물 추가.\n\n⑤ 완성 및 서빙\n잡곡밥을 공기에 담고 미역국은 국그릇에 담아 함께 냅니다.\n✅ 미역이 부드럽고 국물이 진한 갈색이면 완성!',
+            en: '⏱ Prep 15 min (including soaking) | Cook 15 min | 🔪 Pot, knife, cutting board\n\n① Soak the seaweed (start first!)\nPlace dried seaweed in a large bowl and cover with cold water. Soak 15 minutes — it will expand 5–7 times in size. Drain, squeeze out water, and cut into 4–5cm pieces.\n💡 Over-soaking makes seaweed mushy. 15 minutes is perfect.\n\n② Prep the beef (skip if using canned tuna)\nCut beef into 3cm pieces and pat dry with paper towels.\n\n③ Sauté seaweed\nHeat sesame oil in a pot over medium heat. Add drained seaweed and stir-fry 1 minute. Add beef and cook 2 more minutes until browned on the outside. Add minced garlic and stir 30 seconds.\n⚠️ Sautéing seaweed in sesame oil is the KEY to deep, rich flavor — don\'t skip this step!\n\n④ Add water and simmer\nPour in 700ml water and bring to a boil over high heat. Reduce to medium, add soup soy sauce, and simmer 10 minutes. Taste and adjust: bland = more soy sauce, too salty = add water.\n\n⑤ Serve\nScoop multigrain rice into a bowl and ladle soup alongside.\n✅ Done when seaweed is tender and broth is rich brown.'
+        },
+        vitamins: { ko: '요오드 · 칼슘 · 비타민 K · 엽산 · 철분 · 마그네슘', en: 'Iodine · Calcium · Vitamin K · Folate · Iron · Magnesium' }
+    },
+    {
+        time: 'dinner', goal: 'weight-loss',
+        name: { ko: '새우 야채볶음 + 두부', en: 'Shrimp & Veggie Stir-fry + Tofu' },
+        image: 'https://images.pexels.com/photos/2871757/pexels-photo-2871757.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 350, protein: 32, carbs: 16, fat: 14, fiber: 6, sodium: 460,
+        ingredients: {
+            ko: '• 새우 150g (껍질 제거)\n• 두부 100g (부침용)\n• 브로콜리 100g\n• 당근 1/4개\n• 양파 1/4개\n• 마늘 2쪽\n• 굴소스 1큰술\n• 간장 1/2큰술\n• 올리브오일 1큰술\n• 후추 약간',
+            en: '• 150g Shrimp (peeled)\n• 100g Firm tofu\n• 100g Broccoli\n• 1/4 Carrot\n• 1/4 Onion\n• 2 cloves Garlic\n• 1 tbsp Oyster sauce\n• 1/2 tbsp Soy sauce\n• 1 tbsp Olive oil\n• Pepper to taste'
+        },
+        recipe: {
+            ko: '⏱ 준비 10분 | 조리 12분 | 🔪 프라이팬, 칼, 도마, 키친타월\n\n① 두부 준비하기\n두부를 2cm 정사각형으로 썰고 키친타월 위에 올려 5분간 물기를 빼줍니다. 물기 제거가 볶음 핵심입니다.\n\n② 채소 준비하기\n브로콜리는 작은 송이로 나눠 흐르는 물에 씻습니다. 당근은 0.3cm 두께 반달 모양, 양파는 한 입 크기 사각형, 마늘은 편으로 썹니다.\n\n③ 두부 굽기\n팬에 올리브오일 1/2큰술을 두르고 중강불로 달군 뒤 두부를 넣어 앞뒤로 각 2~3분씩 황금색이 될 때까지 굽습니다. 구운 두부는 접시에 빼놓습니다.\n💡 두부를 건드리지 않고 그냥 두어야 바삭하게 됩니다.\n\n④ 채소와 새우 볶기\n같은 팬에 남은 올리브오일 1/2큰술을 두르고 마늘을 먼저 30초 볶습니다. 당근 → 양파 → 브로콜리 순서로 넣어 각 1분씩 볶습니다. 마지막으로 새우를 넣고 2분 볶아 분홍색으로 변하면 굴소스 + 간장을 넣고 1분 더 볶습니다.\n⚠️ 새우는 오래 익히면 질겨집니다. 분홍색으로 변하는 순간이 완성입니다!\n\n⑤ 완성\n구워둔 두부를 팬에 다시 넣고 30초간 소스와 버무립니다. 후추를 뿌려 그릇에 담습니다.\n✅ 새우가 동그랗게 말리고 분홍빛이 되었으면 완벽하게 익은 것입니다.',
+            en: '⏱ Prep 10 min | Cook 12 min | 🔪 Frying pan, knife, cutting board, paper towels\n\n① Prep the tofu\nCut tofu into 2cm cubes. Lay on paper towels for 5 minutes to absorb moisture. Dry tofu = crispy tofu.\n\n② Prep the vegetables\nBreak broccoli into small florets and rinse. Slice carrot into 0.3cm half-moons, cut onion into bite-size squares, slice garlic into thin rounds.\n\n③ Pan-fry the tofu\nHeat 1/2 tbsp olive oil in pan over medium-high. Add tofu and cook 2–3 minutes per side until golden. Remove and set aside.\n💡 Leave tofu alone while cooking — moving it prevents the crust from forming.\n\n④ Stir-fry vegetables and shrimp\nAdd remaining oil to the same pan. Sauté garlic 30 seconds. Add carrot → onion → broccoli, each 1 minute apart. Add shrimp last and stir-fry 2 minutes until pink. Add oyster sauce + soy sauce, stir 1 more minute.\n⚠️ Overcooked shrimp becomes rubbery. Take it off the heat the moment it turns fully pink!\n\n⑤ Finish\nReturn tofu to the pan and toss with the sauce for 30 seconds. Season with pepper and plate.\n✅ Done: shrimp are curled and pink, tofu is golden, vegetables are tender-crisp.'
+        },
+        vitamins: { ko: '비타민 C · 비타민 B12 · 셀레늄 · 아연 · 칼슘 · 오메가-3', en: 'Vitamin C · Vitamin B12 · Selenium · Zinc · Calcium · Omega-3' }
+    },
+    {
+        time: 'dinner', goal: 'weight-loss',
+        name: { ko: '닭가슴살 된장찌개', en: 'Chicken Breast Doenjang Jjigae' },
+        image: 'https://images.pexels.com/photos/6249500/pexels-photo-6249500.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 330, protein: 34, carbs: 18, fat: 10, fiber: 6, sodium: 560,
+        ingredients: {
+            ko: '• 닭가슴살 150g\n• 두부 100g\n• 애호박 1/3개\n• 양파 1/4개\n• 표고버섯 2개\n• 된장 2큰술\n• 다진 마늘 1작은술\n• 물 500ml\n• 대파 1/4대\n• 청양고추 1개 (선택)',
+            en: '• 150g Chicken breast\n• 100g Firm tofu\n• 1/3 Zucchini\n• 1/4 Onion\n• 2 Shiitake mushrooms\n• 2 tbsp Doenjang paste\n• 1 tsp Minced garlic\n• 500ml Water\n• 1/4 Green onion\n• 1 Chili pepper (optional)'
+        },
+        recipe: {
+            ko: '⏱ 준비 8분 | 조리 18분 | 🔪 냄비, 칼, 도마\n\n① 재료 손질\n닭가슴살은 2~3cm 크기로 깍둑썰기 합니다. 두부는 1.5cm 큐브로, 애호박은 반달 모양 0.5cm, 양파는 한 입 크기, 표고버섯은 기둥 떼고 0.5cm 두께로 슬라이스, 대파는 어슷썰기 합니다.\n\n② 된장 육수 만들기\n냄비에 물 500ml를 붓고 중강불로 올립니다. 작은 그릇에 된장 2큰술 + 물 2큰술을 먼저 풀어두면 덩어리 없이 잘 섞입니다. 물이 끓으면 풀어둔 된장을 넣고 다진 마늘을 넣습니다.\n\n③ 닭가슴살 먼저 넣기\n된장 국물이 끓으면 닭가슴살을 먼저 넣고 5분간 끓입니다. 닭이 가장 오래 걸리는 재료이므로 가장 먼저 넣습니다.\n💡 닭이 처음에는 분홍색이다가 흰색으로 변하면 겉이 익은 것입니다.\n\n④ 채소 넣기\n양파와 표고버섯을 넣고 3분 끓입니다. 애호박과 두부를 넣고 5분 더 끓입니다.\n⚠️ 두부를 넣은 후 너무 세게 젓지 마세요. 조각이 납니다.\n\n⑤ 마무리\n대파와 청양고추를 넣고 1~2분 끓입니다. 간을 보고 싱거우면 된장 1/2큰술 추가. 불을 끄고 바로 그릇에 담습니다.\n✅ 닭가슴살을 젓가락으로 잘랐을 때 속이 흰색이면 완성!',
+            en: '⏱ Prep 8 min | Cook 18 min | 🔪 Pot, knife, cutting board\n\n① Prep all ingredients\nCut chicken breast into 2–3cm cubes. Cube tofu into 1.5cm pieces. Slice zucchini into 0.5cm half-moons, cut onion into bite-size chunks, remove shiitake stems and slice 0.5cm thick, diagonally cut green onion.\n\n② Make doenjang broth\nPour 500ml water into the pot over medium-high heat. Pre-dissolve 2 tbsp doenjang in 2 tbsp cold water in a small cup (prevents clumps). Once water boils, stir in dissolved doenjang and minced garlic.\n\n③ Add chicken first\nAdd chicken breast cubes first and boil 5 minutes. Chicken takes the longest to cook, so it goes in first.\n💡 Chicken goes from pink to white as it cooks through — white = safely cooked outside.\n\n④ Add vegetables\nAdd onion and mushrooms, cook 3 minutes. Add zucchini and tofu, cook 5 more minutes.\n⚠️ Avoid stirring hard after adding tofu — it will break apart.\n\n⑤ Finish\nAdd green onion and chili, simmer 1–2 minutes. Taste: bland = add 1/2 tbsp doenjang. Remove from heat and serve immediately.\n✅ Done when chicken pieces are fully white inside (test by cutting one open).'
+        },
+        vitamins: { ko: '비타민 B6 · 비타민 K · 단백질 · 칼슘 · 이소플라본 · 철분', en: 'Vitamin B6 · Vitamin K · Protein · Calcium · Isoflavones · Iron' }
+    },
+
+    // ── 근육증가 추가 메뉴 ──────────────────────────────────────
+    {
+        time: 'breakfast', goal: 'muscle-gain',
+        name: { ko: '바나나 단백질 스무디 + 통밀빵', en: 'Banana Protein Smoothie + Whole Wheat Toast' },
+        image: 'https://images.pexels.com/photos/3621164/pexels-photo-3621164.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 580, protein: 38, carbs: 72, fat: 10, fiber: 7, sodium: 280,
+        ingredients: {
+            ko: '• 바나나 1개 (냉동 가능)\n• 그릭요거트 150g\n• 우유 200ml\n• 단백질 파우더 1스쿱 (선택)\n• 꿀 1작은술\n• 통밀빵 2장\n• 땅콩버터 1큰술\n• 얼음 4~5개 (선택)',
+            en: '• 1 Banana (frozen ok)\n• 150g Greek yogurt\n• 200ml Milk\n• 1 scoop Protein powder (optional)\n• 1 tsp Honey\n• 2 slices Whole wheat bread\n• 1 tbsp Peanut butter\n• 4–5 Ice cubes (optional)'
+        },
+        recipe: {
+            ko: '⏱ 준비 5분 | 조리 0분 | 🔪 블렌더, 토스터\n\n① 토스트 먼저 굽기\n통밀빵을 토스터에 넣고 굽기 시작합니다. (스무디 만드는 동안 동시에 완성됩니다)\n\n② 블렌더에 재료 넣기\n바나나를 2~3조각으로 끊어 블렌더에 넣습니다. 그릭요거트 → 우유 → 꿀 → 단백질 파우더 순서로 넣습니다. 얼음을 원하면 마지막에 넣습니다.\n💡 냉동 바나나를 사용하면 얼음 없이도 차갑고 진한 스무디가 됩니다. 바나나를 미리 껍질 벗겨 냉동실에 보관하세요.\n\n③ 블렌딩\n뚜껑을 완전히 닫고 저속에서 시작해 고속으로 30~40초간 갑니다. 결이 남지 않고 부드러워질 때까지 갑니다.\n⚠️ 뚜껑을 제대로 닫지 않으면 스무디가 사방에 튑니다! 시작 전에 반드시 확인하세요.\n\n④ 농도 확인\n너무 되면 우유 50ml 추가, 너무 묽으면 바나나 1/2개 또는 그릭요거트 1큰술 추가 후 다시 갑니다.\n\n⑤ 토스트 마무리 + 서빙\n구워진 토스트에 땅콩버터를 넉넉히 바릅니다. 스무디와 함께 냅니다.\n✅ 완성 확인: 스무디가 부드럽고 걸쭉하면 완성! 빨대가 꽂힌 채로 서 있으면 딱 좋은 농도입니다.',
+            en: '⏱ Prep 5 min | Cook 0 min | 🔪 Blender, toaster\n\n① Start toasting first\nPut whole wheat bread in the toaster — it will be done by the time the smoothie is ready.\n\n② Add ingredients to blender\nBreak banana into 2–3 pieces and add to blender. Layer: Greek yogurt → milk → honey → protein powder. Add ice last if using.\n💡 Frozen banana means no ice needed and a thicker, colder smoothie. Keep peeled bananas in the freezer.\n\n③ Blend\nSecure the lid firmly and start on low speed, then ramp to high for 30–40 seconds until completely smooth.\n⚠️ Always check the lid before blending — an unsecured lid sends smoothie everywhere!\n\n④ Adjust consistency\nToo thick: add 50ml milk. Too thin: add half a banana or 1 tbsp yogurt and re-blend.\n\n⑤ Finish toast + serve\nSpread peanut butter generously over the toasted bread. Serve with the smoothie.\n✅ Perfect consistency: smoothie is thick enough that a straw stands up on its own.'
+        },
+        vitamins: { ko: '비타민 B6 · 비타민 D · 칼륨 · 칼슘 · 마그네슘 · 비타민 B12', en: 'Vitamin B6 · Vitamin D · Potassium · Calcium · Magnesium · Vitamin B12' }
+    },
+    {
+        time: 'breakfast', goal: 'muscle-gain',
+        name: { ko: '닭가슴살 볶음밥', en: 'Chicken Breast Fried Rice' },
+        image: 'https://images.pexels.com/photos/723198/pexels-photo-723198.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 560, protein: 40, carbs: 65, fat: 12, fiber: 4, sodium: 520,
+        ingredients: {
+            ko: '• 닭가슴살 150g\n• 찬밥 200g (하루 묵은 밥이 좋음)\n• 달걀 2개\n• 당근 1/4개\n• 파프리카 1/4개\n• 대파 1/4대\n• 간장 1.5큰술\n• 참기름 1작은술\n• 식용유 1큰술\n• 소금·후추 약간',
+            en: '• 150g Chicken breast\n• 200g Cold cooked rice (day-old is best)\n• 2 Eggs\n• 1/4 Carrot\n• 1/4 Bell pepper\n• 1/4 Green onion\n• 1.5 tbsp Soy sauce\n• 1 tsp Sesame oil\n• 1 tbsp Cooking oil\n• Salt & pepper to taste'
+        },
+        recipe: {
+            ko: '⏱ 준비 8분 | 조리 12분 | 🔪 프라이팬 (큰 것), 칼, 도마, 주걱\n\n① 닭가슴살 미리 익히기\n닭가슴살을 1~1.5cm 크기로 잘게 깍둑썰기 합니다. 소금·후추로 밑간합니다. 팬에 식용유 1/2큰술을 두르고 중강불에서 4~5분 볶아 완전히 익힙니다. 따로 그릇에 빼둡니다.\n\n② 채소 썰기\n당근은 0.3cm 작은 깍둑썰기, 파프리카도 같은 크기 깍둑썰기, 대파는 잘게 송송 썹니다.\n\n③ 달걀 스크램블\n남은 식용유 1/2큰술을 팬에 두르고 달걀 2개를 깨 넣습니다. 주걱으로 빠르게 저으며 반숙 상태로 스크램블합니다. 완전히 익기 전에 접시에 빼놓습니다.\n💡 달걀을 완전히 익히면 나중에 다시 볶을 때 딱딱해집니다. 70% 정도만 익히세요.\n\n④ 볶음밥 만들기 (핵심 단계)\n팬을 강불로 올리고 당근을 1분 볶은 뒤 찬밥을 넣습니다. 주걱으로 밥알을 눌러 풀면서 2~3분 강불로 볶습니다. 간장을 팬 가장자리에 두르면 향이 더 좋아집니다.\n⚠️ 약불에서 볶으면 밥이 퍼지고 지저분해집니다. 반드시 강불!\n\n⑤ 마무리\n닭가슴살 + 파프리카 + 스크램블 달걀 + 대파를 넣고 모든 재료가 골고루 섞이도록 1분 볶습니다. 불 끄고 참기름을 뿌리면 완성!\n✅ 밥알이 서로 달라붙지 않고 하나씩 따로 놀면 완벽한 볶음밥입니다.',
+            en: '⏱ Prep 8 min | Cook 12 min | 🔪 Large frying pan, knife, cutting board, spatula\n\n① Pre-cook the chicken\nDice chicken into 1–1.5cm cubes. Season with salt and pepper. Heat 1/2 tbsp oil in pan over medium-high and stir-fry 4–5 minutes until fully cooked. Set aside in a bowl.\n\n② Prep the vegetables\nFinely dice carrot and bell pepper into small cubes (same size as chicken). Thinly slice green onion.\n\n③ Scrambled eggs\nAdd remaining 1/2 tbsp oil to the pan. Crack in 2 eggs and stir quickly with the spatula to scramble. Remove from heat when still 70% cooked (slightly runny).\n💡 Fully cooked eggs become tough when stir-fried again — slightly undercook them now.\n\n④ Make fried rice (key step!)\nCrank heat to HIGH. Stir-fry carrot 1 minute, then add cold rice. Press and break up rice clumps with the spatula while tossing vigorously for 2–3 minutes. Pour soy sauce along the edge of the pan for extra aroma.\n⚠️ Low heat makes fried rice soggy and mushy. Always use HIGH heat!\n\n⑤ Combine everything\nAdd chicken, bell pepper, scrambled egg, and green onion. Toss everything together for 1 minute. Turn off heat and drizzle sesame oil over top.\n✅ Perfect fried rice: every grain is separate, not clumped or mushy.'
+        },
+        vitamins: { ko: '비타민 B6 · 비타민 A · 나이아신 · 철분 · 아연 · 셀레늄', en: 'Vitamin B6 · Vitamin A · Niacin · Iron · Zinc · Selenium' }
+    },
+    {
+        time: 'lunch', goal: 'muscle-gain',
+        name: { ko: '참치 야채 비빔밥', en: 'Tuna & Veggie Bibimbap' },
+        image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 580, protein: 38, carbs: 70, fat: 14, fiber: 7, sodium: 540,
+        ingredients: {
+            ko: '• 참치 캔 150g (기름 제거)\n• 밥 180g\n• 시금치 70g\n• 콩나물 70g\n• 당근 1/4개\n• 달걀 1개 (반숙용)\n• 고추장 1큰술\n• 참기름 1작은술\n• 간장 1/2큰술\n• 다진 마늘 1/2 작은술\n• 깨소금 약간',
+            en: '• 150g Canned tuna (drained)\n• 180g Cooked rice\n• 70g Spinach\n• 70g Bean sprouts\n• 1/4 Carrot\n• 1 Egg (soft-boiled)\n• 1 tbsp Gochujang (red pepper paste)\n• 1 tsp Sesame oil\n• 1/2 tbsp Soy sauce\n• 1/2 tsp Minced garlic\n• Sesame seeds to taste'
+        },
+        recipe: {
+            ko: '⏱ 준비 10분 | 조리 15분 | 🔪 냄비 2개, 프라이팬, 칼, 도마\n\n① 달걀 반숙 만들기\n냄비에 물을 끓이고 달걀을 넣어 7분 삶습니다. 7분 후 꺼내 찬물에 담가 5분간 식힙니다. 껍데기를 굴려 금 가게 한 뒤 물속에서 벗기면 깔끔하게 벗겨집니다.\n💡 6분 = 흐르는 반숙 / 7분 = 적당한 반숙 / 8분 = 완숙. 7분을 추천합니다.\n\n② 시금치 나물 만들기\n끓는 물에 시금치 30초~1분 데치고 찬물에 식힌 뒤 꼭 짜서 간장 1/2 작은술 + 다진 마늘 + 참기름 1/2 작은술로 무칩니다.\n\n③ 콩나물 나물 만들기\n냄비에 콩나물 + 물 3큰술 넣고 뚜껑 닫고 중간 불 5분 찝니다. 식혀서 간장 1/2 작은술 + 참기름으로 무칩니다.\n\n④ 당근 볶기\n당근을 가늘게 채 썰어 팬에 식용유 1/2 작은술 두르고 중간 불에서 1~2분 볶습니다. 소금 약간 넣습니다.\n\n⑤ 참치 준비\n참치 캔을 따고 체에 밭쳐 기름을 완전히 제거합니다. 기름이 남으면 느끼하므로 꼭 눌러 짜주세요.\n\n⑥ 비빔밥 완성\n큰 그릇에 밥을 담고 시금치·콩나물·당근·참치를 색깔별로 빙 둘러 얹습니다. 반숙 달걀을 반으로 잘라 올리고 고추장과 참기름을 중앙에 올립니다. 깨소금 뿌리고 비비면 완성!\n✅ 모든 재료를 넣고 잘 비벼 고추장이 골고루 섞이면 완성입니다.',
+            en: '⏱ Prep 10 min | Cook 15 min | 🔪 2 pots, frying pan, knife, cutting board\n\n① Soft-boil the egg\nBoil water and cook egg for 7 minutes. Transfer to cold water for 5 minutes. Roll the egg on the counter to crack the shell, then peel under water.\n💡 6 min = runny yolk / 7 min = jammy yolk / 8 min = fully set. 7 minutes is ideal.\n\n② Make spinach namul\nBlanch spinach 30–60 seconds, cool in cold water, squeeze dry. Season with 1/2 tsp soy sauce + garlic + 1/2 tsp sesame oil.\n\n③ Make bean sprout namul\nSteam bean sprouts in a covered pot with 3 tbsp water for 5 minutes. Cool and season with 1/2 tsp soy sauce + sesame oil.\n\n④ Stir-fry carrot\nJulienne carrot finely. Stir-fry with 1/2 tsp oil over medium heat 1–2 minutes. Season with a pinch of salt.\n\n⑤ Prep the tuna\nOpen canned tuna and drain over a strainer. Press firmly to remove all oil — leftover oil makes the bibimbap greasy.\n\n⑥ Assemble\nPlace rice in a large bowl. Arrange spinach, bean sprouts, carrot, and tuna in colorful sections around the bowl. Halve the soft-boiled egg and place on top. Add gochujang and sesame oil in the center. Sprinkle sesame seeds and mix everything together!\n✅ Done when gochujang is evenly mixed through all ingredients.'
+        },
+        vitamins: { ko: '비타민 D · 비타민 B12 · 오메가-3 · 철분 · 아연 · 비타민 K', en: 'Vitamin D · Vitamin B12 · Omega-3 · Iron · Zinc · Vitamin K' }
+    },
+    {
+        time: 'lunch', goal: 'muscle-gain',
+        name: { ko: '돼지고기 김치찌개 + 밥', en: 'Pork Kimchi Jjigae + Rice' },
+        image: 'https://images.pexels.com/photos/5908239/pexels-photo-5908239.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 620, protein: 42, carbs: 65, fat: 18, fiber: 5, sodium: 700,
+        ingredients: {
+            ko: '• 돼지고기 삼겹살 또는 앞다리살 150g\n• 잘 익은 김치 200g\n• 두부 100g\n• 대파 1/2대\n• 양파 1/4개\n• 고추장 1작은술\n• 고춧가루 1작은술\n• 설탕 1/2 작은술\n• 참기름 1작은술\n• 물 300ml\n• 밥 150g',
+            en: '• 150g Pork belly or shoulder\n• 200g Well-fermented kimchi\n• 100g Firm tofu\n• 1/2 Green onion\n• 1/4 Onion\n• 1 tsp Gochujang\n• 1 tsp Gochugaru (chili flakes)\n• 1/2 tsp Sugar\n• 1 tsp Sesame oil\n• 300ml Water\n• 150g Cooked rice'
+        },
+        recipe: {
+            ko: '⏱ 준비 8분 | 조리 20분 | 🔪 냄비 (두꺼운 것 추천), 칼, 도마\n\n① 재료 준비\n돼지고기를 3~4cm 크기로 썰고, 두부는 1.5cm 큐브로, 대파는 어슷썰기, 양파는 굵게 채 썹니다. 김치는 가위로 3~4cm 크기로 잘라둡니다.\n\n② 돼지고기 + 김치 볶기 (핵심!)\n냄비에 참기름을 두르고 돼지고기를 넣어 중강불에서 3분 볶아 겉면이 익으면 김치를 넣고 2분 더 볶습니다. 고추장 + 고춧가루를 넣고 1분 볶으면 깊은 맛이 납니다.\n💡 이 볶는 단계가 김치찌개 감칠맛의 80%입니다. 절대 건너뛰지 마세요!\n\n③ 물 붓고 끓이기\n물 300ml를 붓고 센 불로 끓입니다. 거품이 올라오면 걷어냅니다 (깨끗한 국물이 됩니다). 중간 불로 줄이고 10분간 끓입니다.\n\n④ 두부와 채소 넣기\n양파를 넣고 5분 끓입니다. 두부를 조심스럽게 넣고 3분 더 끓입니다. 대파는 가장 마지막에 넣습니다.\n\n⑤ 간 확인 후 완성\n설탕 1/2 작은술을 넣으면 신맛이 중화됩니다. 간을 보고 싱거우면 김치 국물 2큰술이나 소금 약간 추가. 밥과 함께 냅니다.\n✅ 국물이 빨갛고 진하며 고기가 부드럽게 씹히면 완성입니다!',
+            en: '⏱ Prep 8 min | Cook 20 min | 🔪 Heavy-bottomed pot, knife, cutting board\n\n① Prep ingredients\nCut pork into 3–4cm pieces. Cube tofu into 1.5cm pieces. Slice green onion diagonally. Roughly julienne onion. Use scissors to cut kimchi into 3–4cm pieces.\n\n② Stir-fry pork and kimchi (key step!)\nHeat sesame oil in pot. Stir-fry pork over medium-high heat for 3 minutes until browned. Add kimchi and stir-fry 2 more minutes. Add gochujang + gochugaru and stir 1 minute to bloom the spices.\n💡 This sautéing step creates 80% of the depth of flavor in kimchi jjigae. Never skip it!\n\n③ Add water and boil\nPour in 300ml water and bring to a full boil. Skim off any foam that rises (for a clean broth). Reduce to medium and simmer 10 minutes.\n\n④ Add tofu and vegetables\nAdd onion and cook 5 minutes. Gently add tofu and cook 3 more minutes. Add green onion last.\n\n⑤ Season and finish\nAdd 1/2 tsp sugar to mellow any sourness. Taste: bland = add 2 tbsp kimchi brine or pinch of salt. Serve with rice.\n✅ Done when broth is deep red and rich, and the pork is tender when bitten.'
+        },
+        vitamins: { ko: '비타민 C · 비타민 B1 · 유산균 · 아연 · 철분 · 비타민 K', en: 'Vitamin C · Vitamin B1 · Probiotics · Zinc · Iron · Vitamin K' }
+    },
+    {
+        time: 'dinner', goal: 'muscle-gain',
+        name: { ko: '삼겹살 쌈 + 된장', en: 'Grilled Pork Belly Ssam' },
+        image: 'https://images.pexels.com/photos/6249499/pexels-photo-6249499.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 640, protein: 35, carbs: 30, fat: 38, fiber: 6, sodium: 480,
+        ingredients: {
+            ko: '• 삼겹살 200g\n• 상추 10장\n• 깻잎 5장\n• 된장 1큰술\n• 다진 마늘 1/2 작은술\n• 청양고추 1개\n• 참기름 1/2 작은술\n• 마늘 3쪽 (통마늘 구이용)\n• 잡곡밥 150g',
+            en: '• 200g Pork belly slices\n• 10 Lettuce leaves\n• 5 Perilla leaves\n• 1 tbsp Doenjang paste\n• 1/2 tsp Minced garlic\n• 1 chili pepper\n• 1/2 tsp Sesame oil\n• 3 Garlic cloves (for grilling)\n• 150g Multigrain rice'
+        },
+        recipe: {
+            ko: '⏱ 준비 5분 | 조리 12분 | 🔪 프라이팬 또는 그릴팬, 키친가위, 집게\n\n① 쌈장 만들기\n작은 그릇에 된장 1큰술 + 다진 마늘 1/2 작은술 + 참기름 1/2 작은술을 넣고 섞습니다. 청양고추를 잘게 썰어 넣으면 맵고 맛있습니다.\n\n② 상추·깻잎 씻기\n상추와 깻잎을 찬물에 30초간 씻어 채반에 올려 물기를 뺍니다.\n\n③ 팬 달구기\n팬을 강불로 2~3분 아주 뜨겁게 달굽니다. 삼겹살에 기름이 있으므로 팬에 별도 기름을 두르지 않아도 됩니다.\n💡 팬이 충분히 달궈져야 삼겹살이 바삭하게 구워집니다. 연기가 조금 날 정도가 좋습니다.\n\n④ 삼겹살 굽기\n달궈진 팬에 삼겹살을 올립니다. 통마늘을 옆에 함께 올립니다. 2~3분 굽고 집게로 뒤집어 반대면도 2~3분 굽습니다. 키친가위로 3~4cm 크기로 잘라줍니다.\n⚠️ 삼겹살 기름이 많이 나옵니다. 튀지 않도록 뚜껑을 반쯤 덮거나 뒤로 물러나 주세요.\n\n⑤ 쌈 싸먹기\n상추 + 깻잎을 겹쳐 들고, 밥 1숟가락 + 삼겹살 1~2 조각 + 구운 마늘 1개 + 쌈장을 올려 싸서 한 입에 먹습니다.\n✅ 삼겹살 완성 확인: 껍질 부분이 노릇하고 바삭하며, 기름이 충분히 빠져나온 상태가 완성!',
+            en: '⏱ Prep 5 min | Cook 12 min | 🔪 Frying pan or grill pan, kitchen scissors, tongs\n\n① Make ssam jang\nMix 1 tbsp doenjang + 1/2 tsp minced garlic + 1/2 tsp sesame oil in a small bowl. Add finely chopped chili for a spicy kick.\n\n② Wash the leaves\nRinse lettuce and perilla under cold water for 30 seconds. Drain well.\n\n③ Preheat the pan\nHeat the pan on HIGH for 2–3 minutes until very hot. No extra oil needed — pork belly has plenty of its own fat.\n💡 The pan must be very hot for crispy pork belly. A little smoke is a good sign.\n\n④ Grill the pork belly\nPlace pork slices in the hot pan. Add whole garlic cloves alongside. Cook 2–3 minutes, flip with tongs, and cook another 2–3 minutes. Cut into 3–4cm pieces with kitchen scissors.\n⚠️ Pork belly releases a lot of hot oil — keep a partial lid on to prevent splatter and step back from the stove.\n\n⑤ Wrap and eat\nHold a lettuce leaf with a perilla leaf on top. Add 1 spoon of rice + 1–2 pieces of pork + 1 roasted garlic clove + a dab of ssam jang. Wrap and eat in one bite.\n✅ Done when the fatty layer is golden and crispy and most of the fat has rendered out.'
+        },
+        vitamins: { ko: '비타민 B1 · 비타민 B12 · 아연 · 셀레늄 · 비타민 K · 철분', en: 'Vitamin B1 · Vitamin B12 · Zinc · Selenium · Vitamin K · Iron' }
+    },
+    {
+        time: 'dinner', goal: 'muscle-gain',
+        name: { ko: '닭다리살 오븐구이', en: 'Oven-Roasted Chicken Thighs' },
+        image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 560, protein: 46, carbs: 12, fat: 32, fiber: 3, sodium: 460,
+        ingredients: {
+            ko: '• 닭다리살 (뼈 없는 것) 250g\n• 감자 1개\n• 브로콜리 100g\n• 올리브오일 2큰술\n• 마늘 파우더 1작은술\n• 파프리카 파우더 1작은술\n• 소금 1/2 작은술\n• 후추 1/4 작은술\n• 허브 (로즈마리 또는 타임) 1작은술 (선택)',
+            en: '• 250g Boneless chicken thighs\n• 1 Potato\n• 100g Broccoli\n• 2 tbsp Olive oil\n• 1 tsp Garlic powder\n• 1 tsp Paprika powder\n• 1/2 tsp Salt\n• 1/4 tsp Pepper\n• 1 tsp Fresh or dried herbs (rosemary or thyme, optional)'
+        },
+        recipe: {
+            ko: '⏱ 준비 10분 | 조리 30분 | 🔪 오븐, 오븐 팬, 칼, 도마, 볼\n\n① 오븐 예열하기 (먼저!)\n오븐을 200°C로 예열하기 시작합니다. 예열에 10~15분 걸리므로 가장 먼저 합니다.\n💡 오븐 없이도 에어프라이어 180°C에서 20~22분이면 더 바삭하게 됩니다.\n\n② 감자 준비\n감자를 2cm 크기로 깍둑썰기 하고 물에 5분간 담가 전분을 뺍니다. 건져서 키친타월로 물기를 제거합니다.\n\n③ 닭다리살 밑간\n볼에 닭다리살, 마늘 파우더, 파프리카 파우더, 소금, 후추, 올리브오일 1큰술을 넣고 손으로 마사지하듯 골고루 버무립니다. (시간이 있으면 30분~1시간 재우면 더 맛있습니다)\n\n④ 오븐 팬에 올리기\n오븐 팬에 감자 → 닭다리살 순서로 올립니다. 올리브오일 1큰술을 감자 위에 뿌리고 소금·후추를 살짝 뿌립니다.\n\n⑤ 굽기\n200°C 예열된 오븐에 넣고 20분 굽습니다. 20분 후 꺼내 닭다리살을 뒤집고 브로콜리를 추가합니다. 10분 더 굽습니다.\n⚠️ 오븐마다 온도가 다를 수 있습니다. 25분 후 닭을 잘라봐서 분홍색이면 5분 더 굽습니다.\n\n⑥ 휴지시간\n오븐에서 꺼낸 뒤 5분간 그대로 두세요. 육즙이 고기 안에 다시 자리잡아 훨씬 촉촉해집니다.\n✅ 닭다리살 완성: 껍질이 바삭하고 황금색, 가장 두꺼운 부분이 흰색이면 완성!',
+            en: '⏱ Prep 10 min | Cook 30 min | 🔪 Oven, baking pan, knife, cutting board, bowl\n\n① Preheat the oven first!\nSet oven to 200°C (400°F) and start preheating. This takes 10–15 minutes, so do it first.\n💡 No oven? An air fryer at 180°C for 20–22 minutes gives even crispier results.\n\n② Prep the potatoes\nCut potato into 2cm cubes. Soak in water 5 minutes to remove excess starch. Drain and pat completely dry.\n\n③ Season the chicken\nIn a bowl, combine chicken thighs with garlic powder, paprika, salt, pepper, and 1 tbsp olive oil. Massage the spice mixture into the chicken. (Marinate 30 min–1 hour if you have time for deeper flavor.)\n\n④ Arrange on the baking pan\nLayer potatoes first, then place chicken thighs on top. Drizzle remaining olive oil over potatoes and season with salt and pepper.\n\n⑤ Roast\nBake in preheated 200°C oven for 20 minutes. Remove, flip chicken, and add broccoli. Roast 10 more minutes.\n⚠️ Every oven runs differently — after 25 min, cut into the thickest piece. Still pink? Add 5 more minutes.\n\n⑥ Rest before eating\nLet it rest 5 minutes after removing from oven. The juices redistribute inside the meat, making it much more tender.\n✅ Done when skin is golden and crispy, and the thickest part is white all the way through.'
+        },
+        vitamins: { ko: '비타민 B6 · 비타민 D · 나이아신 · 아연 · 셀레늄 · 철분', en: 'Vitamin B6 · Vitamin D · Niacin · Zinc · Selenium · Iron' }
+    },
+
+    // ── 일반건강 추가 메뉴 ──────────────────────────────────────
+    {
+        time: 'breakfast', goal: 'general-fitness',
+        name: { ko: '과일 팬케이크', en: 'Fruit Pancakes' },
+        image: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 420, protein: 14, carbs: 68, fat: 10, fiber: 5, sodium: 320,
+        ingredients: {
+            ko: '• 통밀가루 또는 일반 밀가루 120g\n• 달걀 1개\n• 우유 180ml\n• 베이킹파우더 1작은술\n• 설탕 1큰술\n• 소금 한 꼬집\n• 버터 또는 식용유 1작은술\n• 바나나 1개\n• 딸기 5개\n• 메이플 시럽 또는 꿀 적당량',
+            en: '• 120g Whole wheat or plain flour\n• 1 Egg\n• 180ml Milk\n• 1 tsp Baking powder\n• 1 tbsp Sugar\n• Pinch of salt\n• 1 tsp Butter or oil (for pan)\n• 1 Banana\n• 5 Strawberries\n• Maple syrup or honey to taste'
+        },
+        recipe: {
+            ko: '⏱ 준비 5분 | 조리 15분 | 🔪 볼, 프라이팬, 주걱, 거품기\n\n① 팬케이크 반죽 만들기\n볼에 밀가루 + 베이킹파우더 + 설탕 + 소금을 함께 넣고 포크로 가볍게 섞습니다. 가운데를 오목하게 파고 달걀 + 우유를 넣습니다. 안에서 바깥으로 원을 그리며 섞습니다.\n⚠️ 반죽을 너무 많이 섞으면 글루텐이 생겨 팬케이크가 딱딱해집니다! 덩어리가 조금 남아도 괜찮습니다. 20번만 저으세요.\n\n② 반죽 휴지\n반죽을 5분간 가만히 둡니다. 베이킹파우더가 활성화되어 더 폭신해집니다.\n\n③ 과일 준비\n바나나를 0.5cm 두께 동전 모양으로, 딸기는 꼭지 제거 후 반으로 자릅니다.\n\n④ 팬케이크 굽기\n팬을 중간 불로 달구고 버터(또는 식용유)를 키친타월로 얇게 펴 바릅니다. 국자로 반죽을 한 국자씩 붓습니다. 표면에 거품이 생기고 가장자리가 굳기 시작하면 (약 2분) 뒤집습니다. 반대면 1~2분 굽습니다.\n💡 첫 번째 팬케이크는 망해도 정상입니다! 팬 온도를 맞추는 과정이에요.\n\n⑤ 서빙\n팬케이크를 접시에 쌓고 바나나와 딸기를 보기 좋게 올립니다. 메이플 시럽 또는 꿀을 뿌려 완성!\n✅ 팬케이크 표면이 황금색이고 중심이 스프링처럼 탄력 있으면 완성입니다.',
+            en: '⏱ Prep 5 min | Cook 15 min | 🔪 Bowl, frying pan, spatula, whisk\n\n① Make the batter\nCombine flour + baking powder + sugar + salt in a bowl and mix lightly with a fork. Make a well in the center and add egg + milk. Stir in circles from inside out.\n⚠️ Overmixing develops gluten and makes tough pancakes! A few lumps are totally fine. Stop at 20 stirs.\n\n② Rest the batter\nLet batter sit undisturbed for 5 minutes. The baking powder activates, making fluffier pancakes.\n\n③ Prep the fruit\nSlice banana into 0.5cm rounds. Remove strawberry stems and halve.\n\n④ Cook the pancakes\nHeat pan over medium heat. Lightly coat with butter using a paper towel. Ladle in one scoop of batter per pancake. When bubbles form on the surface and edges look set (~2 min), flip. Cook 1–2 more minutes.\n💡 The first pancake almost always comes out imperfect — it\'s just calibrating the pan temperature. That one is the cook\'s snack!\n\n⑤ Serve\nStack pancakes on a plate. Top with banana slices and strawberries. Drizzle with maple syrup or honey.\n✅ Done when surface is golden and the center springs back when gently pressed.'
+        },
+        vitamins: { ko: '비타민 C · 비타민 B1 · 엽산 · 칼슘 · 칼륨 · 철분', en: 'Vitamin C · Vitamin B1 · Folate · Calcium · Potassium · Iron' }
+    },
+    {
+        time: 'breakfast', goal: 'general-fitness',
+        name: { ko: '바나나 오트밀 스무디볼', en: 'Banana Oat Smoothie Bowl' },
+        image: 'https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 380, protein: 12, carbs: 64, fat: 8, fiber: 9, sodium: 100,
+        ingredients: {
+            ko: '• 냉동 바나나 2개\n• 오트밀 40g\n• 우유 또는 아몬드 밀크 100ml\n• 그릭요거트 100g\n• 꿀 1작은술\n• 토핑: 그래놀라 2큰술, 키위 1/2개, 블루베리 30g, 치아씨드 1작은술',
+            en: '• 2 Frozen bananas\n• 40g Rolled oats\n• 100ml Milk or almond milk\n• 100g Greek yogurt\n• 1 tsp Honey\n• Toppings: 2 tbsp Granola, 1/2 Kiwi, 30g Blueberries, 1 tsp Chia seeds'
+        },
+        recipe: {
+            ko: '⏱ 준비 5분 (냉동 바나나 미리 준비) | 조리 0분 | 🔪 블렌더, 숟가락\n\n① 냉동 바나나 준비 (전날 밤 미리!)\n바나나 껍질을 벗겨 반으로 잘라 지퍼백에 넣고 냉동실에 보관합니다. 이게 스무디볼의 핵심! 냉동 바나나가 아이스크림 같은 질감을 만들어 줍니다.\n💡 냉동 바나나가 없다면 신선 바나나 + 얼음 6~8개로 대체할 수 있습니다.\n\n② 블렌딩\n냉동 바나나 2개 + 오트밀 40g + 우유 100ml + 그릭요거트 + 꿀을 블렌더에 넣습니다. 블렌드하되 액체를 최소로 유지해 아주 걸쭉하게 만듭니다. 너무 묽으면 퍼먹는 식감이 안 납니다.\n⚠️ 스무디볼은 일반 스무디보다 훨씬 되게 만들어야 합니다. 우유를 조금씩만 추가하세요!\n\n③ 과일 준비\n키위를 0.5cm 반달 모양으로 썹니다.\n\n④ 볼에 담기\n스무디를 넓은 그릇에 담습니다. 스패튤러나 숟가락으로 표면을 평평하게 고릅니다.\n\n⑤ 토핑 올리기\n그래놀라를 한쪽에, 블루베리와 키위를 색깔별로 나란히 올립니다. 치아씨드를 전체에 솔솔 뿌리고 꿀을 한 줄기 뿌려 완성!\n✅ 표면이 단단하게 유지되고 토핑이 가라앉지 않아야 완성입니다. 너무 묽으면 처음부터 다시 블렌딩하되 바나나를 추가하세요.',
+            en: '⏱ Prep 5 min (freeze bananas night before) | Cook 0 min | 🔪 Blender, spoon\n\n① Prepare frozen bananas (the night before!)\nPeel bananas, cut in half, place in a zip-lock bag and freeze overnight. This is the secret to smoothie bowl texture — frozen banana creates an ice-cream-like base.\n💡 No frozen bananas? Use fresh banana + 6–8 ice cubes instead.\n\n② Blend\nAdd frozen bananas + oats + milk + Greek yogurt + honey to blender. Blend to a very thick consistency — use as little liquid as possible. Too runny = no bowl texture.\n⚠️ Smoothie bowls must be much thicker than drinkable smoothies. Add milk one tiny splash at a time!\n\n③ Prep the fruit\nSlice kiwi into thin half-moon pieces.\n\n④ Pour into bowl\nTransfer smoothie to a wide, shallow bowl. Smooth the surface with a spatula or the back of a spoon.\n\n⑤ Add toppings\nArrange granola on one side, blueberries and kiwi in colorful rows alongside. Sprinkle chia seeds over everything and finish with a thin drizzle of honey.\n✅ Done when the surface is firm enough that toppings sit on top without sinking. Too thin = blend in more frozen banana.'
+        },
+        vitamins: { ko: '비타민 C · 비타민 B6 · 칼륨 · 마그네슘 · 베타글루칸 · 오메가-3', en: 'Vitamin C · Vitamin B6 · Potassium · Magnesium · Beta-glucan · Omega-3' }
+    },
+    {
+        time: 'lunch', goal: 'general-fitness',
+        name: { ko: '두부 김치볶음 + 잡곡밥', en: 'Tofu Kimchi Stir-fry + Multigrain Rice' },
+        image: 'https://images.pexels.com/photos/5908226/pexels-photo-5908226.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 460, protein: 22, carbs: 58, fat: 14, fiber: 6, sodium: 580,
+        ingredients: {
+            ko: '• 두부 200g (부침용 또는 찌개용)\n• 잘 익은 김치 150g\n• 대파 1/3대\n• 돼지고기 다짐육 80g (생략 가능)\n• 고추장 1/2 작은술\n• 참기름 1작은술\n• 식용유 1큰술\n• 설탕 1/2 작은술\n• 잡곡밥 150g',
+            en: '• 200g Firm tofu\n• 150g Well-fermented kimchi\n• 1/3 Green onion\n• 80g Ground pork (optional)\n• 1/2 tsp Gochujang\n• 1 tsp Sesame oil\n• 1 tbsp Cooking oil\n• 1/2 tsp Sugar\n• 150g Cooked multigrain rice'
+        },
+        recipe: {
+            ko: '⏱ 준비 8분 | 조리 12분 | 🔪 프라이팬, 칼, 도마, 키친타월\n\n① 두부 준비\n두부를 1.5~2cm 두께로 직사각형 모양으로 썹니다. 키친타월을 겹쳐 위아래에 두고 5분간 눌러 물기를 빼줍니다. 물기 제거 = 바삭한 두부의 핵심!\n\n② 두부 굽기\n팬에 식용유 1/2큰술을 두르고 중강불로 달굽니다. 두부를 넣고 건드리지 않고 2~3분, 뒤집어 2~3분 양면 모두 황금색이 될 때까지 굽습니다. 굽은 두부는 접시에 빼놓습니다.\n\n③ 고기 볶기 (생략 시 ④로)\n팬에 남은 기름에 다짐육을 넣고 중간 불에서 2~3분 볶아 완전히 익힙니다. 분홍색이 사라지면 완성.\n\n④ 김치 볶기\n팬에 기름 1/2큰술 추가. 김치를 가위로 3~4cm 크기로 잘라 팬에 넣습니다. 고추장 + 설탕을 넣고 중간 불에서 2~3분 볶습니다.\n💡 김치를 볶을 때 단맛을 조금 넣으면 신맛이 중화됩니다.\n\n⑤ 합치기 + 마무리\n구운 두부를 다시 팬에 넣고 김치와 살살 버무립니다. 대파를 넣고 30초 볶습니다. 불 끄고 참기름을 뿌립니다. 잡곡밥과 함께 냅니다.\n✅ 두부가 깨지지 않고 김치와 잘 어우러져 있으면 완성!',
+            en: '⏱ Prep 8 min | Cook 12 min | 🔪 Frying pan, knife, cutting board, paper towels\n\n① Prep the tofu\nCut tofu into 1.5–2cm rectangular slices. Press between layers of paper towels for 5 minutes. Removing moisture = crispy tofu.\n\n② Pan-fry the tofu\nHeat 1/2 tbsp oil over medium-high heat. Add tofu and cook undisturbed 2–3 minutes per side until golden on both sides. Set aside.\n\n③ Cook the pork (skip to ④ if omitting)\nStir-fry ground pork in the remaining oil over medium heat for 2–3 minutes until fully cooked (no more pink).\n\n④ Stir-fry kimchi\nAdd 1/2 tbsp more oil if needed. Use scissors to cut kimchi into 3–4cm pieces and add to pan. Add gochujang + sugar and stir-fry over medium heat 2–3 minutes.\n💡 A little sugar neutralizes the sourness and balances the kimchi flavor.\n\n⑤ Combine and finish\nReturn tofu to the pan and gently toss with kimchi (try not to break the tofu). Add green onion and stir 30 seconds. Turn off heat and drizzle sesame oil. Serve with multigrain rice.\n✅ Done when tofu is intact and coated in the spicy-savory kimchi sauce.'
+        },
+        vitamins: { ko: '비타민 C · 비타민 K · 유산균 · 이소플라본 · 칼슘 · 철분', en: 'Vitamin C · Vitamin K · Probiotics · Isoflavones · Calcium · Iron' }
+    },
+    {
+        time: 'lunch', goal: 'general-fitness',
+        name: { ko: '비빔국수', en: 'Bibim Noodles (Spicy Mixed Noodles)' },
+        image: 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 430, protein: 16, carbs: 72, fat: 10, fiber: 5, sodium: 620,
+        ingredients: {
+            ko: '• 소면 또는 중면 100g\n• 오이 1/2개\n• 당근 1/4개\n• 달걀 1개 (반숙)\n• 고추장 1.5큰술\n• 고춧가루 1/2 작은술\n• 간장 1작은술\n• 식초 1큰술\n• 설탕 1작은술\n• 참기름 1작은술\n• 참깨 약간\n• 마늘 1/2 작은술 (다진 것)',
+            en: '• 100g Thin or medium noodles\n• 1/2 Cucumber\n• 1/4 Carrot\n• 1 Egg (soft-boiled)\n• 1.5 tbsp Gochujang\n• 1/2 tsp Gochugaru\n• 1 tsp Soy sauce\n• 1 tbsp Vinegar\n• 1 tsp Sugar\n• 1 tsp Sesame oil\n• Sesame seeds to taste\n• 1/2 tsp Minced garlic'
+        },
+        recipe: {
+            ko: '⏱ 준비 8분 | 조리 12분 | 🔪 냄비, 칼, 도마, 볼\n\n① 달걀 반숙 만들기\n냄비에 물을 끓여 달걀을 7분 삶습니다. 찬물에 담가 식힌 뒤 껍데기를 벗깁니다.\n\n② 양념장 만들기 (면 삶는 동안)\n볼에 고추장 1.5큰술 + 고춧가루 1/2 작은술 + 간장 1작은술 + 식초 1큰술 + 설탕 1작은술 + 다진 마늘 1/2 작은술 + 참기름 1작은술을 넣고 잘 섞습니다.\n💡 양념장을 미리 섞어두면 맛이 더 조화롭습니다. 심심하면 고추장, 새콤하면 식초로 조절하세요.\n\n③ 채소 채 썰기\n오이는 씨 부분 제거 후 가늘게 채 썰고, 당근도 가늘게 채 썹니다. 소금 약간에 5분 절여두면 아삭함이 살아납니다.\n\n④ 국수 삶기\n끓는 물에 소면을 넣고 패키지에 적힌 시간대로 삶습니다 (보통 3~5분). 면이 익으면 찬물에 여러 번 헹궈 전분을 빼고 손으로 꼭 짜서 물기를 제거합니다.\n⚠️ 국수를 삶은 후 찬물로 충분히 헹구지 않으면 면이 서로 달라붙습니다!\n\n⑤ 비비기 + 완성\n물기 제거한 면에 양념장을 넣고 골고루 비빕니다. 오이·당근 채를 올리고 반숙 달걀을 반으로 잘라 올립니다. 참깨를 뿌려 완성!\n✅ 면에 양념이 골고루 배어 빨간색이 고루 입혀지면 완성입니다.',
+            en: '⏱ Prep 8 min | Cook 12 min | 🔪 Pot, knife, cutting board, bowl\n\n① Soft-boil the egg\nBoil water, cook egg 7 minutes. Cool in cold water and peel.\n\n② Make the sauce (while noodles cook)\nIn a bowl, combine gochujang + gochugaru + soy sauce + vinegar + sugar + minced garlic + sesame oil. Mix well.\n💡 Mixing the sauce ahead lets the flavors meld. Too bland = more gochujang; too sour = more sugar.\n\n③ Julienne the vegetables\nRemove cucumber seeds and julienne thinly. Julienne carrot the same way. Toss with a pinch of salt and rest 5 minutes for a crispy texture.\n\n④ Cook the noodles\nBoil noodles per package instructions (usually 3–5 min). Drain and rinse thoroughly under cold water several times to remove starch. Squeeze out excess water by hand.\n⚠️ Insufficient cold rinsing causes noodles to clump together — rinse until the water runs clear!\n\n⑤ Mix and serve\nAdd sauce to drained noodles and toss until evenly coated. Top with cucumber and carrot strips. Halve the soft-boiled egg and place on top. Finish with sesame seeds.\n✅ Done when every noodle strand is evenly coated in the red sauce.'
+        },
+        vitamins: { ko: '비타민 C · 비타민 A · 비타민 B1 · 엽산 · 칼륨 · 철분', en: 'Vitamin C · Vitamin A · Vitamin B1 · Folate · Potassium · Iron' }
+    },
+    {
+        time: 'dinner', goal: 'general-fitness',
+        name: { ko: '된장 삼겹살 쌈', en: 'Doenjang Pork Belly Ssam' },
+        image: 'https://images.pexels.com/photos/5908244/pexels-photo-5908244.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 520, protein: 28, carbs: 28, fat: 32, fiber: 7, sodium: 490,
+        ingredients: {
+            ko: '• 삼겹살 150g\n• 상추 8장\n• 깻잎 4장\n• 된장 1.5큰술\n• 고추장 1/2 작은술\n• 참기름 1작은술\n• 다진 마늘 1/2 작은술\n• 청양고추 1개\n• 파 약간\n• 잡곡밥 120g',
+            en: '• 150g Pork belly slices\n• 8 Lettuce leaves\n• 4 Perilla leaves\n• 1.5 tbsp Doenjang\n• 1/2 tsp Gochujang\n• 1 tsp Sesame oil\n• 1/2 tsp Minced garlic\n• 1 Chili pepper\n• Green onion\n• 120g Multigrain rice'
+        },
+        recipe: {
+            ko: '⏱ 준비 5분 | 조리 10분 | 🔪 프라이팬, 집게, 키친가위\n\n① 쌈장 만들기\n된장 1.5큰술 + 고추장 1/2 작은술 + 다진 마늘 1/2 작은술 + 참기름 1작은술 + 잘게 썬 파와 청양고추를 섞습니다. 고추장은 매운맛 조절용이므로 취향껏 가감하세요.\n\n② 쌈 채소 씻기\n상추와 깻잎을 찬물에 씻어 물기를 냅니다.\n\n③ 삼겹살 굽기\n팬을 강불로 달구고 삼겹살을 올려 집게로 2~3분마다 뒤집어가며 전체적으로 노릇하게 굽습니다. 키친가위로 한 입 크기로 자릅니다.\n💡 뚜껑을 반쯤 덮으면 기름 튀는 것을 막을 수 있습니다.\n\n④ 기름 빼기\n구운 삼겹살을 키친타월 위에 잠깐 올려 과도한 기름을 빼주면 더 깔끔하게 먹을 수 있습니다.\n\n⑤ 쌈 싸먹기\n상추 위에 깻잎을 올리고 밥 + 삼겹살 + 쌈장을 올려 싸서 드세요.\n✅ 삼겹살이 바삭하고 노릇한 황금빛이면 완성!',
+            en: '⏱ Prep 5 min | Cook 10 min | 🔪 Frying pan, tongs, kitchen scissors\n\n① Make the ssam jang\nMix doenjang + gochujang + minced garlic + sesame oil + finely chopped green onion and chili. Adjust gochujang to your spice preference.\n\n② Wash the leaves\nRinse lettuce and perilla under cold water. Drain well.\n\n③ Grill the pork belly\nHeat pan on HIGH. Grill pork belly, flipping with tongs every 2–3 minutes, until golden all over. Cut into bite-size pieces with kitchen scissors.\n💡 Keep a partial lid on to prevent hot oil from splashing.\n\n④ Drain the fat\nPlace cooked pork briefly on paper towels to absorb excess fat for a cleaner taste.\n\n⑤ Wrap and eat\nLayer a perilla leaf on a lettuce leaf, then top with rice + pork + ssam jang. Wrap and eat in one bite.\n✅ Done when pork belly is golden and crispy on the outside.'
+        },
+        vitamins: { ko: '비타민 B1 · 비타민 K · 칼륨 · 아연 · 이소플라본 · 철분', en: 'Vitamin B1 · Vitamin K · Potassium · Zinc · Isoflavones · Iron' }
+    },
+    {
+        time: 'dinner', goal: 'general-fitness',
+        name: { ko: '참치 미역국 + 현미밥', en: 'Tuna Seaweed Soup + Brown Rice' },
+        image: 'https://images.pexels.com/photos/8969237/pexels-photo-8969237.jpeg?auto=compress&cs=tinysrgb&w=400',
+        calories: 410, protein: 28, carbs: 52, fat: 9, fiber: 8, sodium: 500,
+        ingredients: {
+            ko: '• 마른 미역 10g\n• 참치 캔 130g (기름 제거)\n• 다진 마늘 1작은술\n• 국간장 1큰술\n• 참기름 1작은술\n• 물 700ml\n• 소금 약간\n• 현미밥 150g',
+            en: '• 10g Dried seaweed\n• 130g Canned tuna (drained)\n• 1 tsp Minced garlic\n• 1 tbsp Soup soy sauce\n• 1 tsp Sesame oil\n• 700ml Water\n• Salt to taste\n• 150g Cooked brown rice'
+        },
+        recipe: {
+            ko: '⏱ 준비 15분 (미역 불리기 포함) | 조리 15분 | 🔪 냄비\n\n① 미역 불리기\n마른 미역을 찬물에 담가 15분간 불립니다. 불린 미역을 건져 물기를 짜고 4~5cm 길이로 자릅니다.\n\n② 참치 준비\n캔을 따고 체에 밭쳐 기름을 완전히 뺍니다. 포크로 부숴 잘게 만듭니다.\n\n③ 미역 + 마늘 볶기\n냄비에 참기름을 두르고 미역과 다진 마늘을 넣어 중간 불에서 1~2분 볶습니다. 참기름에 볶는 단계가 국물 맛을 결정합니다.\n\n④ 참치 넣고 물 붓기\n볶은 미역에 참치를 넣고 30초 더 볶은 뒤 물 700ml를 붓고 센 불로 끓입니다.\n\n⑤ 간 맞추기\n끓어오르면 중간 불로 줄이고 국간장 1큰술을 넣어 10분간 끓입니다. 맛을 보고 싱거우면 소금이나 국간장으로 간합니다.\n✅ 미역이 부드럽고 국물이 맑고 고소하면 완성! 현미밥과 함께 담아냅니다.',
+            en: '⏱ Prep 15 min (including soaking) | Cook 15 min | 🔪 Pot\n\n① Soak the seaweed\nSoak dried seaweed in cold water for 15 minutes. Drain, squeeze out water, and cut into 4–5cm pieces.\n\n② Prep the tuna\nDrain canned tuna through a strainer and press firmly to remove all oil. Break into small pieces with a fork.\n\n③ Sauté seaweed and garlic\nHeat sesame oil in a pot. Add seaweed and minced garlic and stir-fry over medium heat for 1–2 minutes. This step determines the depth of flavor in the soup.\n\n④ Add tuna and water\nAdd tuna to the pot, stir-fry 30 more seconds, then pour in 700ml water. Bring to a full boil over high heat.\n\n⑤ Season and simmer\nReduce to medium heat, add soup soy sauce, and simmer 10 minutes. Taste and adjust: bland = more soy sauce or salt.\n✅ Done when seaweed is tender and the broth is clear and savory. Serve alongside brown rice.'
+        },
+        vitamins: { ko: '요오드 · 비타민 D · 오메가-3 · 칼슘 · 비타민 B12 · 철분', en: 'Iodine · Vitamin D · Omega-3 · Calcium · Vitamin B12 · Iron' }
     }
 ];
 

@@ -402,10 +402,13 @@
         <section id="diet-recommendations" class="feature-section">
             <h2 data-i18n="diet-title"><i data-lucide="utensils"></i> 당신의 맞춤 식단 추천</h2>
             <p class="section-desc" data-i18n="diet-desc">목표에 맞는 아침, 점심, 저녁 식단과 자세한 레시피를 확인하세요.</p>
-            <div class="diet-goal-tabs">
-                <button class="diet-goal-btn active" data-goal="weight-loss" onclick="switchDietGoal('weight-loss', this)">🔥 체중감량</button>
-                <button class="diet-goal-btn" data-goal="muscle-gain" onclick="switchDietGoal('muscle-gain', this)">💪 근육증가</button>
-                <button class="diet-goal-btn" data-goal="general-fitness" onclick="switchDietGoal('general-fitness', this)">🌿 일반건강</button>
+            <div class="diet-header-row">
+                <div class="diet-goal-tabs">
+                    <button class="diet-goal-btn active" data-goal="weight-loss" onclick="switchDietGoal('weight-loss', this)">🔥 체중감량</button>
+                    <button class="diet-goal-btn" data-goal="muscle-gain" onclick="switchDietGoal('muscle-gain', this)">💪 근육증가</button>
+                    <button class="diet-goal-btn" data-goal="general-fitness" onclick="switchDietGoal('general-fitness', this)">🌿 일반건강</button>
+                </div>
+                <button class="diet-shuffle-btn" onclick="shuffleDiet()">🔀 다른 식단 보기</button>
             </div>
             <div id="diet-container"></div>
         </section>
