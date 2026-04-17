@@ -2639,6 +2639,155 @@ footer {
     margin-bottom: 4px;
 }
 
+.diet-meal-name {
+    margin: 0 0 12px 0;
+    color: var(--text-color);
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+/* 식단 섹션 공통 */
+.diet-section {
+    margin-top: 14px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+}
+
+.diet-section-title {
+    font-size: 0.82em;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* 재료 목록 */
+.diet-ingredients-list {
+    font-size: 0.83em;
+    color: var(--secondary-color);
+    line-height: 1.85;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+
+/* 레시피 단계 */
+.diet-recipe-steps {
+    font-size: 0.83em;
+    color: var(--text-color);
+    line-height: 1.9;
+    background: rgba(var(--primary-rgb, 56,189,248), 0.04);
+    border-left: 3px solid var(--primary-color);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 14px;
+}
+
+/* 영양 정보 그리드 */
+.diet-nutrition-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.diet-nutrition-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 4px;
+    border-radius: 10px;
+    text-align: center;
+    gap: 2px;
+}
+
+.diet-nutrition-item.calories  { background: rgba(251,191,36,0.15); }
+.diet-nutrition-item.protein   { background: rgba(56,189,248,0.12); }
+.diet-nutrition-item.carbs     { background: rgba(167,139,250,0.12); }
+.diet-nutrition-item.fat       { background: rgba(251,113,133,0.12); }
+.diet-nutrition-item.fiber     { background: rgba(52,211,153,0.12); }
+.diet-nutrition-item.sodium    { background: rgba(156,163,175,0.15); }
+
+.diet-nutrition-value {
+    font-size: 1em;
+    font-weight: 800;
+    color: var(--text-color);
+    line-height: 1.2;
+}
+
+.diet-nutrition-item.calories .diet-nutrition-value  { color: #f59e0b; }
+.diet-nutrition-item.protein  .diet-nutrition-value  { color: #38bdf8; }
+.diet-nutrition-item.carbs    .diet-nutrition-value  { color: #a78bfa; }
+.diet-nutrition-item.fat      .diet-nutrition-value  { color: #fb7185; }
+.diet-nutrition-item.fiber    .diet-nutrition-value  { color: #34d399; }
+.diet-nutrition-item.sodium   .diet-nutrition-value  { color: #9ca3af; }
+
+.diet-nutrition-label {
+    font-size: 0.68em;
+    color: var(--secondary-color);
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: center;
+}
+
+/* 주요 영양소 행 */
+.diet-vitamins-row {
+    font-size: 0.78em;
+    color: var(--secondary-color);
+    line-height: 1.6;
+    padding: 8px 10px;
+    background: rgba(52,211,153,0.07);
+    border-radius: 8px;
+    border: 1px solid rgba(52,211,153,0.2);
+}
+
+.diet-vitamins-label {
+    font-weight: 700;
+    color: #34d399;
+    margin-right: 4px;
+}
+
+/* diet-grid에서 카드 1열 레이아웃 */
+#diet-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+#diet-container .diet-card {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    align-items: start;
+}
+
+#diet-container .diet-image {
+    height: 100%;
+    min-height: 240px;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: 18px 0 0 18px;
+}
+
+#diet-container .diet-content {
+    padding: 20px;
+    overflow: hidden;
+}
+
+@media (max-width: 700px) {
+    #diet-container .diet-card {
+        grid-template-columns: 1fr;
+    }
+    #diet-container .diet-image {
+        border-radius: 18px 18px 0 0;
+        min-height: 200px;
+        max-height: 220px;
+    }
+    .diet-nutrition-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 /* =====================================================
    반응형 — 모바일
    ===================================================== */

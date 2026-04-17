@@ -481,20 +481,79 @@ function generateDiet(goal) {
         dinner:    t('diet-dinner')
     };
 
+    const isKo = currentLang === 'ko';
+    const labels = {
+        ingredients: isKo ? '🛒 재료' : '🛒 Ingredients',
+        recipe:      isKo ? '👨‍🍳 조리 순서' : '👨‍🍳 Recipe Steps',
+        nutrition:   isKo ? '📊 영양 정보' : '📊 Nutrition Info',
+        calories:    isKo ? '칼로리' : 'Calories',
+        protein:     isKo ? '단백질' : 'Protein',
+        carbs:       isKo ? '탄수화물' : 'Carbs',
+        fat:         isKo ? '지방' : 'Fat',
+        fiber:       isKo ? '식이섬유' : 'Fiber',
+        sodium:      isKo ? '나트륨' : 'Sodium',
+        vitamins:    isKo ? '주요 영양소' : 'Key Nutrients'
+    };
+
     order.forEach(time => {
         const meal = meals.find(m => m.time === time);
         if (!meal) return;
         const div = document.createElement('div');
         div.className = 'diet-card';
+
+        const recipeHtml = (meal.recipe[currentLang] || '').replace(/\n/g, '<br>');
+        const ingredientsHtml = (meal.ingredients[currentLang] || '').replace(/\n/g, '<br>');
+        const vitaminsHtml = meal.vitamins ? meal.vitamins[currentLang] : '';
+
         div.innerHTML = `
-            <img src="${meal.image}" class="diet-image" alt="${meal.name[currentLang]}" loading="lazy">
+            <img src="${meal.image}" class="diet-image" alt="${meal.name[currentLang]}" loading="lazy"
+                 onerror="this.src='https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=400'">
             <div class="diet-content">
                 <div class="diet-time-label">${timeLabels[time]}</div>
-                <h4>${meal.name[currentLang]}</h4>
-                <p style="font-size:0.8em; color:var(--secondary-color);">${meal.ingredients[currentLang]}</p>
-                <div class="diet-macro">
-                    <span class="diet-macro-tag calories">🔥 ${meal.calories} kcal</span>
-                    <span class="diet-macro-tag protein">💪 단백질 ${meal.protein}g</span>
+                <h4 class="diet-meal-name">${meal.name[currentLang]}</h4>
+
+                <!-- 재료 섹션 -->
+                <div class="diet-section">
+                    <div class="diet-section-title">${labels.ingredients}</div>
+                    <div class="diet-ingredients-list">${ingredientsHtml}</div>
+                </div>
+
+                <!-- 레시피 섹션 -->
+                <div class="diet-section">
+                    <div class="diet-section-title">${labels.recipe}</div>
+                    <div class="diet-recipe-steps">${recipeHtml}</div>
+                </div>
+
+                <!-- 영양 정보 섹션 -->
+                <div class="diet-section">
+                    <div class="diet-section-title">${labels.nutrition}</div>
+                    <div class="diet-nutrition-grid">
+                        <div class="diet-nutrition-item calories">
+                            <span class="diet-nutrition-value">${meal.calories}</span>
+                            <span class="diet-nutrition-label">${labels.calories}<br>kcal</span>
+                        </div>
+                        <div class="diet-nutrition-item protein">
+                            <span class="diet-nutrition-value">${meal.protein}g</span>
+                            <span class="diet-nutrition-label">${labels.protein}</span>
+                        </div>
+                        <div class="diet-nutrition-item carbs">
+                            <span class="diet-nutrition-value">${meal.carbs ?? '—'}g</span>
+                            <span class="diet-nutrition-label">${labels.carbs}</span>
+                        </div>
+                        <div class="diet-nutrition-item fat">
+                            <span class="diet-nutrition-value">${meal.fat ?? '—'}g</span>
+                            <span class="diet-nutrition-label">${labels.fat}</span>
+                        </div>
+                        <div class="diet-nutrition-item fiber">
+                            <span class="diet-nutrition-value">${meal.fiber ?? '—'}g</span>
+                            <span class="diet-nutrition-label">${labels.fiber}</span>
+                        </div>
+                        <div class="diet-nutrition-item sodium">
+                            <span class="diet-nutrition-value">${meal.sodium ?? '—'}</span>
+                            <span class="diet-nutrition-label">${labels.sodium}<br>mg</span>
+                        </div>
+                    </div>
+                    ${vitaminsHtml ? `<div class="diet-vitamins-row"><span class="diet-vitamins-label">✨ ${labels.vitamins}</span> ${vitaminsHtml}</div>` : ''}
                 </div>
             </div>
         `;

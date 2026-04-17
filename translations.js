@@ -1297,76 +1297,139 @@ const dietDatabase = [
     {
         time: 'breakfast', goal: 'weight-loss',
         name: { ko: '닭가슴살 야채 샐러드', en: 'Chicken & Veggie Salad' },
-        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=400',
-        calories: 320, protein: 30,
-        ingredients: { ko: '닭가슴살 100g, 양상추, 방울토마토, 오이, 올리브오일', en: '100g Chicken, Lettuce, Cherry Tomatoes, Cucumber, Olive Oil' },
-        recipe: { ko: '1. 닭가슴살을 삶아 찢습니다. 2. 채소와 함께 그릇에 담습니다. 3. 올리브오일 1큰술로 드레싱합니다.', en: '1. Boil chicken and shred. 2. Plate with vegetables. 3. Drizzle with 1 tbsp olive oil.' }
+        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=400',
+        calories: 320, protein: 30, carbs: 15, fat: 12, fiber: 5, sodium: 320,
+        ingredients: {
+            ko: '• 닭가슴살 100g\n• 양상추 3장\n• 방울토마토 10개\n• 오이 1/2개\n• 파프리카 1/4개\n• 올리브오일 1큰술\n• 레몬즙 1큰술\n• 소금·후추 약간',
+            en: '• 100g Chicken breast\n• 3 Lettuce leaves\n• 10 Cherry tomatoes\n• 1/2 Cucumber\n• 1/4 Bell pepper\n• 1 tbsp Olive oil\n• 1 tbsp Lemon juice\n• Salt & pepper to taste'
+        },
+        recipe: {
+            ko: '① 닭가슴살 삶기\n냄비에 물 500ml를 붓고 센 불에서 끓입니다. 물이 끓으면 닭가슴살을 넣고 중간 불로 줄여 15분간 삶습니다. (젓가락으로 가장 두꺼운 부분을 찔러봐서 맑은 육즙이 나오면 완성)\n\n② 닭가슴살 찢기\n삶은 닭가슴살을 꺼내 5분간 식힙니다. 고기의 결방향으로 포크 2개를 이용해 가늘게 찢습니다. (뜨거울 때 찢으면 더 쉽게 찢어집니다)\n\n③ 채소 준비하기\n양상추는 흐르는 물에 씻어 물기를 털고 손으로 한 입 크기로 뜯습니다. 방울토마토는 반으로 자르고, 오이는 반달 모양으로 얇게 썰고, 파프리카는 가늘게 채 썹니다.\n\n④ 드레싱 만들기\n작은 그릇에 올리브오일 1큰술 + 레몬즙 1큰술 + 소금 1/4 작은술 + 후추 약간을 넣고 포크로 잘 섞어 드레싱을 만듭니다.\n\n⑤ 완성하기\n큰 그릇에 준비한 채소를 깔고 닭가슴살을 위에 올린 뒤 드레싱을 고르게 뿌립니다. 먹기 직전에 전체를 골고루 버무려서 바로 드세요.',
+            en: '① Cook the chicken\nBoil 500ml water in a pot on high heat. Once boiling, add chicken and reduce to medium heat, cook for 15 minutes. (Pierce thickest part with a chopstick — clear juices mean it\'s done)\n\n② Shred the chicken\nRemove chicken and let it cool for 5 minutes. Use two forks to shred along the grain into thin strips. (Easier to shred while still slightly warm)\n\n③ Prep the vegetables\nRinse lettuce under running water, shake dry, and tear into bite-size pieces. Halve cherry tomatoes, slice cucumber into half-moons, and julienne the bell pepper.\n\n④ Make the dressing\nIn a small bowl, whisk together 1 tbsp olive oil + 1 tbsp lemon juice + 1/4 tsp salt + a pinch of pepper until combined.\n\n⑤ Assemble and serve\nLayer vegetables in a large bowl, top with shredded chicken, and drizzle the dressing evenly. Toss everything together just before eating and serve immediately.'
+        },
+        vitamins: { ko: '비타민 A · 비타민 C · 비타민 B6 · 칼륨 · 철분', en: 'Vitamin A · Vitamin C · Vitamin B6 · Potassium · Iron' }
     },
     {
         time: 'lunch', goal: 'weight-loss',
         name: { ko: '두부 된장국 + 현미밥', en: 'Tofu Doenjang Soup + Brown Rice' },
-        image: 'https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?auto=format&fit=crop&q=80&w=400',
-        calories: 420, protein: 22,
-        ingredients: { ko: '두부 150g, 된장 1큰술, 현미밥 100g, 호박, 파', en: '150g Tofu, 1 tbsp Doenjang, 100g Brown Rice, Zucchini, Green Onion' },
-        recipe: { ko: '1. 된장국을 끓입니다. 2. 두부와 채소를 넣습니다. 3. 현미밥과 함께 섭취합니다.', en: '1. Boil doenjang broth. 2. Add tofu and vegetables. 3. Serve with brown rice.' }
+        image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&q=80&w=400',
+        calories: 420, protein: 22, carbs: 58, fat: 9, fiber: 7, sodium: 580,
+        ingredients: {
+            ko: '• 두부 150g (찌개용)\n• 된장 1.5큰술\n• 다시마 육수 또는 물 400ml\n• 애호박 1/4개\n• 대파 1/3대\n• 청양고추 1개 (매운맛 조절)\n• 마늘 1쪽 (다진 것)\n• 현미밥 100g',
+            en: '• 150g Firm tofu\n• 1.5 tbsp Doenjang (fermented soybean paste)\n• 400ml Dashi stock or water\n• 1/4 Zucchini\n• 1/3 Green onion\n• 1 Chili pepper (adjust for spice)\n• 1 clove Garlic (minced)\n• 100g Cooked brown rice'
+        },
+        recipe: {
+            ko: '① 재료 준비하기\n두부는 1.5cm 정도의 정사각형으로 깍둑썰기 합니다. 애호박은 반달 모양으로 0.5cm 두께로 썰고, 대파는 어슷하게 썰고, 청양고추는 송송 썹니다.\n\n② 육수 끓이기\n냄비에 물(또는 다시마 육수) 400ml를 붓고 센 불로 끓입니다. 물이 끓으면 된장을 체에 받쳐 풀거나 직접 넣고 숟가락으로 완전히 풀어줍니다.\n\n③ 채소·두부 넣기\n된장이 풀리면 중간 불로 줄이고 다진 마늘을 넣습니다. 이어서 애호박을 넣고 2분 후 두부를 넣어 3분간 더 끓입니다. (두부는 너무 세게 저으면 부서지니 조심하세요)\n\n④ 마무리하기\n대파와 청양고추를 넣고 1분간 더 끓인 뒤 불을 끕니다. 간을 보고 싱거우면 된장을 조금 더 추가합니다.\n\n⑤ 밥과 함께 서빙하기\n현미밥을 밥그릇에 담고 뜨거운 된장국을 국그릇에 담아 함께 내면 완성입니다. 밥과 국을 교대로 먹으면 포만감이 높아집니다.',
+            en: '① Prep the ingredients\nCut tofu into 1.5cm cubes. Slice zucchini into half-moons (0.5cm thick), cut green onion diagonally, and slice chili pepper into rings.\n\n② Bring the broth to a boil\nPour 400ml water or dashi stock into a pot and bring to a boil on high heat. Once boiling, dissolve the doenjang paste completely using a spoon or through a small strainer.\n\n③ Add vegetables and tofu\nReduce to medium heat and add minced garlic. Add zucchini and cook for 2 minutes, then gently add tofu cubes and simmer for 3 more minutes. (Stir gently — tofu breaks easily)\n\n④ Final touches\nAdd green onion and chili pepper, simmer 1 more minute, then turn off heat. Taste and add more doenjang if needed.\n\n⑤ Serve with rice\nServe the hot soup in a bowl alongside a portion of cooked brown rice. Alternating bites of rice and soup increases satiety.'
+        },
+        vitamins: { ko: '비타민 K · 비타민 B12 · 칼슘 · 마그네슘 · 아연 · 유산균', en: 'Vitamin K · Vitamin B12 · Calcium · Magnesium · Zinc · Probiotics' }
     },
     {
         time: 'dinner', goal: 'weight-loss',
-        name: { ko: '연어 & 아스파라거스', en: 'Salmon & Asparagus' },
-        image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=400',
-        calories: 380, protein: 35,
-        ingredients: { ko: '연어 150g, 아스파라거스, 레몬, 마늘', en: '150g Salmon, Asparagus, Lemon, Garlic' },
-        recipe: { ko: '1. 연어에 소금·후추로 간합니다. 2. 팬에 아스파라거스와 함께 굽습니다. 3. 레몬즙으로 마무리합니다.', en: '1. Season salmon with salt and pepper. 2. Pan-grill with asparagus. 3. Finish with lemon juice.' }
+        name: { ko: '연어 & 아스파라거스 구이', en: 'Pan-Grilled Salmon & Asparagus' },
+        image: 'https://images.unsplash.com/photo-1485921325833-c519f76c4927?auto=format&fit=crop&q=80&w=400',
+        calories: 380, protein: 35, carbs: 8, fat: 22, fiber: 3, sodium: 280,
+        ingredients: {
+            ko: '• 연어 필렛 150g\n• 아스파라거스 8줄기\n• 레몬 1/2개\n• 마늘 2쪽\n• 올리브오일 2작은술\n• 소금 1/4 작은술\n• 후추 약간\n• 딜(허브) 약간 (없으면 생략 가능)',
+            en: '• 150g Salmon fillet\n• 8 Asparagus spears\n• 1/2 Lemon\n• 2 Garlic cloves\n• 2 tsp Olive oil\n• 1/4 tsp Salt\n• Pinch of pepper\n• Fresh dill (optional)'
+        },
+        recipe: {
+            ko: '① 재료 준비하기\n연어는 키친타월로 표면의 물기를 완전히 제거합니다 (이래야 겉이 바삭해집니다). 아스파라거스는 밑동의 딱딱한 부분(약 3cm)을 손으로 꺾어 제거합니다. 마늘은 편으로 얇게 썹니다.\n\n② 밑간하기\n연어 양면에 소금과 후추를 고르게 뿌리고 5분간 두어 간이 배게 합니다.\n\n③ 아스파라거스 먼저 굽기\n팬을 중강불로 달구고 올리브오일 1작은술을 두릅니다. 아스파라거스를 넣고 2~3분간 굴려가며 노릇하게 굽습니다. 소금을 약간 뿌려 꺼냅니다.\n\n④ 연어 굽기\n같은 팬에 올리브오일 1작은술을 더 두르고 마늘 편을 볶아 향을 냅니다. 연어를 껍질 면이 아래로 가도록 올리고 중간 불에서 4분 굽습니다. 뒤집어서 3분 더 구우면 속까지 익습니다. (연어는 너무 오래 구우면 퍽퍽해지니 주의)\n\n⑤ 완성하기\n접시에 아스파라거스를 깔고 연어를 올립니다. 레몬을 손으로 짜서 즙을 뿌리고, 있다면 딜을 조금 올려 완성합니다. 먹을 때 레몬즙을 한 번 더 뿌리면 더욱 맛있습니다.',
+            en: '① Prep the ingredients\nPat the salmon dry with paper towels completely (this ensures a crispy crust). Snap off the tough woody ends of the asparagus. Thinly slice the garlic.\n\n② Season the salmon\nSprinkle salt and pepper evenly on both sides of the salmon. Let it rest for 5 minutes to absorb the seasoning.\n\n③ Grill the asparagus first\nHeat the pan over medium-high heat and add 1 tsp olive oil. Add asparagus and cook for 2–3 minutes, rolling occasionally until lightly browned. Season with a pinch of salt and set aside.\n\n④ Cook the salmon\nAdd remaining 1 tsp olive oil to the same pan and sauté garlic slices until fragrant. Place salmon skin-side down and cook on medium heat for 4 minutes. Flip and cook 3 more minutes until cooked through. (Don\'t overcook — salmon dries out quickly)\n\n⑤ Plate and serve\nArrange asparagus on a plate and place salmon on top. Squeeze fresh lemon juice over everything and garnish with dill if available. Add an extra squeeze of lemon right before eating for extra brightness.'
+        },
+        vitamins: { ko: '비타민 D · 비타민 B12 · 오메가-3 · 셀레늄 · 칼륨 · 비타민 E', en: 'Vitamin D · Vitamin B12 · Omega-3 · Selenium · Potassium · Vitamin E' }
     },
     // 근육 증가 (muscle-gain)
     {
         time: 'breakfast', goal: 'muscle-gain',
         name: { ko: '오트밀 + 달걀 프라이 3개', en: 'Oatmeal + 3 Fried Eggs' },
-        image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=400',
-        calories: 580, protein: 38,
-        ingredients: { ko: '오트밀 80g, 달걀 3개, 바나나 1개, 우유 200ml', en: '80g Oats, 3 Eggs, 1 Banana, 200ml Milk' },
-        recipe: { ko: '1. 오트밀을 우유로 끓입니다. 2. 달걀 프라이를 만듭니다. 3. 바나나와 함께 섭취합니다.', en: '1. Cook oats in milk. 2. Fry the eggs. 3. Eat with a banana.' }
+        image: 'https://images.unsplash.com/photo-1495214783159-3503fd1b572d?auto=format&fit=crop&q=80&w=400',
+        calories: 580, protein: 38, carbs: 62, fat: 20, fiber: 8, sodium: 310,
+        ingredients: {
+            ko: '• 롤드 오트 (오트밀) 80g\n• 달걀 3개\n• 우유 200ml (또는 두유)\n• 바나나 1개\n• 꿀 1작은술\n• 계피 가루 약간 (선택)\n• 조리용 오일 1작은술\n• 소금 1/4 작은술',
+            en: '• 80g Rolled oats\n• 3 Eggs\n• 200ml Milk (or soy milk)\n• 1 Banana\n• 1 tsp Honey\n• Pinch of cinnamon (optional)\n• 1 tsp Cooking oil\n• 1/4 tsp Salt'
+        },
+        recipe: {
+            ko: '① 오트밀 끓이기\n작은 냄비에 우유 200ml를 붓고 중간 불로 올립니다. 우유가 따뜻해지면 (김이 오르기 시작할 때) 오트밀 80g을 넣고 나무 주걱으로 저으면서 3~5분간 끓입니다. 걸쭉해지면 불을 끄고 소금 한 꼬집과 꿀을 넣어 섞습니다.\n\n② 달걀 프라이 만들기\n프라이팬을 중간 불로 달구고 오일을 두릅니다. 달걀을 하나씩 조심스럽게 깨어 넣습니다. 흰자가 완전히 익으면 완성입니다 (보통 2~3분). 반숙을 원하면 덮개를 씌워 30초간 더 익히세요.\n\n③ 바나나 준비하기\n바나나 껍질을 벗기고 먹기 좋게 슬라이스합니다.\n\n④ 플레이팅하기\n넓은 그릇에 오트밀을 담고 바나나 슬라이스를 올립니다. 계피 가루가 있다면 살짝 뿌립니다. 달걀 프라이는 별도 접시에 담거나 오트밀 옆에 함께 담습니다.\n\n⑤ 먹는 순서 팁\n운동 전 식사라면 30~45분 전에 먹는 것이 좋습니다. 오트밀의 복합 탄수화물이 지속적인 에너지를 공급하고, 달걀의 단백질이 근육 합성을 돕습니다.',
+            en: '① Cook the oatmeal\nPour 200ml milk into a small pot over medium heat. When milk is warm (steam starting to rise), add 80g oats and stir constantly with a wooden spoon for 3–5 minutes until thickened. Remove from heat and stir in a pinch of salt and honey.\n\n② Fry the eggs\nHeat a non-stick pan over medium heat and add oil. Crack each egg carefully into the pan one at a time. Cook until whites are fully set (about 2–3 minutes). For over-easy, cover with a lid for 30 more seconds.\n\n③ Slice the banana\nPeel the banana and slice into rounds.\n\n④ Plate everything\nSpoon oatmeal into a wide bowl, top with banana slices, and dust with cinnamon if using. Serve fried eggs on the side or next to the oatmeal.\n\n⑤ Timing tip\nFor pre-workout fuel, eat 30–45 minutes before training. The complex carbs in oats provide sustained energy while egg protein supports muscle building.'
+        },
+        vitamins: { ko: '비타민 B2 · 비타민 D · 콜린 · 마그네슘 · 인 · 아연', en: 'Vitamin B2 · Vitamin D · Choline · Magnesium · Phosphorus · Zinc' }
     },
     {
         time: 'lunch', goal: 'muscle-gain',
-        name: { ko: '소고기 브로콜리 볶음 + 흰밥', en: 'Beef Broccoli Stir-fry + White Rice' },
-        image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=400',
-        calories: 650, protein: 45,
-        ingredients: { ko: '소고기 200g, 브로콜리, 마늘, 간장, 흰밥 200g', en: '200g Beef, Broccoli, Garlic, Soy Sauce, 200g White Rice' },
-        recipe: { ko: '1. 마늘을 볶고 소고기를 넣습니다. 2. 브로콜리를 추가하고 간장으로 간합니다. 3. 흰밥과 함께 섭취합니다.', en: '1. Stir-fry garlic then add beef. 2. Add broccoli and season with soy sauce. 3. Serve with white rice.' }
+        name: { ko: '소고기 브로콜리 볶음 + 흰밥', en: 'Beef & Broccoli Stir-fry + White Rice' },
+        image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&q=80&w=400',
+        calories: 650, protein: 45, carbs: 70, fat: 18, fiber: 6, sodium: 620,
+        ingredients: {
+            ko: '• 소고기 (불고기용 또는 등심) 200g\n• 브로콜리 150g (약 1/2 송이)\n• 마늘 3쪽\n• 간장 2큰술\n• 굴소스 1큰술\n• 참기름 1작은술\n• 설탕 1작은술\n• 식용유 1큰술\n• 흰밥 200g (공기 1그릇)',
+            en: '• 200g Beef (sliced thin — ribeye or sirloin)\n• 150g Broccoli (about 1/2 head)\n• 3 Garlic cloves\n• 2 tbsp Soy sauce\n• 1 tbsp Oyster sauce\n• 1 tsp Sesame oil\n• 1 tsp Sugar\n• 1 tbsp Cooking oil\n• 200g Cooked white rice'
+        },
+        recipe: {
+            ko: '① 소고기 밑간하기\n소고기를 간장 1큰술 + 설탕 1작은술 + 참기름 1작은술을 넣고 손으로 조물조물 무쳐 10분간 재워둡니다. 이 과정이 고기를 부드럽게 만들어 줍니다.\n\n② 브로콜리 데치기\n냄비에 물을 끓이고 소금 1작은술을 넣습니다. 브로콜리를 먹기 좋은 크기로 잘라 끓는 물에 1분간 데칩니다. (너무 오래 데치면 흐물거리니 1분이 중요해요) 꺼내서 찬물에 바로 담가 식힙니다.\n\n③ 마늘 볶기\n팬을 강불로 달구고 식용유를 두릅니다. 다진 마늘을 넣고 30초간 황금색이 날 때까지 볶습니다. (타지 않게 주의!)\n\n④ 소고기 볶기\n밑간한 소고기를 팬에 펼쳐 넣고 강불에서 2분간 겉면이 갈색이 될 때까지 볶습니다. 고기가 서로 붙지 않도록 젓가락이나 주걱으로 풀어가며 볶습니다.\n\n⑤ 브로콜리 합치기\n데친 브로콜리를 팬에 넣고 굴소스 1큰술 + 남은 간장 1큰술을 추가합니다. 센 불에서 1~2분간 전체를 골고루 볶아 소스가 재료에 잘 배도록 합니다. 불을 끄고 참기름을 살짝 뿌립니다.\n\n⑥ 밥과 함께 서빙하기\n공기에 밥을 담고 볶음을 위에 올려 함께 냅니다.',
+            en: '① Marinate the beef\nMix beef with 1 tbsp soy sauce + 1 tsp sugar + 1 tsp sesame oil. Massage by hand and marinate for 10 minutes. This step tenderizes the meat.\n\n② Blanch the broccoli\nBoil water with 1 tsp salt. Cut broccoli into florets and blanch for 1 minute. (Don\'t go longer or it gets mushy!) Immediately transfer to cold water to stop cooking.\n\n③ Sauté the garlic\nHeat pan over high heat, add cooking oil. Fry minced garlic for 30 seconds until golden. (Watch carefully — don\'t let it burn!)\n\n④ Cook the beef\nSpread marinated beef in the pan and stir-fry on high heat for 2 minutes until browned. Break up any clumps with chopsticks or a spatula.\n\n⑤ Add the broccoli\nAdd blanched broccoli to the pan. Pour in 1 tbsp oyster sauce + remaining 1 tbsp soy sauce. Toss everything over high heat for 1–2 minutes until sauce coats evenly. Turn off heat and drizzle sesame oil.\n\n⑥ Serve with rice\nScoop rice into a bowl and spoon the stir-fry on top.'
+        },
+        vitamins: { ko: '비타민 C · 비타민 K · 철분 · 아연 · 비타민 B12 · 셀레늄', en: 'Vitamin C · Vitamin K · Iron · Zinc · Vitamin B12 · Selenium' }
     },
     {
         time: 'dinner', goal: 'muscle-gain',
-        name: { ko: '닭가슴살 파스타', en: 'Chicken Breast Pasta' },
-        image: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&q=80&w=400',
-        calories: 620, protein: 48,
-        ingredients: { ko: '닭가슴살 200g, 파스타 80g, 토마토소스, 파마산치즈', en: '200g Chicken, 80g Pasta, Tomato Sauce, Parmesan' },
-        recipe: { ko: '1. 파스타를 삶습니다. 2. 닭가슴살을 구워 슬라이스합니다. 3. 토마토소스와 함께 버무립니다.', en: '1. Boil pasta. 2. Grill chicken and slice. 3. Toss with tomato sauce.' }
+        name: { ko: '닭가슴살 토마토 파스타', en: 'Chicken Breast Tomato Pasta' },
+        image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&q=80&w=400',
+        calories: 620, protein: 48, carbs: 65, fat: 14, fiber: 5, sodium: 540,
+        ingredients: {
+            ko: '• 닭가슴살 200g\n• 스파게티 면 80g\n• 토마토 파스타 소스 150ml (병 제품 사용 가능)\n• 양파 1/4개\n• 마늘 2쪽\n• 올리브오일 1큰술\n• 소금 1/2 작은술\n• 후추 약간\n• 파마산 치즈 가루 10g\n• 바질 잎 (없으면 생략)',
+            en: '• 200g Chicken breast\n• 80g Spaghetti\n• 150ml Tomato pasta sauce (jar sauce works great)\n• 1/4 Onion\n• 2 Garlic cloves\n• 1 tbsp Olive oil\n• 1/2 tsp Salt\n• Pepper to taste\n• 10g Parmesan cheese\n• Fresh basil (optional)'
+        },
+        recipe: {
+            ko: '① 파스타 삶기\n큰 냄비에 물을 넉넉히 붓고 소금 1큰술을 넣어 센 불로 끓입니다. 물이 끓으면 스파게티 면을 넣고 포장지에 적힌 시간보다 1분 덜 삶습니다 (보통 8~9분). 면을 건질 때 파스타 물 한 컵을 미리 떠두세요 — 소스 농도 조절에 씁니다.\n\n② 닭가슴살 굽기\n닭가슴살을 소금·후추로 밑간합니다. 프라이팬에 올리브오일 1/2큰술을 두르고 중강불로 달군 뒤 닭가슴살을 넣어 한 면당 5~6분씩 굽습니다. 내부 온도 75°C가 되거나 가장 두꺼운 곳을 잘랐을 때 분홍색이 없으면 완성. 꺼내서 3분 휴지 후 얇게 슬라이스합니다.\n\n③ 소스 만들기\n같은 팬에 올리브오일 1/2큰술을 더 두르고 양파와 마늘을 다져 중간 불에서 2분간 볶습니다. 토마토 파스타 소스를 붓고 2분간 끓입니다. 소스가 너무 진하면 파스타 삶은 물을 2~3큰술 넣어 농도를 맞춥니다.\n\n④ 면과 소스 합치기\n건진 파스타 면을 소스 팬에 넣고 센 불에서 1분간 빠르게 볶으면서 소스가 면에 잘 배도록 합니다.\n\n⑤ 완성하기\n접시에 파스타를 담고 슬라이스한 닭가슴살을 올립니다. 파마산 치즈 가루를 뿌리고 바질 잎이 있다면 올려 완성합니다.',
+            en: '① Boil the pasta\nFill a large pot with water, add 1 tbsp salt, and bring to a boil on high heat. Add spaghetti and cook 1 minute less than package directions (usually 8–9 min). Before draining, save 1 cup of pasta water — it\'s great for adjusting sauce thickness.\n\n② Cook the chicken\nSeason chicken with salt and pepper. Heat 1/2 tbsp olive oil in a skillet over medium-high heat. Cook chicken 5–6 minutes per side until internal temp reaches 75°C or no pink remains when sliced at the thickest part. Rest for 3 minutes, then slice thinly.\n\n③ Make the sauce\nIn the same pan, add remaining 1/2 tbsp olive oil. Sauté diced onion and garlic on medium heat for 2 minutes. Pour in tomato sauce and simmer 2 minutes. Add 2–3 tbsp pasta water if sauce gets too thick.\n\n④ Combine pasta and sauce\nAdd drained pasta to the sauce pan and toss over high heat for 1 minute so the sauce coats every strand.\n\n⑤ Plate and finish\nDish pasta onto a plate, layer sliced chicken on top, sprinkle Parmesan cheese, and garnish with basil if available.'
+        },
+        vitamins: { ko: '비타민 B3 · 비타민 B6 · 비타민 C · 인 · 칼륨 · 리코펜', en: 'Vitamin B3 · Vitamin B6 · Vitamin C · Phosphorus · Potassium · Lycopene' }
     },
     // 건강 관리 (general-fitness)
     {
         time: 'breakfast', goal: 'general-fitness',
         name: { ko: '요거트 그래놀라 볼', en: 'Yogurt Granola Bowl' },
-        image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=400',
-        calories: 380, protein: 18,
-        ingredients: { ko: '그릭요거트 200g, 그래놀라 40g, 블루베리, 꿀', en: '200g Greek Yogurt, 40g Granola, Blueberries, Honey' },
-        recipe: { ko: '1. 그릭요거트를 그릇에 담습니다. 2. 그래놀라와 블루베리를 얹습니다. 3. 꿀을 뿌려 마무리합니다.', en: '1. Spoon Greek yogurt into a bowl. 2. Top with granola and blueberries. 3. Drizzle honey.' }
+        image: 'https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&q=80&w=400',
+        calories: 380, protein: 18, carbs: 52, fat: 10, fiber: 6, sodium: 120,
+        ingredients: {
+            ko: '• 그릭요거트 200g (플레인, 무가당)\n• 그래놀라 40g\n• 블루베리 50g (냉동 사용 가능)\n• 딸기 3~4개\n• 꿀 1작은술\n• 치아씨드 1작은술 (선택)\n• 아몬드 10개 (선택)',
+            en: '• 200g Plain Greek yogurt (unsweetened)\n• 40g Granola\n• 50g Blueberries (frozen works fine)\n• 3–4 Strawberries\n• 1 tsp Honey\n• 1 tsp Chia seeds (optional)\n• 10 Almonds (optional)'
+        },
+        recipe: {
+            ko: '① 과일 준비하기\n블루베리를 흐르는 물에 씻어 물기를 뺍니다. 딸기는 꼭지를 따고 씻어서 반으로 자릅니다. 냉동 블루베리를 사용할 경우 전날 밤 냉장고로 옮겨 해동시켜 두면 편합니다.\n\n② 요거트 담기\n차갑게 보관된 그릭요거트를 넉넉한 그릇에 약 200g 담습니다. 숟가락 뒷면으로 가볍게 표면을 평탄하게 고릅니다. (그릇이 차가울수록 요거트가 더 신선하게 느껴집니다)\n\n③ 토핑 쌓기\n그래놀라를 요거트 위에 한쪽에 몰아 담습니다 (뿌리면 빨리 눅눅해짐). 반대편에 블루베리와 딸기를 예쁘게 담습니다.\n\n④ 마무리 토핑하기\n치아씨드 1작은술을 골고루 뿌리고 아몬드를 배치합니다. 마지막으로 꿀 1작은술을 가늘게 드리즐합니다.\n\n⑤ 즉시 드세요\n그래놀라가 눅눅해지기 전에 바로 드시는 것이 식감이 가장 좋습니다. 바쁜 아침에는 전날 밤에 요거트+과일까지만 준비하고 그래놀라는 먹기 직전에 올리세요.',
+            en: '① Prep the fruit\nRinse blueberries and drain. Remove strawberry stems, wash, and cut in half. For frozen blueberries, transfer to the fridge the night before to thaw overnight.\n\n② Spoon the yogurt\nScoop 200g cold Greek yogurt into a wide bowl. Use the back of a spoon to gently level the surface. (A chilled bowl keeps everything fresher)\n\n③ Add the toppings\nPile granola on one side of the yogurt (don\'t scatter it — it stays crunchier in a cluster). Arrange blueberries and strawberries on the other side.\n\n④ Finishing touches\nSprinkle chia seeds evenly, place almonds, then drizzle honey in a thin stream over everything.\n\n⑤ Eat immediately\nFor the best crunch, eat right away before the granola softens. Busy morning tip: prep yogurt + fruit the night before and add granola just before eating.'
+        },
+        vitamins: { ko: '비타민 C · 비타민 K · 칼슘 · 프로바이오틱스 · 안토시아닌 · 비타민 B12', en: 'Vitamin C · Vitamin K · Calcium · Probiotics · Anthocyanins · Vitamin B12' }
     },
     {
         time: 'lunch', goal: 'general-fitness',
         name: { ko: '아보카도 토스트 + 수란', en: 'Avocado Toast + Poached Egg' },
-        image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=400',
-        calories: 460, protein: 20,
-        ingredients: { ko: '통밀빵 2장, 아보카도 1개, 달걀 2개, 레몬', en: '2 Whole Wheat Toasts, 1 Avocado, 2 Eggs, Lemon' },
-        recipe: { ko: '1. 아보카도를 으깨어 레몬즙을 섞습니다. 2. 토스트에 바릅니다. 3. 수란을 올려 완성합니다.', en: '1. Mash avocado with lemon juice. 2. Spread on toast. 3. Top with poached eggs.' }
+        image: 'https://images.unsplash.com/photo-1541519227354-08fa5d50c820?auto=format&fit=crop&q=80&w=400',
+        calories: 460, protein: 20, carbs: 38, fat: 26, fiber: 9, sodium: 360,
+        ingredients: {
+            ko: '• 통밀빵 2장\n• 잘 익은 아보카도 1개\n• 달걀 2개\n• 레몬 또는 라임 1/4개\n• 식초 1큰술 (수란용)\n• 소금 1/4 작은술\n• 후추 약간\n• 칠리 플레이크 약간 (선택)\n• 참깨 약간 (선택)',
+            en: '• 2 slices Whole wheat bread\n• 1 ripe Avocado\n• 2 Eggs\n• 1/4 Lemon or lime\n• 1 tbsp Vinegar (for poaching)\n• 1/4 tsp Salt\n• Pepper to taste\n• Chili flakes (optional)\n• Sesame seeds (optional)'
+        },
+        recipe: {
+            ko: '① 아보카도 익힘 확인하기\n아보카도를 손으로 살짝 눌렀을 때 살짝 들어가면 적당히 익은 것입니다. 너무 딱딱하면 실온에 1~2일 더 두세요.\n\n② 아보카도 으깨기\n아보카도를 세로로 칼집을 내고 반으로 돌려 쪼갭니다. 씨를 꺼내고 숟가락으로 과육을 파냅니다. 그릇에 담고 포크로 원하는 질감이 될 때까지 으깹니다 (덩어리가 약간 남아있어도 됨). 레몬즙 + 소금 + 후추를 넣고 섞습니다.\n\n③ 식빵 굽기\n토스터기에 통밀빵을 굽습니다. 없으면 기름 없이 팬에 중간 불로 양면을 각 1~2분씩 구워도 됩니다.\n\n④ 수란 만들기 (핵심 단계!)\n작은 냄비에 물 400ml를 붓고 식초 1큰술을 넣어 끓입니다. 물이 끓으면 약한 불로 줄이고 (작은 거품이 올라오는 정도), 숟가락으로 물을 빙빙 저어 소용돌이를 만듭니다. 달걀을 작은 컵에 먼저 깨서 담은 뒤 소용돌이 중심에 천천히 미끄러뜨립니다. 3~4분간 건드리지 않고 기다리면 흰자가 굳고 노른자는 반숙인 수란 완성!\n\n⑤ 완성하기\n구운 토스트 위에 아보카도를 넉넉히 펴 바릅니다. 수란을 조심스럽게 건져 키친타월에 올려 물기를 잠깐 제거한 뒤 아보카도 위에 올립니다. 칠리 플레이크와 참깨를 뿌려 완성합니다.',
+            en: '① Check avocado ripeness\nGently press the avocado — it should yield slightly to pressure. If too hard, leave at room temperature for 1–2 more days.\n\n② Mash the avocado\nSlice avocado lengthwise and twist to separate halves. Remove pit and scoop flesh into a bowl. Mash with a fork to your preferred texture (a little chunky is fine). Mix in lemon juice + salt + pepper.\n\n③ Toast the bread\nToast whole wheat bread in a toaster. No toaster? Toast in a dry pan on medium heat for 1–2 minutes per side.\n\n④ Poach the eggs (key step!)\nBring 400ml water + 1 tbsp vinegar to a boil in a small saucepan. Reduce to a gentle simmer (small bubbles). Stir the water in a circular motion to create a vortex. Crack an egg into a small cup first, then slowly slide it into the center of the vortex. Wait 3–4 minutes without touching — whites will set while yolk stays runny.\n\n⑤ Assemble and serve\nSpread avocado generously over the toast. Lift poached eggs with a slotted spoon, briefly rest on paper towels to remove excess water, then place on top. Sprinkle chili flakes and sesame seeds to finish.'
+        },
+        vitamins: { ko: '비타민 E · 비타민 K · 엽산 · 건강한 지방 · 칼륨 · 콜린', en: 'Vitamin E · Vitamin K · Folate · Healthy fats · Potassium · Choline' }
     },
     {
         time: 'dinner', goal: 'general-fitness',
         name: { ko: '고등어구이 + 나물반찬', en: 'Grilled Mackerel + Namul Sides' },
-        image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&q=80&w=400',
-        calories: 490, protein: 36,
-        ingredients: { ko: '고등어 1마리, 시금치 나물, 콩나물, 현미밥 150g', en: '1 Mackerel, Spinach Namul, Bean Sprouts, 150g Brown Rice' },
-        recipe: { ko: '1. 고등어에 소금 간을 합니다. 2. 오븐 또는 팬에 굽습니다. 3. 나물과 밥과 함께 섭취합니다.', en: '1. Season mackerel with salt. 2. Grill in oven or pan. 3. Serve with namul sides and rice.' }
+        image: 'https://images.unsplash.com/photo-1519984388953-d2406bc725e1?auto=format&fit=crop&q=80&w=400',
+        calories: 490, protein: 36, carbs: 42, fat: 18, fiber: 8, sodium: 480,
+        ingredients: {
+            ko: '• 고등어 1마리 (또는 토막 2조각)\n• 소금 1/2 작은술\n• 청주 또는 맛술 1큰술\n• 시금치 150g\n• 콩나물 100g\n• 참기름 1작은술\n• 다진 마늘 1/2 작은술\n• 간장 1작은술\n• 깨소금 약간\n• 현미밥 150g',
+            en: '• 1 Mackerel (or 2 fillets)\n• 1/2 tsp Salt\n• 1 tbsp Rice wine or mirin\n• 150g Spinach\n• 100g Bean sprouts\n• 1 tsp Sesame oil\n• 1/2 tsp Minced garlic\n• 1 tsp Soy sauce\n• Sesame seeds to taste\n• 150g Cooked brown rice'
+        },
+        recipe: {
+            ko: '① 고등어 손질하기\n고등어를 흐르는 물에 씻은 뒤 키친타월로 물기를 완전히 닦습니다. 앞뒤로 칼집을 2~3군데 내어 (소금이 잘 배고, 비릿한 냄새가 줄어듭니다) 청주를 바릅니다. 5분 뒤 소금을 골고루 뿌립니다.\n\n② 고등어 굽기\n기름을 약간 두른 팬을 중강불로 달굽니다. 고등어를 껍질 면이 아래로 가도록 올리고 5분간 건드리지 않고 굽습니다. 껍질이 노릇하고 바삭해지면 조심스럽게 뒤집어 3~4분간 더 굽습니다. (뚜껑을 살짝 덮으면 속까지 더 잘 익습니다)\n\n③ 시금치 나물 만들기\n냄비에 물을 끓이고 시금치를 넣어 30초~1분간 데칩니다 (색이 선명한 초록색으로 변하면 완성). 찬물에 바로 담가 식힌 뒤 손으로 꼭 짜서 물기를 제거합니다. 참기름 1/2 작은술 + 다진 마늘 1/4 작은술 + 소금 약간으로 조물조물 무칩니다.\n\n④ 콩나물 나물 만들기\n냄비에 콩나물을 담고 물 3큰술을 넣어 뚜껑을 덮고 중간 불로 5분간 찝니다 (뚜껑을 열면 비린내가 납니다 — 반드시 뚜껑을 닫고!). 식힌 뒤 간장 1작은술 + 참기름 1/2 작은술 + 다진 마늘 1/4 작은술로 무칩니다.\n\n⑤ 완성하기\n현미밥을 그릇에 담고, 고등어구이와 두 가지 나물을 보기 좋게 배치합니다. 깨소금을 나물 위에 뿌리면 완성입니다. 밥, 나물, 생선을 골고루 먹으면 균형 잡힌 영양소를 섭취할 수 있습니다.',
+            en: '① Prep the mackerel\nRinse mackerel under cold water and pat completely dry with paper towels. Score 2–3 diagonal cuts on each side (this helps salt penetrate and reduces fishy odor). Brush with rice wine and let sit 5 minutes, then sprinkle salt evenly.\n\n② Grill the mackerel\nHeat a lightly oiled pan over medium-high heat. Place mackerel skin-side down and cook undisturbed for 5 minutes until the skin is golden and crispy. Carefully flip and cook 3–4 more minutes. (A loose lid placed on top helps cook the inside faster)\n\n③ Make spinach namul\nBoil water and blanch spinach for 30–60 seconds until bright green. Transfer immediately to cold water, then squeeze out all the water with your hands. Season with 1/2 tsp sesame oil + 1/4 tsp minced garlic + pinch of salt and mix well.\n\n④ Make bean sprout namul\nPlace bean sprouts in a pot with 3 tbsp water. Cover tightly and steam on medium heat for 5 minutes. (Do NOT open the lid — it causes a beany smell!) Once cooled, season with 1 tsp soy sauce + 1/2 tsp sesame oil + 1/4 tsp garlic.\n\n⑤ Plate and serve\nServe brown rice in a bowl alongside the grilled mackerel and the two namul sides arranged neatly. Sprinkle sesame seeds over the namul. Eating rice, namul, and fish together provides a perfectly balanced Korean meal.'
+        },
+        vitamins: { ko: '비타민 D · 비타민 B12 · 오메가-3 · 칼슘 · 비타민 K · 철분', en: 'Vitamin D · Vitamin B12 · Omega-3 · Calcium · Vitamin K · Iron' }
     }
 ];
 
