@@ -702,7 +702,7 @@ const exerciseTranslations = {
     'plank': {
         ko: '플랭크', en: 'Plank',
         category: 'abs',
-        image: 'https://images.unsplash.com/2OgqFKHwF5Q?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3837433/pexels-photo-3837433.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '복근', en: 'Abs' },
         desc: {
             ko: '1. 팔꿈치를 어깨 바로 아래 바닥에 댑니다.\n2. 발끝으로 몸을 지지하며 일직선을 만듭니다.\n3. 복부와 엉덩이에 힘을 꽉 주어 자세를 유지합니다.\n4. 정해진 시간 동안 버팁니다. (초보자: 20초)',
@@ -719,7 +719,7 @@ const exerciseTranslations = {
     'crunch': {
         ko: '크런치', en: 'Crunch',
         category: 'abs',
-        image: 'https://images.unsplash.com/nhMgPIqFHFs?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/14036850/pexels-photo-14036850.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '복근', en: 'Abs' },
         desc: {
             ko: '1. 등을 대고 누워 무릎을 세우고 손을 귀 옆에 살짝 댑니다.\n2. 복근의 힘으로 상체를 살짝 들어 올립니다.\n3. 목이 아닌 복부 근육으로 움직임을 만들어야 합니다.\n4. 천천히 내리며 반복합니다.',
@@ -736,7 +736,7 @@ const exerciseTranslations = {
     'leg-raise': {
         ko: '레그레이즈', en: 'Leg Raise',
         category: 'abs',
-        image: 'https://images.unsplash.com/r7j7aB47YyM?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/270912/pexels-photo-270912.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '하복부', en: 'Lower Abs' },
         desc: {
             ko: '1. 등을 대고 누워 손을 엉덩이 아래에 받쳐 허리를 지지합니다.\n2. 다리를 붙여 천천히 90도까지 들어 올립니다.\n3. 잠깐 멈추고 천천히 내립니다.\n4. 바닥에 닿기 직전 다시 들어 올립니다.',
@@ -753,7 +753,7 @@ const exerciseTranslations = {
     'side-plank': {
         ko: '사이드 플랭크', en: 'Side Plank',
         category: 'abs',
-        image: 'https://images.unsplash.com/uCiyJr8n5bs?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/5149167/pexels-photo-5149167.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '옆구리', en: 'Obliques' },
         desc: {
             ko: '1. 옆으로 누워 팔꿈치를 바닥에 대고 몸을 지지합니다.\n2. 골반을 들어 올려 머리부터 발끝까지 일직선을 만듭니다.\n3. 허리가 처지지 않도록 복부에 힘을 줍니다.\n4. 정해진 시간 동안 유지 후 반대편도 진행합니다.',
@@ -770,7 +770,7 @@ const exerciseTranslations = {
     'mountain-climber': {
         ko: '마운틴 클라이머', en: 'Mountain Climbers',
         category: 'abs',
-        image: 'https://images.unsplash.com/photo-1434608519344-49d77a699e1d?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/6516165/pexels-photo-6516165.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '복근·유산소', en: 'Abs & Cardio' },
         desc: {
             ko: '1. 팔을 쭉 편 푸쉬업 자세를 취합니다.\n2. 오른쪽 무릎을 가슴 쪽으로 빠르게 당깁니다.\n3. 오른발을 돌려 보내며 왼쪽 무릎을 당깁니다.\n4. 달리듯 빠르게 교차하며 반복합니다.',
@@ -787,7 +787,7 @@ const exerciseTranslations = {
     'bird-dog': {
         ko: '버드독', en: 'Bird Dog',
         category: 'abs',
-        image: 'https://images.unsplash.com/lrQPTQs7nQQ?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/20860621/pexels-photo-20860621.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '복근·코어', en: 'Core' },
         desc: {
             ko: '1. 손과 무릎을 바닥에 대는 네발기기 자세를 취합니다.\n2. 오른쪽 팔을 앞으로, 왼쪽 다리를 뒤로 동시에 뻗습니다.\n3. 몸의 균형을 유지하며 3초 유지합니다.\n4. 반대편도 동일하게 반복합니다.',
@@ -805,7 +805,7 @@ const exerciseTranslations = {
     'burpee': {
         ko: '버피 테스트', en: 'Burpees',
         category: 'cardio',
-        image: 'https://images.unsplash.com/photo-1599058917233-97f394156059?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/260385/pexels-photo-260385.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '전신 유산소', en: 'Full Body Cardio' },
         desc: {
             ko: '1. 차렷 자세로 시작합니다.\n2. 쪼그려 앉으며 손을 바닥에 짚습니다.\n3. 발을 뒤로 뻗어 푸쉬업 자세를 만듭니다.\n4. 다시 발을 당겨와 일어서며 높이 점프합니다.',
@@ -822,7 +822,7 @@ const exerciseTranslations = {
     'jumping-jacks': {
         ko: '팔벌려뛰기', en: 'Jumping Jacks',
         category: 'cardio',
-        image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/7298411/pexels-photo-7298411.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '유산소', en: 'Cardio' },
         desc: {
             ko: '1. 발 모아 차렷 자세로 시작합니다.\n2. 점프하며 발을 어깨너비보다 넓게 벌리고 팔을 머리 위로 올립니다.\n3. 다시 점프하며 발을 모으고 팔을 내립니다.\n4. 리드미컬하게 반복합니다.',
@@ -839,7 +839,7 @@ const exerciseTranslations = {
     'high-knees': {
         ko: '하이 니', en: 'High Knees',
         category: 'cardio',
-        image: 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/6516199/pexels-photo-6516199.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '유산소', en: 'Cardio' },
         desc: {
             ko: '1. 제자리에 서서 시작합니다.\n2. 오른쪽 무릎을 허리 높이까지 들어 올리며 왼쪽 팔을 앞으로 흔듭니다.\n3. 즉시 왼쪽 무릎으로 바꾸며 팔도 바꿉니다.\n4. 제자리 달리기 하듯 빠르게 반복합니다.',
@@ -856,7 +856,7 @@ const exerciseTranslations = {
     'jump-rope': {
         ko: '줄넘기 (제자리)', en: 'Jump Rope (In-place)',
         category: 'cardio',
-        image: 'https://images.unsplash.com/d5Q4aBfZclM?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/6339602/pexels-photo-6339602.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '유산소', en: 'Cardio' },
         desc: {
             ko: '1. 발을 모아 서고 팔꿈치를 몸 가까이 붙입니다.\n2. 손목을 회전시켜 줄을 돌리는 동작을 상상합니다.\n3. 발 앞꿈치로 가볍게 뛰어오릅니다. (줄이 없어도 동작으로 수행 가능)\n4. 일정한 리듬으로 계속 반복합니다.',
@@ -908,7 +908,7 @@ const exerciseTranslations = {
     'push-up': {
         ko: '푸쉬업', en: 'Push-up',
         category: 'targeted',
-        image: 'https://images.unsplash.com/0HlI76m4jxU?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/4162491/pexels-photo-4162491.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '가슴', en: 'Chest' },
         desc: {
             ko: '1. 바닥에 엎드려 손을 어깨너비보다 약간 넓게 짚습니다.\n2. 몸 전체를 일직선으로 유지합니다.\n3. 팔꿈치를 굽히며 가슴을 바닥 가까이 내립니다.\n4. 가슴 근육의 힘으로 밀어 올려 시작 자세로 돌아옵니다.',
@@ -925,7 +925,7 @@ const exerciseTranslations = {
     'squat': {
         ko: '스쿼트', en: 'Squat',
         category: 'targeted',
-        image: 'https://images.unsplash.com/photo-1566241440091-ec10de8db2e1?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/4662333/pexels-photo-4662333.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '하체', en: 'Legs' },
         desc: {
             ko: '1. 발을 어깨너비로 벌리고 발끝은 약간 바깥쪽을 향합니다.\n2. 가슴을 펴고 허리를 곧게 세웁니다.\n3. 무릎이 발끝 방향으로 향하도록 하며 엉덩이를 내립니다.\n4. 허벅지가 바닥과 평행해지면 발뒤꿈치로 밀며 일어납니다.',
@@ -942,7 +942,7 @@ const exerciseTranslations = {
     'lunges': {
         ko: '런지', en: 'Lunges',
         category: 'targeted',
-        image: 'https://images.unsplash.com/MBGv9XkJhuc?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/5067743/pexels-photo-5067743.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '하체', en: 'Legs' },
         desc: {
             ko: '1. 등을 곧게 세우고 차렷 자세로 시작합니다.\n2. 한쪽 발을 앞으로 크게 내딛습니다.\n3. 양쪽 무릎이 90도가 되도록 몸을 내립니다.\n4. 앞발의 힘으로 원래 자세로 돌아옵니다.',
@@ -976,7 +976,7 @@ const exerciseTranslations = {
     'superman': {
         ko: '슈퍼맨', en: 'Superman',
         category: 'targeted',
-        image: 'https://images.unsplash.com/photo-1518611012118-2969c63d002e?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/4976936/pexels-photo-4976936.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '등', en: 'Back' },
         desc: {
             ko: '1. 바닥에 엎드려 팔을 앞으로 뻗습니다.\n2. 등 근육의 힘으로 팔과 다리를 동시에 들어 올립니다.\n3. 등 근육의 자극을 느끼며 2~3초 유지합니다.\n4. 천천히 내리며 반복합니다.',
@@ -993,7 +993,7 @@ const exerciseTranslations = {
     'wall-sit': {
         ko: '월 시트', en: 'Wall Sit',
         category: 'targeted',
-        image: 'https://images.unsplash.com/photo-1567013127542-490d757e51cd?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/5038859/pexels-photo-5038859.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '허벅지', en: 'Quads' },
         desc: {
             ko: '1. 벽에 등을 기댑니다.\n2. 발을 앞으로 내밀며 무릎이 90도가 되도록 천천히 내려앉습니다.\n3. 허벅지가 바닥과 평행한 상태를 유지합니다.\n4. 정해진 시간 동안 버팁니다. (초보자: 20~30초)',
@@ -1010,7 +1010,7 @@ const exerciseTranslations = {
     'step-up': {
         ko: '스텝업', en: 'Step Up',
         category: 'targeted',
-        image: 'https://images.unsplash.com/udp_cuRqIrg?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/7688862/pexels-photo-7688862.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '하체', en: 'Legs' },
         desc: {
             ko: '1. 계단이나 박스 앞에 서서 오른발을 올립니다.\n2. 오른발로 밀어 올라가며 왼발도 올립니다.\n3. 오른발을 먼저 내려 시작 자세로 돌아옵니다.\n4. 양쪽을 번갈아 반복합니다.',
@@ -1044,7 +1044,7 @@ const exerciseTranslations = {
     'shoulder-press': {
         ko: '숄더 프레스', en: 'Shoulder Press',
         category: 'targeted',
-        image: 'https://images.unsplash.com/8QIkNwjcnck?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/7289367/pexels-photo-7289367.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '어깨', en: 'Shoulders' },
         desc: {
             ko: '1. 앉거나 선 자세에서 덤벨이나 물병을 어깨 높이로 듭니다.\n2. 팔꿈치가 90도가 되게 합니다.\n3. 머리 위로 똑바로 밀어 올립니다.\n4. 천천히 내려 시작 자세로 돌아옵니다.',
@@ -1061,7 +1061,7 @@ const exerciseTranslations = {
     'deadlift': {
         ko: '데드리프트', en: 'Deadlift',
         category: 'targeted',
-        image: 'https://images.unsplash.com/E_y9X4kNzxs?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '등·하체', en: 'Back & Legs' },
         desc: {
             ko: '1. 발을 어깨너비로 벌리고 무릎을 살짝 굽힙니다.\n2. 허리를 곧게 펴고 엉덩이를 뒤로 빼며 상체를 숙입니다.\n3. 등을 평평하게 유지하며 바닥의 무게를 잡습니다.\n4. 엉덩이를 앞으로 밀며 몸을 세워 올립니다.',
@@ -1078,7 +1078,7 @@ const exerciseTranslations = {
     'hip-hinge': {
         ko: '힙 힌지', en: 'Hip Hinge',
         category: 'targeted',
-        image: 'https://images.unsplash.com/NC8brK1Y_6U?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/13822300/pexels-photo-13822300.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '등·둔근', en: 'Back & Glutes' },
         desc: {
             ko: '1. 발을 어깨너비로 벌리고 섭니다.\n2. 엉덩이를 뒤로 밀며 상체를 바닥과 평행하게 내립니다.\n3. 등이 일직선임을 확인합니다.\n4. 엉덩이를 앞으로 밀며 똑바로 일어납니다.',
@@ -1129,7 +1129,7 @@ const exerciseTranslations = {
     'reverse-lunge': {
         ko: '리버스 런지', en: 'Reverse Lunge',
         category: 'targeted',
-        image: 'https://images.unsplash.com/1UnEP_LiMw0?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.unsplash.com/MBGv9XkJhuc?auto=format&fit=crop&q=80&w=400',
         primary: { ko: '하체·둔근', en: 'Legs & Glutes' },
         desc: {
             ko: '1. 등을 곧게 세우고 차렷 자세로 시작합니다.\n2. 한쪽 발을 뒤로 크게 내딛습니다.\n3. 양쪽 무릎이 90도가 되도록 몸을 내립니다.\n4. 앞발의 힘으로 원래 자세로 돌아옵니다.',
@@ -1163,7 +1163,7 @@ const exerciseTranslations = {
     'dumbbell-row': {
         ko: '덤벨 로우', en: 'Dumbbell Row',
         category: 'targeted',
-        image: 'https://images.unsplash.com/IYLLF511aOY?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '등·팔', en: 'Back & Arms' },
         desc: {
             ko: '1. 한 손과 무릎을 벤치에 올려 상체를 지지합니다.\n2. 반대쪽 손으로 덤벨을 잡고 팔을 아래로 내립니다.\n3. 팔꿈치를 뒤로 당기며 덤벨을 옆구리 쪽으로 들어 올립니다.\n4. 천천히 내려 시작 자세로 돌아옵니다.',
@@ -1183,7 +1183,7 @@ const stretchingDatabase = [
     {
         target: 'Chest',
         name: { ko: '가슴 스트레칭', en: 'Chest Stretch' },
-        image: 'https://images.unsplash.com/CjeHQ_A_6zI?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/4775199/pexels-photo-4775199.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트', en: '30s × 2 sets' },
         instructions: {
             ko: '1. 등을 곧게 세우고 섭니다.\n2. 두 손을 등 뒤에서 깍지를 낍니다.\n3. 가슴을 앞으로 내밀며 어깨를 뒤로 당깁니다.\n4. 가슴 근육이 늘어나는 느낌을 유지하며 30초 버팁니다.',
@@ -1193,7 +1193,7 @@ const stretchingDatabase = [
     {
         target: 'Abs',
         name: { ko: '코브라 자세 (등 스트레칭)', en: 'Cobra Stretch' },
-        image: 'https://images.unsplash.com/photo-1552196564-977484dfb66e?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/4793308/pexels-photo-4793308.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '20초 × 3세트', en: '20s × 3 sets' },
         instructions: {
             ko: '1. 엎드려서 손을 어깨 아래에 댑니다.\n2. 팔을 펴며 상체를 들어 올립니다.\n3. 골반은 바닥에 붙인 상태를 유지합니다.\n4. 복부가 늘어나는 느낌을 유지하며 20초 유지합니다.',
@@ -1203,7 +1203,7 @@ const stretchingDatabase = [
     {
         target: 'Legs',
         name: { ko: '햄스트링 스트레칭', en: 'Hamstring Stretch' },
-        image: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/5037407/pexels-photo-5037407.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트 (양쪽)', en: '30s × 2 sets (each side)' },
         instructions: {
             ko: '1. 바닥에 앉아 한쪽 다리를 앞으로 뻗습니다.\n2. 등을 곧게 세우고 발끝을 몸 쪽으로 당깁니다.\n3. 허리를 굽히지 말고 가슴을 발 방향으로 내밉니다.\n4. 허벅지 뒤쪽이 당기는 느낌을 유지합니다.',
@@ -1213,7 +1213,7 @@ const stretchingDatabase = [
     {
         target: 'Back',
         name: { ko: '고양이-소 자세 (척추 스트레칭)', en: 'Cat-Cow Stretch' },
-        image: 'https://images.unsplash.com/VLpbB4YlNiw?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '10회 반복', en: '10 repetitions' },
         instructions: {
             ko: '1. 손과 무릎을 바닥에 대는 네발기기 자세를 취합니다.\n2. 숨을 들이쉬며 허리를 아래로 처지게 하고 고개를 들어 올립니다. (소 자세)\n3. 숨을 내쉬며 등을 위로 동그랗게 말고 고개를 숙입니다. (고양이 자세)\n4. 천천히 10회 반복합니다.',
@@ -1223,7 +1223,7 @@ const stretchingDatabase = [
     {
         target: 'Cardio',
         name: { ko: '종아리 스트레칭', en: 'Calf Stretch' },
-        image: 'https://images.unsplash.com/sVH7i5A4Wh8?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/6283561/pexels-photo-6283561.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트 (양쪽)', en: '30s × 2 sets (each side)' },
         instructions: {
             ko: '1. 벽 앞에 서서 양손을 벽에 댑니다.\n2. 한 발을 뒤로 길게 내딛고 발뒤꿈치를 바닥에 붙입니다.\n3. 앞 무릎을 굽히며 뒤쪽 다리의 종아리가 당기는 느낌을 만듭니다.\n4. 30초 유지 후 반대편도 진행합니다.',
@@ -1233,7 +1233,7 @@ const stretchingDatabase = [
     {
         target: 'Arms',
         name: { ko: '삼두근 스트레칭', en: 'Triceps Stretch' },
-        image: 'https://images.unsplash.com/Ly4RdHwt4fw?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/5132103/pexels-photo-5132103.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '20초 × 2세트 (양쪽)', en: '20s × 2 sets (each side)' },
         instructions: {
             ko: '1. 서거나 앉아서 오른팔을 머리 위로 들어 올립니다.\n2. 팔꿈치를 굽혀 손이 등 쪽으로 닿게 합니다.\n3. 왼손으로 오른쪽 팔꿈치를 잡아 살짝 당겨줍니다.\n4. 20초 유지 후 반대편도 진행합니다.',
@@ -1243,7 +1243,7 @@ const stretchingDatabase = [
     {
         target: 'Shoulders',
         name: { ko: '어깨 가로 스트레칭', en: 'Cross-Body Shoulder Stretch' },
-        image: 'https://images.unsplash.com/IPl13IxUKRo?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3771071/pexels-photo-3771071.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '20초 × 2세트 (양쪽)', en: '20s × 2 sets (each side)' },
         instructions: {
             ko: '1. 오른팔을 가슴 높이로 펴서 몸 앞쪽으로 뻗습니다.\n2. 왼손으로 오른팔 팔꿈치 부근을 잡습니다.\n3. 오른팔을 왼쪽으로 당겨 어깨 뒤쪽이 늘어나는 느낌을 만듭니다.\n4. 20초 유지 후 반대편도 진행합니다.',
@@ -1253,7 +1253,7 @@ const stretchingDatabase = [
     {
         target: 'Legs',
         name: { ko: '대퇴사두근(앞 허벅지) 스트레칭', en: 'Quad Stretch' },
-        image: 'https://images.unsplash.com/HHXdPG_eTIQ?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/10042911/pexels-photo-10042911.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트 (양쪽)', en: '30s × 2 sets (each side)' },
         instructions: {
             ko: '1. 한 손으로 벽이나 의자를 잡아 균형을 유지합니다.\n2. 한쪽 무릎을 굽혀 발목을 엉덩이 쪽으로 당깁니다.\n3. 무릎을 모아 앞 허벅지가 당기는 느낌을 만듭니다.\n4. 30초 유지 후 반대편도 진행합니다.',
@@ -1263,7 +1263,7 @@ const stretchingDatabase = [
     {
         target: 'Back',
         name: { ko: '아이 자세 (휴식 스트레칭)', en: "Child's Pose" },
-        image: 'https://images.unsplash.com/_PInKGPLPCA?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/8436581/pexels-photo-8436581.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30~60초', en: '30-60 seconds' },
         instructions: {
             ko: '1. 무릎을 꿇고 엉덩이를 발뒤꿈치 위에 내립니다.\n2. 팔을 앞으로 뻗으며 상체를 바닥으로 내립니다.\n3. 이마를 바닥에 대고 온몸의 힘을 뺍니다.\n4. 깊은 복식 호흡과 함께 30~60초 휴식합니다.',
@@ -1273,7 +1273,7 @@ const stretchingDatabase = [
     {
         target: 'Abs',
         name: { ko: '누운 비틀기 (척추 회전)', en: 'Supine Twist' },
-        image: 'https://images.unsplash.com/KswNRngZ8fo?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3768179/pexels-photo-3768179.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트 (양쪽)', en: '30s × 2 sets (each side)' },
         instructions: {
             ko: '1. 등을 대고 누워 한쪽 무릎을 가슴으로 당깁니다.\n2. 당긴 무릎을 반대편으로 넘겨 허리를 비틀어줍니다.\n3. 양쪽 어깨는 바닥에 붙인 채 유지합니다.\n4. 30초 유지 후 반대편도 진행합니다.',
@@ -1283,7 +1283,7 @@ const stretchingDatabase = [
     {
         target: 'Cardio',
         name: { ko: '고관절 굴곡근 스트레칭', en: 'Hip Flexor Stretch' },
-        image: 'https://images.unsplash.com/vggKEO1xD3w?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/5331197/pexels-photo-5331197.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트 (양쪽)', en: '30s × 2 sets (each side)' },
         instructions: {
             ko: '1. 한쪽 무릎을 바닥에 대고 런지 자세를 취합니다.\n2. 골반을 앞으로 밀며 뒤쪽 다리 앞 허벅지가 늘어나게 합니다.\n3. 허리가 과도하게 젖혀지지 않도록 주의합니다.\n4. 30초 유지 후 반대편도 진행합니다.',
