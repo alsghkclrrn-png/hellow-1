@@ -1183,7 +1183,7 @@ const stretchingDatabase = [
     {
         target: 'Chest',
         name: { ko: '가슴 스트레칭', en: 'Chest Stretch' },
-        image: 'https://images.pexels.com/photos/4775199/pexels-photo-4775199.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/8401111/pexels-photo-8401111.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트', en: '30s × 2 sets' },
         instructions: {
             ko: '1. 등을 곧게 세우고 섭니다.\n2. 두 손을 등 뒤에서 깍지를 낍니다.\n3. 가슴을 앞으로 내밀며 어깨를 뒤로 당깁니다.\n4. 가슴 근육이 늘어나는 느낌을 유지하며 30초 버팁니다.',
@@ -1203,7 +1203,7 @@ const stretchingDatabase = [
     {
         target: 'Legs',
         name: { ko: '햄스트링 스트레칭', en: 'Hamstring Stretch' },
-        image: 'https://images.pexels.com/photos/5037407/pexels-photo-5037407.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/7500331/pexels-photo-7500331.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트 (양쪽)', en: '30s × 2 sets (each side)' },
         instructions: {
             ko: '1. 바닥에 앉아 한쪽 다리를 앞으로 뻗습니다.\n2. 등을 곧게 세우고 발끝을 몸 쪽으로 당깁니다.\n3. 허리를 굽히지 말고 가슴을 발 방향으로 내밉니다.\n4. 허벅지 뒤쪽이 당기는 느낌을 유지합니다.',
@@ -1213,7 +1213,7 @@ const stretchingDatabase = [
     {
         target: 'Back',
         name: { ko: '고양이-소 자세 (척추 스트레칭)', en: 'Cat-Cow Stretch' },
-        image: 'https://images.pexels.com/photos/3823086/pexels-photo-3823086.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/8436701/pexels-photo-8436701.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '10회 반복', en: '10 repetitions' },
         instructions: {
             ko: '1. 손과 무릎을 바닥에 대는 네발기기 자세를 취합니다.\n2. 숨을 들이쉬며 허리를 아래로 처지게 하고 고개를 들어 올립니다. (소 자세)\n3. 숨을 내쉬며 등을 위로 동그랗게 말고 고개를 숙입니다. (고양이 자세)\n4. 천천히 10회 반복합니다.',
@@ -1223,7 +1223,7 @@ const stretchingDatabase = [
     {
         target: 'Cardio',
         name: { ko: '종아리 스트레칭', en: 'Calf Stretch' },
-        image: 'https://images.pexels.com/photos/6283561/pexels-photo-6283561.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/5036907/pexels-photo-5036907.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트 (양쪽)', en: '30s × 2 sets (each side)' },
         instructions: {
             ko: '1. 벽 앞에 서서 양손을 벽에 댑니다.\n2. 한 발을 뒤로 길게 내딛고 발뒤꿈치를 바닥에 붙입니다.\n3. 앞 무릎을 굽히며 뒤쪽 다리의 종아리가 당기는 느낌을 만듭니다.\n4. 30초 유지 후 반대편도 진행합니다.',
@@ -1243,7 +1243,7 @@ const stretchingDatabase = [
     {
         target: 'Shoulders',
         name: { ko: '어깨 가로 스트레칭', en: 'Cross-Body Shoulder Stretch' },
-        image: 'https://images.pexels.com/photos/3771071/pexels-photo-3771071.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/6516236/pexels-photo-6516236.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '20초 × 2세트 (양쪽)', en: '20s × 2 sets (each side)' },
         instructions: {
             ko: '1. 오른팔을 가슴 높이로 펴서 몸 앞쪽으로 뻗습니다.\n2. 왼손으로 오른팔 팔꿈치 부근을 잡습니다.\n3. 오른팔을 왼쪽으로 당겨 어깨 뒤쪽이 늘어나는 느낌을 만듭니다.\n4. 20초 유지 후 반대편도 진행합니다.',
@@ -1253,7 +1253,7 @@ const stretchingDatabase = [
     {
         target: 'Legs',
         name: { ko: '대퇴사두근(앞 허벅지) 스트레칭', en: 'Quad Stretch' },
-        image: 'https://images.pexels.com/photos/10042911/pexels-photo-10042911.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/7869502/pexels-photo-7869502.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트 (양쪽)', en: '30s × 2 sets (each side)' },
         instructions: {
             ko: '1. 한 손으로 벽이나 의자를 잡아 균형을 유지합니다.\n2. 한쪽 무릎을 굽혀 발목을 엉덩이 쪽으로 당깁니다.\n3. 무릎을 모아 앞 허벅지가 당기는 느낌을 만듭니다.\n4. 30초 유지 후 반대편도 진행합니다.',
@@ -1273,7 +1273,7 @@ const stretchingDatabase = [
     {
         target: 'Abs',
         name: { ko: '누운 비틀기 (척추 회전)', en: 'Supine Twist' },
-        image: 'https://images.pexels.com/photos/3768179/pexels-photo-3768179.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://images.pexels.com/photos/6193552/pexels-photo-6193552.jpeg?auto=compress&cs=tinysrgb&w=400',
         duration: { ko: '30초 × 2세트 (양쪽)', en: '30s × 2 sets (each side)' },
         instructions: {
             ko: '1. 등을 대고 누워 한쪽 무릎을 가슴으로 당깁니다.\n2. 당긴 무릎을 반대편으로 넘겨 허리를 비틀어줍니다.\n3. 양쪽 어깨는 바닥에 붙인 채 유지합니다.\n4. 30초 유지 후 반대편도 진행합니다.',
