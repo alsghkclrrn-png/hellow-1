@@ -345,12 +345,12 @@ function saveWorkoutHistory(sessionIds) {
     localStorage.setItem('workoutHistory', JSON.stringify(history));
 }
 
-// 최근 히스토리에서 운동 ID별 최근 사용 횟수 계산 (적을수록 우선)
+// 최근 히스토리에서 운동 ID별 사용 횟수 계산 (최근 100회 세션)
 function getRecentUsageCounts() {
     const history = loadWorkoutHistory();
     const counts = {};
-    // 최근 30회 세션만 분석
-    const recent = history.slice(-30);
+    // 최근 100회 세션 분석
+    const recent = history.slice(-100);
     recent.forEach(session => {
         (session.ids || []).forEach(id => {
             counts[id] = (counts[id] || 0) + 1;
@@ -359,16 +359,30 @@ function getRecentUsageCounts() {
     return counts;
 }
 
-// 카테고리별 풀에서 최소 사용 운동 선택
-function pickFromPool(pool, count, usageCounts, allowedIntensity) {
+// 최근 N회 세션에서 사용된 운동 ID 집합 (쿨다운 제외용)
+function getRecentExerciseIds(sessions = 14) {
+    const history = loadWorkoutHistory();
+    const recent = history.slice(-sessions);
+    const ids = new Set();
+    recent.forEach(session => {
+        (session.ids || []).forEach(id => ids.add(id));
+    });
+    return ids;
+}
+
+// 카테고리별 풀에서 최소 사용 운동 선택 (14회 쿨다운 적용)
+function pickFromPool(pool, count, usageCounts, cooldownIds, allowedIntensity) {
     const filtered = pool.filter(ex => allowedIntensity.includes(ex.intensity));
+    // 먼저 쿨다운 제외 풀 시도 (최근 14회 미사용 운동 우선)
+    const coolPool = filtered.filter(ex => !cooldownIds.has(ex.id));
+    const source = coolPool.length >= count ? coolPool : filtered;
     // 사용 횟수 오름차순 정렬 + 동일 횟수면 랜덤
-    filtered.sort((a, b) => {
+    source.sort((a, b) => {
         const ua = usageCounts[a.id] || 0;
         const ub = usageCounts[b.id] || 0;
         return ua !== ub ? ua - ub : Math.random() - 0.5;
     });
-    return filtered.slice(0, count);
+    return source.slice(0, count);
 }
 
 function generateWorkout(goal, level, freq, isRefresh = false) {
@@ -388,18 +402,25 @@ function generateWorkout(goal, level, freq, isRefresh = false) {
     const targetedPool = allExercises.filter(ex => ex.category === 'targeted');
 
     const usageCounts = getRecentUsageCounts();
+    const cooldownIds = getRecentExerciseIds(14);
 
-    // 1 abs + 1 cardio + 3 targeted = 5 exercises
-    const absPicked      = pickFromPool(absPool,      1, usageCounts, allowedIntensity);
-    const cardioPicked   = pickFromPool(cardioPool,   1, usageCounts, allowedIntensity);
-    const targetedPicked = pickFromPool(targetedPool, 3, usageCounts, allowedIntensity);
+    // 1 abs + 1 cardio + 3 targeted = 5 exercises (14회 쿨다운 + 100일 비반복 보장)
+    const absPicked      = pickFromPool(absPool,      1, usageCounts, cooldownIds, allowedIntensity);
+    const cardioPicked   = pickFromPool(cardioPool,   1, usageCounts, cooldownIds, allowedIntensity);
+    const targetedPicked = pickFromPool(targetedPool, 3, usageCounts, cooldownIds, allowedIntensity);
 
-    // fallback: if not enough exercises in a pool, fill from any available
+    // fallback: if not enough exercises in a pool, fill from any available (쿨다운 미사용 우선)
     const session = [...absPicked, ...cardioPicked, ...targetedPicked];
     if (session.length < 5) {
+        const usedIds = new Set(session.map(ex => ex.id));
         const remaining = allExercises
-            .filter(ex => !session.some(s => s.id === ex.id) && allowedIntensity.includes(ex.intensity))
-            .sort(() => Math.random() - 0.5);
+            .filter(ex => !usedIds.has(ex.id) && allowedIntensity.includes(ex.intensity))
+            .sort((a, b) => {
+                const aCool = cooldownIds.has(a.id) ? 1 : 0;
+                const bCool = cooldownIds.has(b.id) ? 1 : 0;
+                if (aCool !== bCool) return aCool - bCool;
+                return (usageCounts[a.id] || 0) - (usageCounts[b.id] || 0);
+            });
         session.push(...remaining.slice(0, 5 - session.length));
     }
 

@@ -1176,6 +1176,488 @@ const exerciseTranslations = {
         recRest: { excellent: '60초', tired: '90초', recovery: '90초' },
         recTime: { excellent: '8분', tired: '5분', recovery: '3분' },
         isHome: true, intensity: 'medium'
+    },
+
+    /* ── 복근 추가 (Additional Abs) ── */
+    'bicycle-crunch': {
+        ko: '바이시클 크런치', en: 'Bicycle Crunch',
+        category: 'abs',
+        image: 'https://images.pexels.com/photos/6599017/pexels-photo-6599017.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '복근·옆구리', en: 'Abs & Obliques' },
+        desc: {
+            ko: '1. 등을 대고 누워 손을 귀 옆에 댑니다.\n2. 양 무릎을 90도로 들어 올립니다.\n3. 오른 팔꿈치와 왼 무릎을 서로 향해 비틀며 오른 다리는 뻗습니다.\n4. 자전거 페달 밟듯 좌우를 번갈아 반복합니다.',
+            en: '1. Lie on back, hands lightly beside ears.\n2. Lift both knees to 90 degrees.\n3. Twist right elbow toward left knee while extending right leg.\n4. Alternate sides in a cycling motion.'
+        },
+        caution: { ko: '목을 당기지 말고 복근으로 회전하세요. 허리가 바닥에서 뜨지 않게 합니다.', en: 'Do not pull the neck. Rotate from the core. Keep lower back pressed to the floor.' },
+        tip: { ko: '초보자 팁: 천천히 한 동작씩 정확하게 하여 허리 부담을 줄이세요.', en: 'Beginner tip: Move slowly and deliberately to protect the lower back.' },
+        recReps: { excellent: '20회 (양쪽)', tired: '14회 (양쪽)', recovery: '10회 (양쪽)' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '60초' },
+        recTime: { excellent: '5분', tired: '3분', recovery: '2분' },
+        isHome: true, intensity: 'medium'
+    },
+    'flutter-kick': {
+        ko: '플러터 킥', en: 'Flutter Kicks',
+        category: 'abs',
+        image: 'https://images.pexels.com/photos/6516214/pexels-photo-6516214.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '하복부', en: 'Lower Abs' },
+        desc: {
+            ko: '1. 등을 대고 누워 손을 엉덩이 아래에 받칩니다.\n2. 다리를 바닥에서 15~20cm 들어 올립니다.\n3. 두 다리를 번갈아 작은 폭으로 빠르게 위아래로 움직입니다.\n4. 허리가 들리지 않도록 복부에 힘을 유지합니다.',
+            en: '1. Lie on back, hands under hips for support.\n2. Lift legs 15-20cm off the floor.\n3. Rapidly alternate kicking each leg up and down in small movements.\n4. Keep core engaged so lower back stays on the floor.'
+        },
+        caution: { ko: '허리 통증이 있으면 다리를 더 높이 들어 올리세요. 허리는 항상 바닥에 유지합니다.', en: 'If lower back hurts, raise legs higher. Always keep lower back on the floor.' },
+        tip: { ko: '초보자 팁: 다리를 높게 들수록 허리 부담이 줄어듭니다.', en: 'Beginner tip: The higher you lift the legs, the easier it is on the lower back.' },
+        recReps: { excellent: '30초', tired: '20초', recovery: '15초' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '60초' },
+        recTime: { excellent: '5분', tired: '3분', recovery: '2분' },
+        isHome: true, intensity: 'medium'
+    },
+    'russian-twist': {
+        ko: '러시안 트위스트', en: 'Russian Twist',
+        category: 'abs',
+        image: 'https://images.pexels.com/photos/3760261/pexels-photo-3760261.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '옆구리', en: 'Obliques' },
+        desc: {
+            ko: '1. 바닥에 앉아 무릎을 45도로 세우고 발을 살짝 들어 올립니다.\n2. 상체를 뒤로 살짝 기울여 V자 형태를 만듭니다.\n3. 손을 모아 몸통을 좌우로 번갈아 회전합니다.\n4. 복부 옆구리 근육에 자극을 느끼며 반복합니다.',
+            en: '1. Sit on floor, knees bent 45 degrees, feet slightly raised.\n2. Lean torso back slightly to form a V-shape.\n3. Clasp hands together and rotate torso side to side.\n4. Feel the obliques engage with each twist.'
+        },
+        caution: { ko: '허리가 아닌 복부 회전으로 동작하세요. 발을 바닥에 두면 난이도가 낮아집니다.', en: 'Rotate from the core, not the lower back. Keep feet on the floor to reduce difficulty.' },
+        tip: { ko: '초보자 팁: 처음엔 발을 바닥에 두고 천천히 비틀어 균형을 익히세요.', en: 'Beginner tip: Start with feet on the floor and rotate slowly to build balance.' },
+        recReps: { excellent: '20회 (양쪽)', tired: '14회 (양쪽)', recovery: '10회 (양쪽)' },
+        recSets: { excellent: '3', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '60초' },
+        recTime: { excellent: '5분', tired: '3분', recovery: '2분' },
+        isHome: true, intensity: 'medium'
+    },
+    'dead-bug': {
+        ko: '데드 버그', en: 'Dead Bug',
+        category: 'abs',
+        image: 'https://images.pexels.com/photos/4164716/pexels-photo-4164716.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '코어·복근', en: 'Core & Abs' },
+        desc: {
+            ko: '1. 등을 대고 누워 팔을 천장을 향해 뻗고 무릎을 90도로 들어 올립니다.\n2. 천천히 오른팔을 머리 위로, 왼 다리를 바닥을 향해 동시에 내립니다.\n3. 바닥에 닿기 직전 멈추고 시작 자세로 돌아옵니다.\n4. 반대편도 동일하게 반복합니다.',
+            en: '1. Lie on back, arms reaching toward ceiling, knees bent 90 degrees.\n2. Slowly lower right arm overhead and left leg toward floor simultaneously.\n3. Stop just before touching the floor and return to start.\n4. Repeat on the opposite side.'
+        },
+        caution: { ko: '허리가 바닥에서 뜨면 안 됩니다. 동작 내내 허리를 바닥에 밀착시키세요.', en: 'Lower back must not arch off the floor. Press it flat throughout the movement.' },
+        tip: { ko: '초보자 팁: 팔만 움직이거나 다리만 움직이는 것부터 시작해도 좋습니다.', en: 'Beginner tip: Start by moving only the arms or only the legs until you build core control.' },
+        recReps: { excellent: '12회 (양쪽)', tired: '8회 (양쪽)', recovery: '6회 (양쪽)' },
+        recSets: { excellent: '3', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '90초' },
+        recTime: { excellent: '4분', tired: '3분', recovery: '2분' },
+        isHome: true, intensity: 'low'
+    },
+    'v-sit': {
+        ko: '브이 싯', en: 'V-Sit',
+        category: 'abs',
+        image: 'https://images.pexels.com/photos/3822621/pexels-photo-3822621.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '복근 전체', en: 'Full Abs' },
+        desc: {
+            ko: '1. 바닥에 앉아 등을 곧게 세웁니다.\n2. 다리를 들어 올리고 팔을 앞으로 뻗어 V자 형태를 만듭니다.\n3. 복부에 힘을 주며 이 자세를 유지합니다.\n4. 버티기 어려우면 잠시 쉬고 반복합니다.',
+            en: '1. Sit on floor with spine tall.\n2. Lift legs off floor and extend arms forward to form a V-shape.\n3. Engage core to hold the position.\n4. Rest briefly when needed, then repeat.'
+        },
+        caution: { ko: '허리가 굽으면 부상 위험이 있습니다. 등을 곧게 펴고 코어에 집중하세요.', en: 'A rounded back risks injury. Keep spine straight and focus on the core.' },
+        tip: { ko: '초보자 팁: 무릎을 굽혀 발을 가까이 당기면 더 쉽게 자세를 잡을 수 있습니다.', en: 'Beginner tip: Bend knees with feet closer to you to make the hold more manageable.' },
+        recReps: { excellent: '20초', tired: '12초', recovery: '10초' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '90초' },
+        recTime: { excellent: '4분', tired: '3분', recovery: '2분' },
+        isHome: true, intensity: 'high'
+    },
+    'reverse-crunch': {
+        ko: '리버스 크런치', en: 'Reverse Crunch',
+        category: 'abs',
+        image: 'https://images.pexels.com/photos/6351163/pexels-photo-6351163.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '하복부', en: 'Lower Abs' },
+        desc: {
+            ko: '1. 등을 대고 누워 팔을 바닥에 자연스럽게 내립니다.\n2. 무릎을 90도로 구부려 들어 올립니다.\n3. 복부 힘으로 엉덩이를 바닥에서 살짝 들어 올리며 무릎을 가슴 쪽으로 당깁니다.\n4. 천천히 내려 시작 자세로 돌아옵니다.',
+            en: '1. Lie on back with arms flat at sides.\n2. Lift and bend knees to 90 degrees.\n3. Use lower abs to lift hips slightly off the floor, drawing knees toward chest.\n4. Slowly lower back to start.'
+        },
+        caution: { ko: '엉덩이를 힘으로 던지지 마세요. 천천히 복근 힘으로 들어 올립니다.', en: 'Do not swing the hips. Lift slowly using only the lower abdominals.' },
+        tip: { ko: '초보자 팁: 처음에는 엉덩이가 조금만 들려도 충분합니다.', en: 'Beginner tip: Even a small hip lift is effective at first — quality over height.' },
+        recReps: { excellent: '15회', tired: '10회', recovery: '8회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '60초' },
+        recTime: { excellent: '5분', tired: '3분', recovery: '2분' },
+        isHome: true, intensity: 'medium'
+    },
+
+    /* ── 유산소 추가 (Additional Cardio) ── */
+    'squat-jump': {
+        ko: '스쿼트 점프', en: 'Squat Jump',
+        category: 'cardio',
+        image: 'https://images.pexels.com/photos/5327530/pexels-photo-5327530.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '유산소·하체', en: 'Cardio & Legs' },
+        desc: {
+            ko: '1. 발을 어깨너비로 벌리고 스쿼트 자세로 내려앉습니다.\n2. 힘차게 위로 뛰어오릅니다.\n3. 발 앞꿈치로 부드럽게 착지하며 즉시 다음 스쿼트로 이어갑니다.\n4. 리드미컬하게 반복합니다.',
+            en: '1. Stand with feet shoulder-width apart and lower into a squat.\n2. Explosively jump upward.\n3. Land softly on the balls of your feet and immediately lower into the next squat.\n4. Repeat rhythmically.'
+        },
+        caution: { ko: '착지 시 무릎을 부드럽게 굽혀 충격을 흡수하세요. 발뒤꿈치가 먼저 닿지 않게 합니다.', en: 'Absorb landing with bent knees. Never land on the heels.' },
+        tip: { ko: '초보자 팁: 점프 높이는 낮게, 착지는 부드럽게 집중하세요.', en: 'Beginner tip: Focus on a soft landing rather than jump height at first.' },
+        recReps: { excellent: '15회', tired: '8회', recovery: '5회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '60초', tired: '90초', recovery: '120초' },
+        recTime: { excellent: '7분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'high'
+    },
+    'skater-jump': {
+        ko: '스케이터 점프', en: 'Skater Jump',
+        category: 'cardio',
+        image: 'https://images.pexels.com/photos/7689082/pexels-photo-7689082.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '유산소·다리', en: 'Cardio & Legs' },
+        desc: {
+            ko: '1. 왼발로 서서 오른쪽으로 옆으로 뛰어오릅니다.\n2. 오른발로 착지하며 왼발을 뒤로 교차합니다.\n3. 반대로 왼쪽으로 점프하며 왼발로 착지합니다.\n4. 스케이터가 활주하듯 좌우로 반복합니다.',
+            en: '1. Start on left foot and leap laterally to the right.\n2. Land on right foot, sweeping left foot behind.\n3. Leap back to the left landing on left foot.\n4. Repeat like a speed skater gliding side to side.'
+        },
+        caution: { ko: '착지 시 무릎이 발끝을 넘지 않도록 하고 균형을 잡아 안정적으로 착지하세요.', en: 'Keep knee behind toes on landing and control the landing for stability.' },
+        tip: { ko: '초보자 팁: 점프 거리를 줄이고 천천히 시작해 균형 감각을 익히세요.', en: 'Beginner tip: Start with smaller leaps and slower speed to build lateral balance.' },
+        recReps: { excellent: '20회 (양쪽)', tired: '12회 (양쪽)', recovery: '8회 (양쪽)' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '60초', tired: '90초', recovery: '120초' },
+        recTime: { excellent: '7분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'high'
+    },
+    'bear-crawl': {
+        ko: '베어 크롤', en: 'Bear Crawl',
+        category: 'cardio',
+        image: 'https://images.pexels.com/photos/6353025/pexels-photo-6353025.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '전신 유산소', en: 'Full Body Cardio' },
+        desc: {
+            ko: '1. 손과 무릎을 바닥에 댑니다.\n2. 무릎을 바닥에서 살짝 들어 올립니다.\n3. 오른손-왼발, 왼손-오른발을 동시에 움직이며 앞으로 기어갑니다.\n4. 정해진 거리나 시간만큼 앞뒤로 반복합니다.',
+            en: '1. Get on hands and knees.\n2. Lift knees slightly off the floor.\n3. Move right hand and left foot forward simultaneously, then left hand and right foot.\n4. Crawl forward and back for the set distance or time.'
+        },
+        caution: { ko: '등이 처지거나 솟지 않도록 코어를 단단히 유지하세요.', en: 'Keep core braced so back stays flat — do not let it sag or arch.' },
+        tip: { ko: '초보자 팁: 처음에는 천천히 정확한 동작으로 시작하고 점점 속도를 올리세요.', en: 'Beginner tip: Start slow with accurate movement and gradually increase speed.' },
+        recReps: { excellent: '30초', tired: '20초', recovery: '15초' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '60초', tired: '90초', recovery: '90초' },
+        recTime: { excellent: '7분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'medium'
+    },
+    'shadow-boxing': {
+        ko: '쉐도우 복싱', en: 'Shadow Boxing',
+        category: 'cardio',
+        image: 'https://images.pexels.com/photos/7045462/pexels-photo-7045462.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '유산소·상체', en: 'Cardio & Upper Body' },
+        desc: {
+            ko: '1. 어깨너비로 발을 벌리고 주먹을 쥐어 가드 자세를 취합니다.\n2. 잽, 크로스, 훅을 조합해 앞으로 주먹을 내지릅니다.\n3. 발을 가볍게 움직이며 상체를 좌우로 흔듭니다.\n4. 일정한 리듬으로 1분간 계속합니다.',
+            en: '1. Stand shoulder-width, fists up in guard position.\n2. Throw jabs, crosses and hooks in combination.\n3. Keep feet light and moving, rotate the torso with each punch.\n4. Maintain rhythm for 1 minute.'
+        },
+        caution: { ko: '팔꿈치를 과도하게 펴면 관절에 무리가 갑니다. 팔꿈치를 살짝 굽힌 상태로 마무리하세요.', en: 'Avoid fully locking the elbows on each punch — leave a slight bend to protect the joint.' },
+        tip: { ko: '초보자 팁: 거울 앞에서 천천히 동작을 익힌 후 속도를 올려보세요.', en: 'Beginner tip: Practice in front of a mirror slowly before adding speed.' },
+        recReps: { excellent: '1분', tired: '40초', recovery: '30초' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '90초' },
+        recTime: { excellent: '7분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'medium'
+    },
+    'running-in-place': {
+        ko: '제자리 달리기', en: 'Running in Place',
+        category: 'cardio',
+        image: 'https://images.pexels.com/photos/6516170/pexels-photo-6516170.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '유산소', en: 'Cardio' },
+        desc: {
+            ko: '1. 제자리에 서서 달리기 자세를 취합니다.\n2. 팔을 앞뒤로 흔들며 무릎을 높이 들어 달립니다.\n3. 발 앞꿈치로 가볍게 착지합니다.\n4. 일정한 속도로 정해진 시간 동안 반복합니다.',
+            en: '1. Stand in place in a running posture.\n2. Drive knees up alternately while swinging arms front to back.\n3. Land lightly on the balls of your feet.\n4. Maintain steady pace for the set time.'
+        },
+        caution: { ko: '발뒤꿈치로 쿵쿵 착지하지 마세요. 무릎에 무리가 갈 수 있습니다.', en: 'Avoid stomping on the heels — land quietly on the balls of your feet.' },
+        tip: { ko: '초보자 팁: 마치 슬로우 모션 달리기처럼 느린 속도로 시작해도 됩니다.', en: 'Beginner tip: Start at a slow, deliberate pace like slow-motion jogging.' },
+        recReps: { excellent: '1분', tired: '40초', recovery: '30초' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '90초' },
+        recTime: { excellent: '7분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'medium'
+    },
+    'box-jump': {
+        ko: '박스 점프', en: 'Box Jump',
+        category: 'cardio',
+        image: 'https://images.pexels.com/photos/4345128/pexels-photo-4345128.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '유산소·하체', en: 'Cardio & Legs' },
+        desc: {
+            ko: '1. 낮은 박스나 계단 앞에 서서 무릎을 살짝 굽힙니다.\n2. 팔을 뒤로 흔들다가 앞으로 스윙하며 힘차게 점프합니다.\n3. 두 발로 박스 위에 착지하며 무릎을 부드럽게 굽힙니다.\n4. 스텝으로 내려와 반복합니다.',
+            en: '1. Stand before a low box or step, knees slightly bent.\n2. Swing arms back then forward as you explosively jump.\n3. Land with both feet on the box, knees soft.\n4. Step down and repeat.'
+        },
+        caution: { ko: '착지 후 무릎이 안으로 모이지 않게 하세요. 점프보다 착지 자세가 더 중요합니다.', en: 'Keep knees from caving inward on landing. A controlled landing matters more than jump height.' },
+        tip: { ko: '초보자 팁: 아주 낮은 박스(10~15cm)부터 시작하여 착지 감각을 익히세요.', en: 'Beginner tip: Begin with a very low step (10-15cm) to build landing mechanics first.' },
+        recReps: { excellent: '10회', tired: '6회', recovery: '4회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '90초', tired: '120초', recovery: '120초' },
+        recTime: { excellent: '8분', tired: '5분', recovery: '3분' },
+        isHome: true, intensity: 'high'
+    },
+    'inchworm': {
+        ko: '인치웜', en: 'Inchworm',
+        category: 'cardio',
+        image: 'https://images.pexels.com/photos/6351023/pexels-photo-6351023.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '유산소·코어', en: 'Cardio & Core' },
+        desc: {
+            ko: '1. 발을 어깨너비로 벌리고 섭니다.\n2. 상체를 숙여 손이 바닥에 닿을 때까지 내립니다.\n3. 손을 앞으로 걷듯이 이동시켜 플랭크 자세를 만듭니다.\n4. 다시 발 방향으로 손을 걸어오며 일어나 반복합니다.',
+            en: '1. Stand with feet shoulder-width apart.\n2. Hinge forward and lower hands to the floor.\n3. Walk hands out until you reach a plank position.\n4. Walk hands back toward feet and stand up. Repeat.'
+        },
+        caution: { ko: '무릎을 최대한 펴고 수행하되, 무릎 통증이 있으면 살짝 굽혀도 됩니다.', en: 'Try to keep knees as straight as possible; a slight bend is fine if needed.' },
+        tip: { ko: '초보자 팁: 무릎을 굽혀 시작해 점차 다리를 펴가는 방식으로 유연성을 키우세요.', en: 'Beginner tip: Start with bent knees and work toward straighter legs as flexibility improves.' },
+        recReps: { excellent: '10회', tired: '7회', recovery: '5회' },
+        recSets: { excellent: '3', tired: '3', recovery: '2' },
+        recRest: { excellent: '60초', tired: '90초', recovery: '90초' },
+        recTime: { excellent: '6분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'medium'
+    },
+    'star-jump': {
+        ko: '스타 점프', en: 'Star Jump',
+        category: 'cardio',
+        image: 'https://images.pexels.com/photos/7688929/pexels-photo-7688929.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '유산소', en: 'Cardio' },
+        desc: {
+            ko: '1. 발을 모아 차렷 자세로 섭니다.\n2. 무릎을 굽히며 점프 준비를 합니다.\n3. 힘차게 점프하며 팔다리를 모두 벌려 별 모양을 만듭니다.\n4. 착지하며 팔다리를 모아 시작 자세로 돌아옵니다.',
+            en: '1. Stand with feet together, arms at sides.\n2. Bend knees to prepare for the jump.\n3. Explosively jump and spread both arms and legs into a star shape.\n4. Land with feet together and arms down.'
+        },
+        caution: { ko: '무릎을 살짝 굽혀 부드럽게 착지하세요. 딱딱한 바닥에서는 패드 사용을 권장합니다.', en: 'Bend knees on landing for a soft touchdown. Use a mat on hard floors.' },
+        tip: { ko: '초보자 팁: 점프 없이 제자리에서 팔다리를 벌리고 모으는 동작으로 시작하세요.', en: 'Beginner tip: Start without jumping — just step out and back while raising arms.' },
+        recReps: { excellent: '20회', tired: '12회', recovery: '8회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '90초' },
+        recTime: { excellent: '6분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'high'
+    },
+
+    /* ── 부위별 타겟 추가 (Additional Targeted) ── */
+    'diamond-push-up': {
+        ko: '다이아몬드 푸쉬업', en: 'Diamond Push-up',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/4162489/pexels-photo-4162489.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '팔 뒤쪽·가슴', en: 'Triceps & Chest' },
+        desc: {
+            ko: '1. 엎드려 두 손의 엄지와 검지로 다이아몬드(마름모) 모양을 만듭니다.\n2. 손을 가슴 아래에 위치시키고 몸을 일직선으로 만듭니다.\n3. 팔꿈치를 굽히며 가슴을 손 방향으로 내립니다.\n4. 팔 뒤쪽과 가슴 근육으로 밀어 올려 시작 자세로 돌아옵니다.',
+            en: '1. Place hands forming a diamond shape with thumbs and index fingers.\n2. Position hands under chest, body in a straight line.\n3. Bend elbows lowering chest toward hands.\n4. Push back up using triceps and chest.'
+        },
+        caution: { ko: '손목에 무리가 갈 수 있으니 손목 스트레칭 후 수행하세요.', en: 'Warm up wrists beforehand as this movement places extra demand on them.' },
+        tip: { ko: '초보자 팁: 무릎을 바닥에 대고 시작해 팔 뒤쪽 근육을 먼저 키우세요.', en: 'Beginner tip: Start on your knees to build up tricep strength before full push-ups.' },
+        recReps: { excellent: '12회', tired: '8회', recovery: '6회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '60초', tired: '90초', recovery: '90초' },
+        recTime: { excellent: '6분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'high'
+    },
+    'incline-push-up': {
+        ko: '인클라인 푸쉬업', en: 'Incline Push-up',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/3848229/pexels-photo-3848229.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '가슴 하단·팔', en: 'Lower Chest & Arms' },
+        desc: {
+            ko: '1. 테이블이나 의자 등 높은 면에 손을 짚고 섭니다.\n2. 몸을 일직선으로 유지하며 팔꿈치를 굽혀 가슴을 내립니다.\n3. 가슴이 가구 모서리에 가까워지면 멈춥니다.\n4. 가슴과 팔 힘으로 밀어 올려 반복합니다.',
+            en: '1. Place hands on an elevated surface (table or chair) and step back.\n2. Keep body in a straight line and bend elbows to lower chest.\n3. Stop when chest nears the edge.\n4. Press back up and repeat.'
+        },
+        caution: { ko: '손을 짚은 가구가 미끄러지지 않도록 안정적인 것을 사용하세요.', en: 'Ensure the surface is stable and will not slide.' },
+        tip: { ko: '초보자 팁: 일반 푸쉬업이 어렵다면 인클라인부터 시작해 근력을 키우세요.', en: 'Beginner tip: A great entry point if regular push-ups are too hard.' },
+        recReps: { excellent: '15회', tired: '10회', recovery: '8회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '60초', tired: '90초', recovery: '90초' },
+        recTime: { excellent: '6분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'low'
+    },
+    'dumbbell-curl': {
+        ko: '덤벨 컬', en: 'Dumbbell Curl',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/3838380/pexels-photo-3838380.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '팔 앞쪽', en: 'Biceps' },
+        desc: {
+            ko: '1. 양손에 덤벨을 들고 팔을 아래로 내립니다. (손바닥이 앞을 향하게)\n2. 팔꿈치를 고정하고 덤벨을 어깨 쪽으로 천천히 들어 올립니다.\n3. 이두근 수축을 느끼며 잠깐 멈춥니다.\n4. 천천히 내려 시작 자세로 돌아옵니다.',
+            en: '1. Hold dumbbells at sides, palms facing forward.\n2. Keep elbows fixed and slowly curl weights toward shoulders.\n3. Pause at the top feeling the biceps contract.\n4. Slowly lower to start.'
+        },
+        caution: { ko: '팔꿈치가 앞뒤로 흔들리면 효과가 줄어듭니다. 팔꿈치를 몸에 붙여 고정하세요.', en: 'Swinging the elbows reduces effectiveness. Pin elbows firmly to your sides.' },
+        tip: { ko: '초보자 팁: 덤벨이 없다면 500ml~1L 물병으로 시작할 수 있습니다.', en: 'Beginner tip: 500ml–1L water bottles work well as starter weights.' },
+        recReps: { excellent: '15회', tired: '10회', recovery: '8회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '90초' },
+        recTime: { excellent: '6분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'low'
+    },
+    'lateral-raise': {
+        ko: '래터럴 레이즈', en: 'Lateral Raise',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/7289380/pexels-photo-7289380.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '어깨 옆', en: 'Side Delts' },
+        desc: {
+            ko: '1. 양손에 덤벨을 들고 차렷 자세로 섭니다.\n2. 팔꿈치를 살짝 굽힌 채 팔을 양옆으로 어깨 높이까지 들어 올립니다.\n3. 어깨 근육의 자극을 느끼며 잠깐 멈춥니다.\n4. 천천히 내려 시작 자세로 돌아옵니다.',
+            en: '1. Hold dumbbells at sides, standing tall.\n2. With a slight elbow bend, raise both arms laterally to shoulder height.\n3. Pause feeling the side deltoids contract.\n4. Slowly lower to start.'
+        },
+        caution: { ko: '무게를 너무 높이 들어 올리지 마세요. 어깨 위로 올라가면 등세모근이 대신 사용됩니다.', en: 'Do not raise above shoulder height — going higher shifts the work to the trapezius.' },
+        tip: { ko: '초보자 팁: 가벼운 무게로 시작해 정확한 동작을 먼저 익히세요.', en: 'Beginner tip: Use very light weights and master the form before adding load.' },
+        recReps: { excellent: '15회', tired: '10회', recovery: '8회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '90초' },
+        recTime: { excellent: '6분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'low'
+    },
+    'calf-raise': {
+        ko: '카프 레이즈', en: 'Calf Raise',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/7688863/pexels-photo-7688863.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '종아리', en: 'Calves' },
+        desc: {
+            ko: '1. 발을 어깨너비로 벌리고 섭니다. (계단 모서리에 서면 동작 범위가 넓어집니다)\n2. 발뒤꿈치를 천천히 들어 올려 발 앞꿈치로 섭니다.\n3. 종아리 근육의 수축을 느끼며 잠깐 멈춥니다.\n4. 천천히 발뒤꿈치를 내려 시작 자세로 돌아옵니다.',
+            en: '1. Stand with feet shoulder-width apart. (Stair edge increases range of motion)\n2. Slowly rise onto the balls of your feet.\n3. Pause at the top feeling the calves contract.\n4. Slowly lower the heels back down.'
+        },
+        caution: { ko: '계단에서 수행 시 균형을 잃지 않도록 손잡이를 잡고 하세요.', en: 'Hold a railing or wall when doing this on a step to avoid losing balance.' },
+        tip: { ko: '초보자 팁: 평평한 바닥에서 시작해 익숙해지면 계단 모서리에서 수행하세요.', en: 'Beginner tip: Start on a flat floor and progress to a step edge once comfortable.' },
+        recReps: { excellent: '20회', tired: '15회', recovery: '12회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '60초' },
+        recTime: { excellent: '5분', tired: '3분', recovery: '2분' },
+        isHome: true, intensity: 'low'
+    },
+    'single-leg-bridge': {
+        ko: '싱글 레그 브릿지', en: 'Single Leg Bridge',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/6551062/pexels-photo-6551062.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '둔근·햄스트링', en: 'Glutes & Hamstrings' },
+        desc: {
+            ko: '1. 등을 대고 누워 무릎을 세웁니다.\n2. 한쪽 다리를 앞으로 뻗습니다.\n3. 지지하는 발로 바닥을 밀며 엉덩이를 들어 올립니다.\n4. 어깨-골반-무릎이 일직선이 되면 유지 후 내려옵니다.',
+            en: '1. Lie on back, knees bent, feet flat.\n2. Extend one leg straight out.\n3. Drive through the supporting foot to lift the hips.\n4. Hold at top when shoulder-hip-knee align, then lower.'
+        },
+        caution: { ko: '허리가 과도하게 젖혀지지 않도록 엉덩이 힘에 집중하세요.', en: 'Focus on squeezing the glute, not arching the lower back.' },
+        tip: { ko: '초보자 팁: 양발 힙 브릿지로 먼저 근력을 키운 후 한쪽 발씩 수행하세요.', en: 'Beginner tip: Build strength with two-leg glute bridges first, then progress to single leg.' },
+        recReps: { excellent: '15회 (양쪽)', tired: '10회 (양쪽)', recovery: '8회 (양쪽)' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '90초' },
+        recTime: { excellent: '6분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'medium'
+    },
+    'glute-kickback': {
+        ko: '글루트 킥백', en: 'Glute Kickback',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/6551180/pexels-photo-6551180.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '둔근', en: 'Glutes' },
+        desc: {
+            ko: '1. 손과 무릎을 바닥에 대는 네발기기 자세를 취합니다.\n2. 한쪽 다리의 무릎을 90도로 유지하며 발뒤꿈치를 천장을 향해 밀어 올립니다.\n3. 엉덩이 근육의 수축을 느끼며 최고점에서 잠깐 멈춥니다.\n4. 무릎이 바닥에 닿기 전 다시 들어 올려 반복합니다.',
+            en: '1. Start on all fours, hands under shoulders.\n2. Keeping the knee bent 90 degrees, drive one heel toward the ceiling.\n3. Pause at the top squeezing the glute.\n4. Lower without touching the knee to the floor and repeat.'
+        },
+        caution: { ko: '허리가 회전하거나 아치형으로 굽지 않게 코어를 단단히 유지하세요.', en: 'Keep the core braced — do not let the lower back arch or rotate.' },
+        tip: { ko: '초보자 팁: 천천히 낮은 범위로 움직여 엉덩이 근육에 집중해 보세요.', en: 'Beginner tip: Move slowly through a small range and focus on feeling the glute work.' },
+        recReps: { excellent: '15회 (양쪽)', tired: '10회 (양쪽)', recovery: '8회 (양쪽)' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '60초' },
+        recTime: { excellent: '6분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'low'
+    },
+    'fire-hydrant': {
+        ko: '파이어 하이드런트', en: 'Fire Hydrant',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/4161459/pexels-photo-4161459.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '둔근 옆', en: 'Hip Abductors' },
+        desc: {
+            ko: '1. 손과 무릎을 바닥에 대는 네발기기 자세를 취합니다.\n2. 한쪽 무릎을 옆으로 들어 올려 몸과 90도를 만듭니다.\n3. 엉덩이 측면 근육의 자극을 느끼며 최고점에서 멈춥니다.\n4. 천천히 내려 반복합니다.',
+            en: '1. Start on all fours, hands under shoulders.\n2. Lift one knee out to the side to a 90-degree angle.\n3. Pause at the top feeling the hip abductor contract.\n4. Lower slowly and repeat.'
+        },
+        caution: { ko: '골반이 들리지 않도록 코어를 단단히 유지하며 수행하세요.', en: 'Keep the pelvis level — avoid letting the hip on the working side lift up.' },
+        tip: { ko: '초보자 팁: 무릎을 낮게만 들어도 효과적입니다. 높이보다 균형이 중요합니다.', en: 'Beginner tip: Even a small lift is effective — focus on balance over height.' },
+        recReps: { excellent: '15회 (양쪽)', tired: '10회 (양쪽)', recovery: '8회 (양쪽)' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '60초' },
+        recTime: { excellent: '5분', tired: '3분', recovery: '2분' },
+        isHome: true, intensity: 'low'
+    },
+    'goblet-squat': {
+        ko: '고블렛 스쿼트', en: 'Goblet Squat',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/6551054/pexels-photo-6551054.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '하체 전체', en: 'Full Legs' },
+        desc: {
+            ko: '1. 덤벨이나 물병을 가슴 앞에 두 손으로 감싸 쥡니다.\n2. 발을 어깨너비보다 약간 넓게 벌리고 발끝을 바깥으로 향합니다.\n3. 가슴을 펴고 무릎이 발끝 방향으로 향하도록 천천히 앉습니다.\n4. 허벅지가 바닥과 평행해지면 밀어 올립니다.',
+            en: '1. Hold a dumbbell or water bottle vertically at chest height with both hands.\n2. Feet slightly wider than shoulder-width, toes turned out.\n3. Keep chest up and lower until thighs are parallel to floor.\n4. Drive through heels to return to standing.'
+        },
+        caution: { ko: '무게를 가슴에 가까이 유지해 허리 부담을 줄이세요.', en: 'Keep the weight close to the chest to reduce stress on the lower back.' },
+        tip: { ko: '초보자 팁: 무게 없이 손을 앞으로 뻗어 균형을 잡는 것만으로도 충분히 효과적입니다.', en: 'Beginner tip: Arms extended forward for balance (no weight) is a great starting version.' },
+        recReps: { excellent: '15회', tired: '10회', recovery: '8회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '60초', tired: '90초', recovery: '90초' },
+        recTime: { excellent: '7분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'medium'
+    },
+    'split-squat': {
+        ko: '스플릿 스쿼트', en: 'Split Squat',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/6351040/pexels-photo-6351040.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '하체·둔근', en: 'Legs & Glutes' },
+        desc: {
+            ko: '1. 런지처럼 앞뒤로 발을 벌리고 섭니다.\n2. 그 자리에서 무릎을 구부려 몸을 내립니다. (발 이동 없음)\n3. 앞쪽 허벅지가 바닥과 평행해질 때까지 내려갑니다.\n4. 앞발로 밀어 올려 반복합니다. 세트 후 발을 바꿉니다.',
+            en: '1. Stand in a split stance, one foot forward.\n2. Lower straight down bending both knees (feet do not move).\n3. Lower until front thigh is parallel to floor.\n4. Drive through front foot to return. Switch legs after each set.'
+        },
+        caution: { ko: '앞쪽 무릎이 발끝을 넘지 않게 하고 뒷무릎은 바닥에 닿지 않게 합니다.', en: 'Front knee should not pass the toes. Back knee should not touch the floor.' },
+        tip: { ko: '초보자 팁: 처음에는 발 간격을 넓게 하면 균형 잡기가 더 쉽습니다.', en: 'Beginner tip: A wider stance makes balancing easier when starting out.' },
+        recReps: { excellent: '12회 (양쪽)', tired: '8회 (양쪽)', recovery: '6회 (양쪽)' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '60초', tired: '90초', recovery: '90초' },
+        recTime: { excellent: '7분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'medium'
+    },
+    'pull-up': {
+        ko: '풀업', en: 'Pull-up',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/1865131/pexels-photo-1865131.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '등·팔', en: 'Back & Biceps' },
+        desc: {
+            ko: '1. 어깨너비보다 약간 넓게 철봉을 잡습니다. (손바닥이 앞을 향하게)\n2. 팔을 완전히 펴고 매달립니다.\n3. 등 근육으로 당겨 턱이 철봉 위로 올라올 때까지 몸을 들어 올립니다.\n4. 천천히 내려 시작 자세로 돌아옵니다.',
+            en: '1. Grip the bar slightly wider than shoulder-width, palms forward.\n2. Hang with arms fully extended.\n3. Pull yourself up until chin is above the bar, leading with the back muscles.\n4. Slowly lower to the dead hang position.'
+        },
+        caution: { ko: '무리해서 팔 힘으로만 올라가면 어깨 부상이 생깁니다. 등 근육을 먼저 활성화하세요.', en: 'Forcing up with arms only risks shoulder injury — activate the lats first.' },
+        tip: { ko: '초보자 팁: 의자로 발을 받쳐 보조 풀업으로 시작해 근력을 키우세요.', en: 'Beginner tip: Use a chair under your feet for assisted pull-ups to build strength.' },
+        recReps: { excellent: '8회', tired: '5회', recovery: '3회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '90초', tired: '120초', recovery: '120초' },
+        recTime: { excellent: '8분', tired: '5분', recovery: '3분' },
+        isHome: false, intensity: 'high'
+    },
+    'overhead-tricep': {
+        ko: '오버헤드 트라이셉 익스텐션', en: 'Overhead Tricep Extension',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/5473957/pexels-photo-5473957.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '팔 뒤쪽', en: 'Triceps' },
+        desc: {
+            ko: '1. 앉거나 서서 덤벨 하나를 양손으로 잡고 머리 위로 뻗습니다.\n2. 팔꿈치가 귀 옆을 향하도록 고정합니다.\n3. 팔꿈치만 굽히며 덤벨을 머리 뒤쪽으로 천천히 내립니다.\n4. 팔 뒤쪽 근육을 사용해 다시 밀어 올립니다.',
+            en: '1. Sit or stand holding one dumbbell with both hands extended overhead.\n2. Keep elbows pointing toward ears.\n3. Bend only the elbows to lower the weight behind the head.\n4. Extend elbows to raise back to start, squeezing triceps.'
+        },
+        caution: { ko: '팔꿈치가 벌어지면 효과가 줄어듭니다. 팔꿈치를 귀 옆에 고정하세요.', en: 'If elbows flare out wide, the movement loses effectiveness. Keep them tucked in.' },
+        tip: { ko: '초보자 팁: 가벼운 물병으로 시작해 팔꿈치 고정 감각을 먼저 익히세요.', en: 'Beginner tip: Use a light water bottle to learn the elbow-fixed position first.' },
+        recReps: { excellent: '15회', tired: '10회', recovery: '8회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '90초' },
+        recTime: { excellent: '6분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'low'
+    },
+    'romanian-deadlift': {
+        ko: '루마니안 데드리프트', en: 'Romanian Deadlift',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/3764016/pexels-photo-3764016.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '햄스트링·둔근', en: 'Hamstrings & Glutes' },
+        desc: {
+            ko: '1. 발을 어깨너비로 벌리고 덤벨을 앞에 들고 섭니다.\n2. 무릎을 살짝만 굽힌 채 엉덩이를 뒤로 밀며 상체를 숙입니다.\n3. 허벅지 뒤쪽의 당김을 느끼면서 덤벨이 종아리 옆을 지나 내려갑니다.\n4. 엉덩이를 앞으로 조이며 일어서 반복합니다.',
+            en: '1. Stand with feet shoulder-width, holding dumbbells in front.\n2. With knees slightly bent, hinge at hips pushing them back.\n3. Lower weights along the legs feeling the hamstring stretch.\n4. Drive hips forward and squeeze glutes to return to standing.'
+        },
+        caution: { ko: '허리를 반드시 평평하게 유지하세요. 등이 둥글어지면 즉시 멈추세요.', en: 'Spine must remain flat throughout. Stop immediately if the back rounds.' },
+        tip: { ko: '초보자 팁: 무게 없이 엉덩이 힌지 동작을 완벽히 익힌 후 덤벨을 추가하세요.', en: 'Beginner tip: Master the hip-hinge movement with no weight before adding dumbbells.' },
+        recReps: { excellent: '12회', tired: '8회', recovery: '6회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '90초', tired: '120초', recovery: '120초' },
+        recTime: { excellent: '8분', tired: '5분', recovery: '3분' },
+        isHome: true, intensity: 'medium'
+    },
+    'face-pull': {
+        ko: '페이스 풀', en: 'Face Pull',
+        category: 'targeted',
+        image: 'https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=400',
+        primary: { ko: '어깨 뒤·등 상부', en: 'Rear Delts & Upper Back' },
+        desc: {
+            ko: '1. 저항 밴드를 눈 높이에 고정합니다.\n2. 양손으로 밴드를 잡고 팔꿈치를 어깨 높이로 들어 올립니다.\n3. 팔꿈치를 뒤로 당기며 밴드를 얼굴 쪽으로 당깁니다.\n4. 어깨 뒤쪽 수축을 느끼며 천천히 되돌아옵니다.',
+            en: '1. Anchor a resistance band at eye height.\n2. Grip the band and raise elbows to shoulder height.\n3. Pull elbows back bringing hands toward your face.\n4. Feel the rear delts contract, then slowly return.'
+        },
+        caution: { ko: '팔꿈치가 내려가지 않도록 어깨 높이를 유지하며 당기세요.', en: 'Keep elbows elevated at shoulder height throughout the pull.' },
+        tip: { ko: '초보자 팁: 밴드가 없다면 양손을 맞잡고 팔꿈치를 뒤로 당기는 동작으로도 대체 가능합니다.', en: 'Beginner tip: Without a band, try pulling clasped hands apart at face level to activate the muscles.' },
+        recReps: { excellent: '15회', tired: '10회', recovery: '8회' },
+        recSets: { excellent: '4', tired: '3', recovery: '2' },
+        recRest: { excellent: '45초', tired: '60초', recovery: '60초' },
+        recTime: { excellent: '6분', tired: '4분', recovery: '3분' },
+        isHome: true, intensity: 'low'
     }
 };
 
