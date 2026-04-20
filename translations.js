@@ -873,7 +873,7 @@ const exerciseTranslations = {
     'speed-step': {
         ko: '스피드 스텝', en: 'Speed Step',
         category: 'cardio',
-        image: 'https://images.unsplash.com/7TZdZVXDKPk?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/6516199/pexels-photo-6516199.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '유산소', en: 'Cardio' },
         desc: {
             ko: '1. 낮은 자세(반 스쿼트)로 시작합니다.\n2. 발을 좌우로 빠르게 교차하며 옆으로 이동합니다.\n3. 팔을 리드미컬하게 흔들어 속도를 유지합니다.\n4. 일정 거리 또는 시간 동안 반복합니다.',
@@ -890,7 +890,7 @@ const exerciseTranslations = {
     'jumping-lunge': {
         ko: '점핑 런지', en: 'Jumping Lunge',
         category: 'cardio',
-        image: 'https://images.unsplash.com/9Hiysp7jcmQ?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/5327530/pexels-photo-5327530.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '유산소·다리', en: 'Cardio & Legs' },
         desc: {
             ko: '1. 런지 자세(한 발 앞)로 시작합니다.\n2. 힘차게 위로 점프하며 두 발의 위치를 서로 바꿉니다.\n3. 반대편 런지 자세로 착지합니다.\n4. 계속 반복합니다.',
@@ -959,7 +959,7 @@ const exerciseTranslations = {
     'bridge': {
         ko: '힙 브릿지', en: 'Glute Bridge',
         category: 'targeted',
-        image: 'https://images.unsplash.com/X4nry_Phyqs?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/6551062/pexels-photo-6551062.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '둔근', en: 'Glutes' },
         desc: {
             ko: '1. 등을 대고 누워 무릎을 세우고 발을 바닥에 댑니다.\n2. 엉덩이 근육에 힘을 주며 골반을 위로 들어 올립니다.\n3. 어깨-골반-무릎이 일직선이 되면 2초 유지합니다.\n4. 천천히 내려 시작 자세로 돌아옵니다.',
@@ -1095,7 +1095,7 @@ const exerciseTranslations = {
     'wide-squat': {
         ko: '와이드 스쿼트', en: 'Wide Squat',
         category: 'targeted',
-        image: 'https://images.unsplash.com/W8IMcfVCA_o?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/4662333/pexels-photo-4662333.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '내전근·둔근', en: 'Inner Thighs & Glutes' },
         desc: {
             ko: '1. 발을 어깨너비의 1.5배 정도 넓게 벌리고 발끝을 45도 바깥으로 향합니다.\n2. 가슴을 펴고 허리를 곧게 세웁니다.\n3. 무릎이 발끝 방향으로 향하도록 엉덩이를 내립니다.\n4. 허벅지가 바닥과 평행해지면 발뒤꿈치로 밀며 일어납니다.',
@@ -1112,7 +1112,7 @@ const exerciseTranslations = {
     'pike-push-up': {
         ko: '파이크 푸쉬업', en: 'Pike Push-up',
         category: 'targeted',
-        image: 'https://images.unsplash.com/DRzYMtae-vA?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3848229/pexels-photo-3848229.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '어깨·가슴', en: 'Shoulders & Chest' },
         desc: {
             ko: '1. 엎드린 상태에서 엉덩이를 들어 올려 역V 자세를 만듭니다.\n2. 손은 어깨너비, 발은 골반너비로 유지합니다.\n3. 팔꿈치를 굽히며 머리를 바닥 방향으로 내립니다.\n4. 팔을 펴며 시작 자세로 돌아옵니다.',
@@ -1129,7 +1129,7 @@ const exerciseTranslations = {
     'reverse-lunge': {
         ko: '리버스 런지', en: 'Reverse Lunge',
         category: 'targeted',
-        image: 'https://images.unsplash.com/MBGv9XkJhuc?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/5067743/pexels-photo-5067743.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '하체·둔근', en: 'Legs & Glutes' },
         desc: {
             ko: '1. 등을 곧게 세우고 차렷 자세로 시작합니다.\n2. 한쪽 발을 뒤로 크게 내딛습니다.\n3. 양쪽 무릎이 90도가 되도록 몸을 내립니다.\n4. 앞발의 힘으로 원래 자세로 돌아옵니다.',
@@ -1146,7 +1146,7 @@ const exerciseTranslations = {
     'hip-thrust': {
         ko: '힙 스러스트', en: 'Hip Thrust',
         category: 'targeted',
-        image: 'https://images.unsplash.com/W5CQl2gGCGc?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/6551062/pexels-photo-6551062.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '둔근', en: 'Glutes' },
         desc: {
             ko: '1. 벤치나 소파 가장자리에 어깨를 기대고 무릎을 세워 앉습니다.\n2. 엉덩이 근육에 힘을 주며 골반을 위로 밀어 올립니다.\n3. 어깨-골반-무릎이 일직선이 되면 1~2초 유지합니다.\n4. 천천히 내려 시작 자세로 돌아옵니다.',
@@ -2278,7 +2278,7 @@ const catalogDatabase = [
         id: 'bicep-curl',
         category: 'arms',
         ko: '바이셉 컬', en: 'Bicep Curl',
-        image: 'https://images.unsplash.com/-2QAEbam0YE?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3838380/pexels-photo-3838380.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '이두근', en: 'Biceps' },
         intensity: 'medium',
         desc: {
@@ -2295,7 +2295,7 @@ const catalogDatabase = [
         id: 'hammer-curl',
         category: 'arms',
         ko: '해머 컬', en: 'Hammer Curl',
-        image: 'https://images.unsplash.com/nR7RzE0OBI0?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3838380/pexels-photo-3838380.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '이두근·전완근', en: 'Biceps & Forearms' },
         intensity: 'medium',
         desc: {
@@ -2312,7 +2312,7 @@ const catalogDatabase = [
         id: 'overhead-tricep-ext',
         category: 'arms',
         ko: '오버헤드 트라이셉 익스텐션', en: 'Overhead Tricep Extension',
-        image: 'https://images.unsplash.com/j-iCTjS9ILg?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/5473957/pexels-photo-5473957.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '삼두근', en: 'Triceps' },
         intensity: 'medium',
         desc: {
@@ -2363,7 +2363,7 @@ const catalogDatabase = [
         id: 'concentration-curl',
         category: 'arms',
         ko: '컨센트레이션 컬', en: 'Concentration Curl',
-        image: 'https://images.unsplash.com/FeIVyHICRqY?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '이두근 (피크)', en: 'Bicep Peak' },
         intensity: 'medium',
         desc: {
@@ -2399,7 +2399,7 @@ const catalogDatabase = [
         id: 'incline-push-up',
         category: 'chest',
         ko: '인클라인 푸쉬업', en: 'Incline Push-up',
-        image: 'https://images.unsplash.com/HZQhILEYJnE?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3848229/pexels-photo-3848229.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '하부 가슴·삼두근', en: 'Lower Chest & Triceps' },
         intensity: 'low',
         desc: {
@@ -2416,7 +2416,7 @@ const catalogDatabase = [
         id: 'decline-push-up',
         category: 'chest',
         ko: '디클라인 푸쉬업', en: 'Decline Push-up',
-        image: 'https://images.unsplash.com/CQfNt66ttZM?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/4162491/pexels-photo-4162491.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '상부 가슴·어깨', en: 'Upper Chest & Shoulders' },
         intensity: 'high',
         desc: {
@@ -2433,7 +2433,7 @@ const catalogDatabase = [
         id: 'diamond-push-up',
         category: 'chest',
         ko: '다이아몬드 푸쉬업', en: 'Diamond Push-up',
-        image: 'https://images.unsplash.com/I7FsT6N94io?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/4162489/pexels-photo-4162489.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '삼두근·가슴 중앙', en: 'Triceps & Inner Chest' },
         intensity: 'medium',
         desc: {
@@ -2450,7 +2450,7 @@ const catalogDatabase = [
         id: 'wide-push-up-cat',
         category: 'chest',
         ko: '와이드 푸쉬업', en: 'Wide Push-up',
-        image: 'https://images.unsplash.com/3jAN9InapQI?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/4162491/pexels-photo-4162491.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '가슴 외측', en: 'Outer Chest' },
         intensity: 'medium',
         desc: {
@@ -2467,7 +2467,7 @@ const catalogDatabase = [
         id: 'dumbbell-chest-fly',
         category: 'chest',
         ko: '덤벨 체스트 플라이', en: 'Dumbbell Chest Fly',
-        image: 'https://images.unsplash.com/VJ2s0c20qCo?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3838380/pexels-photo-3838380.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '가슴 전체', en: 'Full Chest' },
         intensity: 'medium',
         desc: {
@@ -2537,7 +2537,7 @@ const catalogDatabase = [
         id: 'lat-pulldown',
         category: 'back',
         ko: '랫 풀다운', en: 'Lat Pulldown',
-        image: 'https://images.unsplash.com/oZhrfhCvbqY?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/1865131/pexels-photo-1865131.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '광배근', en: 'Latissimus Dorsi' },
         intensity: 'medium',
         desc: {
@@ -2554,7 +2554,7 @@ const catalogDatabase = [
         id: 'seated-cable-row',
         category: 'back',
         ko: '시티드 케이블 로우', en: 'Seated Cable Row',
-        image: 'https://images.unsplash.com/1RNQ11ZODJM?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '중부 등·광배근', en: 'Mid Back & Lats' },
         intensity: 'medium',
         desc: {
@@ -2571,7 +2571,7 @@ const catalogDatabase = [
         id: 'face-pull',
         category: 'back',
         ko: '페이스 풀', en: 'Face Pull',
-        image: 'https://images.unsplash.com/7JWl_Ap0IG4?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3076516/pexels-photo-3076516.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '후면 삼각근·상부 등', en: 'Rear Delts & Upper Back' },
         intensity: 'medium',
         desc: {
@@ -2607,7 +2607,7 @@ const catalogDatabase = [
         id: 'lunges-cat',
         category: 'legs',
         ko: '런지', en: 'Lunges',
-        image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/5067743/pexels-photo-5067743.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '대퇴사두근·둔근', en: 'Quads & Glutes' },
         intensity: 'medium',
         desc: {
@@ -2641,7 +2641,7 @@ const catalogDatabase = [
         id: 'calf-raise',
         category: 'legs',
         ko: '카프 레이즈', en: 'Calf Raise',
-        image: 'https://images.unsplash.com/snM3yEpvklU?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/7688863/pexels-photo-7688863.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '종아리 (비복근·가자미근)', en: 'Calves (Gastrocnemius & Soleus)' },
         intensity: 'low',
         desc: {
@@ -2658,7 +2658,7 @@ const catalogDatabase = [
         id: 'leg-press',
         category: 'legs',
         ko: '레그 프레스', en: 'Leg Press',
-        image: 'https://images.unsplash.com/JNPvv1u8yRg?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/4662333/pexels-photo-4662333.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '대퇴사두근·둔근·햄스트링', en: 'Quads, Glutes & Hamstrings' },
         intensity: 'medium',
         desc: {
@@ -2675,7 +2675,7 @@ const catalogDatabase = [
         id: 'hip-thrust-cat',
         category: 'legs',
         ko: '힙 스러스트', en: 'Hip Thrust',
-        image: 'https://images.unsplash.com/Tq9Ln3gpiG4?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/6551062/pexels-photo-6551062.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '둔근 (대둔근)', en: 'Glutes (Gluteus Maximus)' },
         intensity: 'medium',
         desc: {
@@ -2745,7 +2745,7 @@ const catalogDatabase = [
         id: 'bicycle-crunch',
         category: 'abs',
         ko: '바이시클 크런치', en: 'Bicycle Crunch',
-        image: 'https://images.unsplash.com/oeXyYdiLHZY?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/6599017/pexels-photo-6599017.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '복근·복사근', en: 'Abs & Obliques' },
         intensity: 'medium',
         desc: {
@@ -2762,7 +2762,7 @@ const catalogDatabase = [
         id: 'russian-twist',
         category: 'abs',
         ko: '러시안 트위스트', en: 'Russian Twist',
-        image: 'https://images.unsplash.com/r3C6ghRxDxc?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3760261/pexels-photo-3760261.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '복사근', en: 'Obliques' },
         intensity: 'medium',
         desc: {
@@ -2779,7 +2779,7 @@ const catalogDatabase = [
         id: 'v-up',
         category: 'abs',
         ko: 'V업', en: 'V-Up',
-        image: 'https://images.unsplash.com/OnC3a9XADzU?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/3822621/pexels-photo-3822621.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '전체 복근', en: 'Full Abs' },
         intensity: 'high',
         desc: {
@@ -2798,7 +2798,7 @@ const catalogDatabase = [
         id: 'running',
         category: 'cardio',
         ko: '달리기', en: 'Running',
-        image: 'https://images.unsplash.com/mQVWb7kUoOE?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/6516170/pexels-photo-6516170.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '전신 유산소', en: 'Full Body Cardio' },
         intensity: 'medium',
         desc: {
@@ -2866,7 +2866,7 @@ const catalogDatabase = [
         id: 'rowing-machine',
         category: 'cardio',
         ko: '로잉 머신', en: 'Rowing Machine',
-        image: 'https://images.unsplash.com/JsQHcAe0NGc?auto=format&fit=crop&q=80&w=400',
+        image: 'https://images.pexels.com/photos/2247179/pexels-photo-2247179.jpeg?auto=compress&cs=tinysrgb&w=400',
         primary: { ko: '전신·유산소', en: 'Full Body Cardio' },
         intensity: 'medium',
         desc: {

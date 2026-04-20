@@ -111,7 +111,8 @@ class WorkoutCard extends HTMLElement {
                 .actual-input:focus { border-color: #38bdf8; background: rgba(56,189,248,0.08); }
             </style>
             <div class="img-box">
-                <img src="${image}" alt="${name}" loading="lazy">
+                <img src="${image}" alt="${name}" loading="lazy"
+                     onerror="onExerciseImgError(this,'${this.getAttribute('exercise-id')||''}','${name}','${this.getAttribute('exercise-cat')||''}')">
                 <span class="badge">${target}</span>
                 <span class="beginner-badge">✓ ${isKo ? '초보자 가능' : 'Beginner OK'}</span>
             </div>
@@ -429,17 +430,19 @@ function generateWorkout(goal, level, freq, isRefresh = false) {
         seenExerciseIds.add(ex.id);
         const card = document.createElement('workout-card');
         const cond = condition;
-        card.setAttribute('name',     ex[currentLang] || ex.ko);
-        card.setAttribute('desc',     ex.desc ? ex.desc[currentLang] : '');
-        card.setAttribute('image',    ex.image || '');
-        card.setAttribute('target',   ex.primary ? ex.primary[currentLang] : '');
-        card.setAttribute('caution',  ex.caution ? ex.caution[currentLang] : '');
-        card.setAttribute('tip',      ex.tip ? ex.tip[currentLang] : '');
-        card.setAttribute('rec-reps', ex.recReps ? ex.recReps[cond] : '-');
-        card.setAttribute('rec-sets', ex.recSets ? ex.recSets[cond] : '-');
-        card.setAttribute('rec-rest', ex.recRest ? ex.recRest[cond] : '-');
-        card.setAttribute('rec-time', ex.recTime ? ex.recTime[cond] : '-');
-        card.setAttribute('card-id',  `${ex.id}-${idx}`);
+        card.setAttribute('name',        ex[currentLang] || ex.ko);
+        card.setAttribute('desc',        ex.desc ? ex.desc[currentLang] : '');
+        card.setAttribute('image',       ex.image || '');
+        card.setAttribute('exercise-id', ex.id || '');
+        card.setAttribute('exercise-cat',ex.category || '');
+        card.setAttribute('target',      ex.primary ? ex.primary[currentLang] : '');
+        card.setAttribute('caution',     ex.caution ? ex.caution[currentLang] : '');
+        card.setAttribute('tip',         ex.tip ? ex.tip[currentLang] : '');
+        card.setAttribute('rec-reps',    ex.recReps ? ex.recReps[cond] : '-');
+        card.setAttribute('rec-sets',    ex.recSets ? ex.recSets[cond] : '-');
+        card.setAttribute('rec-rest',    ex.recRest ? ex.recRest[cond] : '-');
+        card.setAttribute('rec-time',    ex.recTime ? ex.recTime[cond] : '-');
+        card.setAttribute('card-id',     `${ex.id}-${idx}`);
         container.appendChild(card);
     });
 
@@ -473,10 +476,13 @@ function generateStretching(exercises) {
     stretches.forEach(s => {
         const div = document.createElement('div');
         div.className = 'stretch-card';
+        const stretchName = s.name[currentLang];
+        const stretchCat  = (s.target || 'stretch').toLowerCase();
         div.innerHTML = `
-            <img src="${s.image}" alt="${s.name[currentLang]}" loading="lazy">
+            <img src="${s.image}" alt="${stretchName}" loading="lazy"
+                 onerror="onExerciseImgError(this,'stretch-${stretchCat}','${stretchName}','stretch')">
             <div class="stretch-card-body">
-                <div class="stretch-card-title">${s.name[currentLang]}</div>
+                <div class="stretch-card-title">${stretchName}</div>
                 <div class="stretch-duration">⏱️ ${s.duration[currentLang]}</div>
                 <div class="stretch-instructions">${s.instructions[currentLang]}</div>
             </div>
@@ -629,7 +635,8 @@ function renderCatalog() {
         const iColor = intensityColor[ex.intensity];
         div.innerHTML = `
             <div style="position:relative;">
-                <img src="${ex.image}" class="catalog-item-image" alt="${ex[currentLang] || ex.ko}" loading="lazy">
+                <img src="${ex.image}" class="catalog-item-image" alt="${ex[currentLang] || ex.ko}" loading="lazy"
+                     onerror="onExerciseImgError(this,'${ex.id||''}','${ex[currentLang]||ex.ko||''}','${ex.category||''}')">
                 <span class="catalog-intensity-badge" style="background:${iColor};">
                     ${isKo ? '강도' : 'Level'}: ${iLabel}
                 </span>
@@ -661,11 +668,13 @@ function renderHomeWorkout() {
         .forEach(([id, ex]) => {
             const div = document.createElement('div');
             div.className = 'catalog-item';
+            const homeExName = ex[currentLang] || ex.ko || '';
             div.innerHTML = `
-                <img src="${ex.image}" class="catalog-item-image" alt="${ex[currentLang] || ex.ko}" loading="lazy">
+                <img src="${ex.image}" class="catalog-item-image" alt="${homeExName}" loading="lazy"
+                     onerror="onExerciseImgError(this,'${id}','${homeExName}','${ex.category||''}')">
                 <div class="catalog-content-box">
                     <div class="catalog-header">
-                        <h4>${ex[currentLang] || ex.ko}</h4>
+                        <h4>${homeExName}</h4>
                         <span class="beginner-badge">홈트 OK</span>
                     </div>
                     <span class="diet-tag">${ex.primary[currentLang]}</span>
