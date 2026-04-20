@@ -1210,11 +1210,9 @@ function showToast(message) {
     setTimeout(() => toast.remove(), 3000);
 }
 
-// 법적 고지 (stub)
+// 법적 고지 — 전용 페이지로 이동
 function showLegal(type) {
-    alert(type === 'privacy'
-        ? '이 서비스는 개인정보를 서버에 저장하지 않습니다. 모든 데이터는 브라우저 localStorage에만 저장됩니다.'
-        : '본 서비스는 의료 행위가 아닌 참고용 정보를 제공합니다. 건강 관련 결정은 전문가와 상담하시기 바랍니다.');
+    window.location.href = type === 'privacy' ? '/privacy.html' : '/terms.html';
 }
 
 // =====================================================
